@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sm_shifa_multidisciplinary_team_meeting" model="ir.actions.report">
+            <field name="name">Multidisciplinary Team Meeting</field>
+            <field name="model">sm.shifa.multidisciplinary.team.meeting</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa_more.report_multidisciplinary_team_meeting</field>
+            <field name="report_file">smartmind_shifa_more.report_multidisciplinary_team_meeting</field>
+            <field name="binding_model_id" ref="model_sm_shifa_multidisciplinary_team_meeting"/>
+            <field name="binding_type">report</field>
+            <field name="attachment"> object.name + '.pdf'</field>
+            <field name="attachment_use">True</field>
+        </record>
+         <record id="sm_shifa_content_report" model="ir.actions.report">
+            <field name="name">Consent</field>
+            <field name="model">sm.shifa.consent</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa_more.report_consent</field>
+            <field name="report_file">smartmind_shifa_more.report_consent</field>
+            <field name="binding_model_id" ref="model_sm_shifa_consent"/>
+<!--            <field name="binding_type">report</field>-->
+<!--            <field name="attachment"> object.name + '.pdf'</field>-->
+<!--            <field name="attachment_use">True</field>-->
+        </record>
+        <record id="sm_medical_report" model="ir.actions.report">
+            <field name="name">Medical Report</field>
+            <field name="model">sm.medical.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa_more.report_reports</field>
+            <field name="report_file">smartmind_shifa_more.report_reports</field>
+            <field name="binding_model_id" ref="model_sm_medical_report"/>
+             <field name="binding_type">report</field>
+            <field name="attachment"> object.name + '.pdf'</field>
+            <field name="attachment_use">True</field>
+        </record>
+    </data>
+</odoo>

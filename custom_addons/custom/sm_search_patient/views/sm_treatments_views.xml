@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sm_treatments_form_view" model="ir.ui.view">
+            <field name="name">Medical Service Orders Form</field>
+            <field name="model">sm.treatments</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="set_to_send"
+                                states="draft" string="Send" type="object" class="oe_highlight"/>
+                        <button name="set_to_invoiced"
+                                states="send" string="Create Invoice" type="object" class="oe_highlight"/>
+                        <button name="set_to_cancelled"
+                                states="draft,send,invoiced" string="Cancelled" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,send,invoiced,cancelled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button" icon="fa-credit-card"
+                                    name="open_payment_view"
+                                    string="Req.Payments" attrs="{'invisible': [('pay_req_id','==',False)]}">
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-dollar"
+                                    attrs="{'invisible': [('move_id','==',False)]}"
+                                    name="open_invoice_view" string="Invoice">
+                            </button>
+                        </div>
+
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="Treatment #"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group string="Patient Details">
+                                <field name="patient_id"/>
+                                <field name="id_number"/>
+                                <field name="mobile"/>
+                                <field name="date"/>
+                            </group>
+                            <group string="Service Details">
+                                <field name="service_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="list_price"/>
+                                    </tree>
+                                </field>
+                                <field name="first_service" invisible="1"/>
+                                <field name="second_service" invisible="1"/>
+                                <field name="third_service" invisible="1"/>
+                                <field name="fourth_service" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Price Details">
+                                <field name="services_price"/>
+                                <field name="vat"/>
+                                <field name="amount_payable"/>
+                            </group>
+                            <group string="Payment Details">
+                                <field name="payment_thru"/>
+                                <field name="pro_deferred_pay"
+                                       attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('payment_thru', '!=', 'deferred')]}"
+                                       groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                                <field name="move_id"/>
+                                <field name="active" invisible="1"/>
+                                <field name="pay_req_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+
+
+        </record>
+
+        <record id="sm_treatments_tree_view" model="ir.ui.view">
+            <field name="name">Medical Service Orders List</field>
+            <field name="model">sm.treatments</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="patient_id"/>
+                    <field name="mobile"/>
+                    <field name="first_service"/>
+                    <field name="second_service"/>
+                    <field name="third_service"/>
+                    <field name="fourth_service"/>
+                    <field name="services_price"/>
+                    <field name="amount_payable"/>
+                    <field name="payment_thru"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_treatments_action" model="ir.actions.act_window">
+            <field name="name">Medical Service Orders</field>
+            <field name="res_model">sm.treatments</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Treatment.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                name="Medical Service Orders"
+                action="sm_treatments_action"
+                id="sm_treatments"
+                web_icon="sm_search_patient,static/description/treatment.png"
+                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_head_physiotherapist,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_clinical_dietitian,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_hhc_physiotherapist,smartmind_shifa.group_oeh_medical_respiratory_therapist,smartmind_shifa.group_oeh_medical_social_worker,smartmind_shifa.group_oeh_medical_health_educator,smartmind_shifa.group_oeh_medical_diabetic_educator"
+                sequence="21"/>
+
+            <menuitem action="sm_treatments_action" parent="oehealth.oeh_medical_general_menu"  id="sm_treatments_general" sequence="20"/>
+
+    </data>
+</odoo>

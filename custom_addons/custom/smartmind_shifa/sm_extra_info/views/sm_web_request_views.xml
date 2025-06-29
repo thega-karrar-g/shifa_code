@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_web_request_view">
+            <field name="name">Web Requests</field>
+            <field name="model">sm.shifa.web.request</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Web Requests">
+                    <header>
+                        <button confirm="Are you sure you want to process this action?"
+                                name="set_to_processed" states="Received"
+                                string="Set to Processed" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Received,Processed"
+                               statusbar_colors='{"Received":"yellow","Processed":"green"}'/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="serial_no"/>
+                            </group>
+                            <group>
+                                <field name="service_name"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group col="2">
+                            <group>
+                                <field name="requested_by"/>
+                            </group>
+                            <group>
+                                <field name="create_date"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group col="3">
+                            <group>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="mobile"/>
+                            </group>
+                            <group>
+                                <field name="email"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group>
+                            <field name="patient_comment"/>
+                        </group>
+                        <group>
+                            <field name="call_center_comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_web_request_tree">
+            <field name="name">Web Requests</field>
+            <field name="model">sm.shifa.web.request</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Web Requests'>
+                    <field name="serial_no"/>
+                    <field name="service_name"/>
+                    <field name="requested_by"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="state"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_web_request_action_tree" model="ir.actions.act_window">
+            <field name="name">Web Requests</field>
+            <field name="res_model">sm.shifa.web.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new doctor schedule record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_shifa_web_request_action_tree" id="sm_shifa_web_requests_list"
+                  parent="oehealth.oeh_medical_general_menu" sequence="100"/>
+
+    </data>
+</odoo>

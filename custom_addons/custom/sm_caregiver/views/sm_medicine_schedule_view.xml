@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="patient_medicine_schedular_form_view">
+            <field name="name">patient_medicines_schedule_view</field>
+            <field name="model">sm.caregiver.medicine.schedule</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Medicines">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="patient"/>
+                                <field name="medicine"/>
+                                <field name="date"/>
+                            </group>
+                            <group>
+                                <field name="patient_medicine_id"/>
+                                <field name="caregiver_id"/>
+                                <field name="caregiver"/>
+                                <field name="comment"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sm_caregiver_medicines_schedule_tree" model="ir.ui.view">
+            <field name="name">patient_medicines_tree</field>
+            <field name="model">sm.caregiver.medicine.schedule</field>
+            <field name="arch" type="xml">
+                <tree string="Patient Medicine">
+                    <field name="patient"/>
+                    <field name="medicine"/>
+                    <field name="date"/>
+                    <field name="time"/>
+                    <field name="time_missed"/>
+                    <field name="state"/>
+                    <field name="caregiver_id"/>
+                    <field name="caregiver"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_patient_medicines_schedule_action" model="ir.actions.act_window">
+            <field name="name">Patient Medicine Schedule</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.caregiver.medicine.schedule</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+
+        <record id="sm_patient_medicines_schedule_filter" model="ir.ui.view">
+            <field name="name">Caregiver medicine state</field>
+            <field name="model">sm.caregiver.medicine.schedule</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Medicine">
+                    <separator orientation="vertical"/>
+                    <field name="patient"/>
+                    <field name="medicine"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="caregiver_id"/>
+                    <field name="caregiver"/>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="11" col="11">
+                        <filter string="State" name="group_state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <menuitem id="patient_slots_medicines_menu"
+                  name="Medicines Slots"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_patient_medicines_schedule_action"
+                  sequence="4"/>
+    </data>
+
+</odoo>

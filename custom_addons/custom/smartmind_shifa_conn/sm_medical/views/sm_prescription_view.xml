@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="physician_assessment_prescription_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.prescription.inherit</field>
+            <field name="model">oeh.medical.prescription</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_prescription_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='hvd_appointment']" position="before">
+                    <field name="phy_assessment"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[1]/group[1]" position="before">
+                    <group col="3">
+                        <label for="diagnosis_show" string="Diagnosis"
+                               style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                        <div class="oe_inline">
+                            <field name="diagnosis_show" nolabel="1" widget="checkbox"/>
+                        </div>
+                    </group>
+                    <div attrs="{'invisible': [('diagnosis_show', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="provisional_diagnosis" string="" force_save="1"/>
+                                <field name="provisional_diagnosis_add2" string="" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="provisional_diagnosis_add" string="" force_save="1"/>
+                                <field name="provisional_diagnosis_add3" string="" force_save="1"/>
+                            </group>
+                        </group>
+                    </div>
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="patient_medicines_form_view">
+            <field name="name">patient_medicines_view</field>
+            <field name="model">sm.caregiver.main.patient.medicine</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Medicines">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,activate,deactivate"/>
+                        <button confirm="Are you sure you want to generate medicine schedule?" name="set_to_generate"
+                                states="draft" string="Generate" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to deactivate?" name="set_to_deactivate"
+                                states="activate" string="Deactivate" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="patient" required="1"/>
+                                <field name="caregiver_id"/>
+                                <field name="deactivate_date"/>
+                            </group>
+                            <group>
+                                <field name="added_by"/>
+                                <field name="nurse"
+                                       attrs="{'invisible':[('added_by', 'in', ['patient_custodian', False])]}"/>
+                                <field name="patient_custodian"
+                                       attrs="{'invisible':[('added_by', 'in', ['nurse', False])]}"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group string="Active Medication Profile">
+                            <group>
+                                <field name="prescribed_medicine" string="Medicine"/>
+                                <field name="medication_profile_id" string="Profile Medicine" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <label for="dose" string="Dose"/>
+                                <div>
+                                    <field name="dose" placeholder="250" style="width: 20%;  margin: 10px"
+                                           required="1"/>
+                                    <field name="dose_unit" style="width: 40%; margin: 10px"/>
+                                </div>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="dose_form" string="Form"/>
+                            </group>
+                            <group>
+                                <field name="dose_route"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="common_dosage" string="Frequency"/>
+                            </group>
+                            <group>
+                                <field name="qty" string="Quantity"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="duration" string="Duration"/>
+                                <field name="duration_period"/>
+                            </group>
+                            <group>
+                                <field name="comment"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="indication" string="Indication"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group string="Patient Medicine">
+                            <label for="medicine"/>
+                        </group>
+                        <div class="oe_inline">
+                            <group class="oe_inline" style="width: 255px !important;">
+                                <field name="medicine" required="1" nolabel="1" style="width: 255px !important;"/>
+                            </group>
+                            <field name="medicine_image" widget="image" options='{"size": [150, 150]}'
+                                   class="oe_right" nolabel="1"/>
+                        </div>
+                        <group>
+                            <group>
+                                <label for="prescribed_dose"/>
+                                <div>
+                                    <field name="prescribed_dose" placeholder="250" required="1"
+                                           style="width: 20%;  margin: 10px"/>
+                                    <field name="prescribed_dose_unit"
+                                           style="width: 40%; margin: 10px" required="1"/>
+                                </div>
+
+                            </group>
+                            <group col="2">
+                                 <field name="prescribed_dose_route" required="1"/>
+                            </group>
+                        </group>
+
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group string="Start and End Date">
+                            <group>
+                                <field name="start_date" required="1"/>
+                            </group>
+                            <group>
+                                <field name="stop_date" required="1"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group string="Medicine Schedule">
+                            <group>
+                                <field name="medicine_frequency" required="1"/>
+                                <field name="number_times"/>
+                                <field name="is_missed" force_save="1" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="duration_time" widget="timepicker"
+                                       attrs="{'invisible': [('number_times', 'in', ['1', False])]}"/>
+                                <field name="missed_time"
+                                       attrs="{'invisible': [('is_missed', '=', False)], 'required': [('is_missed', '=', True)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="time1" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', '=', False)]}"/>
+                                <field name="time2" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', 'in', ['1', False])]}"/>
+                                <field name="time5" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', 'in', ['1','2','3','4',False])]}"/>
+                                <field name="time6" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', 'in', ['1','2','3','4','5',False])]}"/>
+                            </group>
+                            <group>
+                                <field name="time3" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', 'in', ['1','2', False])]}"/>
+                                <field name="time4" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', 'in', ['1','2','3',False])]}"/>
+                                <field name="time7" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', 'in', ['1','2','3','4','5','6',False])]}"/>
+                                <field name="time8" widget="timepicker" force_save="1"
+                                       attrs="{'invisible': [('number_times', 'in', ['1','2','3','4','5','6','7',False])]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Medicine Schedule">
+                                <field name="schedule_lines" widget="one2many_list" nolabel="1">
+                                    <tree string="Schedule">
+                                        <field name="medicine"/>
+                                        <field name="date"/>
+                                        <field name="time" widget="timepicker"/>
+                                        <field name="state"/>
+                                        <field name="comment"/>
+                                        <field name="is_missed" invisible="1"/>
+                                        <field name="time_missed" invisible="1"/>
+                                        <field name="caregiver"/>
+                                        <field name="caregiver_id" invisible="1"/>
+                                        <field name="patient_medicine_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sm_caregiver_medicines_tree" model="ir.ui.view">
+            <field name="name">patient_medicines_tree</field>
+            <field name="model">sm.caregiver.main.patient.medicine</field>
+            <field name="arch" type="xml">
+                <tree string="Patient Medicine">
+                    <field name="patient"/>
+                    <field name="medicine"/>
+                    <field name="added_by"/>
+                    <field name="start_date"/>
+                    <field name="stop_date"/>
+                    <field name="state"/>
+                    <field name="caregiver_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_patient_medicines_action" model="ir.actions.act_window">
+            <field name="name">Patient Medicine Schedule</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.caregiver.main.patient.medicine</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_caregiver_config_form_root"
+                  name="Caregiver config"
+                  parent="oehealth.oeh_medical_conf_medicaments"
+                  sequence="18"/>
+
+        <menuitem id="patient_medicines_menu"
+                  name="Patient Medicine Schedule"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_patient_medicines_action"
+                  sequence="3"/>
+
+    </data>
+
+</odoo>

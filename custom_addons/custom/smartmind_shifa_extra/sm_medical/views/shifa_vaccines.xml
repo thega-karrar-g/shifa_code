@@ -1,0 +1,1717 @@
+<odoo>
+    <data>
+        <record id="view_shifa_vaccines_form" model="ir.ui.view">
+            <field name="name">shifa.vaccines.form</field>
+            <field name="model">sm.shifa.vaccines</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_done"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Draft,Start,Done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="vaccines_code" string="VAC#"/>
+                                <h1>
+                                    <field name="vaccines_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                            </group>
+                            <group>
+                                <field name="nurse_name"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="completed_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                <field name="blood_type"/>-->
+                                <!--                                <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <br/>
+                        <group col="3">
+                            <label for="conscious_state_show" string="Conscious State"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="conscious_state_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('conscious_state_show', '=', False)]}">
+                            <group>
+                                <field name="conscious_state" string="Conscious State"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="pain_present_show" string="Pain Present"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                            <group>
+                                <field name="pain_present"/>
+                            </group>
+                            <group attrs="{'invisible': ['|',('pain_present_show', '=', False),('pain_present', '=', False)]}">
+                                <field name="pain_score" string="Pain Score"/>
+                                <field name="scale_used" string="Scale Used"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="functional_activity_show" string="Functional Activity"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                            <group>
+                                <field name="functional_activity" string="Functional Activity"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="vital_signs_show" string="Vital Signs"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                            <group>
+                                <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                <field name="hr_min" string="HR(/min)"/>
+                            </group>
+                            <group>
+                                <field name="temperature_c" string="Temperature(C)"/>
+                                <field name="rr_min" string="RR(/min)"/>
+                                <field name="o2_sat" string="O2 Sat(%)"/>
+                                <field name="char_other_oxygen" string=""
+                                       attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                <!--                                <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                <!--                                <div>-->
+                                <!--                                    <group col="7">-->
+                                <!--                                        <span colspan="2">at room air</span>-->
+                                <!--                                        <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                <!--                                        <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                <!--                                        <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                <!--                                    </group>-->
+                                <!--                                    <field name="char_other_oxygen" string=""/>-->
+                                <!--                                </div>-->
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="check_prior_show" string="Checklist prior to administration of vaccine"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="check_prior_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('check_prior_show', '=', False)]}"
+                             style="padding-left: 10px;">
+
+                            <group col="6">
+                                <group>
+                                    <label for="drug_allergy_yes" string="Drug Allergy / hypersensitivity"
+                                           style=" font-size: 14px"/>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">No</span>
+                                        <field name="drug_allergy_no" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">Yes</span>
+                                        <field name="drug_allergy_yes" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group colspan="2">
+                                    <field name="drug_allergy_content" nolabel="1"
+                                           attrs="{'invisible': [('drug_allergy_yes', '=', False)]}"
+                                           context="{'turn_view_readonly':True}"/>
+                                </group>
+                            </group>
+                            <group col="6">
+                                <group>
+                                    <label for="allergic_previous_yes" string="Allergic to previous vaccine"
+                                           style=" font-size: 14px"/>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">No</span>
+                                        <field name="allergic_previous_no" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">Yes</span>
+                                        <field name="allergic_previous_yes" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group colspan="2">
+                                    <field name="allergic_previous_content" nolabel="1"
+                                           attrs="{'invisible': [('allergic_previous_yes', '=', False)]}"
+                                           context="{'turn_view_readonly':True}"/>
+                                </group>
+                            </group>
+                            <group col="6">
+                                <group>
+                                    <label for="allergic_hypersensitivty_yes"
+                                           string="Allergic or hypersensitivity to chicken, eggs"
+                                           style=" font-size: 14px"/>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">No</span>
+                                        <field name="allergic_hypersensitivty_no" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">Yes</span>
+                                        <field name="allergic_hypersensitivty_yes" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group colspan="2">
+                                    <field name="allergic_hypersensitivty_content" nolabel="1"
+                                           attrs="{'invisible': [('allergic_hypersensitivty_yes', '=', False)]}"
+                                           context="{'turn_view_readonly':True}"/>
+                                </group>
+                            </group>
+                            <group col="6">
+                                <group>
+                                    <label for="any_recent_illness_yes" string="Any recent illness or fever"
+                                           style=" font-size: 14px"/>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">No</span>
+                                        <field name="any_recent_illness_no" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">Yes</span>
+                                        <field name="any_recent_illness_yes" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group colspan="2">
+                                    <field name="any_recent_illness_content" nolabel="1"
+                                           attrs="{'invisible': [('any_recent_illness_yes', '=', False)]}"
+                                           context="{'turn_view_readonly':True}"/>
+                                </group>
+                            </group>
+                            <group col="6">
+                                <group>
+                                    <label for="previous_vaccination_yes" string="Previous Vaccination (Vaccine Name)"
+                                           style=" font-size: 14px"/>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">No</span>
+                                        <field name="previous_vaccination_no" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div class="oe_inline">
+                                        <span style=" margin-right: 14px">Yes</span>
+                                        <field name="previous_vaccination_yes" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group colspan="2" col="3"
+                                       attrs="{'invisible': [('previous_vaccination_yes', '=', False)]}">
+                                    <span>Temperature</span>
+                                    <field name="previous_vaccination_temp" nolabel="1"/>
+                                    <span>(Celsius)</span>
+                                    <field name="previous_vaccination_content" nolabel="1" colspan="3"
+                                           context="{'turn_view_readonly':True}"/>
+                                </group>
+                            </group>
+                        </div>
+                        <group col="3">
+                            <label for="vaccination_schedule_show" string="Vaccination Schedule"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="vaccination_schedule_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('vaccination_schedule_show', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="vaccination_schedule"/>
+                                </group>
+                            </group>
+                            <br/>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', 'At Birth')]}">
+                                <group>
+                                    <field name="at_birth_hepb"/>
+                                </group>
+                                <div attrs="{'invisible': ['|', ('at_birth_hepb', '=', False), ('vaccination_schedule', '!=', 'At Birth')]}">
+                                    <group>
+                                        <group>
+                                            <field name="at_birth_hepb_vaccine_no"/>
+                                            <field name="at_birth_hepb_expiry_date"/>
+                                            <field name="at_birth_hepb_administered"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <group>
+                                    <group>
+                                        <field name="add_other_at_birth"/>
+                                        <field name="add_other_at_birth_vaccinations"
+                                               attrs="{'invisible': [('add_other_at_birth', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_at_birth', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_at_birth_vaccine_no"/>
+                                                <field name="add_other_at_birth_expiry_date"/>
+                                            </group>
+                                            <group>
+                                                <field name="add_other_at_birth_administered"/>
+                                            </group>
+                                            <group>
+                                                <field name="add_other_at_birth_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_at_birth', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_at_birth"/>
+                                        <field name="add_other2_at_birth_vaccinations"
+                                               attrs="{'invisible': [('add_other2_at_birth', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_at_birth', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_at_birth_vaccine_no"/>
+                                                <field name="add_other2_at_birth_expiry_date"/>
+                                            </group>
+                                            <group>
+                                                <field name="add_other2_at_birth_administered"/>
+                                            </group>
+                                            <group>
+                                                <field name="add_other2_at_birth_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '2 Months')]}">
+                                <group>
+                                    <group>
+                                        <field name="t_mon_hepb"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('t_mon_hepb', '=', False)]}">
+                                            <group>
+                                                <field name="t_mon_hepb_vaccine_no"/>
+                                                <field name="t_mon_hepb_expiry_date"/>
+                                                <field name="t_mon_hepb_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="t_mon_rv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('t_mon_rv', '=', False)]}">
+                                            <group>
+                                                <field name="t_mon_rv_vaccine_no"/>
+                                                <field name="t_mon_rv_expiry_date"/>
+                                                <field name="t_mon_rv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="t_mon_dtap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('t_mon_dtap', '=', False)]}">
+                                            <group>
+                                                <field name="t_mon_dtap_vaccine_no"/>
+                                                <field name="t_mon_dtap_expiry_date"/>
+                                                <field name="t_mon_dtap_administered"/>
+                                            </group>
+
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="t_mon_hib"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('t_mon_hib', '=', False)]}">
+                                            <group>
+                                                <field name="t_mon_hib_vaccine_no"/>
+                                                <field name="t_mon_hib_expiry_date"/>
+                                                <field name="t_mon_hib_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="t_mon_pcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('t_mon_pcv', '=', False)]}">
+                                            <group>
+                                                <field name="t_mon_pcv_vaccine_no"/>
+                                                <field name="t_mon_pcv_expiry_date"/>
+                                                <field name="t_mon_pcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="t_mon_ipv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('t_mon_ipv', '=', False)]}">
+                                            <group>
+                                                <field name="t_mon_ipv_vaccine_no"/>
+                                                <field name="t_mon_ipv_expiry_date"/>
+                                                <field name="t_mon_ipv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="add_other_t_mon"/>
+                                        <field name="add_other_t_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other_t_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_t_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_t_mon_vaccine_no"/>
+                                                <field name="add_other_t_mon_expiry_date"/>
+                                                <field name="add_other_t_mon_administered"/>
+                                                <field name="add_other_t_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_t_mon', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_t_mon"/>
+                                        <field name="add_other2_t_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other2_t_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_t_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_t_mon_vaccine_no"/>
+                                                <field name="add_other2_t_mon_expiry_date"/>
+                                                <field name="add_other2_t_mon_administered"/>
+                                                <field name="add_other2_t_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '4 Months')]}">
+                                <group>
+                                    <group>
+                                        <field name="f_mon_hepb"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('f_mon_hepb', '=', False)]}">
+                                            <group>
+                                                <field name="f_mon_hepb_vaccine_no"/>
+                                                <field name="f_mon_hepb_expiry_date"/>
+                                                <field name="f_mon_hepb_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="f_mon_rv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('f_mon_rv', '=', False)]}">
+                                            <group>
+                                                <field name="f_mon_rv_vaccine_no"/>
+                                                <field name="f_mon_rv_expiry_date"/>
+                                                <field name="f_mon_rv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="f_mon_dtap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('f_mon_dtap', '=', False)]}">
+                                            <group>
+                                                <field name="f_mon_dtap_vaccine_no"/>
+                                                <field name="f_mon_dtap_expiry_date"/>
+                                                <field name="f_mon_dtap_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="f_mon_hib"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('f_mon_hib', '=', False)]}">
+                                            <group>
+                                                <field name="f_mon_hib_vaccine_no"/>
+                                                <field name="f_mon_hib_expiry_date"/>
+                                                <field name="f_mon_hib_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="f_mon_pcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('f_mon_pcv', '=', False)]}">
+                                            <group>
+                                                <field name="f_mon_pcv_vaccine_no"/>
+                                                <field name="f_mon_pcv_expiry_date"/>
+                                                <field name="f_mon_pcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="f_mon_ipv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('f_mon_ipv', '=', False)]}">
+                                            <group>
+                                                <field name="f_mon_ipv_vaccine_no"/>
+                                                <field name="f_mon_ipv_expiry_date"/>
+                                                <field name="f_mon_ipv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_f_mon"/>
+                                        <field name="add_other_f_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other_f_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_f_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_f_mon_vaccine_no"/>
+                                                <field name="add_other_f_mon_expiry_date"/>
+                                                <field name="add_other_f_mon_administered"/>
+                                                <field name="add_other_f_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_f_mon', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_f_mon"/>
+                                        <field name="add_other2_f_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other2_f_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_f_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_f_mon_vaccine_no"/>
+                                                <field name="add_other2_f_mon_expiry_date"/>
+                                                <field name="add_other2_f_mon_administered"/>
+                                                <field name="add_other2_f_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '6 Months')]}">
+                                <group>
+                                    <group>
+                                        <field name="s_mon_hepb"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_hepb', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_hepb_vaccine_no"/>
+                                                <field name="s_mon_hepb_expiry_date"/>
+                                                <field name="s_mon_hepb_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="s_mon_rv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_rv', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_rv_vaccine_no"/>
+                                                <field name="s_mon_rv_expiry_date"/>
+                                                <field name="s_mon_rv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="s_mon_dtap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_dtap', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_dtap_vaccine_no"/>
+                                                <field name="s_mon_dtap_expiry_date"/>
+                                                <field name="s_mon_dtap_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="s_mon_hib"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_hib', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_hib_vaccine_no"/>
+                                                <field name="s_mon_hib_expiry_date"/>
+                                                <field name="s_mon_hib_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="s_mon_pcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_pcv', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_pcv_vaccine_no"/>
+                                                <field name="s_mon_pcv_expiry_date"/>
+                                                <field name="s_mon_pcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="s_mon_ipv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_ipv', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_ipv_vaccine_no"/>
+                                                <field name="s_mon_ipv_expiry_date"/>
+                                                <field name="s_mon_ipv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="s_mon_bcg"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_bcg', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_bcg_vaccine_no"/>
+                                                <field name="s_mon_bcg_expiry_date"/>
+                                                <field name="s_mon_bcg_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="s_mon_opv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('s_mon_opv', '=', False)]}">
+                                            <group>
+                                                <field name="s_mon_opv_vaccine_no"/>
+                                                <field name="s_mon_opv_expiry_date"/>
+                                                <field name="s_mon_opv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_s_mon"/>
+                                        <field name="add_other_s_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other_s_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_s_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_s_mon_vaccine_no"/>
+                                                <field name="add_other_s_mon_expiry_date"/>
+                                                <field name="add_other_s_mon_administered"/>
+                                                <field name="add_other_s_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_s_mon', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_s_mon"/>
+                                        <field name="add_other2_s_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other2_s_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_s_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_s_mon_vaccine_no"/>
+                                                <field name="add_other2_s_mon_expiry_date"/>
+                                                <field name="add_other2_s_mon_administered"/>
+                                                <field name="add_other2_s_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '9 Months')]}">
+                                <group>
+                                    <group>
+                                        <field name="n_mon_measels"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('n_mon_measels', '=', False)]}">
+                                            <group>
+                                                <field name="n_mon_measels_vaccine_no"/>
+                                                <field name="n_mon_measels_expiry_date"/>
+                                                <field name="n_mon_measels_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="n_mon_mcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('n_mon_mcv', '=', False)]}">
+                                            <group>
+                                                <field name="n_mon_mcv_vaccine_no"/>
+                                                <field name="n_mon_mcv_expiry_date"/>
+                                                <field name="n_mon_mcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_n_mon"/>
+                                        <field name="add_other_n_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other_n_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_n_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_n_mon_vaccine_no"/>
+                                                <field name="add_other_n_mon_expiry_date"/>
+                                                <field name="add_other_n_mon_administered"/>
+                                                <field name="add_other_n_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_n_mon', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_n_mon"/>
+                                        <field name="add_other2_n_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other2_n_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_n_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_n_mon_vaccine_no"/>
+                                                <field name="add_other2_n_mon_expiry_date"/>
+                                                <field name="add_other2_n_mon_administered"/>
+                                                <field name="add_other2_n_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '12 Months')]}">
+                                <group>
+                                    <group>
+                                        <field name="ot_mon_pcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('ot_mon_pcv', '=', False)]}">
+                                            <group>
+                                                <field name="ot_mon_pcv_vaccine_no"/>
+                                                <field name="ot_mon_pcv_expiry_date"/>
+                                                <field name="ot_mon_pcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="ot_mon_opv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('ot_mon_opv', '=', False)]}">
+                                            <group>
+                                                <field name="ot_mon_opv_vaccine_no"/>
+                                                <field name="ot_mon_opv_expiry_date"/>
+                                                <field name="ot_mon_opv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="ot_mon_mcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('ot_mon_mcv', '=', False)]}">
+                                            <group>
+                                                <field name="ot_mon_mcv_vaccine_no"/>
+                                                <field name="ot_mon_mcv_expiry_date"/>
+                                                <field name="ot_mon_mcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="ot_mon_mmr"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('ot_mon_mmr', '=', False)]}">
+                                            <group>
+                                                <field name="ot_mon_mmr_vaccine_no"/>
+                                                <field name="ot_mon_mmr_expiry_date"/>
+                                                <field name="ot_mon_mmr_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_ot_mon"/>
+                                        <field name="add_other_ot_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other_ot_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_ot_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_ot_mon_vaccine_no"/>
+                                                <field name="add_other_ot_mon_expiry_date"/>
+                                                <field name="add_other_ot_mon_administered"/>
+                                                <field name="add_other_ot_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_ot_mon', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_ot_mon"/>
+                                        <field name="add_other2_ot_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other2_ot_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_ot_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_ot_mon_vaccine_no"/>
+                                                <field name="add_other2_ot_mon_expiry_date"/>
+                                                <field name="add_other2_ot_mon_administered"/>
+                                                <field name="add_other2_ot_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '18 Months')]}">
+                                <group>
+                                    <group>
+                                        <field name="oe_mon_dtap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oe_mon_dtap', '=', False)]}">
+                                            <group>
+                                                <field name="oe_mon_dtap_vaccine_no"/>
+                                                <field name="oe_mon_dtap_expiry_date"/>
+                                                <field name="oe_mon_dtap_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oe_mon_hib"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oe_mon_hib', '=', False)]}">
+                                            <group>
+                                                <field name="oe_mon_hib_vaccine_no"/>
+                                                <field name="oe_mon_hib_expiry_date"/>
+                                                <field name="oe_mon_hib_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oe_mon_hepa"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oe_mon_hepa', '=', False)]}">
+                                            <group>
+                                                <field name="oe_mon_hepa_vaccine_no"/>
+                                                <field name="oe_mon_hepa_expiry_date"/>
+                                                <field name="oe_mon_hepa_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oe_mon_varicella"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oe_mon_varicella', '=', False)]}">
+                                            <group>
+                                                <field name="oe_mon_varicella_vaccine_no"/>
+                                                <field name="oe_mon_varicella_expiry_date"/>
+                                                <field name="oe_mon_varicella_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oe_mon_mmr"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oe_mon_mmr', '=', False)]}">
+                                            <group>
+                                                <field name="oe_mon_mmr_vaccine_no"/>
+                                                <field name="oe_mon_mmr_expiry_date"/>
+                                                <field name="oe_mon_mmr_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oe_mon_opv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oe_mon_opv', '=', False)]}">
+                                            <group>
+                                                <field name="oe_mon_opv_vaccine_no"/>
+                                                <field name="oe_mon_opv_expiry_date"/>
+                                                <field name="oe_mon_opv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_oe_mon"/>
+                                        <field name="add_other_oe_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other_oe_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_oe_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_oe_mon_vaccine_no"/>
+                                                <field name="add_other_oe_mon_expiry_date"/>
+                                                <field name="add_other_oe_mon_administered"/>
+                                                <field name="add_other_oe_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_oe_mon', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_oe_mon"/>
+                                        <field name="add_other2_oe_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other2_oe_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_oe_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_oe_mon_vaccine_no"/>
+                                                <field name="add_other2_oe_mon_expiry_date"/>
+                                                <field name="add_other2_oe_mon_administered"/>
+                                                <field name="add_other2_oe_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '24 Months')]}">
+                                <group>
+                                    <group>
+                                        <field name="tf_mon_hepa"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('tf_mon_hepa', '=', False)]}">
+                                            <group>
+                                                <field name="tf_mon_hepa_vaccine_no"/>
+                                                <field name="tf_mon_hepa_expiry_date"/>
+                                                <field name="tf_mon_hepa_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_tf_mon"/>
+                                        <field name="add_other_tf_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other_tf_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_tf_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_tf_mon_vaccine_no"/>
+                                                <field name="add_other_tf_mon_expiry_date"/>
+                                                <field name="add_other_tf_mon_administered"/>
+                                                <field name="add_other_tf_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_tf_mon', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_tf_mon"/>
+                                        <field name="add_other2_tf_mon_vaccinations"
+                                               attrs="{'invisible': [('add_other2_tf_mon', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_tf_mon', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_tf_mon_vaccine_no"/>
+                                                <field name="add_other2_tf_mon_expiry_date"/>
+                                                <field name="add_other2_tf_mon_administered"/>
+                                                <field name="add_other2_tf_mon_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '4-6 Years old')]}">
+                                <group>
+                                    <group>
+                                        <field name="fs_yea_dtap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('fs_yea_dtap', '=', False)]}">
+                                            <group>
+                                                <field name="fs_yea_dtap_vaccine_no"/>
+                                                <field name="fs_yea_dtap_expiry_date"/>
+                                                <field name="fs_yea_dtap_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="fs_yea_opv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('fs_yea_opv', '=', False)]}">
+                                            <group>
+                                                <field name="fs_yea_opv_vaccine_no"/>
+                                                <field name="fs_yea_opv_expiry_date"/>
+                                                <field name="fs_yea_opv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="fs_yea_varicella"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('fs_yea_varicella', '=', False)]}">
+                                            <group>
+                                                <field name="fs_yea_varicella_vaccine_no"/>
+                                                <field name="fs_yea_varicella_expiry_date"/>
+                                                <field name="fs_yea_varicella_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="fs_yea_mmr"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('fs_yea_mmr', '=', False)]}">
+                                            <group>
+                                                <field name="fs_yea_mmr_vaccine_no"/>
+                                                <field name="fs_yea_mmr_expiry_date"/>
+                                                <field name="fs_yea_mmr_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_fs_yea"/>
+                                        <field name="add_other_fs_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other_fs_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_fs_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_fs_yea_vaccine_no"/>
+                                                <field name="add_other_fs_yea_expiry_date"/>
+                                                <field name="add_other_fs_yea_administered"/>
+                                                <field name="add_other_fs_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_fs_yea', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_fs_yea"/>
+                                        <field name="add_other2_fs_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other2_fs_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_fs_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_fs_yea_vaccine_no"/>
+                                                <field name="add_other2_fs_yea_expiry_date"/>
+                                                <field name="add_other2_fs_yea_administered"/>
+                                                <field name="add_other2_fs_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '11 Years')]}">
+                                <group>
+                                    <group>
+                                        <field name="oo_yea_dtap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oo_yea_dtap', '=', False)]}">
+                                            <group>
+                                                <field name="oo_yea_dtap_vaccine_no"/>
+                                                <field name="oo_yea_dtap_expiry_date"/>
+                                                <field name="oo_yea_dtap_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oo_yea_vpv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oo_yea_vpv', '=', False)]}">
+                                            <group>
+                                                <field name="oo_yea_vpv_vaccine_no"/>
+                                                <field name="oo_yea_vpv_expiry_date"/>
+                                                <field name="oo_yea_vpv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_oo_yea"/>
+                                        <field name="add_other_oo_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other_oo_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_oo_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_oo_yea_vaccine_no"/>
+                                                <field name="add_other_oo_yea_expiry_date"/>
+                                                <field name="add_other_oo_yea_administered"/>
+                                                <field name="add_other_oo_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_oo_yea', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_oo_yea"/>
+                                        <field name="add_other2_oo_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other2_oo_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_oo_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_oo_yea_vaccine_no"/>
+                                                <field name="add_other2_oo_yea_expiry_date"/>
+                                                <field name="add_other2_oo_yea_administered"/>
+                                                <field name="add_other2_oo_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '12 Years')]}">
+                                <group>
+                                    <group>
+                                        <field name="ot_yea_hpv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('ot_yea_hpv', '=', False)]}">
+                                            <group>
+                                                <field name="ot_yea_hpv_vaccine_no"/>
+                                                <field name="ot_yea_hpv_expiry_date"/>
+                                                <field name="ot_yea_hpv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_ot_yea"/>
+                                        <field name="add_other_ot_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other_ot_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_ot_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_ot_yea_vaccine_no"/>
+                                                <field name="add_other_ot_yea_expiry_date"/>
+                                                <field name="add_other_ot_yea_administered"/>
+                                                <field name="add_other_ot_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_ot_yea', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_ot_yea"/>
+                                        <field name="add_other2_ot_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other2_ot_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_ot_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_ot_yea_vaccine_no"/>
+                                                <field name="add_other2_ot_yea_expiry_date"/>
+                                                <field name="add_other2_ot_yea_administered"/>
+                                                <field name="add_other2_ot_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', '18 Years')]}">
+                                <group>
+                                    <group>
+                                        <field name="oe_yea_mcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oe_yea_mcv', '=', False)]}">
+                                            <group>
+                                                <field name="oe_yea_mcv_vaccine_no"/>
+                                                <field name="oe_yea_mcv_expiry_date"/>
+                                                <field name="oe_yea_mcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <!--other-->
+                                <group>
+                                    <group>
+                                        <field name="add_other_oe_yea"/>
+                                        <field name="add_other_oe_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other_oe_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other_oe_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other_oe_yea_vaccine_no"/>
+                                                <field name="add_other_oe_yea_expiry_date"/>
+                                                <field name="add_other_oe_yea_administered"/>
+                                                <field name="add_other_oe_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('add_other_oe_yea', '=', False)]}">
+                                    <group>
+                                        <field name="add_other2_oe_yea"/>
+                                        <field name="add_other2_oe_yea_vaccinations"
+                                               attrs="{'invisible': [('add_other2_oe_yea', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_other2_oe_yea', '=', False)]}">
+                                            <group>
+                                                <field name="add_other2_oe_yea_vaccine_no"/>
+                                                <field name="add_other2_oe_yea_expiry_date"/>
+                                                <field name="add_other2_oe_yea_administered"/>
+                                                <field name="add_other2_oe_yea_comment" string="Comment"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('vaccination_schedule', '!=', 'Other')]}">
+                                <group>
+                                    <group>
+                                        <field name="oth_influenza"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_influenza', '=', False)]}">
+                                            <group>
+                                                <field name="oth_influenza_vaccine_no"/>
+                                                <field name="oth_influenza_expiry_date"/>
+                                                <field name="oth_influenza_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_tdap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_tdap', '=', False)]}">
+                                            <group>
+                                                <field name="oth_tdap_vaccine_no"/>
+                                                <field name="oth_tdap_expiry_date"/>
+                                                <field name="oth_tdap_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_mmr"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_mmr', '=', False)]}">
+                                            <group>
+                                                <field name="oth_mmr_vaccine_no"/>
+                                                <field name="oth_mmr_expiry_date"/>
+                                                <field name="oth_mmr_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_varicella"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_varicella', '=', False)]}">
+                                            <group>
+                                                <field name="oth_varicella_vaccine_no"/>
+                                                <field name="oth_varicella_expiry_date"/>
+                                                <field name="oth_varicella_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_herpes"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_herpes', '=', False)]}">
+                                            <group>
+                                                <field name="oth_herpes_vaccine_no"/>
+                                                <field name="oth_herpes_expiry_date"/>
+                                                <field name="oth_herpes_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_hpv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_hpv', '=', False)]}">
+                                            <group>
+                                                <field name="oth_hpv_vaccine_no"/>
+                                                <field name="oth_hpv_expiry_date"/>
+                                                <field name="oth_hpv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_ppsv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_ppsv', '=', False)]}">
+                                            <group>
+                                                <field name="oth_ppsv_vaccine_no"/>
+                                                <field name="oth_ppsv_expiry_date"/>
+                                                <field name="oth_ppsv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_pcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_pcv', '=', False)]}">
+                                            <group>
+                                                <field name="oth_pcv_vaccine_no"/>
+                                                <field name="oth_pcv_expiry_date"/>
+                                                <field name="oth_pcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_hepb"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_hepb', '=', False)]}">
+                                            <group>
+                                                <field name="oth_hepb_vaccine_no"/>
+                                                <field name="oth_hepb_expiry_date"/>
+                                                <field name="oth_hepb_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_mcv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_mcv', '=', False)]}">
+                                            <group>
+                                                <field name="oth_mcv_vaccine_no"/>
+                                                <field name="oth_mcv_expiry_date"/>
+                                                <field name="oth_mcv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_rv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_rv', '=', False)]}">
+                                            <group>
+                                                <field name="oth_rv_vaccine_no"/>
+                                                <field name="oth_rv_expiry_date"/>
+                                                <field name="oth_rv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_dtap"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_dtap', '=', False)]}">
+                                            <group>
+                                                <field name="oth_dtap_vaccine_no"/>
+                                                <field name="oth_dtap_expiry_date"/>
+                                                <field name="oth_dtap_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_hib"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_hib', '=', False)]}">
+                                            <group>
+                                                <field name="oth_hib_vaccine_no"/>
+                                                <field name="oth_hib_expiry_date"/>
+                                                <field name="oth_hib_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_ipv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_ipv', '=', False)]}">
+                                            <group>
+                                                <field name="oth_ipv_vaccine_no"/>
+                                                <field name="oth_ipv_expiry_date"/>
+                                                <field name="oth_ipv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_bcg"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_bcg', '=', False)]}">
+                                            <group>
+                                                <field name="oth_bcg_vaccine_no"/>
+                                                <field name="oth_bcg_expiry_date"/>
+                                                <field name="oth_bcg_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_opv"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_opv', '=', False)]}">
+                                            <group>
+                                                <field name="oth_opv_vaccine_no"/>
+                                                <field name="oth_opv_expiry_date"/>
+                                                <field name="oth_opv_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_measels"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_measels', '=', False)]}">
+                                            <group>
+                                                <field name="oth_measels_vaccine_no"/>
+                                                <field name="oth_measels_expiry_date"/>
+                                                <field name="oth_measels_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_hepa"/>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_hepa', '=', False)]}">
+                                            <group>
+                                                <field name="oth_hepa_vaccine_no"/>
+                                                <field name="oth_hepa_expiry_date"/>
+                                                <field name="oth_hepa_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="oth_other"/>
+                                        <field name="oth_vaccinations"
+                                               attrs="{'invisible': [('oth_other', '!=', True)]}"/>
+                                    </group>
+
+                                    <group>
+                                        <div attrs="{'invisible': [('oth_other', '=', False)]}">
+                                            <group>
+                                                <field name="oth_vaccinations_vaccine_no"/>
+                                                <field name="oth_vaccinations_expiry_date"/>
+                                                <field name="oth_vaccinations_administered"/>
+                                            </group>
+                                        </div>
+                                    </group>
+                                </group>
+                            </div>
+                        </div>
+                        <group col="3">
+                            <label for="mother_caregiver_show" string="Mother / Caregiver Education"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="mother_caregiver_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('mother_caregiver_show', '=', False)]}"
+                             style="padding-left: 10px;">
+                            <h5>Possible mild side effects include: These reactions usually disappear 1 - 2 days
+                                without treatment
+                            </h5>
+                            <group style="padding-left: 10px;">
+                                <group>
+                                    <field name="mother_soreness_redness_swelling"
+                                           string="Soreness, redness, and swelling at the injection site"/>
+                                    <separator/>
+                                    <field name="mother_muscular_pain" string="Muscular pain"/>
+                                    <separator/>
+                                    <field name="mother_headaches" string="Headaches"/>
+                                    <separator/>
+                                    <field name="mother_fever" string="Fever"/>
+                                    <separator/>
+                                    <field name="mother_nausea" string="Nausea"/>
+                                </group>
+                            </group>
+                            <h5>Severe allergic reaction, you need to bring the patient to a nearest hospital emergency
+                                department immediately
+                            </h5>
+                            <group style="padding-left: 10px;">
+                                <group>
+                                    <field name="mother_difficulty_breathing"
+                                           string="Difficulty breathing"/>
+                                    <separator/>
+                                    <field name="mother_coughing" string="Coughing"/>
+                                    <separator/>
+                                    <field name="mother_hoarse_vice_wheezing" string="Hoarse voice or wheezing"/>
+                                    <separator/>
+                                    <field name="mother_hives" string="Hives"/>
+                                    <separator/>
+                                    <field name="mother_paleness" string="Paleness"/>
+                                    <separator/>
+                                    <field name="mother_losing_consciousness" string="Losing consciousness"/>
+                                </group>
+                            </group>
+                        </div>
+                        <group col="3">
+                            <label for="remarks_show" string="Nurse Notes"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="remarks_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('remarks_show', '=', False)]}">
+                            <field name="remarks" nolabel="1"/>
+                            <field name="add_other"/>
+                            <field name="add_other_text" nolabel="1"
+                                   attrs="{'invisible': [('add_other', '=', False)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_vaccines_tree" model="ir.ui.view">
+            <field name="name">shifa_vaccines.tree</field>
+            <field name="model">sm.shifa.vaccines</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="vaccines_code" string="Reference"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="nurse_name"/>
+                    <field name="start_date"/>
+                    <field name="completed_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_vaccines_action" model="ir.actions.act_window">
+            <field name="name">Vaccines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.vaccines</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history for Vaccines' Patient to found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_shifa_vaccines_search" model="ir.ui.view">
+            <field name="name">shifa_vaccines_search</field>
+            <field name="model">sm.shifa.vaccines</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="vaccines_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+        <!--<menuitem id="Vaccines_root"
+                  name="Vaccines"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_shifa_vaccines_action"
+                  sequence="24"/>-->
+
+    </data>
+</odoo>

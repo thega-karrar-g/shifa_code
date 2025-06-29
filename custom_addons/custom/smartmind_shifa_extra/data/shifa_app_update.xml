@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="sm.shifa.app.update" id="app_and">
+            <field name="app_update">Android</field>
+            <field name="code">and</field>
+        </record>
+        <record model="sm.shifa.app.update" id="app_ios">
+            <field name="app_update">IOS</field>
+            <field name="code">ios</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,301 @@
+<odoo>
+    <record id="anticoagulation_management_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">anticoagulation_management_consent</field>
+        <field name="model">sm.shifa.anticoagulation.management</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_anticoagulation_management_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="comprehensive_nurse_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">comprehensive_nurse_consent</field>
+        <field name="model">sm.shifa.comprehensive.nurse</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_comprehensive_nurse_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[5]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="comprehensive_nurse_followup_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">comprehensive_nurse_followup_consent</field>
+        <field name="model">sm.shifa.comprehensive.nurse.follow.up</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_comprehensive_nurse_follow_up_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[2]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="continence_care_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">continence_care_consent</field>
+        <field name="model">sm.shifa.continence.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_continence_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="diabetic_care_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">diabetic_care_consent</field>
+        <field name="model">sm.shifa.diabetic.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_diabetic_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="drain_tube_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">drain_tube_consent</field>
+        <field name="model">sm.shifa.drain.tube</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_breast_surgery_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="enteral_feeding_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">enteral_feeding_consent</field>
+        <field name="model">sm.shifa.enteral.feeding</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_enteral_feeding_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="nebulization_care_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">nebulization_care_consent</field>
+        <field name="model">sm.shifa.nebulization.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_nebulization_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="newborn_care_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">newborn_care_consent</field>
+        <field name="model">sm.shifa.newborn.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_newborn_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[4]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="oxygen_administration_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">oxygen_administration_consent</field>
+        <field name="model">sm.shifa.oxygen.administration</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_oxygen_administration_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="palliative_care_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">palliative_care_consent</field>
+        <field name="model">sm.shifa.palliative.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_palliative_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="parenteral_drugfluid_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">parenteral_drugfluid_consent</field>
+        <field name="model">sm.shifa.parenteral.drugfluid</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_parenteral_drugfluid_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="pressure_ulcer_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">pressure_ulcer_consent</field>
+        <field name="model">sm.shifa.pressure.ulcer</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_pressure_ulcer_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="postnatal_care_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">postnatal_care_consent</field>
+        <field name="model">sm.shifa.postnatal.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_postnatal_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="stoma_care_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">stoma_care_consent</field>
+        <field name="model">sm.shifa.stoma.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_stoma_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="subcut_injection_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">subcut_injection_consent</field>
+        <field name="model">sm.shifa.subcut.injection</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_subcut_injection_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="trache_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">trache_consent</field>
+        <field name="model">sm.shifa.trache.care</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_trache_care_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="vaccines_consent_view_form_inherit" model="ir.ui.view">
+        <field name="name">vaccines_consent</field>
+        <field name="model">sm.shifa.vaccines</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_vaccines_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[5]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="vital_view_form_inherit" model="ir.ui.view">
+        <field name="name">vital_consent</field>
+        <field name="model">sm.shifa.vital.signs</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_vital_signs_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="wound_view_form_inherit" model="ir.ui.view">
+        <field name="name">wound_consent</field>
+        <field name="model">sm.shifa.wound.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa.view_wound_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[5]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="physician_admission_form_inherit" model="ir.ui.view">
+        <field name="name">physician_admission_consent</field>
+        <field name="model">sm.shifa.physician.admission</field>
+        <field name="inherit_id" ref="smartmind_shifa.view_shifa_physician_admission_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="physiotherapy_assessment_form_inherit" model="ir.ui.view">
+        <field name="name">physiotherapy_assessment_consent</field>
+        <field name="model">sm.shifa.physiotherapy.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa.view_shifa_physiotherapy_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[5]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="safe_home_form_inherit" model="ir.ui.view">
+        <field name="name">safe_home_consent</field>
+        <field name="model">sm.shifa.safe.home.visit.screening</field>
+        <field name="inherit_id" ref="smartmind_shifa.view_shifa_questionnaire_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[6]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="caregiver_followup_form_inherit" model="ir.ui.view">
+        <field name="name">caregiver_followup_consent</field>
+        <field name="model">sm.shifa.care.giver.follow.up</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_care_giver_follow_up_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="nurse_assessment_form_inherit" model="ir.ui.view">
+        <field name="name">nurse_assessment_consent</field>
+        <field name="model">sm.shifa.nurse.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa_more.view_shifa_nurse_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[2]/group[2]" position="after">
+                <field name="consent_ids" widget="one2many_list" nolabel="1"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="physician_assessment_form_consent" model="ir.ui.view">
+        <field name="name">physician_assessment_consent</field>
+        <field name="model">sm.shifa.physician.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa_more.view_shifa_physician_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <field name="consent_ids" widget="one2many_list" nolabel="1"
+                       context="{'default_patient': active_id}" attrs="{'invisible': [('consent_show', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,175 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_discounts_form_view">
+            <field name="name">Discounts</field>
+            <field name="model">sm.shifa.discounts</field>
+            <field name="arch" type="xml">
+                <form string="Discounts">
+                    <header>
+                        <button name="make_active" confirm="Are you sure you want to mark discounts as Active?"
+                                states="Draft" string="Make Active" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Active,Expired"/>
+                    </header>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="exp_date"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="discounts_type"/>
+                            </group>
+                            <group attrs="{'invisible': [('discounts_type', '=', False)]}">
+                                <field name="fixed_type"/>
+                            </group>
+                        </group>
+                        <group>
+                            <label for="apply_to"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" string="Apply to"/>
+                            <field name="apply_to" readonly="1" class="oe_inline"/>
+<group>
+    <div class="row mt16 o_settings_container">
+        <div class="col-12 col-lg-12 o_setting_box">
+            <div class="o_setting_left_pane">
+                <field name="hhc" string="HHC"/>
+            </div>
+            <div class="o_setting_right_pane">
+                <label for="hhc" string="HHC"/>
+            </div>
+        </div>
+        <div class="col-12 col-lg-12 o_setting_box">
+            <div class="o_setting_left_pane">
+                <field name="tele" string="Tele"/>
+            </div>
+            <div class="o_setting_right_pane">
+                <label for="tele" string="Tele"/>
+            </div>
+        </div>
+        <div class="col-12 col-lg-12 o_setting_box">
+            <div class="o_setting_left_pane">
+                <field name="hvd" string="HVD"/>
+            </div>
+            <div class="o_setting_right_pane">
+                <label for="hvd" string="HVD"/>
+            </div>
+        </div>
+        <div class="col-12 col-lg-12 o_setting_box">
+            <div class="o_setting_left_pane">
+                <field name="physiotherapy" string="Physiotherapy"/>
+            </div>
+            <div class="o_setting_right_pane">
+                <label for="physiotherapy" string="Physiotherapy"/>
+            </div>
+        </div>
+        <div class="col-12 col-lg-12 o_setting_box">
+            <div class="o_setting_left_pane">
+                <field name="sleep" string="Sleep Medicine Request"/>
+            </div>
+            <div class="o_setting_right_pane">
+                <label for="sleep" string="Sleep Medicine Request"/>
+            </div>
+        </div>
+        <div class="col-12 col-lg-12 o_setting_box">
+            <div class="o_setting_left_pane">
+                <field name="caregiver" string="Caregiver Contract"/>
+            </div>
+            <div class="o_setting_right_pane">
+                <label for="caregiver" string="Caregiver Contract"/>
+            </div>
+        </div>
+    </div>
+    <field name="customer_code"/>
+</group>
+
+
+                            <!--<field name="apply_to" readonly="1" class="oe_inline"/>
+                            <group>
+                                <div class="row mt16 o_settings_container">
+                                    <div class="col-12 col-lg-12 o_setting_box">
+                                        <div class="o_setting_left_pane">
+                                            <field name="hhc" string="HHC"/>
+                                        </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="hhc" string="HHC"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-12 o_setting_box">
+                                        <div class="o_setting_left_pane">
+                                            <field name="tele" string="Tele"/>
+                                        </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="tele" string="Tele"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-12 o_setting_box">
+                                        <div class="o_setting_left_pane">
+                                            <field name="hvd" string="HVD"/>
+                                        </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="hvd" string="HVD"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-12 o_setting_box">
+                                        <div class="o_setting_left_pane">
+                                            <field name="physiotherapy" string="Physiotherapy"/>
+                                        </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="physiotherapy" string="Physiotherapy"/>
+                                        </div>
+                                    </div>
+
+                                    &lt;!&ndash;                                    <field name="hhc" widget="checkbox" string="HHC"/>&ndash;&gt;
+                                    &lt;!&ndash;                                    <field name="tele" widget="checkbox" string="Tele"/>&ndash;&gt;
+                                    &lt;!&ndash;                                    <field name="hvd"  widget="checkbox" string="HVD"/>&ndash;&gt;
+                                    &lt;!&ndash;                                    <field name="pcr"  widget="checkbox" string="PCR"/>&ndash;&gt;
+                                    &lt;!&ndash;                                    <field name="physiotherapy" widget="checkbox"/>&ndash;&gt;
+                                </div>
+                                <field name="customer_code"/>
+
+                            </group>-->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_discounts_tree">
+            <field name="name">Discounts</field>
+            <field name="model">sm.shifa.discounts</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="exp_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="sm_shifa_discounts_action_tree" model="ir.actions.act_window">
+            <field name="name">Discounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.discounts</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new discount records.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="sm_shifa_discounts_conf_list"
+                  name="Discounts"
+                  action="sm_shifa_discounts_action_tree"
+                  parent="smartmind_shifa.shifa_services_management_menu"
+                  sequence="29"/>
+
+    </data>
+</odoo>

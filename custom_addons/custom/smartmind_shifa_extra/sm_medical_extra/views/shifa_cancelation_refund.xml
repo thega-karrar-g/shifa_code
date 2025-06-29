@@ -1,0 +1,327 @@
+<odoo>
+    <data>
+        <record id="view_shifa_cancellation_refund_form" model="ir.ui.view">
+            <field name="name">shifa.cancellation.refund.form</field>
+            <field name="model">sm.shifa.cancellation.refund</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="received,operation_manager,Reject,requestaccepted,Processed,Refund"/>
+                        <!--<button confirm="Are you sure you want to go back to Operation Manager?" name="set_to_operation_manager"
+                                states="Processed" string="Back to Operation Manager" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>-->
+
+                        <button confirm="Are you sure you want to Operation Manager?" name="set_to_operation_manager"
+                                states="received" string="Send to Operation Manager" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>
+
+                        <button confirm="Are you sure you want to Accept? Be sure that the appointment has been canceled before proceeding"
+                                name="set_to_accept"
+                                states="operation_manager" string="Accept" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>
+                        <button confirm="Are you sure you want to Reject?" name="set_to_reject"
+                                states="operation_manager" string="Reject" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>
+                        <button confirm="Are you sure you want to Cancel?" name="set_to_cancel"
+                                states="operation_manager,Processed" string="Cancel" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>
+                        <!--<button confirm="Are you sure you want to send to Accept?" name="set_to_accept"
+                                states="Reject" string="Accept" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>-->
+                        <button confirm="Are you sure you want to Create Refund Request?" name="set_to_refund_request"
+                                states="requestaccepted"
+                                string="Create Refund Request" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+
+                        <button confirm="Are you sure you want to Refund this item?" name="set_to_refund"
+                                states="Processed"
+                                string="Refund" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_accountant"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="Can-Re#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="patient"/>
+                                <field name="mobile"/>
+                                <field name="date"/>
+                                <field name="reason"/>
+                            </group>
+                            <group>
+                                <field name="accepted_by" attrs="{'invisible': [('accepted_by', '=', False)]}"/>
+                                <field name="refund_by" attrs="{'invisible': [('refund_by', '=', False)]}"/>
+                                <field name="patient_balance"
+                                       attrs="{'invisible': [('state', 'not in', ['requestaccepted', 'Processed', 'Refund'])]}"/>
+                                <button class="oe_highlight" type="object" name="action_open_statement"
+                                        string='Patient Statement'
+                                        attrs="{'invisible': [('state', 'not in', ['requestaccepted', 'Processed', 'Refund'])]}"/>
+                                <field name="account_details"/>
+                                <field name="payment_id" readonly="1"
+                                       attrs="{'invisible': [('payment_id', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <group string="Appointment Details">
+                            <field name="type"
+                                   attrs="{'readonly': [('state', 'in', ['Reject', 'requestaccepted'])]}"/>
+                        </group>
+                        <group string="Appointment Details" name="appointment_details"
+                               attrs="{'invisible': [('type', '=', False)]}">
+                            <group attrs="{'invisible': [('type', '!=', 'hhc_appointment')]}">
+                                <field name="hhc_appointment" string="HHC Appointment"/>
+                                <field name="date_hhc_appointment"/>
+                            </group>
+                            <group attrs="{'invisible': [('type', '!=', 'appointment')]}">
+                                <field name="appointment" string="Tele Appointment"/>
+                                <field name="date_appointment"/>
+                            </group>
+                            <group attrs="{'invisible': [('type', '!=', 'hvd_appointment')]}">
+                                <field name="hvd_appointment" string="HVD Appointment"/>
+                                <field name="date_hvd_appointment"/>
+                            </group>
+                            <group attrs="{'invisible': [('type', '!=', 'phy_appointment')]}">
+                                <field name="phy_appointment" string="Phy Appointment"/>
+                                <field name="date_phy_appointment"/>
+                            </group>
+                            <group attrs="{'invisible': [('type', '!=', 'pcr_appointment')]}">
+                                <field name="pcr_appointment" string="PCR Appointment"/>
+                                <field name="date_pcr_appointment"/>
+                            </group>
+                            <group attrs="{'invisible': [('type', '!=', 'package')]}">
+                                <field name="package_id"/>
+                                <field name="package_date"/>
+                            </group>
+                            <group attrs="{'invisible': [('type', '!=', 'multipackage')]}">
+                                <field name="multi_package_id"/>
+                                <field name="multi_package_date"/>
+                            </group>
+                            <group attrs="{'invisible': [('type', '!=', 'instant')]}" name="instant">
+                                <field name="instant_id"/>
+                                <field name="instant_date"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="call_center_comments_show" string="Call Center Comments"
+                                   style=" font-size: 20px; color:#7C7BAD; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="call_center_comments_show" nolabel="1" invisible="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="call_center_comments" string=""/>
+                        </group>
+                        <group col="3">
+                            <label for="operation_manager_comments_show" string="Operation Manager Comments"
+                                   style=" font-size: 20px; color:#7C7BAD; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="operation_manager_comments_show" nolabel="1" invisible="1"
+                                       widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="operation_manager_comments" string=""/>
+                        </group>
+                        <group col="3">
+                            <label for="accounting_comments_show" string="Accounting Comments"
+                                   style=" font-size: 20px; color:#7C7BAD; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="accounting_comments_show" nolabel="1" invisible="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="accounting_comments"/>
+                        </group>
+                    </sheet>
+                    <!--<sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="Can-Re#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="patient"/>
+                                <field name="patient_balance"
+                                       attrs="{'invisible': [('state','!=','requestaccepted')]}"/>
+                                <button class="oe_highlight" type="object" name="action_open_statement"
+                                        string='Patient Statement'
+                                        attrs="{'invisible': [('state','!=','requestaccepted')]}"/>
+                                <field name="active" invisible="1"/>
+                                <field name="accepted_by" attrs="{'invisible': [('accepted_by', '=', False)]}"/>
+                                <field name="refund_by" attrs="{'invisible': [('refund_by', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="reason"/>
+                                <field name="account_details"/>
+                            </group>
+                            <group>
+                                <field name="mobile"/>
+                            </group>
+                            &lt;!&ndash;                            <group>&ndash;&gt;
+                            &lt;!&ndash;                                <field name="type"/>&ndash;&gt;
+                            &lt;!&ndash;                            </group>&ndash;&gt;
+                        </group>
+
+                        <group string="Appointment Details" name="appointment_details">
+                            &lt;!&ndash;                            <field name="type"/>&ndash;&gt;
+                            <field name="type" attrs="{'readonly': [('state', 'in', ['Reject', 'requestaccepted'])]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('type', '=', False)]}">
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'hhc_appointment')]}">
+                            <group>
+                                <field name="hhc_appointment" string="HHC Appointment"/>
+                            </group>
+                            <group>
+                                <field name="date_hhc_appointment"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'appointment')]}">
+                            <group>
+                                <field name="appointment" string="Tele Appointment"/>
+                            </group>
+                            <group>
+                                <field name="date_appointment"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'hvd_appointment')]}">
+                            <group>
+                                <field name="hvd_appointment" string="HVD Appointment"/>
+                            </group>
+                            <group>
+                                <field name="date_hvd_appointment"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'phy_appointment')]}">
+                            <group>
+                                <field name="phy_appointment" string="Phy Appointment"/>
+                            </group>
+                            <group>
+                                <field name="date_phy_appointment"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'pcr_appointment')]}">
+                            <group>
+                                <field name="pcr_appointment" string="PCR Appointment"/>
+                            </group>
+                            <group>
+                                <field name="date_pcr_appointment"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'package')]}">
+                            <group>
+                                <field name="package_id"/>
+                            </group>
+                            <group>
+                                <field name="package_date"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'multipackage')]}">
+                            <group>
+                                <field name="multi_package_id"/>
+                            </group>
+                            <group>
+                                <field name="multi_package_date"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', '!=', 'instant')]}" name="instant">
+                            <group>
+                                <field name="instant_id"/>
+                            </group>
+                            <group>
+                                <field name="instant_date"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="call_center_comments_show" string="Call Center Comments"
+                                   style=" font-size: 20px; color:#7C7BAD; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="call_center_comments_show" nolabel="1" invisible="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="call_center_comments" string=""/>
+                        </group>
+
+                        <group col="3">
+                            <label for="operation_manager_comments_show" string="Operation Manager Comments"
+                                   style=" font-size: 20px; color:#7C7BAD; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="operation_manager_comments_show" nolabel="1" invisible="1"
+                                       widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="operation_manager_comments" string=""/>
+                        </group>
+
+                        <group col="3">
+                            <label for="accounting_comments_show" string="Accounting Comments"
+                                   style=" font-size: 20px; color:#7C7BAD; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="accounting_comments_show" nolabel="1" invisible="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="accounting_comments" string=""
+                                       attrs="{'required': [('state', '=', 'Processed')]}"/>
+                            </group>
+                        </group>
+                    </sheet>-->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_cancellation_refund_tree" model="ir.ui.view">
+            <field name="name">shifa.cancellation.refund.tree</field>
+            <field name="model">sm.shifa.cancellation.refund</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Reference"/>
+                    <field name="patient"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_cancellation_refund_action" model="ir.actions.act_window">
+            <field name="name">Cancellation/Refund Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.cancellation.refund</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Cancellation/Refund Request found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="cancellation_refund_root"
+                  name="Cancellation/Refund Request"
+                  parent="smartmind_shifa.shifa_operations_others_menu"
+                  action="sm_shifa_cancellation_refund_action"
+                  sequence="1"
+        />
+
+    </data>
+</odoo>

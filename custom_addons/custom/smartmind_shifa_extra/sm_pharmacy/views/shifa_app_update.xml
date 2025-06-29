@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+
+        <record id="sm_app_update_tree" model="ir.ui.view">
+            <field name="name">App Update</field>
+            <field name="model">sm.shifa.app.update</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="app_update"/>
+                    <field name="code"/>
+                    <field name="version"/>
+                </tree>
+            </field>
+        </record>
+       <record id="sm_app_update_form" model="ir.ui.view">
+            <field name="name">App Update</field>
+            <field name="model">sm.shifa.app.update</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="app_update"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="version"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_app_update_action" model="ir.actions.act_window">
+            <field name="name">App Update</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.app.update</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No data to show here
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="sm_app_update"
+                  name="App Update"
+                  parent="smartmind_shifa.shifa_config_others_menu"
+                  action="sm_app_update_action"
+                  sequence="27"/>
+
+
+    </data>
+</odoo>

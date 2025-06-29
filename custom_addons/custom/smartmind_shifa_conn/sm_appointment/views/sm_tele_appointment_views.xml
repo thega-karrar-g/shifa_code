@@ -1,0 +1,205 @@
+<odoo>
+    <record id="action_open_requested_payment_from_tele" model="ir.actions.act_window">
+        <field name="name">Requested Payment from Tele Appointments</field>
+        <field name="res_model">sm.shifa.requested.payments</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="shifa_appointment_payment_view_form_inherit" model="ir.ui.view">
+        <field name="name">Shifa Telemedicine Appointment Payment Request</field>
+        <field name="model">oeh.medical.appointment</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_appointment_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='set_to_completed']" position="replace">
+                <button confirm="Are you sure you want to mark appointment as completed?"
+                        name="set_to_completed" states="Start" string="Mark as Completed" type="object"
+                        class="oe_highlight"
+                        groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_home_visit_doctor,smartmind_shifa.group_oeh_medical_head_doctor,oehealth.group_oeh_medical_physician"/>
+            </xpath>
+            <xpath expr="/form/sheet/div[@name='button_box']/button" position="after">
+                <button type="object" class="oe_stat_button" icon="fa-dollar"
+                        attrs="{'invisible':[('pay_req_id','==',False)]}"
+                        name="open_requested_payment" string="Req.Payment">
+                </button>
+                <button type="object" class="oe_stat_button" icon="fa-dollar"
+                        attrs="{'invisible': [('move_id','=',False)]}"
+                        name="open_invoice_view" string="Invoice">
+                </button>
+            </xpath>
+            <xpath expr="/form/sheet/group[3]" position="after">
+                <group string="Price Details">
+                    <group>
+                        <field name="total_service_price" force_save="True"/>
+                        <field name="discount_name"/>
+                        <field name="discount" force_save="True"/>
+                        <field name="discount_val" force_save="True"/>
+                        <field name="pay_req_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="tax"/>
+                        <field name="amount_payable"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="add_payment_request" style="font-size:24px;"/>
+                </group>
+                <field name="payment_request" attrs="{'invisible': [('add_payment_request', '=', False)]}"
+                       widget="one2many_list" string=" "
+                       context="{'default_patient':patient, 'default_appointment':id, 'default_date':appointment_date,
+                       'default_payment_amount':amount_payable}">
+
+                    <form>
+                        <header>
+                            <field name="state" widget="statusbar"
+                                   statusbar_visible="Start,Send,Payed,Reject"/>
+                            <button confirm="Are you sure you want to Send tp Patient?" name="set_to_send"
+                                    states="Start" string="Send to Patient" type="object"
+                                    groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"
+                                    class="oe_highlight"/>
+                            <button confirm="Are you sure you want to Pay?" name="set_to_pay"
+                                    states="Send" string="Pay" type="object" class="oe_highlight"/>
+                            <button confirm="Are you sure you want to Reject?" name="set_to_reject"
+                                    states="Send" string="Reject" type="object" class="oe_highlight"/>
+                        </header>
+                        <sheet>
+                            <div class="oe_left" style="width: 500px;">
+                                <div class="oe_title" style="width: 390px;">
+                                    <label for="name" string="Req-P#"/>
+                                    <h1>
+                                        <field name="name" readonly="1" class="oe_inline"/>
+                                    </h1>
+                                </div>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="patient"/>
+                                </group>
+                                <group>
+                                    <field name="date"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="payment_amount"/>
+                                </group>
+                                <group>
+                                    <field name="payment_reference"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="payment_document"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="details"/>
+                            </group>
+                            <group col="3">
+                                <label for="appointment_details_show" string="Appointment Details"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="appointment_details_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('appointment_details_show', '=', False)]}">
+                                <group>
+                                    <field name="appointment" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="date_appointment" readonly="1"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+            </xpath>
+            <xpath expr="//field[@name='payment_type']" position="before">
+                <field name="insurance"/>
+            </xpath>
+            <xpath expr="//field[@name='institution']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[5]" position="after">
+                <page string="Prescriptions">
+                    <field name="pres_apt_line" widget="one2many_list" nolabel="1"
+                           context="{'default_patient':patient}"/>
+                    <!--<field name="pres_tele_line" context="{'default_patient': patient}"
+                           widget="one2many_list" nolabel="1">
+                    </field>-->
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='payment_reference']" position="after">
+                <field name="payment_made_through"/>
+                <field name="pro_pending"
+                       attrs="{'readonly': [('state', '!=', 'Confirmed')], 'invisible': [('payment_made_through', '!=', 'pending')]}"
+                       groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                <field name="pay_req_id" readonly="1" attrs="{'invisible': [('pay_req_id','=',False)]}"/>
+                <field name="refund_request_id" readonly="1" attrs="{'invisible': [('refund_request_id','=',False)]}"/>
+                <field name="move_type" invisible="1"/>
+                <field name="move_id" readonly="1" attrs="{'invisible': [('move_type','!=','out_invoice')]}"
+                       string='Invoice'/>
+                <field name="cancelation_reason" readonly="1"
+                       attrs="{'invisible': [('cancelation_reason','=',False)]}"/>
+                <field name="credit_note_id" readonly="1" attrs="{'invisible': [('credit_note_id','=',False)]}"/>
+                <field name="reason" readonly="1" attrs="{'invisible': [('reason','=',False)]}"/>
+                <field name="new_appointment" readonly="1" attrs="{'invisible': [('new_appointment','=',False)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='set_to_canceled']" position="attributes">
+                <attribute name="name">open_cancel_reason</attribute>
+                <attribute name="states">Scheduled,Confirmed,Start</attribute>
+                <attribute name="groups">
+                    oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="tele_medical_appointment_cancellation_form" model="ir.ui.view">
+        <field name="name">Telemedicine Appointment Cancel</field>
+        <field name="model">oeh.medical.appointment</field>
+        <field name="priority" eval="1000"/>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="cancelation_reason" required="1"/>
+                        <field name="reason" required="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="set_to_canceled" string="Validate" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="shifa_appointment_payment_view_list_inherit" model="ir.ui.view">
+        <field name="name">Shifa Telemedicine Appointment Payment Request Reference</field>
+        <field name="model">oeh.medical.appointment</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_appointment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='institution']" position="replace">
+                <field name="payment_ref" string="Payment Reference"/>
+            </xpath>
+            <xpath expr="//field[@name='patient_status']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='urgency_level']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

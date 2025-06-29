@@ -1,0 +1,861 @@
+<odoo>
+    <data>
+        <record id="icu_admission_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.icu.admission.inherit</field>
+            <field name="model">oeh.medical.icu.admission</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_icu_admission_mgmnt_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='set_to_ventilation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="state" position="replace">
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Draft,Hospitalized,Discharged,Invoiced"/>
+                </field>
+
+                <field name="name" position="attributes">
+                    <attribute name="string">Home Admission #</attribute>
+                </field>
+                <xpath expr="//label[@class='oe_edit_only']" position="attributes">
+                    <attribute name="string">Home Admission #</attribute>
+                </xpath>
+                <field name="admission_reason" position="after">
+                    <field name="present_illness_history"/>
+                </field>
+                <field name="operating_physician" position="after">
+                    <field name="admission_type"/>
+                </field>
+                <field name="icu_room" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <group name="ventilation" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </group>
+                <xpath expr="/form/sheet/group[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group[4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group[4]" position="after">
+                    <group string="Patient Details">
+                        <group>
+                            <field name="dob"/>
+                            <field name="marital_status"/>
+                            <!--<field name="drug_allergy_content" style="color:Red;"/>
+                            <field name="food_allergy_content" style="color:Red;"/>
+                            <field name="other_allergy_content" style="color:Red;"/>-->
+                        </group>
+                        <group>
+                            <field name="sex"/>
+                            <field name="blood_type"/>
+                            <field name="rh"/>
+                        </group>
+                    </group>
+                </xpath>
+                <!--<xpath expr="/form/sheet/notebook/page[1]" position="before">
+                    <page string="Physician Admission Form">
+                        <field name="physician_admission_ids" widget="one2many_list"
+                               context="{'default_admission_id':name,'default_patient':patient}"/>
+                    </page>
+                    <page string="Nursing Assessment Form">
+                        <field name="nursing_assessment_ids" widget="one2many_list"
+                               context="{'default_admission_id':name,'default_patient':patient}"/>
+                    </page>
+                    <page string="Treatment Plan And Progress Summary">
+                        <field name="patient_treatment_ids" widget="one2many_list"
+                               context="{'default_admission_id':name,'default_patient':patient}"/>
+                    </page>
+                    &lt;!&ndash;<page string="Medical History">
+                        <group string="PAST MEDICAL ILL NESS">
+                            <group>
+                                <field name="hbv_infection_chk"/>
+                            </group>
+                            <group>
+                                <field name="hbv_infection_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="dm_chk"/>
+                            </group>
+                            <group>
+                                <field name="dm_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="ihd_chk"/>
+                            </group>
+                            <group>
+                                <field name="ihd_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="cold_chk"/>
+                            </group>
+                            <group>
+                                <field name="cold_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="hypertension_chk"/>
+                            </group>
+                            <group>
+                                <field name="hypertension_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="surgery_chk"/>
+                            </group>
+                            <group>
+                                <field name="surgery_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="others_past_illness" string="Others"/>
+                        </group>
+                        <group string="DRUGS">
+                            <group>
+                                <field name="nsaids_chk"/>
+                            </group>
+                            <group>
+                                <field name="nsaids_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="aspirin_chk"/>
+                            </group>
+                            <group>
+                                <field name="aspirin_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="laxative_chk"/>
+                            </group>
+                            <group>
+                                <field name="laxative_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="others_drugs" string="Others"/>
+                        </group>
+                        <group string="MENSTRUAL HISTORY">
+                            <group>
+                                <field name="lmp_chk"/>
+                            </group>
+                            <group>
+                                <field name="lmp_dt"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="menorrhagia_chk"/>
+                            </group>
+                            <group>
+                                <field name="menorrhagia_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="dysmenorrhoea_chk"/>
+                            </group>
+                            <group>
+                                <field name="dysmenorrhoea_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="bleeding_pv_chk"/>
+                            </group>
+                            <group>
+                                <field name="bleeding_pv_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="last_pap_smear_chk"/>
+                            </group>
+                            <group>
+                                <field name="last_pap_smear_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Lifestyle">
+                        <group>
+                            <group string="Physical Exercise">
+                                <field name="exercise"/>
+                                <field name="exercise_minutes_day"/>
+                            </group>
+                            <group string="Sleep">
+                                <field name="sleep_during_daytime"/>
+                                <field name="sleep_hours"/>
+                            </group>
+                        </group>
+                        <group string="Diet info">
+                            <group>
+                                <field name="number_of_meals"/>
+                                <field name="eats_alone"/>
+                                <field name="coffee"/>
+                                <field name="coffee_cups"/>
+                            </group>
+                            <group>
+                                <field name="soft_drinks"/>
+                                <field name="salt"/>
+                                <field name="diet"/>
+                                <field name="diet_info"/>
+                            </group>
+                        </group>
+                        <group string="Lifestyle Information">
+                            <field name="lifestyle_info" nolabel="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Addictions">
+                                <group string="Smoking">
+                                    <group>
+                                        <field name="smoking"/>
+                                        <field name="ex_smoker"/>
+                                        <field name="age_start_smoking"/>
+                                    </group>
+                                    <group>
+                                        <field name="smoking_number"/>
+                                        <field name="second_hand_smoker"/>
+                                        <field name="age_quit_smoking"/>
+                                    </group>
+                                </group>
+                                <group string="Drinking">
+                                    <group>
+                                        <field name="alcohol"/>
+                                        <field name="age_start_drinking"/>
+                                        <field name="alcohol_beer_number"/>
+                                        <field name="alcohol_liquor_number"/>
+                                    </group>
+                                    <group>
+                                        <field name="ex_alcoholic"/>
+                                        <field name="age_quit_drinking"/>
+                                        <field name="alcohol_wine_number"/>
+                                    </group>
+                                </group>
+                                <group string="Drugs">
+                                    <group>
+                                        <field name="drug_usage"/>
+                                        <field name="age_start_drugs"/>
+                                        <field name="ex_drug_addict"/>
+                                    </group>
+                                    <group>
+                                        <field name="drug_iv"/>
+                                        <field name="age_quit_drugs"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    &lt;!&ndash;                                        <field name="drugs" widget="many2many_tags"/>&ndash;&gt;
+                                </group>
+                            </page>
+                            <page string="Sexuality">
+                                <group>
+                                    <group>
+                                        <field name="sexual_preferences"/>
+                                        <field name="sexual_partners_number"/>
+                                        <field name="sexual_practices"/>
+                                    </group>
+                                    <group>
+                                        <field name="sexual_partners"/>
+                                        <field name="first_sexual_encounter"/>
+                                        <field name="anticonceptive"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Other sexual practices">
+                                        <field name="sex_oral"/>
+                                        <field name="sex_anal"/>
+                                    </group>
+                                    <group string="Prostitution">
+                                        <field name="prostitute"/>
+                                        <field name="sex_with_prostitutes"/>
+                                    </group>
+                                </group>
+                                <group string="Patient Sexuality Info">
+                                    <field nolabel="1" name="sexuality_info"/>
+                                </group>
+                            </page>
+                            <page string="Drive and Home Safety">
+                                <group>
+                                    <group>
+                                        <field name="motorcycle_rider"/>
+                                        <field name="helmet"/>
+                                        <field name="traffic_laws"/>
+                                        <field name="car_revision"/>
+                                    </group>
+                                    <group>
+                                        <field name="car_seat_belt"/>
+                                        <field name="car_child_safety"/>
+                                        <field name="home_safety"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </page>
+                    <page string="Investigations">
+                        <notebook>
+                            <page string="Lab Test">
+                                <field name="lab_test_ids" widget="one2many_list" nolabel="1"/>
+                            </page>
+                            <page string="Image Test">
+                                <field name="image_test_ids" widget="one2many_list" nolabel="1"/>
+                            </page>
+                            <page string="Other">
+                                <field name="investigation_ids" widget="one2many_list" nolabel="1"
+                                        context="{'default_patient': patient}"/>
+                            </page>
+                        </notebook>
+                    </page>
+                    <page string="Evaluations">
+                        <field name="evaluation_ids" widget="one2many_list"
+                               context="{'default_appointment': active_id, 'default_patient':patient}"/>
+                    </page>
+                    <page string="Prescribed Medicines">
+                        <field name="prescribed_medicines" nolabel="1" context="{'default_patient': patient}">
+                            <form string="Prescribed Medicines">
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="dose_form"/>
+                                        <field name="start_treatment"/>
+                                        <field name="patient" domain="[('id', '=', parent.patient)]" required="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="indication"/>
+                                        <field name="dose_route"/>
+                                        <field name="end_treatment"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Dosage">
+                                        <field name="qty" required="1"/>
+                                        <label for="dose"/>
+                                        <div>
+                                            <field name="dose" placeholder="250" style="width: 20%%"/>
+                                            <field name="dose_unit" placeholder="mg" style="width: 40%%"/>
+                                        </div>
+                                    </group>
+                                    <group string="Common Dosage">
+                                        <field name="common_dosage"/>
+                                        <field name="admin_times"/>
+                                    </group>
+                                </group>
+                                <group string="Specific Dosage">
+                                    <p class="oe_grey">
+                                        Time in between doses the patient must wait (ie, for 1 pill each 8 hours, put
+                                        here 8 and select 'hours' in the unit field)
+                                    </p>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="frequency"/>
+                                    </group>
+                                    <group>
+                                        <field name="frequency_unit"/>
+                                    </group>
+                                </group>
+                                <group string="Treatment">
+                                    <p class="oe_grey">
+                                        Treatment period that the patient must take the medication in minutes, hours,
+                                        days, months, years or indefinitely
+                                    </p>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="duration" string="Day(s)"/>
+                                    </group>
+                                    <group>
+                                        <field name="duration_period" string="Period"/>
+                                    </group>
+                                </group>
+                                <group string="Comment">
+                                    <field name="info" nolabel="1"/>
+                                </group>
+                            </form>
+                            <tree string="Medicines">
+                                <field name="name"/>
+                                <field name="indication"/>
+                                <field name="dose"/>
+                                <field name="dose_unit"/>
+                                <field name="dose_form"/>
+                                <field name="common_dosage"/>
+                                <field name="qty"/>
+                                <field name="duration"/>
+                                <field name="duration_period"/>
+                                <field name="info"/>
+                                <field name="inpatient_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Consumed Medicines">
+                        <field name="consumed_medicines" nolabel="1">
+                            <form string="Consumed Medicines">
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="user_id" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="date_time"/>
+                                    </group>
+                                </group>
+                                <group string="Dose">
+                                    <field name="dose_no" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="qty" required="1"/>
+                                </group>
+                                <group>
+                                    <label for="dose"/>
+                                    <div>
+                                        <field name="dose" placeholder="250" style="width: 20%%"/>
+                                        <field name="dose_unit" placeholder="mg" style="width: 40%%"/>
+                                    </div>
+                                </group>
+                                <group string="Remarks">
+                                    <field name="remarks" nolabel="1"/>
+                                </group>
+                            </form>
+                            <tree>
+                                <field name="name"/>
+                                <field name="date_time"/>
+                                <field name="user_id"/>
+                                <field name="dose_no"/>
+                                <field name="qty"/>
+                                <field name="dose"/>
+                                <field name="dose_unit"/>
+                                <field name="remarks"/>
+                                <field name="inpatient_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Nursing Plan">
+                        <group>
+                            <group>
+                                <field name="nursing_plan" nolabel="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Consultation Comment">
+                        <group>
+                            <group>
+                                <field name="comments" nolabel="1"/>
+                            </group>
+                        </group>
+                    </page>&ndash;&gt;
+                </xpath>-->
+                <xpath expr="/form/sheet/group[5]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group[6]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="icu_admission_view_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.icu.admission.inherit</field>
+            <field name="model">oeh.medical.icu.admission</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_icu_admissions_mgmnt_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="string">Home Admission #</attribute>
+                </field>
+                <field name="icu_room" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!--<record id="icu_admission_examination_view_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Patient Examination</field>
+            <field name="model">oeh.medical.icu.admission</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_icu_admission_mgmnt_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                    <page string="Examination">
+                        <form>
+                            <sheet>
+                                <group string="Anthropometry">
+                                    <group>
+                                        <field name="weight"/>
+                                        <field name="abdominal_circ"/>
+                                        <field name="bmi"/>
+                                    </group>
+                                    <group>
+                                        <field name="height"/>
+                                        <field name="head_circumference"/>
+                                    </group>
+                                </group>
+
+                                <group string="Vital Signs">
+                                    <group>
+                                        <field name="temperature"/>
+                                        <field name="systolic"/>
+                                        <field name="respiratory_rate"/>
+                                    </group>
+                                    <group>
+                                        <field name="osat"/>
+                                        <field name="diastolic"/>
+                                        <field name="bpm"/>
+                                    </group>
+                                </group>
+
+                                <group string="Glucose">
+                                    <group>
+                                        <field name="glycemia"/>
+                                    </group>
+                                    <group>
+                                        <field name="hba1c"/>
+                                    </group>
+                                </group>
+                                <group string="Nutrition">
+                                    <group>
+                                        <field name="malnutrition"/>
+                                    </group>
+                                    <group>
+                                        <field name="dehydration"/>
+                                    </group>
+                                </group>
+                                <group>
+
+                                    <div class="oe_ inline">
+                                        <label for="head_neck" string="Head and Neck:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="head_neck" nolabel="1" widget="checkbox"
+                                               style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="head_neck_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('head_neck', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="cardiovascular"
+                                               string="Cardiovascular (including Peripheral Pluse):"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="cardiovascular" nolabel="1" widget="checkbox"
+                                               style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="cardiovascular_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('cardiovascular', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="chest" string="Chest:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="chest" nolabel="1" widget="checkbox" style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="chest_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('chest', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="abdomen" string="Abdomen:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="abdomen" nolabel="1" widget="checkbox" style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="abdomen_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('abdomen', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="musculo" string="Musculoskeletal/Extremities:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="musculo" nolabel="1" widget="checkbox" style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="musculo_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('musculo', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="cns" string="CNS (including Fundal Examination:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="cns" nolabel="1" widget="checkbox" style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="cns_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('cns', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="psychiatric" string="Psychiatric/Mental Status:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="psychiatric" nolabel="1" widget="checkbox"
+                                               style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="psychiatric_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('psychiatric', '=', True)]}"/>
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="rectal" string="Rectal/Genitourinary:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="rectal" nolabel="1" widget="checkbox" style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="rectal_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('rectal', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="skin" string="Skin:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="skin" nolabel="1" widget="checkbox" style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="skin_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('skin', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="urine_test" string="Urine Test (Point of Care Testing:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="urine_test" nolabel="1" widget="checkbox"
+                                               style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="urine_test_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('urine_test', '=', True)]}"/>
+
+                                <group>
+                                    <div class="oe_ inline">
+                                        <label for="develop" string="Development:"
+                                               style=" font-size: 14px; margin-right:10px"/>
+                                        <field name="develop" nolabel="1" widget="checkbox" style="margin-right:10px"/>
+                                        <span>NAD</span>
+                                    </div>
+                                </group>
+                                <field name="develop_content" nolabel="1" style="margin:10px"
+                                       attrs="{'invisible': [('develop', '=', True)]}"/>
+
+                                <group string="Photo Images">
+                                    <group>
+                                        <field name="image1" widget="image" options="{&quot;size&quot;: [150, 150]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="image2" widget="image" options="{&quot;size&quot;: [150, 150]}"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </page>
+                </xpath>
+            </field>
+        </record>-->
+
+        <record id="icu_home_rounding_view_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Home Rounding</field>
+            <field name="model">oeh.medical.icu.admission</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_icu_admission_mgmnt_view"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Home Rounding">
+                        <field name="home_rounding_ids" widget="one2many_list"
+                               context="{'default_admission_id':name,'default_patient':patient}"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <!--<record id="icu_admission_review_system_view_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Patient Examination</field>
+            <field name="model">oeh.medical.icu.admission</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_icu_admission_mgmnt_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[1]" position="before">
+                    <page string="Review of the System">
+                        <form>
+                            <sheet>
+                                <group col="2" colospan="3" string="Review Systems" align="center">
+                                    <group>
+                                        <label for="constitutional" string="Constitutional"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="constitutional" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="constitutional_content" nolabel="1"
+                                               attrs="{'invisible': [('constitutional', '=', True)]}"/>
+                                    </group>
+                                    &lt;!&ndash; 2nd field&ndash;&gt;
+                                    <group>
+                                        <label for="head" string="Head, Eye, Ear, Nose and Throat"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="head" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="head_content" nolabel="1"
+                                               attrs="{'invisible': [('head', '=', True)]}"/>
+                                    </group>
+
+                                    &lt;!&ndash; 3rd field&ndash;&gt;
+                                    <group>
+                                        <label for="cardiovascular" string="Cardiovascular"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="cardiovascular" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="cardiovascular_content" nolabel="1"
+                                               attrs="{'invisible': [('cardiovascular', '=', True)]}"/>
+                                    </group>
+
+                                    &lt;!&ndash; 4th field&ndash;&gt;
+                                    <group>
+                                        <label for="pulmonary" string="Pulmonary"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="pulmonary" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="pulmonary_content" nolabel="1"
+                                               attrs="{'invisible': [('pulmonary', '=', True)]}"/>
+                                    </group>
+                                    &lt;!&ndash; 5th field&ndash;&gt;
+                                    <group>
+                                        <label for="gastroenterology" string="Gastroenterology"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="gastroenterology" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="gastroenterology_content" nolabel="1"
+                                               attrs="{'invisible': [('gastroenterology', '=', True)]}"/>
+                                    </group>
+                                    &lt;!&ndash; 6th field&ndash;&gt;
+                                    <group>
+                                        <label for="genitourinary" string="Genitourinary"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="genitourinary" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="genitourinary_content" nolabel="1"
+                                               attrs="{'invisible': [('genitourinary', '=', True)]}"/>
+                                    </group>
+                                    &lt;!&ndash; 7th field&ndash;&gt;
+                                    <group>
+                                        <label for="dermatological" string="Dermatological"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="dermatological" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="dermatological_content" nolabel="1"
+                                               attrs="{'invisible': [('dermatological', '=', True)]}"/>
+                                    </group>
+                                    &lt;!&ndash; 8th field&ndash;&gt;
+                                    <group>
+                                        <label for="musculoskeletal" string="Musculoskeletal"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="musculoskeletal" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="musculoskeletal_content" nolabel="1"
+                                               attrs="{'invisible': [('musculoskeletal', '=', True)]}"/>
+                                    </group>
+                                    &lt;!&ndash; 9th field&ndash;&gt;
+                                    <group>
+                                        <label for="neurological" string="Neurological"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="neurological" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="neurological_content" nolabel="1"
+                                               attrs="{'invisible': [('neurological', '=', True)]}"/>
+                                    </group>
+
+                                    &lt;!&ndash; 10th field&ndash;&gt;
+                                    <group>
+                                        <label for="psychiatric" string="Psychiatric"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="psychiatric" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="psychiatric_content" nolabel="1"
+                                               attrs="{'invisible': [('psychiatric', '=', True)]}"/>
+                                    </group>
+
+                                    &lt;!&ndash; 11th field&ndash;&gt;
+                                    <group>
+                                        <label for="endocrine" string="Endocrine"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="endocrine" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="endocrine_content" nolabel="1"
+                                               attrs="{'invisible': [('endocrine', '=', True)]}"/>
+                                    </group>
+                                    &lt;!&ndash; 12th field&ndash;&gt;
+                                    <group>
+                                        <label for="hematology" string="Hematology"
+                                               style=" font-size: 14px"/>
+                                        <div class="oe_inline">
+                                            <span style=" margin-right: 14px">NAD</span>
+                                            <field name="hematology" nolabel="1" widget="checkbox"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="hematology_content" nolabel="1"
+                                               attrs="{'invisible': [('hematology', '=', True)]}"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </page>
+                </xpath>
+            </field>
+        </record>-->
+    </data>
+</odoo>

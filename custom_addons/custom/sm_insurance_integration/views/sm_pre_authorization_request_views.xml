@@ -1,0 +1,221 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="sm_pre_authorization_request_form_views" model="ir.ui.view">
+            <field name="name">sm.pre.authorization.request.form</field>
+            <field name="model">sm.pre.authorization.request</field>
+            <field name="arch" type="xml">
+                <form string="Pre Authorization Request">
+                    <header>
+                        <button string="Send" type="object" name="action_send" states="draft" class="btn-primary"/>
+                        <button string="Process" type="object" name="action_process" states="sent" class="btn-primary"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,processed"/>
+                    </header>
+                    <sheet>
+                        <group string="Submission Details" col="2">
+                            <!-- Patient Details -->
+                            <group string="Patient Details">
+                                <field name="patient_id"/>
+                                <field name="ssn"/>
+                            </group>
+
+                            <!-- Insurance Details -->
+                            <group string="Insurance Details">
+                                <group>
+                                    <field name="insured_company_id"/>
+                                    <field name="insured_policy"/>
+                                    <field name="insurance_company_id"/>
+                                    <field name="expiration_date"/>
+                                    <field name="insurance_state"/>
+                                </group>
+                                <group>
+                                    <field name="class_company_id"/>
+                                    <field name="serv_patient_deduct"/>
+                                    <field name="pt_deduct_visit"/>
+                                    <field name="approval_limit"/>
+                                </group>
+                            </group>
+
+                            <!-- Authorization Details -->
+                            <group string="Authorization Details">
+                                <field name="authorization_type"/>
+                                <field name="sub_type"/>
+                                <field name="referral_type"/>
+                                <field name="accident"/>
+                            </group>
+
+                            <!-- Appointment Details -->
+<!--                            <group string="Appointment Details">-->
+<!--                                <field name="department_id"/>-->
+<!--                                <field name="clinic_appointment_id"/>-->
+<!--                                <field name="visit_date"/>-->
+<!--                                <field name="visit_time"/>-->
+<!--                            </group>-->
+
+                            <!-- Care Team -->
+                            <group string="Care Team">
+                                <field name="physician_id"/>
+                                <field name="license_id"/>
+                                <field name="role_type"/>
+<!--                                <field name="care_team_role"/>-->
+                                <field name="qualification"/>
+                            </group>
+                        </group>
+
+
+                        <!-- Case Description -->
+                        <group string="Case Description"/>
+                        <group>
+                            <div style=" font-size: 18px; color:#0d1c3a; font-weight:bold">
+                                Chief Complaint and Main System
+                            </div>
+                            <group>
+                                <field name="chief_complaint_show" nolabel="1" widget="checkbox"/>
+                            </group>
+                        </group>
+
+                        <div style="padding-left: 10px;"
+                             attrs="{'invisible': [('chief_complaint_show', '=', False)]}">
+                            <group>
+                                <field name="chief_complaint" nolabel="1"/>
+                            </group>
+                        </div>
+                        <br/>
+                        <group>
+                            <div style=" font-size: 18px; color:#0d1c3a; font-weight:bold">
+                                Diagnoses
+                            </div>
+                            <group>
+                                <field name="diagnoses_show" nolabel="1" widget="checkbox"/>
+                            </group>
+                        </group>
+<!--                        <div style="padding-left: 10px;"-->
+<!--                             attrs="{'invisible': [('diagnoses_show', '=', False)]}">-->
+
+<!--                            <field name="diagnoses_ids" nolabel="1"/>-->
+<!--                        </div>-->
+
+
+                        <!-- Duration of Illness -->
+                        <group string="Duration of Illness">
+                            <field name="illness_duration"/>
+                            <field name="illness_duration_unit"/>
+                        </group>
+
+                        <!-- Vital Signs -->
+                        <group string="Vital Signs">
+                            <field name="temperature"/>
+                            <field name="blood_pressure"/>
+                            <field name="pulse"/>
+                            <field name="respiratory_rate"/>
+                            <field name="weight"/>
+                        </group>
+
+                        <!-- Accident Information -->
+                        <group string="Accident Information" attrs="{'invisible': [('accident', '=', False)]}">
+                            <field name="accident_type"/>
+                            <field name="accident_country"/>
+                            <field name="accident_city"/>
+                            <field name="accident_state"/>
+                            <field name="accident_street"/>
+                            <field name="accident_date"/>
+                        </group>
+
+                        <!-- Attachment Information -->
+                        <group string="Attachment Information" widget="one2many_list" nolabel="1"/>
+<!--                        <field name="attachment_ids">-->
+<!--                            <tree editable="bottom">-->
+<!--                                <field name="file_name"/>-->
+<!--                                <field name="file_type"/>-->
+<!--                                <field name="comment"/>-->
+<!--                                <field name="attachment_file"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+
+
+                        <!-- Services -->
+                        <group string="Services"/>
+<!--                        <field name="service_ids" widget="one2many_list" nolabel="1">-->
+
+<!--                            <tree editable="bottom">-->
+<!--                                <field name="type" readonly="1"/>-->
+<!--                                <field name="lab_section_id" force_save="1" invisible="1"/>-->
+<!--                                <field name="test_type_id" force_save="1" readonly="1" optional="show"/>-->
+<!--                                <field name="image_test_type_id" force_save="1" invisible="1"/>-->
+
+<!--                                <field name="image_procedure_id" force_save="1"-->
+<!--                                       readonly="1" optional="show"/>-->
+
+<!--                                <field name="invest_section_id" force_save="1" readonly="1"/>-->
+<!--                                <field name="procedure_id" force_save="1" readonly="1" width="20" optional="show"/>-->
+<!--                                <field name="service_id" force_save="1"/>-->
+<!--                                <field name="suitable_service_ids" invisible="1"/>-->
+<!--                                <field name="price" readonly="1" force_save="1"/>-->
+<!--                                <field name="insurance_company_id" optional="show"/>-->
+<!--                                <field name="service_list_id" force_save="1"/>-->
+<!--                                <field name="list_price" readonly="1" force_save="1"/>-->
+<!--                                <field name="discount" readonly="1" force_save="1" optional="show"/>-->
+<!--                                <field name="require_approval" force_save="1" invisible="1"/>-->
+<!--                                <field name="create_order"/>-->
+<!--                                <field name="from_consultation" invisible="1"/>-->
+<!--                            </tree>-->
+
+
+<!--                        </field>-->
+<!--                        <button name="validate" string="Create Service Order" type="object" class="btn-primary"-->
+<!--                                data-hotkey="q" attrs="{'invisible': [('state', '!=', 'processed')]}"/>-->
+
+                        <!-- Medications -->
+                        <group string="Medications"/>
+<!--                        <field name="prescription_line_ids" widget="one2many_list" nolabel="1"/>-->
+
+
+                        <!-- Response Details -->
+                        <group string="Response Details" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <field name="approval_status"/>
+                            <field name="approval_reference"/>
+                            <field name="approval_comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="sm_pre_authorization_request_tree_views" model="ir.ui.view">
+            <field name="name">sm.pre.authorization.request.tree</field>
+            <field name="model">sm.pre.authorization.request</field>
+            <field name="arch" type="xml">
+                <tree string="Pre Authorization Requests">
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="patient_id"/>
+                    <field name="insured_company_id"/>
+                    <field name="authorization_type"/>
+<!--                    <field name="visit_date"/>-->
+                    <field name="approval_status" attrs="{'invisible': [('state', '!=', 'processed')]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="sm_pre_authorization_request_action" model="ir.actions.act_window">
+            <field name="name">Pre Authorization Requests</field>
+            <field name="res_model">sm.pre.authorization.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Authorization request.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="sm_pre_authorization_request_menu" name="Pre Authorization Requests"
+                  parent="smartmind_shifa.shifa_operations_others_menu"
+                  action="sm_pre_authorization_request_action" sequence="11"/>
+    </data>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="sm.shifa.instant.consultancy.charge" id="ins_con_1">
+            <field name="consultancy_name">Instant Consultation (Pharmacy)</field>
+            <field name="code">ICP</field>
+        </record>
+        <record model="sm.shifa.instant.consultancy.charge" id="ins_con_2">
+            <field name="consultancy_name">HHC Home Visit Fee</field>
+            <field name="code">HHC-HVF</field>
+        </record>
+        <record model="sm.shifa.instant.consultancy.charge" id="ins_con_4">
+            <field name="consultancy_name">Physiotherapy Home Visit Fee</field>
+            <field name="code">PHY-HVF</field>
+        </record>
+        <record model="sm.shifa.instant.consultancy.charge" id="ins_con_3">
+            <field name="consultancy_name">Package Home Visit Fee</field>
+            <field name="code">PHVF</field>
+        </record>
+        <record model="sm.shifa.instant.consultancy.charge" id="ins_con_5">
+            <field name="consultancy_name">Caregiver Transporting Fee</field>
+            <field name="code">CTF</field>
+        </record>
+    </data>
+</odoo>

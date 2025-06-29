@@ -1,0 +1,5 @@
+
+#. module: oehealth
+#: model_terms:ir.ui.view,arch_db:smartmind_shifa.view_employee_inherit
+msgid "Add Employee as Medical Staff"
+msgstr "أضافة الموظف الى الكادر الطبي"

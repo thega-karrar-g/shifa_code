@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- View Inheritance to Add Button and Count in the Button Box -->
+        <record id="oeh_medical_patient_view_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.patient.view.inherit</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//header" position="inside">
+                        <button class="oe_highlight" type="object" name="action_open_statement" string="Patient Statement" />
+                    </xpath>
+                    <xpath expr="//button[@name='show_consent']" position="replace">
+                        <button class="oe_stat_button" name="action_view_caregiver_contracts" type="object" icon="fa-shopping-cart">
+                            <field string="Caregiver Contracts" name="caregiver_contract_count" widget="statinfo"/>
+                        </button>
+                    </xpath>
+                    <xpath expr="//button[@name='690']" position="replace">
+                        <button class="oe_stat_button" name="action_view_caregiver_multi_package" type="object" icon="fa-shopping-cart">
+                            <field string="Multi Packages" name="multi_package_count" widget="statinfo"/>
+                        </button>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="res_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='type']" position="before">
+                        <field name="patient_ssn" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

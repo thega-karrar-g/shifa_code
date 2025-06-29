@@ -1,0 +1,573 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_consent_form_view">
+            <field name="name">Consent</field>
+            <field name="model">sm.shifa.consent</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Consent">
+                    <header>
+                        <button name="send_to_sign"
+                                states="Draft" string="Send to sign" type="object" class="oe_highlight"/>
+                        <button name="set_to_done"
+                                states="Signature" string="Signed" type="object" class="oe_highlight"/>
+                        <button name="download_consent"
+                                states="Done" string="Download Consent" type="object" class="oe_highlight"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Signature,Done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="con#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+
+                            <group>
+                                <field name="patient"/>
+                                <field name="active" invisible="1"/>
+                                <field name="age"/>
+                            </group>
+
+                            <group>
+                                <field name="patient_weight"/>
+                                <field name="ssn" string="ID number"/>
+                            </group>
+                        </group>
+
+                        <group col="2">
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group string="Language">
+                            <field name="language" required="1" widget="radio" nolabel="1"
+                                   options="{'horizontal': true}"/>
+                        </group>
+                        <group string="Type">
+                            <field name="type" required="1" widget="radio" nolabel="1" options="{'horizontal': true}"/>
+                        </group>
+                        <!--    these are English topic titles -->
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Vaccination')]}">
+                            <h3 style="text-align:center">CONSENT FOR VACCINATION</h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Urinary Catheterization')]}">
+                            <h3 style="text-align:center">Consent for Urinary Catheterization</h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Peripherally Inserted Central Catheter Care and Management')]}">
+                            <h3 style="text-align:center">Peripherally Inserted Central Catheter Care and Management
+                            </h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Photograph and Video Permission')]}">
+                            <h3 style="text-align:center">Photograph and Video Permission</h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Testosterone Replacement Therapy')]}">
+                            <h3 style="text-align:center">Testosterone Replacement Therapy</h3>
+                        </div>
+                        <!--    these are Arabic topic titles -->
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Vaccination')]}"
+                             dir="rtl" style="text-align: right">
+                            <h3 style="text-align:center">الموافقة على التطعيم</h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Urinary Catheterization')]}"
+                             dir="rtl" style="text-align: right">
+                            <h3 style="text-align:center">الموافقة على القسطرة البولية</h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Peripherally Inserted Central Catheter Care and Management')]}"
+                             dir="rtl" style="text-align: right">
+                            <h3 style="text-align:center">الموافقة على رعاية وإدارة القسطرة الوريدية المركزية المدخلة
+                                طرفيا
+                            </h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Photograph and Video Permission')]}"
+                             dir="rtl" style="text-align: right">
+                            <h3 style="text-align:center">إذن أخذ صور/فيديو</h3>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Testosterone Replacement Therapy')]}"
+                             dir="rtl" style="text-align: right">
+                            <h3 style="text-align:center">الموافقة على أخذ علاج ببديل هرمون التستوستيرون عبر حقنة
+                                العضل
+                            </h3>
+                        </div>
+
+                        <!-- Arabic-->
+                        <div attrs="{'invisible': ['|',('language', 'in', ('English',False)),('type', '=', False)]}"
+                             dir="rtl">
+                            <group col="4" dir="rtl">
+                                <h5>انا</h5>
+                                <!--                                <field name="person_name" online="1" nolabel="1"/>-->
+                                <!--                                <field name="relation_p_A_list" online="1" nolabel="1"/>-->
+                                <!--                                <field name="approval_A_list" online="1" nolabel="1"/>-->
+                                <field name="person_name" online="1" nolabel="1"
+                                       attrs="{'required': [('state', '=', 'Signature')]}"/>
+                                <field name="relation_p_A_list" online="1" nolabel="1"
+                                       attrs="{'required': [('state', '=', 'Signature'), ('language', '=', 'Arabic')]}"/>
+                                <field name="approval_A_list" online="1" nolabel="1"
+                                       attrs="{'required': [('state', '=', 'Signature'), ('language', '=', 'Arabic')]}"/>
+                            </group>
+                        </div>
+
+                        <!-- English-->
+                        <div attrs="{'invisible': ['|', ('language', 'in', ('Arabic',False)),('type', '=', False)]}">
+                            <group col="4">
+                                <h5>I am</h5>
+                                <!--                                <field name="person_name" online="1" nolabel="1"/>-->
+                                <!--                                <field name="relation_p_E_list" online="1" nolabel="1"/>-->
+                                <!--                                <field name="approval_E_list" online="1" nolabel="1"/>-->
+                                <field name="person_name" online="1" nolabel="1"
+                                       attrs="{'required': [('state', '=', 'Signature')]}"/>
+                                <field name="relation_p_E_list" online="1" nolabel="1"
+                                       attrs="{'required': [('state', '=', 'Signature'), ('language', '=', 'English')]}"/>
+                                <field name="approval_E_list" online="1" nolabel="1"
+                                       attrs="{'required': [('state', '=', 'Signature'), ('language', '=', 'English')]}"/>
+                            </group>
+                        </div>
+
+
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Vaccination')]}">
+                            <p>
+                                For vaccine to be given. I have received the education for the vaccine and clearly
+                                discussed
+                                to
+                                me in details by Globcare physician and nurse.
+                                <br/>
+                                <u>Minor Side Effects:Fever</u>, Pain, redness or swelling around the injection area,
+                                Sleeping
+                                more than usual, Itchiness around the injection area, Mild rash, Headache, Nausea.
+                                In rare cases, <h5>a severe allergic reaction may occur within a few minutes</h5>after
+                                vaccination.
+                                <br/>
+                                Patient must presented to hospital immediately.
+                                <br/>
+                                I, fully understand and aware of the management in case allergic reaction arises.
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Urinary Catheterization')]}">
+                            <p>For the procedure to be given.
+                                <br/>
+                                <group col="4">
+                                    <label for="Reinsertion_type"
+                                           string="Reinsertion of intermittent indwelling Foley's Catheter"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="Reinsertion_type"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="In_and_out_catheterization"
+                                           string="In and Out catheterization for urine analysis"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="In_and_out_catheterization"
+                                           nolabel="1" style="width: 70%;"/>
+                                </group>
+                                <br/>
+                                I have received the education, care and management for the urine catheterization and
+                                clearly discussed
+                                to me in details by Globcare physician/nurse.
+                                <br/>
+                                <h5>
+                                    <u>Risk, Benefits and Consequences</u>
+                                </h5>
+                                <br/>
+                                <ol>
+                                    <li>I have had a direct conversation with my healthcare provider, during which I had
+                                        the opportunity to ask questions
+                                        regarding this procedure.
+                                    </li>
+                                    <li>My questions have been answered and the risks, benefits and any practical
+                                        alternatives have been
+                                        discussed with me in a language which I understand.
+                                    </li>
+                                    <li>Patient must be referred to Globcare within 2-5 hours after procedure; If these
+                                        is
+                                        <ul>
+                                            <li>slight hematuria noted.</li>
+                                            <li>pulled out catheter.</li>
+                                            <li>little or no urine output.</li>
+                                        </ul>
+                                    </li>
+                                    <li>Patient must presented to Emergency/hospital immediately if patient has signs of
+                                        urinary tract infection:
+                                        <ul>
+                                            <li>Bloody urine output.</li>
+                                            <li>Pain and bladder distention.</li>
+                                            <li>Fever after 3 days.</li>
+                                            <li>Patient is agitated.</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Peripherally Inserted Central Catheter Care and Management')]}">
+                            <p>For the procedure to be given.
+                                <br/>
+                                <group col="4">
+                                    <label for="PICC_d" string="PICC Line dressing"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="PICC_d"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="PICC_f" string="PICC Line flushing"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="PICC_f"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="PICC_a" string="PICC Line assessment"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="PICC_a"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="other_list" string="Other"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="other_list"
+                                           nolabel="1" style="width: 70%;"/>
+
+                                    <field name="other_choice" nolabel="1"
+                                           attrs="{'invisible': [('other_list', '=', False)]}"/>
+                                </group>
+                                <br/>
+                                I have received the education, care and management for the PICCLINE/Central and clearly
+                                discussed
+                                to me in details by Globcare physician/nurse.
+                                <br/>
+                                <h5>
+                                    <u>Risk, Benefits and Consequences</u>
+                                </h5>
+                                <br/>
+                                <ol>
+                                    <li>I have had a direct conversation with my healthcare provider, during which I had
+                                        the opportunity to ask questions
+                                        regarding this procedure.
+                                    </li>
+                                    <li>My questions have been answered and the risks, benefits and any practical
+                                        alternatives have been
+                                        discussed with me in a language which I understand.
+                                    </li>
+                                    <li>Patient must be referred to Globcare within 1-5 hours after procedure; If these
+                                        are signs of any:
+                                        <ul>
+                                            <li>Allergies to adhesive dressing, latex, disinfection like (chlorhexidine
+                                                stick, povidone, alcohol)<br/>(Redness on central line site).
+                                            </li>
+                                            <li>A phone must be sent for assessment.</li>
+                                        </ul>
+                                    </li>
+                                    <li>Patient must presented to Emergency\hospital immediately if patient has signs of
+                                        central line infection:
+                                        <ul>
+                                            <li>Redness on central line site, big size.</li>
+                                            <li>Heavy discharge or purulent (pus) discharge.</li>
+                                            <li>Pain and itchiness.</li>
+                                            <li>Fever.</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Photograph and Video Permission')]}">
+                            <p>For the taking of video/photography for medical documentation and educational purposes.
+                                <br/>
+                                <ul>
+                                    <li>I acknowledge that I have had that opportunity to ask questions and have had
+                                        them answered.
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('type', '!=', 'Testosterone Replacement Therapy')]}">
+                            <p>For testosterone Replacement Therapy.
+                                <br/>
+                                <h5>By signing this form, I certify that:</h5>
+                                <ul>
+                                    <li>I have had a direct conversation with my healthcare provider, during which I had
+                                        the opportunity to ask questions
+                                        regarding to this treatment and procedure.
+                                    </li>
+                                    <li>My questions have been answered and the risks, benefits and any practical
+                                        alternatives have been
+                                        discussed with me in a language which I understand.
+                                    </li>
+                                    <li>That I have been given ample opportunity to ask questions and that any questions
+                                        have been answered to my satisfaction
+                                    </li>
+                                </ul>
+                                <h5>
+                                    <u>Benefits:</u>
+                                </h5>
+                                <ul>
+                                    <li>Contral's sexual function: Sexual interest (libido), Erection/ejaculations
+                                        starting from 1 month to 3 months.
+                                    </li>
+                                    <li>Improves mood, energy, wellbeing and quality of life and increases muscle mass
+                                        and strength and decreases overall body fat mass starting from 1 months
+                                        to 1 year.
+                                    </li>
+                                </ul>
+                                <h5>
+                                    <u>Side effects:</u>
+                                </h5>
+                                <ul>
+                                    <li>Anaphylactic reaction after Nebido injection have been reported.
+                                    </li>
+                                    <li>Reduced sperm production and infertility.
+                                    </li>
+                                    <li>Elevation in hematocrit and hypercoagulability.
+                                    </li>
+                                    <li>Androgens may accelerate the progression of sub-clinical prostatic caneer and
+                                        benign prostatic hyperplasia .
+                                    </li>
+                                    <li>Pulmonary micro embolism of oily solutions.
+                                    </li>
+
+                                </ul>
+
+                            </p>
+                        </div>
+
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Vaccination')]}"
+                             dir="rtl" style="text-align: right">
+                            <p>
+                                على إعطاء اللقاح. وتم تلقي المريض كافة التعليمات ومناقشته بكامل التفاصيل بوضوح للقاح مع
+                                الطبيب و الممرضة و شرح لي كيفية التعامل في حال حصول أي رد فعل تحسي.
+                                <br/>
+                                <u>اهم علامات الأعراض الجانبية:</u>
+                                <br/>
+                                حرارة ، ألم، احمرار، تورم حول مكان الحقنة، النوم اكثر من المعتاد، حكة حول منطقة الحقن،
+                                طفح جلدي، صداع،غثيان.
+                                <br/>
+                                <h5>في حالات نادرة يحدث رد فعلي تحسسي شديد في غضون بضع دقائق من اخذ الحقنة التوجة
+                                    بالمريض للمستشفى فورا.
+                                </h5>
+                                <br/>
+                                فهمت بشكل كامل ومدرك كيفية التعامل في حال حدوث رد فعل تحسسي للجسم او اعراض جانبيه
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Urinary Catheterization')]}"
+                             dir="rtl" style="text-align: right">
+                            <p>على إجراء
+                                <br/>
+                                <group col="4">
+                                    <label for="Reinsertion_type"
+                                           string="إعادة إدخال القسطرة البولية "
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="Reinsertion_type"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="In_and_out_catheterization"
+                                           string="ادخال او اخراج القسطرة البولية لتحليل البول"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="In_and_out_catheterization"
+                                           nolabel="1" style="width: 70%;"/>
+                                </group>
+                                <br/>
+                                وتمت المناقشة مع فريق جلوب كير مع الطبيب/الممرضة في جميع التفاصيل بوضوح للإجراء المطلوب
+                                <br/>
+                                <h5>
+                                    <u>المخاطر و الفوائد و النتائج المترتبة:</u>
+                                </h5>
+                                <br/>
+                                <ol>
+                                    <li>اجراء محادثة مباشرة مع مقدم الرعاية واتيحت لي من خلالها المناقشة وطرح الأسئلة
+                                        بخصوص هذا الاجراء (القسطرة البولية )
+                                    </li>
+                                    <li>تمت الإجابة على اسئلتي و مناقشة المخاطر والفوائد و اي بدائل عملية معها بلغة
+                                        أفهمها
+                                    </li>
+                                    <li>يجب التواصل مع جلوب كير في غضون 2-5 ساعات بعد الاجراء اذا وجد
+                                        <ul>
+                                            <li>دم في البول.</li>
+                                            <li>خروج القسطرة من مكانها.</li>
+                                            <li>خروج كميات قليلة للبول او عدم خروج البول.</li>
+                                        </ul>
+                                    </li>
+                                    <li>إحالة المريض الى الطوارئ المستشفى على الفور عند وجود علامات التهاب في البول:
+                                        <ul>
+                                            <li>دم في البول.</li>
+                                            <li>ألم و انتفاخ حول المثانة.</li>
+                                            <li>ارتفاع في درجة الحرارة 3 أيام.</li>
+                                            <li>اضطراب و عدم الراحة للمريض.</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Peripherally Inserted Central Catheter Care and Management')]}"
+                             dir="rtl" style="text-align: right">
+                            <p>على إجراء:
+                                <br/>
+                                <group col="4">
+                                    <label for="PICC_d" string="ضماد و غيار للقسطرة الوريدية المركزية المدخلة طرفيا "
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="PICC_d"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="PICC_f" string="تفريغ وتسليك القسطرة الوريدية المركزية المدخلة طرفيا"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="PICC_f"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="PICC_a" string="تقييم و فحص القسطرة الوريدية المركزية المدخلة طرفيا"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="PICC_a"
+                                           nolabel="1" style="width: 70%;"/>
+                                    <label for="other_list" string="أخرى"
+                                           class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                    <field name="other_list"
+                                           nolabel="1" style="width: 70%;"/>
+
+                                    <field name="other_choice" nolabel="1"
+                                           attrs="{'invisible': [('other_list', '=', False)]}"/>
+                                </group>
+                                <br/>
+                                تلقيت التعليمات وطريقة العناية بالقسطرة الوريدية وتمت المناقشة بوضوح لجميع التفاصيل مع
+                                الطبيب/ الممرضة لجلوب كير للإجراء
+                                <br/>
+                                <h5>
+                                    <u>المخاطر والنتائج المترتبة للإجراء:</u>
+                                </h5>
+                                <br/>
+                                <ol>
+                                    <li>اجراء محادثة مباشرة مع مقدم الرعاية واتيحت لي من خلالها المناقشة وطرح الأسئلة
+                                        بخصوص هذا الاجراء (القسطرة الوريدية المركزية ).
+                                    </li>
+                                    <li>تمت الإجابة على جميع الأسئلة ومناقشة المخاطر والفوائد واي بدائل بلغة افهمها
+                                    </li>
+                                    <li>يجب التواصل مع جلوب كير في غضون 1-5 ساعات بعد هذا الاجراء في حال وجدت هذه
+                                        العلامات:
+                                        <ul>
+                                            <li>تحسس من الضمادات المستخدمة والمطهرات<br/>( احمرار حول او في المنطقة ).
+                                            </li>
+                                            <li>يجب اخذ صورة و ارسالها لجلوب كير لتقيم الحالة</li>
+                                        </ul>
+                                    </li>
+                                    <li>نقل المريض الى طوارئ المستشفى عند وجود علامات التهاب و عدوى مثل:
+                                        <ul>
+                                            <li>احمرار في المنطقة بشكل كبير</li>
+                                            <li>افرازات غزيرة من الصديد</li>
+                                            <li>الم و حكة</li>
+                                            <li>ارتفاع في درجة الحرارة</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Photograph and Video Permission')]}"
+                             dir="rtl" style="text-align: right">
+                            <p>على إعطاء الاذن لأخذ فيديو/ التصوير الفوتوغرافي للتوثيق الطبي والأغراض التعليمية.
+                                <br/>
+                                <ul>
+                                    <li>حيث اني اقر بأنني أتيحت لي الفرصة لطرح الاسئلة و أجيب عليها.
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('type', '!=', 'Testosterone Replacement Therapy')]}"
+                             dir="rtl" style="text-align: right">
+                            <p>على أخذ ابرة عضل لهرمون الذكورة.
+                                <br/>
+                                <h5>بعد توقيعي على هذا النموذج اقر بأن:</h5>
+                                <ul>
+                                    <li>تم التواصل المباشر مع مقدم الرعاية الصحية وخلالها تم الإجابة على جميع الأسئلة
+                                        المطروحة المتعلقة بالعلاج و الإجراءات.
+                                    </li>
+                                    <li>تمت الإجابة على جميع الأسئلة ومناقشتها وتوضيح المخاطر و الفوائد بلغة واضحة
+                                        وطريقة مفهومة.
+                                    </li>
+                                    <li>الفهم الكامل للعلاج من طريقة اخذه مع الفوائد و الأضرار.
+                                    </li>
+                                </ul>
+                                <h5>
+                                    <u>الفوائد:</u>
+                                </h5>
+                                <ul>
+                                    <li>تحسين الأداء الجنسي من الانتصاب، تأخر القذف (زيادة الرغبة الجنسية) ابتداء من
+                                        الشهر الأول حتى ثلاث اشهر.
+                                    </li>
+                                    <li>تحسن: المزاج، الطاقة و النشاط الحركي، زيادة الكتلة العضلية ابتداء من 3 شهور الى
+                                        سنة.
+                                    </li>
+                                </ul>
+                                <h5>
+                                    <u>الأعراض الجانبية :</u>
+                                </h5>
+                                <ul>
+                                    <li>إمكانية حدوث تحسس بعد اخذ ابرة هرمون الذكورة.
+                                    </li>
+                                    <li>قلة إنتاج الحيوانات المنوية والعقم.
+                                    </li>
+                                    <li>ارتفاع مستوى الهيماتوكريت اللزوجة في الدم و التخثر.
+                                    </li>
+                                    <li>تسرع من تطور حدوث سرطان البروستاتا وتضخم البروستاتا.
+                                    </li>
+                                    <li>تخثر في الاوعية الدموية الرئوية.
+                                    </li>
+
+                                </ul>
+
+                            </p>
+                        </div>
+                        <div attrs="{'invisible': ['|', ('state', 'not in', ['Signature', 'Done']), ('language', 'in', ('English',False))]}"
+                             dir="rtl">
+                            <group>
+                                <field name="patient_name" string="اسم المريض / ولي أمره"
+                                       attrs="{'required': [('state', '=', 'Signature')]}"/>
+                                <field name="relationship" string="العلاقة"
+                                       attrs="{'required': [('state', '=', 'Signature')]}"/>
+                                <field name="signature" string="التوقيع" widget="signature"/>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': ['|', ('state', 'not in', ['Signature', 'Done']), ('language', 'in', ('Arabic',False))]}">
+                            <group>
+                                <field name="patient_name" string="Patient Name / Guardian"
+                                       attrs="{'required': [('state', '=', 'Signature')]}"/>
+                                <field name="relationship" string="Relationship"
+                                       attrs="{'required': [('state', '=', 'Signature')]}"/>
+                                <field name="signature" string="Signature" widget="signature"/>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="sm_shifa_consent_action_tree" model="ir.actions.act_window">
+            <field name="name">Consent</field>
+            <field name="res_model">sm.shifa.consent</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new consent record.
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sm_shifa_consent_tree_view">
+            <field name="name">Consent</field>
+            <field name="model">sm.shifa.consent</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="patient"/>
+                    <field name="ssn"/>
+                    <field name="language"/>
+                    <field name="type"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="oe_medical_patient_form_inherit">
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <button name="open_account_payment" position="after">
+                    <button type="object" class="oe_stat_button" name="show_consent" icon="fa-flask">
+                        <field string="Consents" name="consent_count" widget="statinfo"/>
+                    </button>
+                </button>
+            </field>
+        </record>
+
+        <menuitem action="sm_shifa_consent_action_tree"
+                  id="sm_shifa_consent_conf_list"
+                  parent="smartmind_shifa.shifa_operations_others_menu" sequence="109"/>
+
+    </data>
+</odoo>

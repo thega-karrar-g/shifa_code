@@ -1,0 +1,128 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_pharmacy_chain_view">
+            <field name="name">Pharmacy Chain</field>
+            <field name="model">sm.shifa.pharmacy.chain</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Pharmacy Chain">
+                    <header>
+                        <button name="make_active" confirm="Are you sure you want to mark pharmacy chain as Active?"
+                                states="Draft" string="Make Active" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Active,Expired"/>
+                    </header>
+
+                    <sheet>
+                        <!-- <field name="logo" widget='image' class="oe_avatar"
+                                options='{"preview_image": "image_128", "size": [90, 90]}'/>-->
+                                                  <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button"
+                                    name="open_pharmacies_view"
+                                    context="{'search_default_institution': active_id,'default_institution': active_id,'default_name':'/'}"
+                                    icon="fa-building-o">
+                                <field string="Pharmacies" name="pharmacies_count" widget="statinfo"/>
+                            </button>
+                            <button type="object" class="oe_stat_button"
+                                    name="open_pharmacist_view"
+                                    context="{'search_default_institution': active_id,'default_institution': active_id,'default_name':'/'}"
+                                    icon="fa-id-badge">
+                                <field string="Pharmacist" name="pharmacist_cuont" widget="statinfo"/>
+                            </button>
+                         </div>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="code" string="Ph/Ch#"/>
+                                <h1>
+                                    <field name="code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <div style="display: inline-grid;">
+                                <div class="oe_left" style="width: 500px;">
+                                    <div class="oe_title" style="width: 390px;">
+                                        <label for="name" string="Chain Name"/>
+                                        <h1>
+                                            <field name="name" class="oe_inline" required="1"/>
+                                        </h1>
+                                    </div>
+                                </div>
+<!--                                <div class="oe_left" style="width: 500px;">-->
+<!--                                    <div class="oe_title" style="width: 390px;">-->
+<!--                                        <label for="branches_number" string="Branches Number"/>-->
+<!--                                        <h1>-->
+<!--                                            <field name="branches_number" class="oe_inline" required="1"/>-->
+<!--                                        </h1>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="oe_left" style="width: 500px;">
+                                    <div class="oe_title" style="width: 390px;">
+                                        <label for="discount" string="Discount"/>
+                                        <h1>
+                                            <field name="discount" class="oe_inline" required="1"/>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </group>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="exp_date"/>
+                                <field name="contract_document"/>
+                                <field name="comment"/>
+                            </group>
+                            <group>
+                                <field name="logo" widget="image"/>
+                            </group>
+                            <group>
+                                <field name="qr_code"/>
+                                <button name="generate_qr_code" type="object" string="Regenerate QR Code"
+                                        confirm="Are you sure you want to regenerate QR code?"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sm_shifa_pharmacy_chain_tree">
+            <field name="name">Pharmacy Chain</field>
+            <field name="model">sm.shifa.pharmacy.chain</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Insurances'>
+
+                    <field name="name" string="Pharmacy Chain"/>
+<!--                    <field name="branches_number" string="Branches Number"/>-->
+                    <field name="discount" string="Consultancy discount"/>
+                    <field name="pharmacies_count"/>
+                    <field name="pharmacist_cuont"/>
+                    <field name="state" string="status"/>
+
+
+                </tree>
+            </field>
+        </record>
+        <record id="sm_shifa_pharmacy_chain_action_tree" model="ir.actions.act_window">
+            <field name="name">Pharmacy Chain</field>
+            <field name="res_model">sm.shifa.pharmacy.chain</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new insurance records.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="pharmacy_chain_root"
+                  name="Pharmacy Chain"
+                  action="sm_shifa_pharmacy_chain_action_tree"
+                  parent="smartmind_shifa.shifa_pharmacies_menu"
+                  sequence="2"/>
+
+    </data>
+</odoo>

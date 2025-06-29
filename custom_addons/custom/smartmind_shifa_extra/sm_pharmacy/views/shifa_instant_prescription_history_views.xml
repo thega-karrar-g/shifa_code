@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_shifa_history_form">
+            <field name="name">Pharmacy Medicines History</field>
+            <field name="model">sm.shifa.instant.prescriptions.history</field>
+            <field name="arch" type="xml">
+                <form string="history">
+                    <sheet>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_shifa_history_tree">
+            <field name="name">Pharmacy Medicines History</field>
+            <field name="model">sm.shifa.instant.prescriptions.history</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='history'>
+                    <field name="medicine_name"/>
+                    <field name="pharmacist"/>
+                    <field name="pharmacy"/>
+                    <field name="pharmacy_chain"/>
+                    <field name="prescription_code"/>
+                    <field name="doctor"/>
+                    <field name="date"/>
+                    <field name="dispensed" widget="checkbox"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sm_shifa_history_action" model="ir.actions.act_window">
+            <field name="name">Pharmacy Medicines History</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.instant.prescriptions.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history found
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_shifa_history_action"
+                  id="menu_shifa_medicines_history"
+                  parent="smartmind_shifa.shifa_pharmacies_menu"
+                  sequence="6"/>
+
+    </data>
+</odoo>

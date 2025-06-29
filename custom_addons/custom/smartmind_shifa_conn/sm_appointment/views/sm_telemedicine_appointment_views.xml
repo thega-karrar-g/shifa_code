@@ -1,0 +1,220 @@
+<odoo>
+    <record id="action_open_sale_order_from_tele" model="ir.actions.act_window">
+        <field name="name">Sale Order from Tele Appointments</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('tele_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="action_open_requested_payment_from_tele" model="ir.actions.act_window">
+        <field name="name">Requested Payment from Tele Appointments</field>
+        <field name="res_model">sm.shifa.requested.payments</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('tele_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="shifa_telemedicine_appointment_payment_form_inherit" model="ir.ui.view">
+        <field name="name">Telemedicine Appointment conn inherit</field>
+        <field name="model">sm.telemedicine.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_tele_appointment_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/*" position="before">
+                <header>
+                    <button name="set_to_start" states="confirmed" string="Start Appointment Process"
+                            confirm="Are you sure you want to start appointment?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_telemedicine_doctor,smartmind_shifa.group_oeh_medical_head_doctor,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_respiratory_therapist,smartmind_shifa.group_oeh_medical_social_worker,smartmind_shifa.group_oeh_medical_health_educator,smartmind_shifa.group_oeh_medical_diabetic_educator,smartmind_shifa.group_oeh_medical_clinical_dietitian,smartmind_shifa.group_oeh_medical_hhc_physiotherapist,smartmind_shifa.group_oeh_medical_head_physiotherapist"/>
+                    <button confirm="Are you sure you want to mark appointment as completed?"
+                            name="set_to_completed" states="Start" string="Mark as Completed" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_home_visit_doctor,smartmind_shifa.group_oeh_medical_head_doctor,oehealth.group_oeh_medical_physician"/>
+                </header>
+            </xpath>
+            <!--<xpath expr="/form/sheet/header/button[@name='set_to_start']" position="after">
+                  </xpath>-->
+            <xpath expr="/form/sheet/div[@class='oe_left']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button type="action" class="oe_stat_button" icon="fa-dollar"
+                            name="%(action_open_sale_order_from_hvd)d">
+                        <field name="sale_order_count" widget="statinfo"/>
+                    </button>
+                    <button type="action" class="oe_stat_button" icon="fa-dollar"
+                            name="%(action_open_requested_payment_from_hvd)d">
+                        <field name="requests_payment_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="/form/sheet/group[2]/group[2]" position="after">
+                <group string="Price Details">
+                    <field name="total_service_price" force_save="True"/>
+                    <field name="discount_name"/>
+                    <field name="discount" force_save="True"/>
+                    <field name="discount_val" force_save="True"/>
+                    <field name="tax"/>
+                    <field name="amount_payable"/>
+                    <!--                    <field name="add_payment_request" style="font-size:24px;"/>-->
+                </group>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_reference']" position="after">
+<!--                <field name="order_id" readonly="1" invisible="1"/>-->
+                <button name="pay_req_link"
+                        string="Create payment request" type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':['|',('pay_req_id','!=',False),('payment_made_through', 'in', ['mobile','package','aggregator', False])]}"/>
+                <field name="pay_req_id" attrs="{'invisible':[('pay_req_id','=',False)]}"/>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                <page string="Investigations">
+                    <notebook>
+                        <page string="Lab Request">
+                            <field name="lab_request_test_line" widget="one2many_list" nolabel="1"/>
+                        </page>
+                        <page string="Imaging Request">
+                            <!--<field name="image_test_ids" widget="one2many_list" nolabel="1"
+                                   context="{'default_patient':patient, 'default_hvd_appointment': id, 'default_doctor': doctor}"/>-->
+                            <field name="image_request_test_ids" widget="one2many_list" nolabel="1"/>
+
+                        </page>
+                        <page string="Other">
+                            <field name="investigation_ids" widget="one2many_list" nolabel="1"
+                                   string="Investigation"
+                                   context="{'default_patient': patient, 'default_requester_id':doctor}">
+                                <form>
+                                    <header>
+                                        <button confirm="Are you sure you want to call center?"
+                                                name="set_to_call_center"
+                                                states="Draft" string="Send" type="object" class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                states="Draft" string="Upload" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to send?" name="set_to_team"
+                                                states="Call Center" string="Send" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to cancel?" name="set_to_cancel"
+                                                states="Call Center" string="Cancel" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                states="Test In Progress" string="Upload" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to Start?"
+                                                name="set_to_investigation_start"
+                                                states="Team" string="Start" type="object" class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <field name="state" widget="statusbar"
+                                               statusbar_visible="Draft,Call Center,Test In Progress,Team,Uploaded,Cancelled"/>
+                                    </header>
+                                    <sheet>
+                                        <h1>
+                                            <field name="name" readonly="1"/>
+                                        </h1>
+                                        <group invisible="1">
+                                            <group>
+                                                <field name="patient"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group invisible="1">
+                                                <field name="hhc_appointment"/>
+                                                <field name="hvd_appointment"/>
+                                                <field name="tele_appointment"/>
+                                            </group>
+                                            <group>
+                                                <field name="date_requested"/>
+                                                <field name="date_analysis"/>
+                                            </group>
+                                        </group>
+                                        <group invisible="1">
+                                            <group>
+                                                <field name="requester_id"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group>
+                                                <field name="investigation_name"/>
+                                            </group>
+                                        </group>
+                                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                                        <br/>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Document
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_document" nolabel="1"/>
+                                        </group>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Analysis
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_analysis" nolabel="1"/>
+                                        </group>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Results
+                                            </h5>
+                                            <br/>
+                                            <field name="result" nolabel="1"/>
+                                        </group>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Conclusion
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_conclusion" nolabel="1"/>
+                                        </group>
+                                        <br/>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Image
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_image" nolabel="1" widget="image"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </page>
+                <page string="Prescriptions">
+                    <field name="pres_tele_line" context="{'default_patient': patient}"
+                           widget="one2many_list" nolabel="1">
+                    </field>
+                </page>
+                <page string="Internal Referral">
+                    <field name="referral_ids" widget="one2many_list"
+                           context="{'default_patient':patient}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_shifa_pharmacist_form">
+            <field name="name">Pharmacist</field>
+            <field name="model">sm.shifa.pharmacist</field>
+            <field name="arch" type="xml">
+                <form string="Pharmacies">
+                    <header>
+                        <button confirm="Are you sure you want to Send by SMS?" type="object" class="oe_stat_button"
+                                name="action_send_sms" icon="fa-solid fa-comment" string="Send Password via SMS"
+                                widget="statinfo">
+                        </button>
+                    </header>
+                    <!-- test -->
+                    <sheet>
+                        <div class="oe_left" style="width: 500px; display: contents;">
+                            <div class="oe_title">
+                                <label for="name" string="Pharmacist Name" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="name" required="1"/>
+                                </h1>
+                                <group>
+                                    <field name="mobile"/>
+                                    <field name="institution" required="1"/>
+                                    <field name="pharmacy" required="1"/>
+                                    <field name="username" placeholder="Username"/>
+                                    <field name="password" placeholder="Password"/>
+                                    <field name="is_admin"/>
+                                </group>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_shifa_pharmacist_tree">
+            <field name="name">Pharmacist</field>
+            <field name="model">sm.shifa.pharmacist</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Pharmacist'>
+                    <field name="name"/>
+                    <field name="institution" required="1"/>
+                    <field name="pharmacy" required="1"/>
+                    <field name="username"/>
+                    <field name="password"/>
+                    <field name="mobile"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sm_shifa_Pharmacist_action" model="ir.actions.act_window">
+            <field name="name">Pharmacist</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.pharmacist</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Pharmacist found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="Pharmacist_root"
+                  name="Pharmacist"
+                  parent="smartmind_shifa.shifa_pharmacies_menu"
+                  action="sm_shifa_Pharmacist_action"
+                  sequence="4"
+        />
+
+    </data>
+</odoo>

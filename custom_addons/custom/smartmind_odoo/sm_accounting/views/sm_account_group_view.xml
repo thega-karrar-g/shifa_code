@@ -1,0 +1,46 @@
+<odoo>
+    <record id="payment.payment_acquirer_menu" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(4,ref('base.group_system'))]"/>
+    </record>
+    <record id="account.menu_action_account_fiscal_position_form" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(4,ref('base.group_system'))]"/>
+    </record>
+    <record id="om_account_budget.menu_budget_post_form" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(4,ref('base.group_system'))]"/>
+    </record>
+    <record id="om_account_accountant.menu_accounting_statement_cash" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(4,ref('base.group_system'))]"/>
+    </record>
+    <record id="om_recurring_payments.menu_recurring_payment" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(6,0,[ref('base.group_system')])]"/>
+    </record>
+    <record id="om_recurring_payments.menu_recurring_template" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(6,0,[ref('base.group_system')])]"/>
+    </record>
+    <record id="account.menu_action_analytic_lines_tree" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(6,0,[ref('base.group_system')])]"/>
+    </record>
+    <record id="om_account_budget.menu_act_crossovered_budget_view" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(6,0,[ref('base.group_system')])]"/>
+    </record>
+    <record id="view_hide_fields_accountant" model="ir.ui.view">
+        <field name="name">accountant.hide.items</field>
+        <field name="model">account.move</field>
+        <field name="priority" eval="8"/>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_draft']" position="attributes">
+                <attribute name="groups">base.group_system</attribute>
+                <!--            <attribute name="attrs">{'invisible': [('groups', '!=', 'base.group_system')]}</attribute>-->
+            </xpath>
+        </field>
+    </record>
+</odoo>

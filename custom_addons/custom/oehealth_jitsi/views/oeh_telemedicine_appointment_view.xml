@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="oeh_jitsi_view_for_appointment" model="ir.ui.view">
+        <field name="name">Appointments Jitsi Form</field>
+        <field name="model">oeh.medical.appointment</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_appointment_view"/>
+        <field name="arch" type="xml">
+            <!--<xpath expr="//button[@name='set_to_completed']" position="after">
+                <button type="action" name="%(open_jitsi_meeting)d" states="Completed"
+                        groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"
+                        string="Create Jitsi Meeting" class="oe_highlight"/>
+            </xpath>-->
+            <xpath expr="/form/sheet/notebook" position="inside">
+                <page string="Invitations">
+                    <field name="invitation_text_jitsi" widget="html"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

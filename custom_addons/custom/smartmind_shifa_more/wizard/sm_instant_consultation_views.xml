@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+
+        <record id="sm_consultation_form_wizard" model="ir.ui.view">
+            <field name="name">Instant Consultations Report Form Wizard</field>
+            <field name="model">sm.shifa.instant.consultation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Instant Consultations Report">
+                    <group>
+                        <field name="is_all_chains" widget="checkbox"/>
+                        <field name="pharmacy_chain" attrs="{'required':[('is_all_chains', '==', False)], 'invisible':[('is_all_chains', '==', True)]}"/>
+                    </group>
+                    <group>
+                        <field name="is_all_doctors" widget="checkbox"/>
+                        <field name="doctor" attrs="{'required':[('is_all_doctors', '==', False)], 'invisible':[('is_all_doctors', '==', True)]}"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_print_report" string="Print" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_consultation_wizard_action" model="ir.actions.act_window">
+            <field name="name">Instant Consultations Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.instant.consultation.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sm_consultation_form_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_shifa_instant_consultation_wizard"
+                  action="sm_consultation_wizard_action"
+                  parent="smartmind_shifa.reports_menu"
+                  sequence="19"/>
+
+    </data>
+</odoo>

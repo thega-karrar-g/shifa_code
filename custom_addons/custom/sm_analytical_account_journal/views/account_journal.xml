@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+
+        <record id="account_journal_form_inherit" model="ir.ui.view">
+            <field name="name">account.journal.form.inherit</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" />
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="analytic_account_id" attrs="{'invisible': [('type','not in',['sale','purchase'])]}" options="{'no_create':True}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--  expired date-->
+        <record id="sm_active_date_insurance" model="ir.cron">
+            <field name="name">Insurance: Active Date Action</field>
+            <field name="model_id" ref="model_sm_insurance_companies"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.make_active()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <!--  expired date-->
+        <record id="sm_active_date_insurance_policy" model="ir.cron">
+            <field name="name">Insurance policy: Active Date Action</field>
+            <field name="model_id" ref="model_sm_insurance_policy"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.make_active()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+
+    </data>
+</odoo>

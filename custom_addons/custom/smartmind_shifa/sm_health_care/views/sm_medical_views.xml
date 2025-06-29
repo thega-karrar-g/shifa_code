@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--Services-->
+    <record id="sm_service_form_view" model="ir.ui.view">
+        <field name="name">Services Details List</field>
+        <field name="model">sm.shifa.service</field>
+        <field name="arch" type="xml">
+            <form string="Services Details List">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button" icon="fa-th-large"
+                                    attrs="{'invisible': [('product_id','=', False)]}"
+                                    name="open_product_view" string="Product">
+                            </button>
+                        </div>
+                    <group>
+                        <group>
+                            <field name="product_id" invisible="1"/>
+                            <field name="name"/>
+                            <field name="name_ar"/>
+                            <field name="list_price" force_save="1"/>
+                            <field name="duration" attrs="{'invisible': [('service_type','!=','Car')],'required': [('service_type','=','Car')]}" />
+                            <field name="refund_percent" attrs="{'invisible': [('service_type','!=','Car')],'required': [('service_type','=','Car')]}" />
+                            <field name="default_code"/>
+                            <field name="type_code" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="service_type"/>
+                            <field name="type"/>
+                            <field name="responsible" invisible="1"/>
+                            <field name="abbreviation"/>
+                            <field name="show"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="description"/>
+                            <field name="description_ar"/>
+                        </group>
+                        <group>
+                            <field name="more_details"/>
+                            <field name="more_details_ar"/>
+                        </group>
+                    </group>
+                    <!--<group>
+                        <field name="description_sale"/>
+                        <field name="description_sale_ar"/>
+                    </group>-->
+                    <group>
+                        <group>
+                            <!--<field name="uom_id"/>
+                            <field name="uom_po_id"/>
+                            <field name="standard_price"/>
+                            <field name="default_code"/>
+                            <field name="lst_price"/>
+                            <field name="price_extra"/>
+                            <field name="price"/>
+                            <field name="volume"/>
+                            <field name="weight"/>
+                            <field name="pricelist_item_count"/>
+                            <field name="packaging_ids"/>
+                            <field name="pricelist_item_count"/>
+                            <field name="has_configurable_attributes"/>
+                            <field name="company_id"/>
+                            <field name="uom_name"/>
+                            <field name="purchase_ok"/>
+                            <field name="sale_ok"/>
+                            <field name="pricelist_id"/>
+                            <field name="weight_uom_name"/>
+                            <field name="volume_uom_name"/>
+                            <field name="cost_currency_id"/>
+                            <field name="currency_id"/>-->
+                            <field name="categ_id"/>
+                            <!--<field name="description_sale"/>
+                            <field name="description_purchase"/>
+                            <field name="description"/>
+                            <field name="taxes_id"/>
+                            <field name="supplier_taxes_id"/>
+                            <field name="property_account_income_id"/>
+                            <field name="property_account_expense_id"/>-->
+                        </group>
+                        <!--<group string="From Inventory Table">
+                            <field name="stock_quant_ids"/>
+                            <field name="stock_move_ids"/>
+                            <field name="qty_available"/>
+                            <field name="virtual_available"/>
+                            <field name="free_qty"/>
+                            <field name="incoming_qty"/>
+                            <field name="outgoing_qty"/>
+                            <field name="orderpoint_ids"/>
+                            <field name="nbr_reordering_rules"/>
+                            <field name="reordering_min_qty"/>
+                            <field name="reordering_max_qty"/>
+                            <field name="putaway_rule_ids"/>
+                        </group>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_service_tree" model="ir.ui.view">
+        <field name="name">Services Details List</field>
+        <field name="model">sm.shifa.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <!-- <field name="abbreviation"/>-->
+                <field name="name_ar"/>
+                <field name="service_type"/>
+                <field name="show"/>
+                <field name="list_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_service_action" model="ir.actions.act_window">
+        <field name="name">Services Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.service</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data to show here
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="sm_service"
+              name="Services Details"
+              parent="smartmind_shifa.shifa_services_management_menu"
+              action="sm_service_action"
+              sequence="24"/>
+
+    <!--Services Module-->
+    <record id="sm_service_module_action" model="ir.actions.act_window">
+        <field name="name">Services Module</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.service.module</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data to show here
+            </p>
+        </field>
+    </record>
+
+    <!--HHC Teams Period-->
+    <record id="sm_team_period_tree" model="ir.ui.view">
+        <field name="name">HHC Teams and Services Number List</field>
+        <field name="model">sm.shifa.team.period</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="type"/>
+                <field name="date"/>
+                <field name="name" invisible="1"/>
+                <field name="day"/>
+                <field name="period"/>
+                <field name="team_no"/>
+                <field name="service_per_time" string="Service per Team"/>
+                <field name="booking"/>
+                <field name="available"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_team_period_action" model="ir.actions.act_window">
+        <field name="name">HHC Teams and Services Number</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.team.period</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data to show here
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="sm_team_period"
+              name="HHC Teams and Services Number"
+              parent="smartmind_shifa.shifa_services_management_menu"
+              action="sm_team_period_action"
+              sequence="24"/>
+
+    <!--Physiotherapy Teams Period-->
+    <record id="sm_team_period_physiotherapy_tree" model="ir.ui.view">
+        <field name="name">Physiotherapy Teams Number List</field>
+        <field name="model">sm.shifa.team.period.physiotherapy</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="gender"/>
+                <field name="date"/>
+                <field name="name" invisible="1"/>
+                <field name="day"/>
+                <field name="period"/>
+                <field name="team_no"/>
+                <field name="service_per_time" string="Services per Team"/>
+                <field name="booking"/>
+                <field name="available"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_team_period_physiotherapy_action" model="ir.actions.act_window">
+        <field name="name">Physiotherapy Teams and Services Number</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.team.period.physiotherapy</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data to show here
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="sm_team_period_physiotherapy"
+              name="Physiotherapy Teams and Services Number"
+              parent="smartmind_shifa.shifa_services_management_menu"
+              action="sm_team_period_physiotherapy_action"
+              sequence="25"/>
+
+    <!--PCR Teams Period-->
+    <record id="sm_pcr_team_period_tree" model="ir.ui.view">
+        <field name="name">PCR Teams and Services Number List</field>
+        <field name="model">sm.shifa.team.period.pcr</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="date"/>
+                <field name="name" invisible="1"/>
+                <field name="day"/>
+                <field name="hour"/>
+                <field name="team_no"/>
+                <field name="service_per_time" string="Services per Team"/>
+                <field name="booking"/>
+                <field name="available"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_pcr_team_period_action" model="ir.actions.act_window">
+        <field name="name">PCR Teams and Services Number</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.team.period.pcr</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data to show here
+            </p>
+        </field>
+    </record>
+
+    <!--<menuitem id="sm_pcr_team_period"
+              name="PCR Teams and Services Number"
+              parent="smartmind_shifa.shifa_services_management_menu"
+              action="sm_pcr_team_period_action"
+              sequence="24"/>-->
+
+    <!--Consultancy Charges-->
+    <record id="sm_consultancy_tree" model="ir.ui.view">
+        <field name="name">Consultancy Charges List</field>
+        <field name="model">sm.shifa.consultancy</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" string="Consultancy Name"/>
+                <field name="list_price"/>
+                <field name="type"/>
+                <field name="categ_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_consultancy_action" model="ir.actions.act_window">
+        <field name="name">Consultancy Charges</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.consultancy</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data to show here
+            </p>
+
+        </field>
+    </record>
+
+    <menuitem id="sm_consultancy"
+              name="Consultancy Charges"
+              parent="smartmind_shifa.shifa_services_management_menu"
+              action="sm_consultancy_action"
+              sequence="25"/>
+
+</odoo>
+

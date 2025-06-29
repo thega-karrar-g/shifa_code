@@ -1,0 +1,56 @@
+<odoo>
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="sequence">13</field>
+    </record>
+
+    <record id="stock.menu_stock_root" model="ir.ui.menu">
+        <field name="sequence">14</field>
+    </record>
+
+    <record id="purchase.menu_purchase_root" model="ir.ui.menu">
+        <field name="sequence">15</field>
+    </record>
+
+    <record id="sale.sale_menu_root" model="ir.ui.menu">
+        <field name="sequence">17</field>
+    </record>
+    <!--        <record id="crm.crm_menu_root" model="ir.ui.menu">
+            <field name="sequence">16</field>
+        </record>
+
+
+        <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+            <field name="sequence">20</field>
+        </record>-->
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="sequence">18</field>
+    </record>
+
+    <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="sequence">19</field>
+    </record>
+
+    <record id="contacts.menu_contacts" model="ir.ui.menu">
+        <field name="sequence">21</field>
+    </record>
+
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="groups_id" eval="[(5,0),(4, ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="contacts.menu_contacts" model="ir.ui.menu">
+        <field name="groups_id" eval="[(5,0),(4, ref('oehealth.group_oeh_medical_employee'))]"/>
+        <field name="sequence">1</field>
+    </record>
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(5,0),(4, ref('oehealth.group_oeh_medical_employee'))]"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="smartmind_shifa.sm_medical_his_menu" model="ir.ui.menu">
+        <field name="groups_id" eval="[(5,0),(4, ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        <field name="sequence">1</field>
+    </record>
+
+</odoo>

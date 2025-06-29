@@ -1,0 +1,23 @@
+<odoo>
+   <record model="ir.rule" id="allowed_warehouses_rule">
+   <field name="name">Allowed Warehouses</field>
+   <field name="model_id" ref="stock.model_stock_warehouse" />
+    <field name="domain_force">[('id', 'in', user.warehouse_ids.ids)]</field>
+    <field name="groups" eval="[(4, ref('sm_user_warehouse_access.warehouse_limitation'))]"/>
+    </record>
+
+   <record model="ir.rule" id="stock_picking_type_rule">
+   <field name="name">Allowed Opeartion Types</field>
+   <field name="model_id" ref="stock.model_stock_picking_type" />
+    <field name="domain_force">[('warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+    <field name="groups" eval="[(4, ref('sm_user_warehouse_access.warehouse_limitation'))]"/>
+    </record>
+
+   <record model="ir.rule" id="stock_picking_rule">
+   <field name="name">Allowed Transfers</field>
+   <field name="model_id" ref="stock.model_stock_picking" />
+    <field name="domain_force">[('picking_type_id.warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+    <field name="groups" eval="[(4, ref('sm_user_warehouse_access.warehouse_limitation'))]"/>
+    </record>
+
+</odoo>

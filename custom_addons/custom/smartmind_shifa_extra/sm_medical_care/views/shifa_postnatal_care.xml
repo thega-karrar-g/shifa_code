@@ -1,0 +1,491 @@
+<odoo>
+    <data>
+        <record id="view_shifa_postnatal_care_form" model="ir.ui.view">
+            <field name="name">shifa.postnatal.care.form</field>
+            <field name="model">sm.shifa.postnatal.care</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                                states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="postnatal_care_code" string="PCM#"/>
+                                <h1>
+                                    <field name="postnatal_care_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                            </group>
+                            <group>
+                                <field name="doctor"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                            </group>
+                            <group>
+                                <field name="discharge_date"/>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="age"/>
+                                    <field name="weight"/>
+                                    <field name="marital_status"/>
+                                    <field name="sex"/>
+                                    <label for="blood_type"/>
+                                    <div>
+                                        <field name="blood_type" class="oe_inline"/>
+                                        <field name="rh" class="oe_inline"/>
+                                    </div>
+                                    <!--                                     <field name="blood_type"/>-->
+                                    <!--                                     <field name="rh"/>-->
+                                </group>
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <notebook>
+                            <page string="Clinical Pathway">
+                                <group col="3">
+                                    <label for="conscious_state_show" string="Conscious State"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="conscious_state_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('conscious_state_show', '=', False)]}">
+                                    <field name="conscious_state" string="Conscious State"/>
+                                </group>
+                                <group col="3">
+                                    <label for="pain_present_show" string="Pain Present"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                    <field name="pain_score" string="Pain Score"/>
+                                    <field name="scale_used" string="Scale Used"/>
+                                </group>
+                                <group col="3">
+                                    <label for="functional_activity_show" string="Functional Activity"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                                    <field name="functional_activity" string="Functional Activity"/>
+                                </group>
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                        <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                        <field name="hr_min" string="HR(/min)"/>
+                                    </group>
+                                    <group>
+                                        <field name="temperature_c" string="Temperature(C)"/>
+                                        <field name="rr_min" string="RR(/min)"/>
+                                        <field name="o2_sat" string="O2 Sat(%)"/>
+                                        <field name="char_other_oxygen" string=""
+                                               attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                        <!--                                    <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                        <!--                                            <div>-->
+                                        <!--                                                <group col="7">-->
+                                        <!--                                                    <span colspan="2">at room air</span>-->
+                                        <!--                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                        <!--                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                </group>-->
+                                        <!--                                                <field name="char_other_oxygen" string=""/>-->
+                                        <!--                                            </div>-->
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="postnatal_day_show" string="Postnatal Day"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="postnatal_day_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('postnatal_day_show', '=', False)]}">
+                                    <group>
+                                        <field name="postnatal_day" string=""/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="type_of_delivery_show" string="Type of Delivery"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="type_of_delivery_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('type_of_delivery_show', '=', False)]}">
+                                    <group>
+                                        <field name="normal_delivery" string="Normal Delivery"/>
+                                        <field name="casarean_delivery" string="Casarean Delivery"/>
+                                        <field name="delivery_other" string="Other"/>
+                                        <field name="delivery_other_text" string=""
+                                               attrs="{'invisible': [('delivery_other', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="pos_potential_actual_risk_show" string="Potential/Actual Risk"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pos_potential_actual_risk_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pos_potential_actual_risk_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="risk_for_infection_related_to_episiotomy_post" string="Risk for Infection related to episiotomy/post-operative wound secondary to improper"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="risk_for_infection_related_to_episiotomy_post"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="alteration_in_comfort_pain_related_to_episiotomy" string="Alteration in comfort, pain related to episiotomy/post-operative wound"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="alteration_in_comfort_pain_related_to_episiotomy"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                    <group col="4">
+                                          <label for="risk_for_fluid_volume_deficit_related_to_vaginal_bleeding" string="Risk for fluid volume deficit related to vaginal bleeding secondary to post-partum complica"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="risk_for_fluid_volume_deficit_related_to_vaginal_bleeding" nolabel="1" style="width: 70%;"/>
+                                         <label for="risk_for_maternal_injury_related_to_tissue_oedema_and" string="Risk for Maternal injury related to tissue oedema and hypoxia secondary to post partum"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="risk_for_maternal_injury_related_to_tissue_oedema_and" nolabel="1" style="width: 70%;"/>
+                                       </group>
+                                </group>
+                                <group col="3">
+                                    <label for="pos_measurable_goals_show" string="Measurable Goals"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pos_measurable_goals_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pos_measurable_goals_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="will_be_able_to_demonstrate_proper_perineal_care" string="Will be able to demonstrate proper perineal care and post-operative wound care througho"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="will_be_able_to_demonstrate_proper_perineal_care"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="will_maintain_adequate_level_of_comfort_as_evidenced_by_pain" string="Will maintain adequate level of comfort as evidenced by pain score below 4 throughout the"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="will_maintain_adequate_level_of_comfort_as_evidenced_by_pain"
+                                                nolabel="1" style="width: 70%;" />
+
+
+                                    </group>
+                                    <group col="4">
+                                          <label for="vital_signs_remain_stable_with_moderate_amount_of_lochia" string="Vital signs remain stable with moderate amount of lochia within the next 7 days"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="vital_signs_remain_stable_with_moderate_amount_of_lochia" nolabel="1" style="width: 70%;"/>
+                                         <label for="free_of_signs_of_cerebral_ischemia_within" string="Free of signs of cerebral ischemia within the next 7 days."
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="free_of_signs_of_cerebral_ischemia_within" nolabel="1" style="width: 70%;"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_assessment_show" string="Patient Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="vital_signs_stable" string="Vital Signs stable"/>
+                                        <field name="presence_of_headache" string="Presence of headache"/>
+                                    </group>
+                                    <group>
+                                        <field name="change_in_vision" string="Change in Vision"/>
+                                        <field name="breast" string="Breast"/>
+                                    </group>
+                                    <group>
+                                        <field name="uterus" string="Uterus"/>
+                                        <field name="bowel_pattem" string="Bowel pattem"/>
+                                    </group>
+                                    <group>
+                                        <field name="bladder" string="Bladder"/>
+                                        <field name="abdominal_incision" string="Abdominal Incision"/>
+                                    </group>
+                                    <group>
+                                        <field name="episiotomy_episiorapphy" string="Episiotomy/Episiorapphy"/>
+                                        <field name="lochia" string="Lochia"/>
+                                    </group>
+                                    <group>
+                                        <field name="homan_sign" string="Homan's Sign"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="nutrition_show" string="Nutrition"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="nutrition_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('nutrition_show', '=', False)]}">
+                                    <group>
+                                        <field name="maintain_oral_intake" string="Maintain oral intake"/>
+                                        <field name="specific_dietary_needs" string="Specific dietary needs"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="medication_show" string="Medication"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="medication_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('medication_show', '=', False)]}">
+                                    <group>
+                                        <field name="oral_medication_discussed" string="Oral Medication discussed"/>
+                                    </group>
+                                    <group>
+                                        <field name="patient_caregiver_able"
+                                               string="Patient/caregiver able to take safely"/>
+                                    </group>
+                                    <group>
+                                        <field name="medication_review_done" string="Medication review done"/>
+                                    </group>
+                                    <group>
+                                        <field name="next_review_due" string="Next review due"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_caregiver_education_show" string="Patient Caregiver Education"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_caregiver_education_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_caregiver_education_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="advised_on_well_balanced_nutrition_fluids" string="Advised on well-balanced nutrition, fluids and continue Vitamins and FolicAcid as supplement"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advised_on_well_balanced_nutrition_fluids"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="advised_on_ambulation_to_prevent" string="Advised on ambulation to prevent constipation"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advised_on_ambulation_to_prevent"
+                                                nolabel="1" style="width: 70%;" />
+                                          <label for="report_to_emergency_department_for_sudden" string="Report to emergency department for sudden profuse blood loss, faintness, dizziness orpalpitation"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="report_to_emergency_department_for_sudden"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="report_to_emergency_department_for_headache" string="Report to emergency department for headache accompanied by visual disturbances, nausea and vomiting"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="report_to_emergency_department_for_headache"
+                                                nolabel="1" style="width: 70%;" />
+                                          <label for="report_to_emergency_department_for_unilateral" string="Report to emergency department for unilateral calf pain, redness or swelling, shortness of breath and chestpain"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="report_to_emergency_department_for_unilateral"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="advise_to_take_prescribed_analgesia" string="Advise to take prescribed analgesia for pain"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_to_take_prescribed_analgesia"
+                                                nolabel="1" style="width: 70%;" />
+                                          <label for="advise_to_palpate_fundus_and_able_to_demonstrate" string="Advise to palpate fundus and able to demonstrate how to massage uterus for soft, boggy uterus"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_to_palpate_fundus_and_able_to_demonstrate"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="advise_to_empty_bladder_and_be_aware_of_need" string="Advise to empty bladder and be aware of need to empty frequently"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_to_empty_bladder_and_be_aware_of_need"
+                                                nolabel="1" style="width: 70%;" />
+                                          <label for="encourage_to_splint_abdomen_with_pillow_when" string="Encourage to splint abdomen with pillow when coughing, moving or feeding"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="encourage_to_splint_abdomen_with_pillow_when"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="observe_for_increased_bleeding_on_post" string="Observe for increased bleeding on post-operative dressing"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="observe_for_increased_bleeding_on_post"
+                                                nolabel="1" style="width: 70%;" />
+                                          <label for="advise_refrain_form_tub_bath_until_dressings" string="Advise refrain form tub bath until dressings, sutures and staples removed"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_refrain_form_tub_bath_until_dressings"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="advise_to_use_good_body_mechanics_and_avoiding" string="Advise to use good body mechanics and avoiding the Valsalva when lifting"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_to_use_good_body_mechanics_and_avoiding"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                                    <group col="4">
+                                          <label for="advise_on_frequent_breastfeeding_to_help_prevent" string="Advise on frequent breastfeeding to help prevent engorgement"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_frequent_breastfeeding_to_help_prevent" nolabel="1" style="width: 70%;"/>
+                                         <label for="advise_on_using_non_restricting_bra" string="Advise on using non-restricting bra"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_using_non_restricting_bra" nolabel="1" style="width: 70%;"/>
+
+                                          <label for="advise_on_massaging_breast_gently_and_manually_express_milk" string="Advise on massaging breast gently and manually express milk to soften the areola before breastfeeding to facilitate infant latch"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_massaging_breast_gently_and_manually_express_milk" nolabel="1" style="width: 70%;"/>
+                                         <label for="advise_application_of_warm_compresses_shower_or_breast" string="Advise application of warm compresses, shower or breast soak before breast feeding"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_application_of_warm_compresses_shower_or_breast" nolabel="1" style="width: 70%;"/>
+
+                                          <label for="advise_on_care_support_and_breastfeeding_technique_for_women" string="Advise on care, support and breastfeeding technique for women with painful and damaged nipple and inverted nipple"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_care_support_and_breastfeeding_technique_for_women" nolabel="1" style="width: 70%;"/>
+                                         <label for="advise_on_hand_hygiene" string="Advise on hand hygiene"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_hand_hygiene" nolabel="1" style="width: 70%;"/>
+
+                                          <label for="advise_on_voiding_comfort_measure" string="Advise on voiding comfort measure"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_voiding_comfort_measure" nolabel="1" style="width: 70%;"/>
+                                         <label for="advise_on_lochia_and_perineum_comfort" string="Advise on lochia and perineum comfort measure"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_lochia_and_perineum_comfort" nolabel="1" style="width: 70%;"/>
+
+                                          <label for="advise_on_activities_and_rest" string="Advise on activities and rest"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_activities_and_rest" nolabel="1" style="width: 70%;"/>
+                                         <label for="advise_on_normal_patterns_of_emotional_changes" string="Advise on normal patterns of emotional changes in the postnatal period"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_normal_patterns_of_emotional_changes" nolabel="1" style="width: 70%;"/>
+
+                                          <label for="advise_on_proper_breastfeeding_technique" string="Advise on proper breastfeeding technique"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_on_proper_breastfeeding_technique" nolabel="1" style="width: 70%;"/>
+
+                                       </group>
+
+                                </group>
+                                <group col="3">
+                                    <label for="key_performance_indictor_show" string="Key Performance Indictor"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="key_performance_indictor_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('key_performance_indictor_show', '=', False)]}">
+                                    <group>
+                                        <field name="hospital_readmission" string="Hospital Readmission"/>
+                                    </group>
+                                    <group>
+                                        <field name="since_last_visit_patient_was"
+                                               string="Since Last Visit, patient was"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="remarks_show" string="Nurse Notes"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="remarks_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('remarks_show', '=', False)]}">
+                                    <field name="remarks" string=""/>
+                                </group>
+                            </page>
+                            <page string="Internal Referral">
+                                <field name="referral_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_doctor':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_postnatal_care_follow_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Postnatal Care</field>
+            <field name="model">sm.shifa.postnatal.care</field>
+            <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_postnatal_care_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                    <page string="Follow Up">
+                        <field name="postnatal_follow_up_id" widget="one2many_list"
+                               context="{'default_patient':patient, 'default_pcm_xx': id, 'default_nurse_name':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                        <!--                               context="{'default_patient':patient"/>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_shifa_postnatal_care_tree" model="ir.ui.view">
+            <field name="name">shifa_postnatal.care.tree</field>
+            <field name="model">sm.shifa.postnatal.care</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="postnatal_care_code"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_postnatal_care_action" model="ir.actions.act_window">
+            <field name="name">Postnatal Care</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.postnatal.care</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history for postnatal care found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_postnatal_care_search" model="ir.ui.view">
+            <field name="name">postnatal_care_search</field>
+            <field name="model">sm.shifa.postnatal.care</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="postnatal_care_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+        <!--<menuitem id="Postnatal_Care_root"
+                  name="Postnatal Care"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_shifa_postnatal_care_action"
+                  sequence="20"/>-->
+    </data>
+</odoo>

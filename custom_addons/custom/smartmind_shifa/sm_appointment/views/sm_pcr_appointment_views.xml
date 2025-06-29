@@ -1,0 +1,262 @@
+<odoo>
+
+    <record id="action_open_sale_order_from_pcr" model="ir.actions.act_window">
+        <field name="name">Sale Order from PCR Appointments</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('pcr_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_pcr_appointment_form_view" model="ir.ui.view">
+        <field name="name">PCR Appointment</field>
+        <field name="model">sm.shifa.pcr.appointment</field>
+        <field name="arch" type="xml">
+            <form string="PCR Appointment">
+                <header>
+                    <button name="set_to_operation_manager" states="scheduled"
+                            string="Send to Operation Manager"
+                            confirm="Are you sure you want to Operation Manager?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>
+                    <button name="set_to_team" states="operation_manager" string="Send to Team"
+                            confirm="Are you sure you want to send to team?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_nurse"/>
+                    <button name="set_back_to_call_center" states="operation_manager" string="Back to Call Center"
+                            confirm="Are you sure you want to back to call center?" type="object"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                    <button name="action_create_sale_order" states="team" string="Starting Time HV"
+                            confirm="Are you sure you want to start this process?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_lab_technician"/>
+                    <button name="set_to_visit_done" states="in_progress"
+                            string="Ending Time HV"
+                            confirm="Are you sure you want to complete this operation?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_lab_technician"/>
+                    <button name="set_back_to_operation_manager"
+                            states="head_nurse,canceled,visit_done,in_progress,team,head_doctor,scheduled"
+                            string="Back to Operation Manager"
+                            confirm="Are you sure you want to back to operation manager?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_lab_technician,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center"/>
+                    <button name="set_to_canceled" states="scheduled,operation_manager,team,in_progress"
+                            string="Cancel Appointment"
+                            confirm="Are you sure you want to cancel this operation?" type="object"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="scheduled,operation_manager,team,in_progress,visit_done,canceled"
+                           statusbar_colors='{"scheduled":"yellow","confirmed":"red","team":"blue","start":"red","completed":"green"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="action" class="oe_stat_button" icon="fa-dollar"
+                                name="%(action_open_sale_order_from_pcr)d">
+                            <field name="sale_order_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                                <field name="display_name" invisible="1"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="start_process_date"/>
+                        </group>
+                        <group>
+                            <field name="complete_process_date"/>
+                        </group>
+                    </group>
+                    <group col="3">
+                        <group string="Patient Details">
+                            <field name="patient"/>
+                            <field name="ssn" string="ID number" force_save="1"/>
+                            <field name="mobile" force_save="1"/>
+                            <field name="sex"/>
+                            <label for="blood_type"/>
+                            <div>
+                                <field name="blood_type" class="oe_inline"/>
+                                <field name="rh" class="oe_inline"/>
+                            </div>
+                            <field name="age" force_save="1"/>
+                            <field name="patient_weight" force_save="1"/>
+                            <field name="dob"/>
+                            <field name="marital_status"/>
+                            <!--                            <field name="is_ksa" force_save="1"/>-->
+                            <field name="nationality" force_save="1"/>
+                        </group>
+                        <group string="Service Details">
+                            <field name="appointment_date_only"/>
+                            <field name="day" readonly="1" force_save="True"/>
+                            <field name="appointment_time" widget="timepicker" force_save="True"/>
+                            <field name="timeslot" options="{'no_create': True}"/>
+                            <field name="appointment_date" force_save="True" invisible="1"/>
+                            <field name="service" options="{'no_create': True}"/>
+                            <field name="service_price"/>
+                            <field name="service_name" invisible="1"/>
+                            <field name="miscellaneous_charge" options="{'no_create': True}"/>
+                            <field name="miscellaneous_price" force_save="True"/>
+                            <!--                            <field name="attached_file_3"/>-->
+                            <field name="active" invisible="1"/>
+                            <field name="meeting_id" invisible="1"/>
+                            <field name="location"/>
+                            <field name="payment_made_through"/>
+                            <field name="payment_type" string="Mobile payment state"/>
+                            <field name="deduction_amount"/>
+                            <field name="payment_reference"/>
+                            <field name="payment_method_name"/>
+<!--                            <field name="move_id" readonly="1"/>-->
+<!--                            <field name="order_id" readonly="1"/>-->
+                            <field name="head_doctor" invisible="1"/>
+
+                        </group>
+
+                    </group>
+
+                    <!--<group>
+                        <group>
+                            <field name="start_process_date"/>
+                        </group>
+                        <group>
+                            <field name="complete_process_date"/>
+                        </group>
+                    </group>-->
+                    <group col="3">
+                        <group string="Patient Uploaded Documents">
+                            <field name="attached_file"/>
+                            <field name="attached_file_2"/>
+                            <field name="patient_comment"/>
+                        </group>
+                        <group string="Operations Manager"
+                               states="operation_manager,in_progress,team,visit_done,canceled">
+
+                            <field name="lab_technician"/>
+                            <field name="nurse"/>
+                            <field name="appointment_date"/>
+                            <field name="appointment_time" widget="timepicker"/>
+                        </group>
+                        <group string="Swabs Owners' Details and Call Center Comment">
+                            <label for="patient_followers" string="Swabs Owners' Details"/>
+                            <field name="patient_followers" nolabel="1"/>
+                            <!--                        <field name="patient_followers_count"/>-->
+                            <label for="checkup_comment" string="Call Center Comment"/>
+                            <field name="checkup_comment" nolabel="1"/>
+                        </group>
+                    </group>
+
+
+                    <notebook>
+                        <!--<page string="Allergy Test" attrs="{'invisible': [('allergy_test', '=', False)]}">
+                            <group>
+                                <field name="drug_allergy_test_done"/>
+                            </group>
+                            <group attrs="{'invisible': [('drug_allergy_test_done', '=', False)]}">
+                                <group>
+                                    <field name="has_drug_allergy" widget="radio"
+                                           options="{'horizontal': true}"/>
+                                </group>
+                                <group>
+                                    <field name="drug_allergy_content" nolabel="1" style="color:Red;"
+                                           attrs="{'invisible': [('has_drug_allergy', '=', 'no')]}"/>
+                                </group>
+                            </group>
+                        </page>-->
+                        <page name="comments" string="Comments">
+                            <group>
+                                <group>
+                                    <field name="comments" nolabel="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_pcr_appointment_event_calendar" model="ir.ui.view">
+        <field name="name">PCR Appointment Calendar</field>
+        <field name="model">sm.shifa.pcr.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="PCR Appointments" date_start="appointment_date"
+                      color="state" quick_add="False" mode="week">
+                <field name="head_doctor"/>
+                <field name="patient"/>
+                <field name="state" filters="1" invisible="1"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sm_pcr_appointment_tree_view">
+        <field name="name">PCR Appointment List</field>
+        <field name="model">sm.shifa.pcr.appointment</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string='PCR Appointments' decoration-muted="state=='operation_manager'" decoration-bf="state=='team'"
+                  decoration-primary="state=='in_progress'"
+                  decoration-info="state=='scheduled'" decoration-success="state=='visit_done'"
+                  decoration-danger="state=='canceled'">
+                <field name="name"/>
+                <field name="patient"/>
+                <field name="lab_technician"/>
+                <field name="nurse"/>
+                <field name="appointment_date_only"/>
+                <field name="appointment_time"/>
+                <!--                <field name="appointment_date"/>-->
+                <field name="start_process_date"/>
+                <field name="complete_process_date"/>
+                <field name="payment_type"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_pcr_appointment_action_tree" model="ir.actions.act_window">
+        <field name="name">PCR Appointments</field>
+        <field name="res_model">sm.shifa.pcr.appointment</field>
+        <field name="view_mode">tree,calendar,form,search</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new PCR Appointment.
+            </p>
+            <p>
+                No Data to Display.
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_pcr_appointment_search_view" model="ir.ui.view">
+        <field name="name">pcr_appointment_search</field>
+        <field name="model">sm.shifa.pcr.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient" string="Patient Name"/>
+                <field name="name" string="Reference"/>
+                <field name="nurse" string="Nurse"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="sm_pcr_appointment_list" action="sm_pcr_appointment_action_tree"
+              parent="oehealth.oeh_medical_general_menu" sequence="16"/>
+
+</odoo>
+

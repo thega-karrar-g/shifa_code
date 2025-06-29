@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_multidisciplinary_team_meeting">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h3>Multidisciplinary Team Meeting</h3>
+                        </div>
+                        <t t-set="o" t-value="o.with_context({'lang':o.patient.partner_id.lang})"/>
+                        <div t-if="o.name" style="padding-left: 13px">
+                            <strong>Ref#:</strong>
+                            <span t-field="o.name"/>
+                        </div>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div t-if="o.patient" class="col-4 bm-4">
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.patient.name"/>
+                                <br/>
+                                <strong>ID Number:</strong>
+                                <span t-field="o.patient.ssn"/>
+                                <br/>
+                                <strong>Mobile:</strong>
+                                <span t-field="o.patient.mobile"/>
+
+                            </div>
+                            <div t-if="o.patient" class="col-4 bm-4">
+                                <strong>Gender:</strong>
+                                <span t-field="o.patient.sex"/>
+                                <br/>
+                                <strong>Age:</strong>
+                                <span t-field="o.patient.age"/>
+                                <br/>
+                                <strong>Weight(kg):</strong>
+                                <span t-field="o.patient.weight"/>
+
+                            </div>
+                            <div t-if="o.patient" class="col-4 bm-4">
+                                <strong>Date:</strong>
+                                <span class="m-0" t-field="o.date"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="col-12 bm-6" t-if="o.provisional_diagnosis">
+                            <h4 style="color: blue">Diagnosis:</h4>
+                            <ul>
+                                <li>
+                                    <span t-if="o.provisional_diagnosis" t-field="o.provisional_diagnosis"/>
+                                </li>
+                                <div t-if="o.provisional_diagnosis_add">
+                                <li>
+                                    <span t-if="o.provisional_diagnosis_add" t-field="o.provisional_diagnosis_add"/>
+                                </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add2">
+                                <li>
+                                    <span t-if="o.provisional_diagnosis_add2" t-field="o.provisional_diagnosis_add2"/>
+                                </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add3">
+                                <li>
+                                    <span t-if="o.provisional_diagnosis_add3" t-field="o.provisional_diagnosis_add3"/>
+                                </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add4">
+                                    <li>
+                                        <span t-if="o.provisional_diagnosis_add4"
+                                              t-field="o.provisional_diagnosis_add4"/>
+                                    </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add5">
+                                    <li>
+                                        <span t-if="o.provisional_diagnosis_add5"
+                                              t-field="o.provisional_diagnosis_add5"/>
+                                    </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add6">
+                                    <li>
+                                        <span t-if="o.provisional_diagnosis_add6"
+                                              t-field="o.provisional_diagnosis_add6"/>
+                                    </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add7">
+                                    <li>
+                                        <span t-if="o.provisional_diagnosis_add7"
+                                              t-field="o.provisional_diagnosis_add7"/>
+                                    </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add8">
+                                    <li>
+                                        <span t-if="o.provisional_diagnosis_add8"
+                                              t-field="o.provisional_diagnosis_add8"/>
+                                    </li>
+                                </div>
+                                <div t-if="o.provisional_diagnosis_add9">
+                                    <li>
+                                        <span t-if="o.provisional_diagnosis_add9"
+                                              t-field="o.provisional_diagnosis_add9"/>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.issues_discussed">
+                            <h4 style="color: blue">
+                                Issues Discussed:
+                            </h4>
+                            <h6 t-field="o.issues_discussed"/>
+                        </div>
+                        <hr/>
+                        <div class="col-12 bm-6" t-if="o.physician_notes">
+                            <h4 style="color: blue">Physician Notes</h4>
+                            <h6 t-field="o.physician_notes"/>
+                        </div>
+                        <hr/>
+                        <h4 style="color: blue">Actions Required to be Taken by</h4>
+                        <div class="row mt32 mb32">
+                            <div class="col-6 bm-6">
+                                <h6>
+                                    Nurse:
+                                    <br/>
+                                    <span t-field="o.actions_required_nurse"/>
+                                </h6>
+                                <h6>
+                                    Physiotherapist:
+                                    <br/>
+                                    <span t-field="o.actions_required_physiotherapist"/>
+                                </h6>
+                                <h6>
+                                    Respiratory Therapist:
+                                    <br/>
+                                    <span t-field="o.actions_required_respiratory_therapist"/>
+                                </h6>
+                            </div>
+                            <div class="col-6 bm-6">
+                                <h6>
+                                    Diabetic Educator:
+                                    <br/>
+                                    <span t-field="o.actions_required_diabetic_educator"/>
+                                </h6>
+                                <h6>
+                                    Clinical Dietitian:
+                                    <br/>
+                                    <span t-field="o.actions_required_clinical_dietitian"/>
+                                </h6>
+                                <h6>
+                                    Social Worker:
+                                    <br/>
+                                    <span t-field="o.actions_required_social_worker"/>
+                                </h6>
+                            </div>
+                        </div>
+                        <hr/>
+                        <h4 style="color: blue">
+                            Team Signatures
+                        </h4>
+                        <div class="row mt32 mb32 col-12" style="padding-left: 13px">
+                            <div class="col-6 bm-6">
+                                <div t-if="o.doctor">
+                                    <strong>Doctor:</strong>
+                                    <span t-field="o.doctor.name"/>
+                                    <br/>
+                                    <strong>Signature:</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_doctor}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.nurse">
+                                    <strong>Nurse:</strong>
+                                    <span t-field="o.nurse.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_nurse}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.physiotherapist">
+                                    <strong>Physiotherapist:</strong>
+                                    <span t-field="o.physiotherapist.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_physiotherapist}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                            </div>
+
+                            <div class="col-6 bm-6">
+                                <div t-if="o.respiratory_therapist">
+                                    <strong>Respiratory Therapist:</strong>
+                                    <span t-field="o.respiratory_therapist.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_respiratory_therapist}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.diabetic_educator">
+                                    <strong>Diabetic Educator:</strong>
+                                    <span t-field="o.diabetic_educator.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_diabetic_educator}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.clinical_dietitian">
+                                    <strong>Clinical Dietitian:</strong>
+                                    <span t-field="o.clinical_dietitian.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_clinical_dietitian}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.social_worker">
+                                    <strong>Social Worker:</strong>
+                                    <span t-field="o.social_worker.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_social_worker}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

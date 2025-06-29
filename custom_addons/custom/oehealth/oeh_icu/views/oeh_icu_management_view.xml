@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add ICU Management reference -->
+
+    <record model="ir.ui.view" id="oeh_medical_icu_mgmnt_tree">
+        <field name="name">Intensive Care Units</field>
+        <field name="model">oeh.medical.icu</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Intensive Care Units">
+                <field name="name"/>
+                <field name="institution"/>
+                <field name="icu_type"/>
+                <field name="icu_charge"/>
+                <field name="state"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="oeh_medical_icu_mgmnt_view">
+        <field name="name">Intensive Care Units</field>
+        <field name="model">oeh.medical.icu</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Intensive Care Units">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="Free,Reserved,Occupied,Not Available"/>
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label class="oe_edit_only" for="name" string="ICU #"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="icu_type"/>
+                            <field name="icu_charge" required="1"/>
+                        </group>
+                        <group>
+                            <field name="institution"/>
+                            <field name="building"/>
+                            <field name="floor"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Facilities">
+                            <field name="telephone"/>
+                            <field name="ac"/>
+                            <field name="private_bathroom"/>
+                            <field name="guest_sofa"/>
+                            <field name="tv"/>
+                            <field name="internet"/>
+                            <field name="refrigerator"/>
+                            <field name="microwave"/>
+                        </group>
+                        <group string="Equipments">
+                            <field name="equipment_mechanical_ventilator"/>
+                            <field name="equipment_cardiac_monitors"/>
+                            <field name="equipment_intravenous_lines"/>
+                            <field name="equipment_feeding_tubes"/>
+                            <field name="equipment_nasogastric_tubes"/>
+                            <field name="equipment_suction_pumps"/>
+                            <field name="equipment_drains"/>
+                            <field name="equipment_catheters"/>
+                        </group>
+                    </group>
+                    <group string="Change ICU Status">
+                        <field name="change_icu_status" on_change="onchange_icu_status(change_icu_status, state)"
+                               string="Change to"/>
+                    </group>
+                    <notebook>
+                        <page string="Extra Information">
+                            <field name="info" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_medical_icu_mgmnt_filter" model="ir.ui.view">
+        <field name="name">Intensive Care Units Search</field>
+        <field name="model">oeh.medical.icu</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <search string="Intensive Care Units">
+                <field name="name"/>
+                <field name="icu_type"/>
+                <field name="institution"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="icu_types" string="ICU Types" domain="[]" context="{'group_by':'icu_type'}"/>
+                    <filter name="icu_institutes" string="Institutes" domain="[]" context="{'group_by':'institution'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="oeh_medical_icu_mgmnt_action" model="ir.actions.act_window">
+        <field name="name">Intensive Care Units</field>
+        <field name="res_model">oeh.medical.icu</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new intensive care unit.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="oeh_medical_icu_mgmnt_action" id="oeh_medical_icu_mgmnt_list" parent="oeh_medical_hospital_menu"
+              sequence="15"/>
+
+    <!-- ICU Admissions -->
+
+    <record model="ir.ui.view" id="oeh_medical_icu_admissions_mgmnt_tree">
+        <field name="name">ICU Admissions</field>
+        <field name="model">oeh.medical.icu.admission</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="ICU Admissions">
+                <field name="name"/>
+                <field name="icu_room"/>
+                <field name="patient"/>
+                <field name="admission_date"/>
+                <field name="discharge_date"/>
+                <field name="admission_reason"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="oeh_medical_icu_admission_mgmnt_view">
+        <field name="name">ICU Admissions</field>
+        <field name="model">oeh.medical.icu.admission</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="ICU Admissions">
+                <header>
+                    <button confirm="Are you sure you want to admit the patient?" name="set_to_hospitalized"
+                            states="Draft" string="Admit Now" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to put the patient on ventilation?" name="set_to_ventilation"
+                            states="Hospitalized,Ventilation Removed" string="Put on Ventilation" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to remove ventilation?" name="remove_ventilation"
+                            states="On Ventilation" string="Remove Ventilation" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                    <!--                    <button confirm="Are you sure you want to put the patient on ventilation?" name="set_to_ventilation" states="Ventilation Removed"-->
+                    <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                            states="Hospitalized" string="Discharge Now" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to create the invoice?" name="set_to_invoiced"
+                            states="Ventilation Removed,On Ventilation" string="Create Invoice" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to cancel the admission?" name="set_to_cancelled"
+                            states="Hospitalized" string="Cancel Admission" type="object"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to set record to draft mode?" name="set_to_draft"
+                            states="Cancelled" string="Set to Draft" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Draft,Hospitalized,On Ventilation,Ventilation Removed,Discharged,Invoiced"/>
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label class="oe_edit_only" for="name" string="ICU Admission #"/>
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="icu_room" options="{'no_create': True}"/>
+                            <field name="admission_reason"/>
+                            <field name="admission_condition"/>
+                        </group>
+                        <group>
+                            <field name="patient"/>
+                            <field name="attending_physician" options="{'no_create': True}"/>
+                            <field name="operating_physician" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group string="Dates">
+                        <group>
+                            <field name="admission_date"/>
+                        </group>
+                        <group>
+                            <field name="discharge_date"/>
+                        </group>
+                    </group>
+                    <group string="Ventilation History">
+                        <p style="font-size:12px; color:green;" attrs="{'invisible':[('state','=', 'On Ventilation')]}">
+                            <em>Patient is currently not on ventilation.</em>
+                        </p>
+                    </group>
+                    <group attrs="{'invisible':[('state','!=','On Ventilation')]}">
+                        <p style="font-size:12px; color:red;">
+                            <em>Patient is currently on ventilation.</em>
+                        </p>
+                    </group>
+                    <group name="ventilation">
+                        <group>
+                            <!--attrs="{'required':[('state','in',['Hospitalized'])]}"-->
+                            <field name="ventilation_type"/>
+                            <field name="ett_size"/>
+                            <field name="tracheostomy_size"/>
+                        </group>
+                        <group>
+                            <field name="ventilation_start_date"
+                                   attrs="{'required':[('state','in',['On Ventilation', 'Ventilation Removed'])]}"/>
+                            <field name="ventilation_end_date"/>
+                            <field name="ventilation_duration"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Rounding">
+                            <field name="rounding_lines" widget="one2many_list" nolabel="1">
+                                <tree string="ICU Rounding">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="health_professional"/>
+                                    <field name="patient" invisible="1"/>
+                                    <field name="admission_id" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                                <form string="ICU Rounding">
+                                    <sheet>
+                                        <div class="oe_left" style="width: 500px;">
+                                            <div class="oe_title" style="width: 390px;">
+                                                <label class="oe_edit_only" for="name" string="Rounding #"/>
+                                                <h1>
+                                                    <field name="name" readonly="1" class="oe_inline"/>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <group>
+                                            <group>
+                                                <field name="patient"/>
+                                                <field name="health_professional" readonly="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="date"/>
+                                                <field name="admission_id" invisible="1"/>
+                                            </group>
+                                        </group>
+                                        <group invisible="1">
+                                            <field name="state"/>
+                                        </group>
+                                        <notebook>
+                                            <page string="Neurologic">
+                                                <group>
+                                                    <group>
+                                                        <field name="pupil_dilation"/>
+                                                        <field name="anisocoria"/>
+                                                        <field name="pupil_reactivity"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="left_pupil"/>
+                                                        <field name="right_pupil"/>
+                                                    </group>
+                                                </group>
+                                                <group string="Glasgow Coma Scale">
+                                                    <field name="gcs_lines" nolabel="1">
+                                                        <form string="Glasgow Coma Scale">
+                                                            <sheet>
+                                                                <div class="oe_left" style="width: 500px;">
+                                                                    <div class="oe_title" style="width: 390px;">
+                                                                        <label class="oe_edit_only" for="name"
+                                                                               string="GCS Evaluation #"/>
+                                                                        <h1>
+                                                                            <field name="name" readonly="1"
+                                                                                   class="oe_inline"/>
+                                                                        </h1>
+                                                                    </div>
+                                                                </div>
+                                                                <group>
+                                                                    <group>
+                                                                        <field name="date"/>
+                                                                    </group>
+                                                                    <group>
+                                                                        <field name="glasgow"/>
+                                                                    </group>
+                                                                </group>
+                                                                <group>
+                                                                    <field name="glasgow_eyes"/>
+                                                                </group>
+                                                                <group>
+                                                                    <field name="glasgow_verbal"/>
+                                                                </group>
+                                                                <group>
+                                                                    <field name="glasgow_motor"/>
+                                                                </group>
+                                                            </sheet>
+                                                        </form>
+                                                        <tree string="Glasgow Coma Scale">
+                                                            <field name="name"/>
+                                                            <field name="date"/>
+                                                            <field name="glasgow_eyes"/>
+                                                            <field name="glasgow_verbal"/>
+                                                            <field name="glasgow_motor"/>
+                                                            <field name="glasgow"/>
+                                                            <field name="rounding_id" invisible="1"/>
+                                                        </tree>
+                                                    </field>
+                                                </group>
+                                            </page>
+                                            <page string="Respiratory">
+                                                <group>
+                                                    <group>
+                                                        <field name="respiration"/>
+                                                        <field name="oxygen_mask"/>
+                                                        <field name="peep"/>
+                                                        <field name="sce"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="trachea_alignment"/>
+                                                        <field name="fio2"/>
+                                                        <field name="peep_pressure"
+                                                               attrs="{'invisible':[('peep','=',False)], 'required':[('peep','=',True)]}"/>
+                                                        <field name="oral_mucosa_lesion"/>
+                                                        <field name="lips_lesion"/>
+                                                    </group>
+                                                </group>
+                                                <group string="Chest">
+                                                    <group>
+                                                        <field name="chest_expansion"/>
+                                                        <field name="tracheal_tug"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="paradoxical_expansion"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="Cardiovascular">
+                                                <group>
+                                                    <group>
+                                                        <field name="venous_access"/>
+                                                        <field name="arterial_access"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="swan_ganz"/>
+                                                        <field name="dialysis"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="Infections">
+                                                <group string="Blood / Skin">
+                                                    <group>
+                                                        <field name="bacteremia"/>
+                                                        <field name="wound_dehiscence"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="surgery_infection"/>
+                                                        <field name="cellulitis"/>
+                                                    </group>
+                                                </group>
+                                                <group string="Digestive and Abdomen">
+                                                    <group>
+                                                        <field name="vomiting"/>
+                                                        <field name="stools"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="bowel_sounds"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="X-Ray">
+                                                <field name="xray" height="250" width="250" widget="image" nolabel="1"/>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_medical_icu_admission_mgmnt_filter" model="ir.ui.view">
+        <field name="name">ICU Admissions Search</field>
+        <field name="model">oeh.medical.icu.admission</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <search string="ICU Admissions">
+                <field name="name"/>
+                <field name="icu_room"/>
+                <field name="patient"/>
+                <field name="attending_physician"/>
+                <field name="operating_physician"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="icu_admissions_rooms" string="ICU Rooms" domain="[]"
+                            context="{'group_by':'icu_room'}"/>
+                    <filter name="icu_admissions_patients" string="Patients" domain="[]"
+                            context="{'group_by':'patient'}"/>
+                    <filter name="icu_admission_reasons" string="Admission Reasons" domain="[]"
+                            context="{'group_by':'admission_reason'}"/>
+                    <filter name="icu_admission_doctors_attending" string="Attending Doctors" domain="[]"
+                            context="{'group_by': 'attending_physician'}"/>
+                    <filter name="icu_admission_doctors_operating" string="Operating Doctors" domain="[]"
+                            context="{'group_by': 'operating_physician'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="oeh_medical_icu_admission_mgmnt_action" model="ir.actions.act_window">
+        <field name="name">ICU Admissions</field>
+        <field name="res_model">oeh.medical.icu.admission</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new ICU admission.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="oeh_medical_icu_admission_mgmnt_action" id="oeh_medical_icu_admission_mgmnt_list"
+              parent="oeh_medical_icu_menu" sequence="15"/>
+
+    <!-- ICU Rounding -->
+
+    <record model="ir.ui.view" id="oeh_medical_icu_rounding_mgmnt_tree">
+        <field name="name">ICU Rounding</field>
+        <field name="model">oeh.medical.icu.admission.rounding</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="ICU Rounding">
+                <field name="name"/>
+                <field name="admission_id"/>
+                <field name="date"/>
+                <field name="patient"/>
+                <field name="health_professional"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="oeh_medical_icu_rounding_mgmnt_view">
+        <field name="name">ICU Rounding</field>
+        <field name="model">oeh.medical.icu.admission.rounding</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="ICU Rounding">
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label class="oe_edit_only" for="name" string="Rounding #"/>
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="admission_id" required="1"/>
+                            <field name="patient"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="health_professional" readonly="1"/>
+                        </group>
+                    </group>
+                    <group invisible="1">
+                        <field name="state"/>
+                    </group>
+                    <notebook>
+                        <page string="Neurologic">
+                            <group>
+                                <group>
+                                    <field name="pupil_dilation"/>
+                                    <field name="anisocoria"/>
+                                    <field name="pupil_reactivity"/>
+                                </group>
+                                <group>
+                                    <field name="left_pupil"/>
+                                    <field name="right_pupil"/>
+                                </group>
+                            </group>
+                            <group string="Glasgow Coma Scale">
+                                <field name="gcs_lines" nolabel="1">
+                                    <form string="Glasgow Coma Scale">
+                                        <sheet>
+                                            <div class="oe_left" style="width: 500px;">
+                                                <div class="oe_title" style="width: 390px;">
+                                                    <label class="oe_edit_only" for="name" string="GCS Evaluation #"/>
+                                                    <h1>
+                                                        <field name="name" readonly="1" class="oe_inline"/>
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                            <group>
+                                                <group>
+                                                    <field name="date"/>
+                                                </group>
+                                                <group>
+                                                    <field name="glasgow"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <field name="glasgow_eyes"/>
+                                            </group>
+                                            <group>
+                                                <field name="glasgow_verbal"/>
+                                            </group>
+                                            <group>
+                                                <field name="glasgow_motor"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                    <tree string="Glasgow Coma Scale">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="glasgow_eyes"/>
+                                        <field name="glasgow_verbal"/>
+                                        <field name="glasgow_motor"/>
+                                        <field name="glasgow"/>
+                                        <field name="rounding_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Respiratory">
+                            <group>
+                                <group>
+                                    <field name="respiration"/>
+                                    <field name="oxygen_mask"/>
+                                    <field name="peep"/>
+                                    <field name="sce"/>
+                                </group>
+                                <group>
+                                    <field name="trachea_alignment"/>
+                                    <field name="fio2"/>
+                                    <field name="peep_pressure"
+                                           attrs="{'invisible':[('peep','=',False)], 'required':[('peep','=',True)]}"/>
+                                    <field name="oral_mucosa_lesion"/>
+                                    <field name="lips_lesion"/>
+                                </group>
+                            </group>
+                            <group string="Chest">
+                                <group>
+                                    <field name="chest_expansion"/>
+                                    <field name="tracheal_tug"/>
+                                </group>
+                                <group>
+                                    <field name="paradoxical_expansion"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Cardiovascular">
+                            <group>
+                                <group>
+                                    <field name="venous_access"/>
+                                    <field name="arterial_access"/>
+                                </group>
+                                <group>
+                                    <field name="swan_ganz"/>
+                                    <field name="dialysis"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Infections">
+                            <group string="Blood / Skin">
+                                <group>
+                                    <field name="bacteremia"/>
+                                    <field name="wound_dehiscence"/>
+                                </group>
+                                <group>
+                                    <field name="surgery_infection"/>
+                                    <field name="cellulitis"/>
+                                </group>
+                            </group>
+                            <group string="Digestive and Abdomen">
+                                <group>
+                                    <field name="vomiting"/>
+                                    <field name="stools"/>
+                                </group>
+                                <group>
+                                    <field name="bowel_sounds"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="X-Ray">
+                            <field name="xray" height="250" width="250" widget="image" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_medical_icu_rounding_mgmnt_filter" model="ir.ui.view">
+        <field name="name">ICU Rounding Search</field>
+        <field name="model">oeh.medical.icu.admission.rounding</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <search string="ICU Rounding">
+                <field name="name"/>
+                <field name="admission_id"/>
+                <field name="patient"/>
+                <field name="health_professional"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="icu_rounding_admission" string="ICU Admissions" domain="[]"
+                            context="{'group_by':'admission_id'}"/>
+                    <filter name="icu_rounding_patients" string="Patients" domain="[]"
+                            context="{'group_by':'patient'}"/>
+                    <filter name="icu_rounding_health_proffesionals" string="Health Professionals" domain="[]"
+                            context="{'group_by':'health_professional'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="oeh_medical_icu_rounding_mgmnt_action" model="ir.actions.act_window">
+        <field name="name">ICU Roundings</field>
+        <field name="res_model">oeh.medical.icu.admission.rounding</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new ICU rounding information.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="oeh_medical_icu_rounding_mgmnt_action" id="oeh_medical_icu_rounding_mgmnt_list"
+              parent="oeh_medical_icu_menu" sequence="20"/>
+
+
+</odoo>

@@ -1,0 +1,340 @@
+<odoo>
+    <data>
+        <record id="icu_admission_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.icu.admission.inherit</field>
+            <field name="model">oeh.medical.icu.admission</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_icu_admission_mgmnt_view"/>
+            <field name="arch" type="xml">
+                <field name="admission_reason" position="after">
+                    <field name="present_illness_history"/>
+                </field>
+                <field name="operating_physician" position="after">
+                    <field name="admission_type"/>
+                </field>
+                <field name="icu_room" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <group name="ventilation" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </group>
+                <xpath expr="/form/sheet/group[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group[4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group[4]" position="after">
+                    <group string="Patient Details">
+                        <group>
+                            <field name="dob"/>
+                            <field name="marital_status"/>
+                            <field name="drug_allergy_content" style="color:Red;"/>
+                            <field name="food_allergy_content" style="color:Red;"/>
+                            <field name="other_allergy_content" style="color:Red;"/>
+                        </group>
+                        <group>
+                            <field name="sex"/>
+                            <field name="blood_type"/>
+                            <field name="rh"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[1]" position="before">
+                    <page string="Medical History">
+                        <group string="PAST MEDICAL ILL NESS">
+                            <group>
+                                <field name="hbv_infection_chk"/>
+                            </group>
+                            <group>
+                                <field name="hbv_infection_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="dm_chk"/>
+                            </group>
+                            <group>
+                                <field name="dm_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="ihd_chk"/>
+                            </group>
+                            <group>
+                                <field name="ihd_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="cold_chk"/>
+                            </group>
+                            <group>
+                                <field name="cold_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="hypertension_chk"/>
+                            </group>
+                            <group>
+                                <field name="hypertension_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="surgery_chk"/>
+                            </group>
+                            <group>
+                                <field name="surgery_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="others_past_illness" string="Others"/>
+                        </group>
+                        <group string="DRUGS">
+                            <group>
+                                <field name="nsaids_chk"/>
+                            </group>
+                            <group>
+                                <field name="nsaids_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="aspirin_chk"/>
+                            </group>
+                            <group>
+                                <field name="aspirin_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="laxative_chk"/>
+                            </group>
+                            <group>
+                                <field name="laxative_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="others_drugs" string="Others"/>
+                        </group>
+                        <group string="MENSTRUAL HISTORY">
+                            <group>
+                                <field name="lmp_chk"/>
+                            </group>
+                            <group>
+                                <field name="lmp_dt"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="menorrhagia_chk"/>
+                            </group>
+                            <group>
+                                <field name="menorrhagia_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="dysmenorrhoea_chk"/>
+                            </group>
+                            <group>
+                                <field name="dysmenorrhoea_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="bleeding_pv_chk"/>
+                            </group>
+                            <group>
+                                <field name="bleeding_pv_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="last_pap_smear_chk"/>
+                            </group>
+                            <group>
+                                <field name="last_pap_smear_remarks" string="Remarks"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Lifestyle">
+                        <group>
+                            <group string="Physical Exercise">
+                                <field name="exercise"/>
+                                <field name="exercise_minutes_day"/>
+                            </group>
+                            <group string="Sleep">
+                                <field name="sleep_during_daytime"/>
+                                <field name="sleep_hours"/>
+                            </group>
+                        </group>
+                        <group string="Diet info">
+                            <group>
+                                <field name="number_of_meals"/>
+                                <field name="eats_alone"/>
+                                <field name="coffee"/>
+                                <field name="coffee_cups"/>
+                            </group>
+                            <group>
+                                <field name="soft_drinks"/>
+                                <field name="salt"/>
+                                <field name="diet"/>
+                                <field name="diet_info"/>
+                            </group>
+                        </group>
+                        <group string="Lifestyle Information">
+                            <field name="lifestyle_info" nolabel="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Addictions">
+                                <group string="Smoking">
+                                    <group>
+                                        <field name="smoking"/>
+                                        <field name="ex_smoker"/>
+                                        <field name="age_start_smoking"/>
+                                    </group>
+                                    <group>
+                                        <field name="smoking_number"/>
+                                        <field name="second_hand_smoker"/>
+                                        <field name="age_quit_smoking"/>
+                                    </group>
+                                </group>
+                                <group string="Drinking">
+                                    <group>
+                                        <field name="alcohol"/>
+                                        <field name="age_start_drinking"/>
+                                        <field name="alcohol_beer_number"/>
+                                        <field name="alcohol_liquor_number"/>
+                                    </group>
+                                    <group>
+                                        <field name="ex_alcoholic"/>
+                                        <field name="age_quit_drinking"/>
+                                        <field name="alcohol_wine_number"/>
+                                    </group>
+                                </group>
+                                <group string="Drugs">
+                                    <group>
+                                        <field name="drug_usage"/>
+                                        <field name="age_start_drugs"/>
+                                        <field name="ex_drug_addict"/>
+                                    </group>
+                                    <group>
+                                        <field name="drug_iv"/>
+                                        <field name="age_quit_drugs"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <!--                                        <field name="drugs" widget="many2many_tags"/>-->
+                                </group>
+                            </page>
+                            <page string="Sexuality">
+                                <group>
+                                    <group>
+                                        <field name="sexual_preferences"/>
+                                        <field name="sexual_partners_number"/>
+                                        <field name="sexual_practices"/>
+                                    </group>
+                                    <group>
+                                        <field name="sexual_partners"/>
+                                        <field name="first_sexual_encounter"/>
+                                        <field name="anticonceptive"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Other sexual practices">
+                                        <field name="sex_oral"/>
+                                        <field name="sex_anal"/>
+                                    </group>
+                                    <group string="Prostitution">
+                                        <field name="prostitute"/>
+                                        <field name="sex_with_prostitutes"/>
+                                    </group>
+                                </group>
+                                <group string="Patient Sexuality Info">
+                                    <field nolabel="1" name="sexuality_info"/>
+                                </group>
+                            </page>
+                            <page string="Drive and Home Safety">
+                                <group>
+                                    <group>
+                                        <field name="motorcycle_rider"/>
+                                        <field name="helmet"/>
+                                        <field name="traffic_laws"/>
+                                        <field name="car_revision"/>
+                                    </group>
+                                    <group>
+                                        <field name="car_seat_belt"/>
+                                        <field name="car_child_safety"/>
+                                        <field name="home_safety"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </page>
+                    <page string="Investigations">
+                        <notebook>
+                            <page string="Lab Test">
+                                <field name="lab_test_ids" widget="one2many_list" nolabel="1"/>
+                            </page>
+                            <page string="Image Test">
+                                <field name="image_test_ids" widget="one2many_list" nolabel="1"/>
+                            </page>
+                            <!--<page string="Other">
+                                <group>
+                                    <group>
+                                        <field name="investigation_name"/>
+                                        <field name="investigation_analysis"/>
+                                        <field name="investigation_conclusion"/>
+                                        <field name="investigation_document"/>
+                                    </group>
+                                    <group>
+                                        <field name="investigation_image" widget="image"
+                                               options='{"size": [150, 150]}' nolabel="1"/>
+                                    </group>
+                                </group>
+                            </page>-->
+                        </notebook>
+                    </page>
+                    <page string="Evaluations">
+                        <field name="evaluation_ids" widget="one2many_list"
+                               context="{'default_appointment': active_id, 'default_patient':patient}"/>
+                    </page>
+                    <page string="Prescribed Medicines">
+                        <group>
+                            <group>
+                                <field name="prescribed_medicines" nolabel="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Consumed Medicines">
+                        <group>
+                            <group>
+                                <field name="consumed_medicines" nolabel="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Nursing Plan">
+                        <group>
+                            <group>
+                                <field name="nursing_plan" nolabel="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Consultation Comment">
+                        <group>
+                            <group>
+                                <field name="comments" nolabel="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Home Rounding">
+<!--                        <field name="rounding_lines" widget="one2many_list"/>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

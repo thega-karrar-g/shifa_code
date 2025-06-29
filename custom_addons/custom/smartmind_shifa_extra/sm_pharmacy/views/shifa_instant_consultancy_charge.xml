@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+
+        <record id="sm_instant_consultancy_charge_tree" model="ir.ui.view">
+            <field name="name">Miscellaneous Charges</field>
+            <field name="model">sm.shifa.instant.consultancy.charge</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="consultancy_name"/>
+                    <field name="code"/>
+                    <field name="product_id"/>
+                    <field name="cost"/>
+                    <field name="charge"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="sm_instant_consultancy_charge_form" model="ir.ui.view">
+            <field name="name">Instant Consultancy Charge Form</field>
+            <field name="model">sm.shifa.instant.consultancy.charge</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="consultancy_name"/>
+                        </group>
+                        <group>
+                            <field name="cost"/>
+                            <field name="charge"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_instant_consultancy_charge_action" model="ir.actions.act_window">
+            <field name="name">Miscellaneous Charges</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.instant.consultancy.charge</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No data to show here
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="sm_instant_consultancy_charge"
+                  name="Miscellaneous Charges"
+                  parent="smartmind_shifa.shifa_services_management_menu"
+                  action="sm_instant_consultancy_charge_action"
+                  sequence="26"/>
+
+
+    </data>
+</odoo>

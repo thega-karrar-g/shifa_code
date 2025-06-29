@@ -1,0 +1,58 @@
+ <odoo>
+    <data>
+         <record id="sm_shifa_instant_consultation_doctor_action" model="ir.actions.act_window">
+            <field name="name">Instance consultation</field>
+            <field name="res_model">sm.shifa.instant.consultation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('doctor', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Instance consultation.
+                </p>
+                <p>
+                    No Data to Display.
+                </p>
+            </field>
+        </record>
+         <record id="physician_view_form_inherit_con" model="ir.ui.view">
+            <field name="name">oeh.medical.physician.inherit</field>
+            <field name="model">oeh.medical.physician</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_physician_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(smartmind_shifa.action_open_pcr_appointment_in_doctor)d']" position="after">
+                         <button type="action" class="oe_stat_button" name="%(sm_shifa_instant_consultation_doctor_action)d"
+                                icon="fa-calendar">
+                                <field name="instant_consultation_count" widget="statinfo"/>
+                         </button>
+                </xpath>
+                 <xpath expr="/form/sheet/notebook/page[2]" position="after">
+                     <page string="Instant consultation details">
+                        <group>
+                              <group>
+                             <field name="completed_consult" string="Completed Consult."/>
+<!--                             <field name="count_consult" string="counter"/>-->
+                         <field name="commission_per_consult" string="Commission Per Consult."  force_save="1"/>
+                         <field name="total_commission" string="Total Commission."/>
+                         </group>
+                         <group>
+                             <field name="total_paid_amount" string="Total Paid Amount."/>
+                         <field name="total_penalties" string="Total Penalties."/>
+                         <field name="commission_payable" string="Commission Payable."/>
+
+                         </group>
+                        </group>
+                              <group string="Paid Amount">
+                          </group>
+                             <field name="paid_amount_id" widget="one2many_list"/>
+
+                           <group string="Penalties">
+                                     </group>
+                             <field name="penalties_id" widget="one2many_list"/>
+                     </page>
+                 </xpath>
+            </field>
+         </record>
+    </data>
+ </odoo>

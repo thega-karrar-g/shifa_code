@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <!--<record id="employee_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.appointment.inherit</field>
+            <field name="model">oeh.medical.appointment</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_appointment_view"/>
+            <field name="arch" type="xml">
+
+            </field>
+        </record>-->
+    </data>
+</odoo>

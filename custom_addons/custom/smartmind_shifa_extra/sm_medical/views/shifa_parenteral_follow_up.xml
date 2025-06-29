@@ -1,0 +1,314 @@
+<odoo>
+    <data>
+        <record id="view_shifa_parenteral_drugfluid_follow_up_form" model="ir.ui.view">
+            <field name="name">shifa.parenteral.drugfluid.follow.up.form</field>
+            <field name="model">sm.shifa.parenteral.drugfluid.follow.up</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_done"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Draft,Start,Done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="parenteral_drugfluid_follow_up_code" string="PDFA-F#"/>
+                                <h1>
+                                    <field name="parenteral_drugfluid_follow_up_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                                <field name="parenteral_drugfluid_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="pdfa_ss"/>
+                                <field name="nurse_name"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="completed_date"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                <field name="blood_type"/>-->
+                                <!--                                <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <notebook>
+                            <page string="Observation">
+                                <group col="3">
+                                    <label for="conscious_state_show" string="Conscious State"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="conscious_state_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('conscious_state_show', '=', False)]}">
+                                     <group col="4">
+                                        <label for="conscious_state" string="Conscious State"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="conscious_state"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="pain_present_show" string="Pain Present"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                    <group col="4">
+                                        <label for="pain_score" string="Pain Score"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="pain_score"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="scale_used" string="Scale Used"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="scale_used"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="functional_activity_show" string="Functional Activity"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                                     <group col="4">
+                                        <label for="functional_activity" string="Functional Activity"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="functional_activity"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+
+
+                                <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                        <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                        <field name="hr_min" string="HR(/min)"/>
+                                    </group>
+                                    <group>
+                                        <field name="temperature_c" string="Temperature(C)"/>
+                                        <field name="rr_min" string="RR(/min)"/>
+                                        <field name="o2_sat" string="O2 Sat(%)"/>
+                                        <field name="char_other_oxygen" string=""
+                                               attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                        <!--                                    <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                        <!--                                            <div>-->
+                                        <!--                                                <group col="7">-->
+                                        <!--                                                    <span colspan="2">at room air</span>-->
+                                        <!--                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                        <!--                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                </group>-->
+                                        <!--                                                <field name="char_other_oxygen" string=""/>-->
+                                        <!--                                            </div>-->
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="parenteral_route_show" string="Parenteral Route"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="parenteral_route_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('parenteral_route_show', '=', False)]}">
+                                    <group>
+                                        <field name="peripheral_intravenous_cannula"
+                                               string="Peripheral Intravenous Cannula"/>
+                                        <field name="p_i_c_c_line" string="P.I.C.C Line"/>
+                                        <field name="central_catheter" string="Central Catheter"/>
+                                        <field name="subcutaneous" string="Subcutaneous"/>
+                                        <field name="intramuscular" string="Intramuscular"/>
+                                        <field name="portacath" string="Portacath"/>
+                                        <field name="parenteral_other" string="Other"/>
+                                        <field name="parenteral_other_text" string=""
+                                               attrs="{'invisible': [('parenteral_other', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="par_potential_actual_risk_show" string="Potential/Actual Risk"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="par_potential_actual_risk_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('par_potential_actual_risk_show', '=', False)]}">
+
+                                    <group col="4">
+                                        <label for="complications_related_to_parenteral_therapy" string="Complications related to parenteral therapy"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="complications_related_to_parenteral_therapy"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="complications_related_to_parenteral_medications" string="Complications related to parenteral medications/fluids"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="complications_related_to_parenteral_medications"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                                    <group col="4">
+                                        <label for="local_irritation_inflammation_or_infection_related" string="Local irritation, inflammation or infection related to venipuncture / parenteral site"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="local_irritation_inflammation_or_infection_related"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="no_complication_of_pulmonary_micro_embolism" string="No complication of pulmonary micro embolism"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="no_complication_of_pulmonary_micro_embolism"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+
+                                </group>
+                                <group col="3">
+                                    <label for="the_following_early_show"
+                                           string="The following early warning signs to be observed and acted upon as required"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="the_following_early_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('the_following_early_show', '=', False)]}">
+                                    <group>
+                                        <field name="deterioration" string="Deterioration in conscious state"/>
+                                        <field name="systolic" string="Systolic BP &lt; 90 mmHg"/>
+                                    </group>
+                                    <!--                                     <h3></h3>-->
+                                    <!--!&ndash;                                     <>&ndash;&gt;-->
+                                    <group>
+                                        <field name="heart_rate" string="Heart rate &lt; 40 OR &gt; 140"/>
+                                        <field name="respiratory_rate"
+                                               string="Respiratory rate &lt; 10 OR &gt; 30 ppm"/>
+                                    </group>
+                                    <group>
+                                        <field name="difficulty_breathing" string="Difficulty breathing"/>
+                                        <field name="multiple_convulsion" string="Multiple convulsion"/>
+                                        <field name="chest_pain" string="Chest Pain"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="progress_noted_show" string="Progress Noted"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="progress_noted_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('progress_noted_show', '=', False)]}">
+                                    <field name="progress_noted" string=""/>
+                                </group>
+                                <group col="3">
+                                    <label for="care_rendered_show" string="Care rendered as per"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="care_rendered_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('care_rendered_show', '=', False)]}">
+                                    <field name="care_rendered" string=""/>
+                                </group>
+                            </page>
+                            <page string="Supervisor Consultation">
+                                <field name="notification_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_requested_by':nurse_name, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_parenteral_drugfluid_follow_up_tree" model="ir.ui.view">
+            <field name="name">shifa_parenteral.drugfluid.follow.up.tree</field>
+            <field name="model">sm.shifa.parenteral.drugfluid.follow.up</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="parenteral_drugfluid_follow_up_code"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="pdfa_ss"/>
+                    <field name="nurse_name"/>
+                    <field name="start_date"/>
+                    <field name="completed_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_parenteral_drugfluid_follow_up_action" model="ir.actions.act_window">
+            <field name="name">Parenteral Drug Fluid Follow Up</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.parenteral.drugfluid.follow.up</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No parenteral drug fluid follow up found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_parenteral_drugfluid_follow_up_search" model="ir.ui.view">
+            <field name="name">parenteral_drugfluid_follow_up_search</field>
+            <field name="model">sm.shifa.parenteral.drugfluid.follow.up</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="parenteral_drugfluid_follow_up_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+        <menuitem id="Parenteral_Drugfluid_Follow_Up_root"
+                  name="Parenteral Drug Fluid Follow Up"
+                  parent="smartmind_shifa.menu_oldforms_main_form_root"
+                  action="sm_shifa_parenteral_drugfluid_follow_up_action"
+                  sequence="7"/>
+
+    </data>
+</odoo>

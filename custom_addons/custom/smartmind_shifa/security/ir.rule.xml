@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- Appointments -->
+        <!--        <record id="oeh_medical_appointment_telemedicine_doctor" model="ir.rule">
+                    <field name="name">Each physician can see only own appointment</field>
+                    <field name="model_id" ref="oehealth.model_oeh_medical_appointment"/>
+                    <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+                    <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_telemedicine_doctor')),]"/>
+                </record>-->
+
+        <record id="oeh_medical_appointment_physician" model="ir.rule">
+            <field name="name">Each physician can see only own appointment</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_appointment"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups"
+                   eval="[(4, ref('oehealth.group_oeh_medical_physician')),(4, ref('smartmind_shifa.group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Prescriptions -->
+        <record id="oeh_medical_prescription_physician" model="ir.rule">
+            <field name="name">Each physician can see only own prescriptions</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_prescription"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <record id="oeh_medical_appointment_lab_technician" model="ir.rule">
+            <field name="name">Each physician can see only own appointment</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_pcr_appointment"/>
+            <field name="domain_force">[('lab_technician.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_lab_technician'))]"/>
+        </record>
+
+        <!-- Evaluations -->
+
+        <record id="oeh_medical_evaluation_physician" model="ir.rule">
+            <field name="name">Each physician can see only own evaluation</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_evaluation"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Lab Tests -->
+
+        <record id="oeh_medical_lab_test_physician" model="ir.rule">
+            <field name="name">Each physician can see only own lab tests</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_lab_test"/>
+            <field name="domain_force">['|', ('pathologist', '=', False), ('pathologist.oeh_user_id', '=', user.id)]
+            </field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <record id="oeh_medical_injury_examination" model="ir.rule">
+            <field name="name">Each physician can see only own injury examination</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_injury_examination"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups"
+                   eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Surgeries -->
+
+        <record id="oeh_medical_surgery_physician" model="ir.rule">
+            <field name="name">Each physician can see only own surgeries</field>
+            <field name="model_id" ref="oehealth_extra_addons.model_oeh_medical_surgery"/>
+            <field name="domain_force">['|', ('surgeon', '=', False), ('surgeon.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Ophthalmology Management -->
+
+        <record id="oeh_medical_ophthalmology_physician" model="ir.rule">
+            <field name="name">Each physician can see only own ophthalmology</field>
+            <field name="model_id" ref="oehealth_extra_addons.model_oeh_medical_ophthalmology"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Rounding Management -->
+
+        <record id="oeh_medical_patient_rounding_physician" model="ir.rule">
+            <field name="name">Each physician can see only own rounding details</field>
+            <field name="model_id" ref="oehealth_extra_addons.model_oeh_medical_patient_rounding"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Ambulatory Cares Management -->
+
+        <record id="oeh_medical_patient_ambulatory_cares_physician" model="ir.rule">
+            <field name="name">Each physician can see only own ambulatory cares</field>
+            <field name="model_id" ref="oehealth_extra_addons.model_oeh_medical_patient_ambulatory"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Imaging Test Management -->
+
+        <record id="oeh_medical_imaging_physician" model="ir.rule">
+            <field name="name">Each physician can see only own imaging record</field>
+            <field name="model_id" ref="oehealth_extra_addons.model_oeh_medical_imaging"/>
+            <field name="domain_force">['|', ('requestor', '=', False), ('requestor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- Register for Walkin -->
+
+        <record id="oeh_medical_appointment_register_walkin_physician" model="ir.rule">
+            <field name="name">Each physician can see only own walk ins</field>
+            <field name="model_id" ref="oehealth_extra_addons.model_oeh_medical_appointment_register_walkin"/>
+            <field name="domain_force">['|', ('doctor', '=', False), ('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+        <!-- lab_request appears only for Tele Doctor -->
+        <record id="sm_shifa_lab_request_tele_doctor" model="ir.rule">
+            <field name="name">Each tele doctor can see only own lab request record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_lab_request"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+        <!-- image_request appears only for tele Doctor -->
+        <record id="sm_shifa_image_request_tele_doctor" model="ir.rule">
+            <field name="name">Each tele doctor can see only own image request record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_imaging_request"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_telemedicine_doctor'))]"/>
+        </record>
+
+        <!-- HHC appointment apperas only hhc nurse -->
+
+        <!--<record id="sm_shifa_hhc_appointment_hhc_nurse" model="ir.rule">
+            <field name="name">Each nurse can see only own hhc appointment record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_hhc_appointment"/>
+            <field name="domain_force">[('nurse.oeh_user_id', '=', user.id)]</field>
+            <field name="groups"
+                   eval="[(4, ref('group_oeh_medical_hhc_nurse'))]"/>
+        </record>-->
+
+        <!--        hhc appointment for own social worker  -->
+        <record id="sm_shifa_hhc_appointment_sw" model="ir.rule">
+            <field name="name">Each social worker can see only own hhc appointment record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_hhc_appointment"/>
+            <field name="domain_force">[('social_worker.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_social_worker'))]"/>
+        </record>
+
+        <!-- HHC appointment appears only for head Physiotherapist -->
+        <record id="sm_shifa_hhc_appointment_head_physiotherapist" model="ir.rule">
+            <field name="name">Each head Physiotherapist can see only own hhc appointment record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_hhc_appointment"/>
+            <field name="domain_force">[('physiotherapist.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_head_physiotherapist'))]"/>
+        </record>
+
+        <!-- physiotherapy appointment appears only for head Physiotherapist -->
+        <record id="sm_shifa_hhc_appointment_hhc_physiotherapist" model="ir.rule">
+            <field name="name">Each hhc Physiotherapist can see only own physiotherapy appointments record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_hhc_appointment"/>
+            <field name="domain_force">[('physiotherapist.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_hhc_physiotherapist'))]"/>
+        </record>
+
+        <!-- physiotherapy appointment appears only for hhc Physiotherapist -->
+        <record id="sm_shifa_physiotherapy_appointment_hhc_physiotherapist" model="ir.rule">
+            <field name="name">Each hhc Physiotherapist can see only own physiotherapy appointments record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_physiotherapy_appointment"/>
+            <field name="domain_force">[('physiotherapist.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_hhc_physiotherapist'))]"/>
+        </record>
+
+
+<!--hhc physiotherapy can see all records for physiotherapy assessment and followup-->
+        <!-- physiotherapy assessment appears only for hhc Physiotherapist -->
+      <!--  <record id="sm_shifa_physiotherapy_assessment_hhc_physiotherapist" model="ir.rule">
+            <field name="name">Each hhc Physiotherapist can see only own physiotherapy assessment record</field>
+            <field name="model_id" ref="model_sm_shifa_physiotherapy_assessment"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_hhc_physiotherapist'))]"/>
+        </record>-->
+
+        <!-- physiotherapy followup appears only for hhc Physiotherapist -->
+      <!--  <record id="sm_shifa_physiotherapy_followup_hhc_physiotherapist" model="ir.rule">
+            <field name="name">Each hhc Physiotherapist can see only own physiotherapy follow up record</field>
+            <field name="model_id" ref="model_sm_shifa_physiotherapy_followup"/>
+            <field name="domain_force">[('nurse_name.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_hhc_physiotherapist'))]"/>
+        </record>-->
+<!--each  hhc_physiotherapist  can see all records -->
+<!--   <record id="sm_shifa_physiotherapy_followup_hhc_physiotherapist" model="ir.rule">
+            <field name="name">Each hhc Physiotherapist can see only own physiotherapy follow up record</field>
+            <field name="model_id" ref="model_sm_shifa_physiotherapy_followup"/>
+            <field name="domain_force">[('physiotherapist.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_oeh_medical_hhc_physiotherapist'))]"/>
+        </record>
+-->
+        <!-- HVD appointment appears only for hhc Doctor -->
+        <record id="sm_shifa_hvd_appointment_hvc_doctor" model="ir.rule">
+            <field name="name">Each hhc doctor can see only own HVD appointment record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_hvd_appointment"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('oehealth.group_oeh_medical_physician'))]"/>
+        </record>
+        <!-- HHC appointment appears only for hhc Doctor -->
+        <!--<record id="sm_shifa_hhc_appointment_hhc_doctor" model="ir.rule">
+            <field name="name">Each hhc doctor can see only own HHC appointment record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_hhc_appointment"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('oehealth.group_oeh_medical_physician'))]"/>
+        </record>-->
+
+        <!-- lab_request appears only for hhc Doctor -->
+        <record id="sm_shifa_lab_request_hhc_doctor" model="ir.rule">
+            <field name="name">Each hhc doctor can see only own lab request record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_lab_request"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('oehealth.group_oeh_medical_physician'))]"/>
+        </record>
+        <!-- image_request appears only for hhc Doctor -->
+        <record id="sm_shifa_image_request_hhc_doctor" model="ir.rule">
+            <field name="name">Each hhc doctor can see only own image request record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_imaging_request"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('oehealth.group_oeh_medical_physician'))]"/>
+        </record>
+
+        <!-- physician Admission appears only for hhc Doctor -->
+        <record id="sm_shifa_physican_admission_hhc_doctor" model="ir.rule">
+            <field name="name">Each hhc doctor can see only own physician Admission record</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_physician_admission"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('oehealth.group_oeh_medical_physician'))]"/>
+        </record>
+        <record id="hvd_appointment_home_visit_doctor" model="ir.rule">
+            <field name="name">Each home visit doctor can see only own HVD appointment</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_hvd_appointment"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_home_visit_doctor'))]"/>
+        </record>
+
+        <record id="prescription_home_visit_doctor" model="ir.rule">
+            <field name="name">Each home visit doctor can see only own prescription</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_prescription"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_home_visit_doctor'))]"/>
+        </record>
+
+        <record id="lab_request_home_visit_doctor" model="ir.rule">
+            <field name="name">Each home visit doctor can see only own lab request</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_lab_request"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_home_visit_doctor'))]"/>
+        </record>
+
+        <record id="image_request_home_visit_doctor" model="ir.rule">
+            <field name="name">Each home visit doctor can see only own image request</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_imaging_request"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_home_visit_doctor'))]"/>
+        </record>
+
+
+        <!-- Appointments -->
+        <record id="oeh_medical_appointment_telemedicine" model="ir.rule">
+            <field name="name">Each user can see only own appointment</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_appointment"/>
+            <field name="domain_force">[('doctor.oeh_user_id', '=', user.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4,ref('smartmind_shifa.group_oeh_medical_hhc_nurse')),(4, ref('smartmind_shifa.group_oeh_medical_head_nurse')), (4,ref('smartmind_shifa.group_oeh_medical_hhc_physiotherapist')), (4,ref('smartmind_shifa.group_oeh_medical_social_worker')), (4,ref('smartmind_shifa.group_oeh_medical_head_physiotherapist')), (4,ref('smartmind_shifa.group_oeh_medical_head_doctor'))]"/>
+        </record>
+
+        <!-- pcr for hhc nurse-->
+        <record id="oeh_medical_pcr_appointment_hhc_nurse" model="ir.rule">
+            <field name="name">Each hhc nurse can see only own appointment</field>
+            <field name="model_id" ref="smartmind_shifa.model_sm_shifa_pcr_appointment"/>
+            <field name="domain_force">[('nurse.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_hhc_nurse'))]"/>
+        </record>
+
+        <!-- external supervisor rule for patient-->
+        <record id="oeh_medical_patient_external_facilities" model="ir.rule">
+            <field name="name">Each supervisor can see only own external facilities patients</field>
+            <field name="model_id" ref="oehealth.model_oeh_medical_patient"/>
+            <field name="domain_force">[('external_facility.id', '=', user.external_facility.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_external_supervisor'))]"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_shifa_medicines_form" model="ir.ui.view">
+            <field name="name">prescription.line.form</field>
+            <field name="model">oeh.medical.medicines</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_medicines_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='medicament_type']" position="before">
+                   <field name="generic_name"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_duration_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.duration</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='appointment_duration_conf']" position="inside">
+                <label for="appointment_duration_hhc"/>
+                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."
+                      aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                <div class="text-muted">
+                    Set default HHC appointment duration.
+                </div>
+                <div class="content-group">
+                    <div class="row mt16">
+                        <label for="appointment_duration_hhc" string="Choose HHC Duration (HH:MM)"
+                               class="col-lg-4 o_light_label"/>
+                        <field name="appointment_duration_hhc" widget="float_time" required="1"/>
+                    </div>
+                </div>
+
+                <label for="appointment_duration_pcr"/>
+                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."
+                      aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                <div class="text-muted">
+                    Set default PCR appointment duration.
+                </div>
+                <div class="content-group">
+                    <div class="row mt16">
+                        <label for="appointment_duration_pcr" string="Choose PCR Duration (HH:MM)"
+                               class="col-lg-4 o_light_label"/>
+                        <field name="appointment_duration_pcr" widget="float_time" required="1"/>
+                    </div>
+                </div>
+
+                 <label for="appointment_duration_phy"/>
+                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."
+                      aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                <div class="text-muted">
+                    Set default Physiotherapy appointment duration.
+                </div>
+                <div class="content-group">
+                    <div class="row mt16">
+                        <label for="appointment_duration_phy" string="Choose Physiotherapy Duration (HH:MM)"
+                               class="col-lg-4 o_light_label"/>
+                        <field name="appointment_duration_phy" widget="float_time" required="1"/>
+                    </div>
+                </div>
+
+
+            </xpath>
+            <xpath expr="//field[@name='appointment_duration']" position="attributes">
+                 <attribute name="string">Choose Tele Duration (HH:MM)</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

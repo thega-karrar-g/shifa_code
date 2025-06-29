@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_patient_rounding_evaluation" model="ir.actions.report">
+            <field name="name">Patient Rounding Report</field>
+            <field name="model">oeh.medical.patient.rounding</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">oehealth_extra_addons.report_patient_rounding_evaluation</field>
+            <field name="report_file">oehealth_extra_addons.report_patient_rounding_evaluation</field>
+        </record>
+
+    </data>
+</odoo>

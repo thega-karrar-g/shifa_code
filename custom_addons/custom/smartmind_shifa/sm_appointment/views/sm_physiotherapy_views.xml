@@ -1,0 +1,345 @@
+<odoo>
+    <record id="action_open_sale_order_from_physio" model="ir.actions.act_window">
+        <field name="name">Sale Order from Physiotherapy Appointments</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('physiotherapy', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_physiotherapy_appointment_form_view" model="ir.ui.view">
+        <field name="name">Physiotherapy Appointment</field>
+        <field name="model">sm.shifa.physiotherapy.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Physiotherapy" duplicate="0">
+                <header>
+                    <button name="set_to_head_physiotherapist" states="scheduled" string="Send to Head Physiotherapist"
+                            confirm="Are you sure you want to send to Head Physiotherapist?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"/>
+
+                    <button name="set_to_team" states="head_physiotherapist,operation_manager"
+                            string="Send to Team" confirm="Are you sure you want to send to team?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_physiotherapist"/>
+
+                    <button name="set_to_operation_manager" states="head_physiotherapist"
+                            string="Send to Operation Manager"
+                            confirm="Are sure you want to send to operations Manager?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_physiotherapist"/>
+
+                    <button name="set_to_start" states="team" string="Starting Time HV"
+                            confirm="Are you sure you want to start time HV this process?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_physiotherapist,smartmind_shifa.group_oeh_medical_hhc_physiotherapist"/>
+
+                    <button name="set_back_to_operation_manager" states="team,requestCancellation"
+                            string="Back to Operation Manager"
+                            confirm="Are you sure you want to back to operation manager?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_head_physiotherapist,smartmind_shifa.group_oeh_medical_hhc_physiotherapist,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center"/>
+
+                    <button name="set_to_end_hiv" states="in_progress" string="Ending Time HV"
+                            confirm="Are you sure you want to end time HV?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_physiotherapist,smartmind_shifa.group_oeh_medical_hhc_physiotherapist"/>
+
+                    <button name="set_to_incomplete" states="in_progress,visit_done" string="Incomplete"
+                            confirm="Are you sure you want to incomplete this operation?" type="object"/>
+
+                    <button confirm="Are you sure you want to add a service?" name="open_treatment_form"
+                                states="operation_manager" string="Add Service" type="object"
+                                class="oe_highlight"/>
+
+                    <button name="set_to_canceled"
+                            states="scheduled,head_physiotherapist,operation_manager,team,in_progress"
+                            string="Cancel Appointment" confirm="Are you sure you want to cancel this operation?"
+                            type="object"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+
+                    <!--           <button name="set_to_req_cancellation"
+                                       string="Cancel"
+                                       confirm="Are you sure you want to cancel this operation?"
+                                       type="object"
+                                       groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"
+                                       attrs="{'invisible': [('state', '!=', 'requestCancellation'),('payment_made_through', 'in', ['aggregator_package', 'package'])]}"/>
+           -->
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="scheduled,head_physiotherapist,operation_manager,team,in_progress,visit_done,incomplete,canceled"
+                           statusbar_colors="{'scheduled':'yellow','head_physiotherapist':'pink','operation_manager':'pink','team':'blue','in_progress':'red','visit_done':'green','incomplete':'grey','canceled':'black'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                                <field name="display_name" invisible="1"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group col="3">
+                        <group>
+                            <field name="start_process_date"
+                                   groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                            <!--                            attrs="{'readonly': [('state','in',['team','in_progress','visit_done','incomplete','canceled'])]}"-->
+                        </group>
+                        <group>
+                            <field name="complete_process_date"
+                                   groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                            <!--                             attrs="{'readonly': [('state','in',['team','in_progress','visit_done','incomplete','canceled'])]}"-->
+                        </group>
+                        <group>
+                            <field name="appointment_duration" readonly="1"/>
+                            <!--                            attrs="{'readonly': [('state','in',['team','in_progress','visit_done','incomplete','canceled'])]}"-->
+                        </group>
+                    </group>
+                    <group col="3">
+                        <div style="display: flex;">
+                            <group string="Patient Details">
+                                <field name="patient"/>
+                                <field name="ssn" string="ID number" force_save="1" readonly="1"/>
+                                <field name="mobile" force_save="1" readonly="1"/>
+                                <field name="sex" force_save="1" readonly="1"/>
+                                <label for="blood_type" force_save="1" readonly="1"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline" force_save="1" readonly="1"/>
+                                    <field name="rh" class="oe_inline" force_save="1" readonly="1"/>
+                                </div>
+                                <field name="dob" force_save="1" readonly="1"/>
+                                <field name="marital_status" force_save="1" readonly="1"/>
+                                <field name="ksa_nationality" force_save="1" readonly="1"/>
+                                <field name="house_location" force_save="1" readonly="1" widget="url"/>
+                                <field name="location"/>
+                                <field name="house_number" force_save="1" readonly="1"/>
+                                <field name="branch"
+                                       attrs="{'readonly': [('state','!=','scheduled')], 'required': [('state','=','scheduled')]}"/>
+                            </group>
+                            <group string="Service Details">
+                                <field name="appointment_date_only"
+                                       attrs="{'readonly': [('state','in',['team','in_progress','visit_done','incomplete','canceled'])]}"/>
+                                <field name="day" readonly="1" force_save="True"/>
+                                <field name="appointment_time" widget="timepicker" force_save="1"/>
+                                <field name="appointment_date" force_save="True" invisible="1"/>
+                                <!--                            <field name="time_slot"/>-->
+                                <field name="period"
+                                       attrs="{'readonly': [('state','in',['team','in_progress','visit_done','incomplete','canceled'])]}"/>
+                                <field name="gender"/>
+                                <field name="available_appointment" force_save="True"/>
+                                <field name="active" invisible="1"/>
+                                <field name="service_type_choice" options="{'horizontal': true}" widget="radio"/>
+                                <field name="service" options="{'no_create': True}" attrs="{'readonly': [('state', '=', 'operation_manager')]}"/>
+                                <field name="service_price" force_save="True"/>
+                                <field name="service_name" invisible="1"/>
+                                <field name="service_code" invisible="1"/>
+                            </group>
+                            <group string="Other Details">
+                                <field name="payment_made_through" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="pro_pending"
+                                       attrs="{'readonly': [('state', '!=', 'scheduled')], 'invisible': [('payment_made_through', '!=', 'pending')]}"
+                                       groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                                <field name="pro_deferred_pay"
+                                       attrs="{'readonly': [('state', '!=', 'scheduled')], 'invisible': [('payment_made_through', '!=', 'deferred')]}"
+                                       groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+
+                                <field name="payment_type" string="Mobile payment state"
+                                       attrs="{'readonly': [('state','in',['in_progress', 'team','visit_done','incomplete','canceled'])]}"/>
+                                <field name="deduction_amount"/>
+                                <!--<field name="deduction_amount"
+                                       attrs="{'readonly': [('state','in',['in_progress','visit_done', 'team','incomplete','canceled'])]}"/>-->
+                                <field name="payment_reference"/>
+                                <field name="payment_method_name"/>
+                                <field name="meeting_id" invisible="1"/>
+                            </group>
+                        </div>
+                    </group>
+                    <group col="3">
+                        <div style="display: flex;">
+                            <group string="Team Leader">
+                                <field name="physiotherapist"
+                                       attrs="{'required': [('state','in',['head_physiotherapist', 'team','operation_manager'])],'readonly': [('state','in',['in_progress', 'team','visit_done','incomplete','canceled'])]}"
+                                       options="{'no_create': True}"/>
+                                <field name="timeslot"
+                                       attrs="{'readonly': [('state','in',['in_progress','visit_done','incomplete','canceled'])]}"/>
+
+                            </group>
+                            <group string="Patient Uploaded Documents">
+                                <field name="attached_file"/>
+                                <field name="attached_file_2"/>
+                                <field name="patient_comment"
+                                       attrs="{'readonly': [('state','in',['visit_done', 'team','canceled'])]}"/>
+                            </group>
+                        </div>
+                    </group>
+                    <group col="2">
+                        <group string="Comments">
+                            <field name="checkup_comment"
+                                   attrs="{'readonly': [('state', 'in', ['visit_done', 'team','canceled'])]}"/>
+                            <field name="visit_comment"
+                                   attrs="{'readonly': [('state', 'in', ['visit_done', 'team','canceled'])]}"/>
+                            <field name="operation_comment"
+                                   attrs="{'readonly': [('state', 'in', ['visit_done', 'team','canceled'])]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="comments" string="Comments">
+                            <group>
+                                <group>
+                                    <field name="comments" nolabel="1"
+                                           attrs="{'readonly': [('state','in',['visit_done', 'team','canceled'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_physiotherapy_appointment_event_calendar" model="ir.ui.view">
+        <field name="name">Physiotherapy Calendar</field>
+        <field name="model">sm.shifa.physiotherapy.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Physiotherapy" date_start="appointment_date"
+                      color="physiotherapist" quick_add="False" mode="week">
+                <field name="physiotherapist" filters="1"/>
+                <field name="patient"/>
+                <field name="service" filters="1"/>
+                <field name="branch" filters="1"/>
+                <field name="state" filters="1"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sm_physiotherapy_appointment_tree_view">
+        <field name="name">Physiotherapy Appointment</field>
+        <field name="model">sm.shifa.physiotherapy.appointment</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string='HHC Physiotherapy' decoration-muted="state=='operation_manager'"
+                  decoration-bf="state=='in_progress'" decoration-primary="state=='head_physiotherapist'"
+                  decoration-info="state=='scheduled'" decoration-success="state=='visit_done'"
+                  decoration-danger="state=='canceled'" multi_edit="1">
+                <field name="name"/>
+                <field name="patient"/>
+                <field name="physiotherapist"/>
+                <field name="service"/>
+                <field name="payment_made_through"/>
+                <field name="appointment_time"/>
+                <field name="appointment_date_only"/>
+                <field name="day"/>
+                <field name="start_process_date"/>
+                <field name="complete_process_date"/>
+                <field name="appointment_duration"/>
+                <field name="payment_type"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_physiotherapy_appointment_action_tree" model="ir.actions.act_window">
+        <field name="name">Physiotherapy Appointment</field>
+        <field name="res_model">sm.shifa.physiotherapy.appointment</field>
+        <field name="view_mode">tree,calendar,form,search</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new Physiotherapy.
+            </p>
+            <p>
+                No Data to Display.
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_physiotherapy_appointment_search_view" model="ir.ui.view">
+        <field name="name">physiotherapy_appointment_search</field>
+        <field name="model">sm.shifa.physiotherapy.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient" string="Patient Name"/>
+                <field name="name" string="Reference"/>
+                <field name="physiotherapist" string="Physiotherapist"/>
+                <filter string="Scheduled" name="scheduled" domain="[('state', '=', 'scheduled')]" help="Scheduled"/>
+                <filter string="In progress" name="in_progress" domain="[('state', '=', 'in_progress')]"
+                        help="In progress"/>
+                <filter string="Canceled" name="canceled" domain="[('state', '=', 'canceled')]" help="Canceled"/>
+                <separator/>
+                <filter string="Mobile App" name="mobile" domain="[('payment_made_through', '=', 'mobile')]"
+                        help="Mobile App"/>
+                <filter string="Package" name="package" domain="[('payment_made_through', '=', 'package')]"
+                        help="Package"/>
+                <filter string="Aggregator Package" name="aggregator_package"
+                        domain="[('payment_made_through', '=', 'aggregator_package')]" help="Aggregator Package"/>
+                <group string="Group by">
+                    <filter string="Patients" name="patient" context="{'group_by': 'patient'}"/>
+                    <filter string="States" name="state" context="{'group_by': 'state'}"/>
+                    <filter string="Physiotherapist" name="physiotherapist" context="{'group_by':'physiotherapist'}"/>
+                    <filter string="Date" name="appointment_date_only" context="{'group_by':'appointment_date_only'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_call_center_comment_phy">
+        <field name="name">view.id.call_center_comment_phy</field>
+        <field name="model">sm.shifa.physiotherapy.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_physiotherapy_appointment_form_view"/>
+        <field name="groups_id" eval="[(4, ref('smartmind_shifa.group_oeh_medical_hhc_physiotherapist')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_head_physiotherapist')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_operation_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='checkup_comment']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_id_operation_manager_comment_phy">
+        <field name="name">view.id.operation_manager_comment_phy</field>
+        <field name="model">sm.shifa.physiotherapy.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_physiotherapy_appointment_form_view"/>
+        <field name="groups_id" eval="[(4, ref('smartmind_shifa.group_oeh_medical_hhc_physiotherapist')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_head_physiotherapist')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_call_center'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='operation_comment']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_id_team_leader_comment_phy">
+        <field name="name">view.id.team_leader_comment_phy</field>
+        <field name="model">sm.shifa.physiotherapy.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_physiotherapy_appointment_form_view"/>
+        <field name="groups_id" eval="[(4, ref('smartmind_shifa.group_oeh_medical_call_center')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_operation_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='visit_comment']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="sm_physiotherapy_appointment_list" action="sm_physiotherapy_appointment_action_tree"
+              parent="oehealth.oeh_medical_general_menu" sequence="1"/>
+
+</odoo>

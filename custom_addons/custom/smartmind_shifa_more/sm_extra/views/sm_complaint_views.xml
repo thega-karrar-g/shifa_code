@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_form_complaint_view">
+            <field name="name">Complaints</field>
+            <field name="model">sm.shifa.complaints</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Complaints">
+                    <header>
+                        <button confirm="Are you sure you want to set to received?" name="set_to_received"
+                                states="draft" string="Send" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to set to processed?" name="set_to_processed"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"
+                                states="received" string="Processed" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to set to cancelled?" name="set_to_cancel"
+                                states="processed" string="Cancel" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,received,processed,canceled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="com"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group string="Patient Details">
+                            <group>
+                                <field name="patient"/>
+                                <field name="active" invisible="1"/>
+                                <field name="ssn" string="ID number"/>
+                                <field name="ksa_nationality"/>
+                                <field name="mobile"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="dob"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group string="Patient Complaint">
+                            <field name="patient_complaints" nolabel="1"/>
+                        </group>
+                        <group string="Operation Manager Comment">
+                            <field name="operation_manager_comment" attrs="{'readonly': [('state','=', 'draft')]}" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+
+
+        </record>
+        <record id="sm_shifa_complaint_action_tree" model="ir.actions.act_window">
+            <field name="name">Complaints</field>
+            <field name="res_model">sm.shifa.complaints</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Complaint.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_complaint_tree_view">
+            <field name="name">Complaints tree</field>
+            <field name="model">sm.shifa.complaints</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="patient"/>
+                    <field name="ssn"/>
+                    <field name="ksa_nationality"/>
+                    <field name="mobile"/>
+                    <field name="age"/>
+                    <field name="dob"/>
+                    <field name="marital_status"/>
+                    <field name="sex"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem action="sm_shifa_complaint_action_tree"
+                  id="sm_shifa_complaint"
+                  parent="smartmind_shifa.shifa_operations_others_menu" sequence="112"/>
+
+    </data>
+</odoo>

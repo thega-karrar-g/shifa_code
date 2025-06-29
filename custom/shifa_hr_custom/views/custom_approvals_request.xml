@@ -1,0 +1,102 @@
+<odoo>
+  <data>
+    <record id="employee_approvals_approval_request_form_view_inherit" model="ir.ui.view">
+      <field name="name">employee_approvals.approval_request_form.inherit</field>
+      <field name="model">approval.request</field>
+      <field name="inherit_id" ref="employee_approvals.approval_request_form_view"/>
+      <field name="arch" type="xml">
+
+        <!-- Update statusbar attributes -->
+        <xpath expr="//field[@name='request_status']" position="attributes">
+          <attribute name="widget">statusbar</attribute>
+          <attribute name="statusbar_visible">draft,hr_approval,finance,operation,sales,it,gm</attribute>
+        </xpath>
+
+        <!-- All custom buttons go INSIDE the header -->
+        <xpath expr="//header" position="inside">
+          <button name="action_hr_manager_approve"
+                  string="Request HR Manager Approve"
+                  type="object"
+                  attrs="{'invisible': [('request_status','!=','draft')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_hr_approval"/>
+          
+          <button name="action_req_finance_manager_approve"
+                  string="Request Finance Manager Approve"
+                  type="object"
+                  attrs="{'invisible': [('request_status', '!=', 'hr_approval')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_hr_approval"/>
+
+          <button name="action_req_operation_manager_approve"
+                  string="Request Operation Manager Approve"
+                  type="object"
+                  attrs="{'invisible': [('request_status', '!=', 'finance')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_finance_approval"/>
+
+          <button name="action_req_sales_manager_approve"
+                  string="Request Sales Manager Approve"
+                  type="object"
+                  attrs="{'invisible': [('request_status', '!=', 'operation')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_operation_approval"/>
+
+            <button name="action_req_it_dept_approve"
+                  string="Request it department Approve"
+                  type="object"
+                  attrs="{'invisible': [('request_status', '!=', 'sales')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_sales_approval"/>
+
+        <button name="action_send_to_maharah"
+                  string="Request for mahara stop email licnence"
+                  type="object"
+                  attrs="{'invisible': [('request_status', '!=', 'it')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_it_approval"/>
+
+         <button name="action_req_gm_dept_approve"
+                  string="Request it department Approve"
+                  type="object"
+                  attrs="{'invisible': [('request_status', '!=', 'it')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_it_approval"/>
+
+        <button name="action_req_done_dept_approve"
+                  string="Request completed"
+                  type="object"
+                  attrs="{'invisible': [('request_status', '!=', 'gm')]}"
+                  class="btn-primary"
+                  groups="shifa_hr_custom.group_GM_approval"/>
+
+        </xpath>
+
+        <!-- Add comments fields after category_id -->
+        <xpath expr="//field[@name='category_id']" position="after">
+          <field name="operation_comments"/>
+          <field name="sales_comments"/>
+          <field name="hr_comments"/>
+          <field name="it_comments"/>
+          <field name="gm_comments"/>
+        </xpath>
+
+      </field>
+    </record>
+
+    <!-- Add chatter after the sheet -->
+    <record id="approval_request_form_view_inherit" model="ir.ui.view">
+      <field name="name">approval.request.form.inherit.chatter</field>
+      <field name="model">approval.request</field>
+      <field name="inherit_id" ref="employee_approvals.approval_request_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//sheet" position="after">
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

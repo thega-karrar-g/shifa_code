@@ -1,0 +1,364 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="sm_shifa_package_appointments_multi_view">
+            <field name="name">Multi Package Services</field>
+            <field name="model">sm.shifa.package.appointments.multi</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Multi Packages">
+                    <header>
+                         <button confirm="Are you sure you want to send for payment?"
+                                name="set_to_payment" states="draft"
+                                string="Send for payment" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to generate these appointments schedule?"
+                                name="set_to_scheduling" states="send"
+                                string="Scheduling" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to generate these appointments schedule?"
+                                name="set_to_generate" states="schedule"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"
+                                string="Generate" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to cancel this package?"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"
+                                name="cancel" states="draft,send,schedule,generated" string="Cancel Package" type="object"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,send,schedule,generated,cancel"
+                               statusbar_colors='{"draft":"yellow","generated":"green"}'/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button" icon="fa-dollar"
+                                    groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"
+                                    attrs="{'invisible': [('move_id','=',False)]}"
+                                    name="open_invoice_view" string="Invoice">
+                            </button>
+                             <button type="object" class="oe_stat_button" icon="fa-dollar" name="open_payment"
+                                    attrs="{'invisible':[('pay_req_id','==',False)]}" string="Req. Payment">
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-credit-card"
+                                    name="open_cancel_request" string="Refund Requests"
+                                    attrs="{'invisible': [('state','!=','cancel')]}">
+                            </button>
+
+                        </div>
+                        <group col="2">
+                            <group>
+                                <field name="patient"/>
+                                <field name="ssn"/>
+                                <field name="branch" required="1"/>
+                                <field name="move_id" invisible="1"/>
+                                <field name="active" invisible="1"/>
+                                <field name="pay_req_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="package_name"/>
+                                <field name="pay_thru"/>
+                                <field name="pro_pending"
+                                       attrs="{'invisible': [('pay_thru', '!=', 'pending')]}"/>
+                                <field name="aggregator" attrs="{'invisible':[('pay_thru', '!=', 'aggregator_package')],
+                                 'required': [('pay_thru','=','aggregator_package')]}"/>
+                                 <field name="cancellation_reason" attrs="{'invisible': [('cancellation_reason','=',False)]}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Packages">
+                                <field name="package_appointments_ids" widget="one2many_list" nolabel="1"
+                                       context="{'default_patient': patient, 'default_branch': branch,
+                                        'default_pay_thru': pay_thru,'default_aggregator': aggregator}">
+                                    <tree string="Packages" default_order="date">
+                                        <field name="date"/>
+                                        <field name="serial_no"/>
+                                        <field name="package"/>
+                                        <field name="service"/>
+                                        <field name="patient"/>
+                                        <field name="discount_amount"/>
+                                        <field name="amount_payable"/>
+                                        <field name="create_date" string="Created at"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <header>
+                                            <field name="state" widget="statusbar"
+                                                   statusbar_visible="draft,generated"
+                                                   statusbar_colors='{"draft":"yellow","generated":"green"}'/>
+                                        </header>
+                                        <sheet>
+                                            <div class="oe_button_box" name="button_box">
+                                                <button type="action" class="oe_stat_button" icon="fa-calendar"
+                                                        attrs="{'invisible': [('service_type','in', [False,'physiotherapy'])]}"
+                                                        name="%(action_open_hhc_apt_from_package)d">
+                                                    <field name="hhc_apt_count" widget="statinfo"/>
+                                                </button>
+                                                <button type="action" class="oe_stat_button" icon="fa-calendar"
+                                                        attrs="{'invisible': [('service_type','in', [False,'hhc'])]}"
+                                                        name="%(action_open_physio_apt_from_package)d">
+                                                    <field name="physio_apt_count" widget="statinfo"/>
+                                                </button>
+                                            </div>
+                                            <group col="2">
+                                                <group>
+                                                    <field name="patient" readonly="1" force_save="1"/>
+                                                    <field name="ssn"/>
+                                                    <field name="branch" readonly="1" force_save="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="date"/>
+                                                    <field name="package"/>
+                                                    <field name="pay_thru" readonly="1"  force_save="1"/>
+                                                    <field name="aggregator" attrs="{'invisible':[('pay_thru', '!=', 'aggregator_package')],
+                                 'required': [('pay_thru','=','aggregator_package')]}" readonly="1"  force_save="1"/>
+                                                    <field name="move_id" invisible="1"/>
+                                                    <field name="active" invisible="1"/>
+                                                </group>
+                                            </group>
+                                            <hr/>
+                                            <group string="Service Details">
+                                                <group>
+                                                    <field name="service_type" force_save="1"/>
+                                                    <field name="service" force_save="1"/>
+                                                    <field name="service_price" force_save="1"/>
+                                                    <field name="home_visit_fee" force_save="1"/>
+                                                    <field name="session" force_save="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="admin_discount" groups="oehealth.group_oeh_medical_manager"/>
+                                                    <field name="discount" force_save="1"/>
+                                                    <field name="discount_amount" force_save="1"/>
+                                                    <field name="tax" force_save="1"/>
+                                                    <field name="amount_payable" force_save="1"/>
+                                                </group>
+                                            </group>
+                                            <hr/>
+                                            <group string="Appointments Details" col="2">
+                                                <group>
+                                                    <field name="period"/>
+                                                    <field name="end_date" force_save="True"/>
+                                                </group>
+                                                <group>
+                                                    <field name="start_date"/>
+                                                    <field name="start_day" force_save="True"/>
+                                                </group>
+                                            </group>
+                                            <hr/>
+                                            <group string="Week Days" col="4">
+                                                <div class="row mt16 o_settings_container">
+                                                    <div class="col-12 col-lg-3 o_setting_box">
+                                                        <div class="o_setting_left_pane">
+                                                            <field name="is_saturday"/>
+                                                        </div>
+                                                        <div class="o_setting_left_pane">
+                                                            <label for="is_saturday" string="Saturday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt16 o_settings_container">
+                                                    <div class="col-12 col-lg-3 o_setting_box">
+                                                        <div class="o_setting_left_pane">
+                                                            <field name="is_sunday"/>
+                                                        </div>
+                                                        <div class="o_setting_left_pane">
+                                                            <label for="is_sunday" string="Sunday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt16 o_settings_container">
+                                                    <div class="col-12 col-lg-3 o_setting_box">
+                                                        <div class="o_setting_left_pane">
+                                                            <field name="is_monday"/>
+                                                        </div>
+                                                        <div class="o_setting_left_pane">
+                                                            <label for="is_monday" string="Monday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt16 o_settings_container">
+                                                    <div class="col-12 col-lg-3 o_setting_box">
+                                                        <div class="o_setting_left_pane">
+                                                            <field name="is_tuesday"/>
+                                                        </div>
+                                                        <div class="o_setting_left_pane">
+                                                            <label for="is_tuesday" string="Tuesday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt16 o_settings_container">
+                                                    <div class="col-12 col-lg-3 o_setting_box">
+                                                        <div class="o_setting_left_pane">
+                                                            <field name="is_wednesday"/>
+                                                        </div>
+                                                        <div class="o_setting_left_pane">
+                                                            <label for="is_wednesday" string="Wednesday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt16 o_settings_container">
+                                                    <div class="col-12 col-lg-3 o_setting_box">
+                                                        <div class="o_setting_left_pane">
+                                                            <field name="is_thursday"/>
+                                                        </div>
+                                                        <div class="o_setting_left_pane">
+                                                            <label for="is_thursday" string="Thursday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt16 o_settings_container">
+                                                    <div class="col-12 col-lg-3 o_setting_box">
+                                                        <div class="o_setting_left_pane">
+                                                            <field name="is_friday"/>
+                                                        </div>
+                                                        <div class="o_setting_left_pane">
+                                                            <label for="is_friday" string="Friday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </group>
+                                            <hr/>
+                                            <group string="Team Details"
+                                                   attrs="{'invisible':[('service_type', 'not in', ['hhc', 'physiotherapy'])]}"
+                                                   col="3">
+                                                <group attrs="{'invisible':[('service_type', '!=', 'physiotherapy')]}">
+                                                    <field name="gender"
+                                                           attrs="{'required':[('service_type', '==', 'physiotherapy')]}"/>
+                                                    <field name="clinician_3" string="Physiotherapist"
+                                                           attrs="{'required':[('service_type', '==', 'physiotherapy')]}"/>
+                                                    <field name="timeslot_phy" options="{'no_create': True}"/>
+                                                </group>
+                                                <group attrs="{'invisible':[('service_type', '!=', 'hhc')]}">
+                                                    <field name="clinician_1" string="Nurse"
+                                                           attrs="{'required':[('service_type', '==', 'hhc')]}"/>
+                                                    <field name="timeslot" options="{'no_create': True}"
+                                                           attrs="{'required':[('clinician_1', '!=', False)]}"/>
+                                                    <field name="clinician_2" string="Doctor"/>
+                                                    <field name="timeslot_doctor" options="{'no_create': True}"
+                                                           attrs="{'required':[('clinician_2', '!=', False)]}"/>
+                                                    <field name="clinician_3" string="Physiotherapist"/>
+                                                    <field name="timeslot_phy" options="{'no_create': True}"
+                                                           attrs="{'required':[('clinician_3', '!=', False)]}"/>
+                                                </group>
+
+                                            </group>
+                                            <notebook
+                                                    attrs="{'invisible':[('service_type', 'not in', ['hhc', 'physiotherapy'])]}">
+                                                <page string="HHC Appointment"
+                                                      attrs="{'invisible':[('service_type', '!=', 'hhc')]}">
+                                                    <field name="hhc_appointment_lines" widget="one2many_list"
+                                                           nolabel="1">
+                                                        <tree string="HHC Appointment"
+                                                              default_order="appointment_date_only">
+                                                            <field name="name"/>
+                                                            <field name="patient"/>
+                                                            <field name="nurse"/>
+                                                            <field name="doctor"/>
+                                                            <field name="physiotherapist"/>
+                                                            <field name="service"/>
+                                                            <field name="appointment_time"/>
+                                                            <field name="appointment_date_only"/>
+                                                            <field name="appointment_day"/>
+                                                            <field name="start_process_date"/>
+                                                            <field name="complete_process_date"/>
+                                                            <field name="state"/>
+                                                        </tree>
+                                                    </field>
+                                                </page>
+                                                <page string="Physiotherapy Appointment"
+                                                      attrs="{'invisible':[('service_type', '!=', 'physiotherapy')]}">
+                                                    <field name="physiotherapy_appointment_lines" widget="one2many_list"
+                                                           nolabel="1">
+                                                        <tree string="Physiotherapy Appointment"
+                                                              default_order="appointment_date_only">
+                                                            <field name="name"/>
+                                                            <field name="patient"/>
+                                                            <field name="physiotherapist"/>
+                                                            <field name="service"/>
+                                                            <field name="appointment_time"/>
+                                                            <field name="appointment_date_only"/>
+                                                            <field name="appointment_day"/>
+                                                            <field name="start_process_date"/>
+                                                            <field name="complete_process_date"/>
+                                                            <field name="state"/>
+                                                        </tree>
+                                                    </field>
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_package_appointment_cancel_multi">
+            <field name="name">Appointment Cancel</field>
+            <field name="model">sm.shifa.package.appointments.multi</field>
+            <field name="priority">999</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="cancellation_reason" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_cancel" string="Validate" type="object" class="oe_highlight"/>
+                        <button string="Discard" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_package_appointments_multi_tree">
+            <field name="name">Multi Packages</field>
+            <field name="model">sm.shifa.package.appointments.multi</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Packages'>
+                    <field name="name"/>
+                    <field name="patient"/>
+                    <field name="ssn"/>
+                    <field name="branch"/>
+                    <field name="create_date" string="Created at"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_package_appointment_multi_search">
+            <field name="name">Package Multi Search</field>
+            <field name="model">sm.shifa.package.appointments.multi</field>
+            <field name="priority">999</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="patient" />
+                    <field name="ssn" />
+                </search>
+            </field>
+        </record>
+
+        <record id="sm_shifa_package_appointments_multi_action_tree" model="ir.actions.act_window">
+            <field name="name">Multi Packages</field>
+            <field name="res_model">sm.shifa.package.appointments.multi</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_shifa_package_appointments_multi_action_tree" id="menu_package_appointments_multi"
+                  parent="oehealth.oeh_medical_general_menu" sequence="31"/>
+
+    </data>
+</odoo>

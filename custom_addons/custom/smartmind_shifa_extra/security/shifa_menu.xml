@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_request_payment_root"
+                  name="Request Payment"
+                  action="sm_shifa_requested_payments_action"
+                  groups="oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center"
+                  web_icon="smartmind_shifa_extra,static/description/request_pay.png" sequence="11"/>
+
+        <menuitem id="menu_cancel_refund_root"
+                  name="Cancellation and Refund"
+                  action="sm_shifa_cancellation_refund_action"
+                  groups="oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_operation_manager"
+                  web_icon="smartmind_shifa_extra,static/description/refund.png" sequence="12"/>
+
+        <menuitem id="menu_caregiver_root"
+                  name="Caregiver Follow Up"
+                  action="sm_shifa_care_giver_follow_up_action"
+                  groups="smartmind_shifa.group_oeh_medical_caregiver"
+                  web_icon="smartmind_shifa_extra,static/description/caregiver.png" sequence="12"/>
+
+         <menuitem id="menu_call_center_root"
+              name="Call Center"
+              action="sm_shifa_call_center_census_action"
+              groups="smartmind_shifa.group_oeh_medical_call_center"
+              web_icon="smartmind_shifa_extra,static/description/call_canter.png" sequence="13"/>
+
+         <menuitem id="menu_call_Pharmacies"
+              name="Pharmacies"
+              action="sm_shifa_pharmacies_action"
+              groups="smartmind_shifa.group_oeh_medical_Pharmacies_Supervisor"
+              web_icon="smartmind_shifa_extra,static/description/pharmacy.png" sequence="14"/>
+
+         <menuitem id="menu_call_Pharmacist"
+              name="Pharmacist"
+              action="sm_shifa_Pharmacist_action"
+              groups="smartmind_shifa.group_oeh_medical_Pharmacies_Supervisor"
+              web_icon="smartmind_shifa_extra,static/description/pharmacist.png" sequence="15"/>
+
+        <menuitem id="menu_call_Pharmacy_chain"
+              name="Pharmacy chain"
+              action="sm_shifa_pharmacy_chain_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_Pharmacies_Supervisor"
+              web_icon="smartmind_shifa_extra,static/description/pharmacy chain.png" sequence="16"/>
+
+         <menuitem id="menu_call_Pharmacy_medicine_history"
+              name="Pharmacy medicine history"
+              action="sm_shifa_history_action"
+              groups="smartmind_shifa.group_oeh_medical_Pharmacies_Supervisor"
+              web_icon="smartmind_shifa_extra,static/description/Medicines History.png" sequence="16"/>
+
+        <menuitem id="menu_call_center_prescriptions"
+                  name="Instant Prescriptions"
+                  action="sm_shifa_instant_prescriptions_action"
+                  groups="smartmind_shifa.group_oeh_medical_call_center"
+                  web_icon="smartmind_shifa_extra,static/description/Medicines History.png" sequence="15"/>
+
+        <menuitem id="menu_call_instant_consultation"
+              name="Instant Consultation"
+              action="sm_shifa_instant_consultation_action"
+              groups="smartmind_shifa.group_oeh_medical_Pharmacies_Supervisor"
+              web_icon="smartmind_shifa_extra,static/description/call_canter.png" sequence="17"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="shifa_investigation_name_tree">
+            <field name="name">Investigation Name tree</field>
+            <field name="model">sm.shifa.investigation.name</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Treatment Types" editable="bottom">
+                    <field name="name" required="1"/>
+                    <field name="price" required="1"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sm_shifa_investigation_name_action" model="ir.actions.act_window">
+            <field name="name">Investigation Name</field>
+            <field name="res_model">sm.shifa.investigation.name</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new investigation name.
+                </p>
+            </field>
+        </record>
+        <menuitem action="sm_shifa_investigation_name_action"
+                  name="Investigation Name"
+                  id="shifa_investigation_name_listview"
+                  parent="menu_other_hp_form_root"
+                  sequence="1"/>
+
+    </data>
+</odoo>

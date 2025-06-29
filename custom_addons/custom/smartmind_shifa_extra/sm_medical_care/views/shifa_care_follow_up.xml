@@ -1,0 +1,668 @@
+<odoo>
+    <data>
+        <record id="view_shifa_care_giver_follow_up_form" model="ir.ui.view">
+            <field name="name">shifa.care.giver.follow.up.form</field>
+            <field name="model">sm.shifa.care.giver.follow.up</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to send to caregiver?" name="set_to_in_progress"
+                                states="Draft" string="Send to Caregiver" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_operation_manager"
+                        />
+                        <!--                        <button confirm="Are you sure you want to start process?" name="set_to_in_progress"-->
+                        <!--                                states="Caregiver" string="Start Clinical Documentation" type="object"-->
+                        <!--                                class="oe_highlight"-->
+                        <!--                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_caregiver,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_operation_manager"-->
+                        <!--                        />-->
+                        <!--                        <button confirm="Are you sure you want to make as complete?" name="set_to_test"-->
+                        <!--                                states="Caregiver" string="test" type="object" class="oe_highlight"/>-->
+                        <button confirm="Are you sure you want to send back to Draft?" name="set_to_draft"
+                                states="In Progress" string="Send back to Draft" type="object"
+                                class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_nurse"
+                        />
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_completed"
+                                states="In Progress" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_nurse"
+                        />
+                        <button confirm="Are you sure you want to review?" name="set_to_reviewed"
+                                states="Completed" string="Reviewed" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_operation_manager"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Draft,In Progress,Completed,Reviewed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="care_giver_follow_up_code" string="CG-F#"/>
+                                <h1>
+                                    <field name="care_giver_follow_up_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="patient"/>
+                                <field name="phy_adm" invisible="1"/>
+                                <field name="hhc_appointment" invisible="1"/>
+                                <field name="care_giver_id" invisible="1"/>
+                                <field name="caregiver"/>
+                            </group>
+                            <group>
+                                <field name="caregiver_second"/>
+                                <field name="caregiver_third"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                <field name="blood_type"/>-->
+                                <!--                                <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="completed_date"/>
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <br/>
+                        <group>
+                            <group colspan="2">
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">Reviewed By</h3>
+                                <br/>
+                                <field name="nurse_name" colspan="2"/>
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <br/>
+                        <group>
+                            <h3 col="2" style="font-weight:bold; color:#5D8DA8">Diagnosis</h3>
+                            <!--  <div>
+                                  <field name="provisional_diagnosis" string=""/>
+                                  <br/>
+                                  <field name="provisional_diagnosis_add" string=""/>
+                                  <br/>
+                                  <field name="provisional_diagnosis_add2" string=""/>
+                                  <br/>
+                                  <field name="provisional_diagnosis_add3" string=""/>
+
+                              </div>-->
+                        </group>
+
+                        <group>
+                            <group colspan="2">
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">Medical Care Plan</h3>
+                                <br/>
+                                <div style="padding-left: 10px;">
+                                    <!--                                    <field name="medical_care_plan" nolabel="1"/>-->
+                                </div>
+                            </group>
+                        </group>
+                        <div>
+                            <h3 col="2" style="font-weight:bold; color:#5D8DA8">Medication Profile</h3>
+                            <group>
+                                <field name="medication_profile_line" widget="one2many_list" nolabel="1"
+                                       force_save="1"/>
+                            </group>
+                        </div>
+                        <div>
+                            <h3 col="2" style="font-weight:bold; color:#5D8DA8">Patient Medicines</h3>
+                            <group>
+                            </group>
+                        </div>
+                        <group>
+                            <group colspan="2">
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">Special Instructions</h3>
+                                <br/>
+                                <div style="padding-left: 10px;">
+                                    <field name="special_instructions" string=""/>
+                                </div>
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_care_giver_follow_up_lines_vital_signs" model="ir.ui.view">
+            <field name="name">Vital Pain Prescribed</field>
+            <field name="model">sm.shifa.care.giver.follow.up</field>
+            <field name="inherit_id" ref="view_shifa_care_giver_follow_up_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/div[3]/group" position="inside">
+                    <field name="prescribed_medicine_main" nolabel="1"
+                           context="{'default_phy_adm':phy_adm, 'default_prescribed_medicine_id':id}">
+                        <tree string="Patient Medicine" nolabel="1">
+                            <field name="select_medicine" string="Type"/>
+                            <field name="patient_medicines" string="Medicine"/>
+                            <field name="prescribed_dose"/>
+                            <field name="prescribed_dose_unit"/>
+                            <field name="prescribed_dose_route"/>
+                            <field name="phy_adm" invisible="1"/>
+                            <field name="main_prescribed_medicine_id" invisible="1"/>
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="select_medicine" widget="radio"
+                                               options="{'horizontal': true}" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <div class="oe_right">
+                                    <field name="medicine_image" widget="image" class="oe_inline" readonly="1"
+                                           force_save="1"/>
+                                </div>
+
+                                <div>
+                                    <group>
+                                        <group>
+                                            <field name="patient_medicines" string="Medicine"/>
+                                        </group>
+                                        <group>
+                                            <label for="prescribed_dose"/>
+                                            <div>
+                                                <field name="prescribed_dose" placeholder="250"
+                                                       style="width: 20%;  margin: 10px" required="1"/>
+                                                <field name="prescribed_dose_unit" style="width: 40%; margin: 10px"/>
+                                            </div>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="prescribed_dose_route"/>
+                                        </group>
+                                    </group>
+
+                                    <group>
+                                        <group>
+                                            <field name="start_date"/>
+                                        </group>
+                                        <group>
+                                            <field name="stop_date"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="times_day"/>
+                                        </group>
+                                        <group attrs="{'invisible': ['|',('times_day', 'in', ['as_need','after_bf','after_launch','after_dinner']),('times_day', '=', False)]}">
+                                            <field name="time1" widget="timepicker"/>
+                                            <field name="time2" widget="timepicker"
+                                                   attrs="{'invisible': [('times_day', 'in', ['1'])]}"/>
+                                            <field name="time3" widget="timepicker"
+                                                   attrs="{'invisible': [('times_day', 'in', ['1','2',])]}"/>
+                                            <field name="time4" widget="timepicker"
+                                                   attrs="{'invisible': [('times_day', 'in', ['1','2','3'])]}"/>
+                                            <field name="time5" widget="timepicker"
+                                                   attrs="{'invisible': [('times_day', 'in', ['1','2','3','4'])]}"/>
+                                            <field name="time6" widget="timepicker"
+                                                   attrs="{'invisible': [('times_day', 'in', ['1','2','3','4','5'])]}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                            </sheet>
+                        </form>
+                    </field>
+                </xpath>
+                <notebook position="inside">
+                    <page string="Vital Signs">
+                        <field name="vital_signs_lines" nolabel="1">
+                            <tree string="Vital Signs" nolabel="1" editable="bottom">
+                                <field name="systolic_bp" string="systolic BP(mmHg)"
+                                       attrs="{'readonly': [('done', '=', True)]}" force_save="1"/>
+                                <field name="diastolic_br" string="Diastolic BR(mmHg)"
+                                       attrs="{'readonly': [('done', '=', True)]}" force_save="1"/>
+                                <field name="hr_min" string="HR(/min)" attrs="{'readonly': [('done', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="temperature_c" string="Temperature(C)"
+                                       attrs="{'readonly': [('done', '=', True)]}" force_save="1"/>
+                                <field name="rr_min" string="RR(/min)" attrs="{'readonly': [('done', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="o2_sat" attrs="{'readonly': [('done', '=', True)]}" force_save="1"/>
+                                <!--                                    <field name="with_oxygen_support" attrs="{'readonly': [('done', '=', True)]}" force_save="1"/>-->
+                                <field name="char_other_oxygen" attrs="{'readonly': [('done', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="date_vital_signs" string="Date" attrs="{'readonly': [('done', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="day" string="Day" attrs="{'readonly': [('done', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="done" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Pain Present">
+                        <field name="pain_present_lines" nolabel="1">
+                            <tree string="Pain Present" nolabel="1" editable="bottom">
+                                <field name="pain_score" string="Pain Score"
+                                       attrs="{'readonly': [('done_pain', '=', True)]}" force_save="1"/>
+                                <field name="comment" string="Comment"
+                                       attrs="{'readonly': [('done_pain', '=', True)]}" force_save="1"/>
+                                <field name="date_pain_present" string="Date"
+                                       attrs="{'readonly': [('done_pain', '=', True)]}" force_save="1"/>
+                                <field name="day" string="Day"
+                                       attrs="{'readonly': [('done_pain', '=', True)]}" force_save="1"/>
+                                <field name="done_pain" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Given Medicine">
+                        <field name="prescribed_medicine_lines" nolabel="1"
+                               context="{'default_phy_adm':phy_adm, 'default_prescribed_medicine_id':id}">
+                            <tree string="Prescribed Medicine" nolabel="1" editable="bottom">
+                                <field name="patient_medicines" string="Medicine"/>
+                                <!--                                This field  prescribed_brand_medicine is the problem of fkey constrain-->
+                                <field name="prescribed_brand_medicine" string="Medicine" invisible="1"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="prescribed_medicine" invisible="1"/>
+                                <field name="dose" placeholder="250"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="dose_unit" attrs="{'readonly': [('done_prescribed', '=', True)]}"
+                                       force_save="1"/>
+                                <!--                                <field name="common_dosage" attrs="{'readonly': [('done_prescribed', '=', True)]}"-->
+                                <!--                                       force_save="1"/>-->
+                                <field name="prescribed_medicine_text" string="Comment"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="date_prescribed_medicine" string="Date"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="day" string="Day" attrs="{'readonly': [('done_prescribed', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="done_prescribed" invisible="1"/>
+                                <field name="phy_adm" invisible="1"/>
+                                <field name="prescribed_medicine_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Observation">
+                        <field name="objective_lines" widget="one2many_list"/>
+                    </page>
+                    <page string="Missed Medicine Dose">
+                        <field name="missed_medicine_lines" nolabel="1"
+                               context="{'default_phy_adm':phy_adm, 'default_missed_medicine_id':id}">
+                            <tree string="Missed Medicine" nolabel="1" editable="bottom">
+                                <field name="patient_medicines" string="Medicine"/>
+                                <field name="dose" placeholder="250"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="dose_unit" attrs="{'readonly': [('done_prescribed', '=', True)]}"
+                                       force_save="1"/>
+                                <!--                                <field name="common_dosage" attrs="{'readonly': [('done_prescribed', '=', True)]}"-->
+                                <!--                                       force_save="1"/>-->
+                                <field name="prescribed_medicine_text" string="Comment"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="date_prescribed_medicine" string="Date"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="day" string="Day" attrs="{'readonly': [('done_prescribed', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="done_prescribed" invisible="1"/>
+                                <field name="phy_adm" invisible="1"/>
+                                <field name="missed_medicine_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Canceled Medicine Dose">
+                        <field name="cancel_medicine_lines" nolabel="1"
+                               context="{'default_phy_adm':phy_adm, 'default_missed_medicine_id':id}">
+                            <tree string="Missed Medicine" nolabel="1" editable="bottom">
+                                <field name="patient_medicines" string="Medicine"/>
+                                <field name="dose" placeholder="250"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="dose_unit" attrs="{'readonly': [('done_prescribed', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="prescribed_medicine_text" string="Comment"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="date_cancel_medicine" string="Date"
+                                       attrs="{'readonly': [('done_prescribed', '=', True)]}" force_save="1"/>
+                                <field name="day" string="Day" attrs="{'readonly': [('done_prescribed', '=', True)]}"
+                                       force_save="1"/>
+                                <field name="done_prescribed" invisible="1"/>
+                                <field name="phy_adm" invisible="1"/>
+                                <field name="cancel_medicine_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Supervisor Consultation">
+                        <field name="notification_id" widget="one2many_list"
+                               context="{'default_patient':patient, 'default_requested_by':caregiver}">
+                            <tree>
+                                <field name="name"/>
+                                <field name="hhc_appointment"/>
+                                <field name="patient"/>
+                                <field name="requested_by"/>
+                                <field name="start_date"/>
+                                <field name="completed_date"/>
+                                <field name="state"/>
+                            </tree>
+                            <form>
+                                <header>
+                                    <button confirm="Are you sure you want to start process?" name="set_to_start"
+                                            states="Start" string="Send" type="object" class="oe_highlight"/>
+                                    <button confirm="Are you sure you want to make as complete?" name="set_to_done"
+                                            states="Send" string="Done" type="object" class="oe_highlight"/>
+                                    <field name="state" widget="statusbar"
+                                           statusbar_visible="Start,Send,Done"/>
+                                </header>
+                                <sheet>
+                                    <group>
+                                        <h1>
+                                            <field name="name" readonly="1"/>
+                                        </h1>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="patient"/>
+                                            <field name="requested_by"/>
+                                            <!--                            <field name="phy_adm"/>-->
+                                        </group>
+                                        <group invisible="1">
+                                            <field name="hhc_appointment"/>
+                                            <field name="phy_appointment"/>
+                                        </group>
+                                    </group>
+                                    <group invisible="1">
+                                        <group>
+                                            <field name="dob"/>
+                                            <field name="marital_status"/>
+                                            <field name="sex"/>
+                                            <field name="blood_type"/>
+                                            <field name="rh"/>
+                                        </group>
+                                        <group>
+                                            <field name="start_date"/>
+                                            <field name="completed_date"/>
+                                        </group>
+                                    </group>
+                                    <group string="Services Provided" invisible="1">
+                                        <div style="padding-left: 30px;">
+                                            <group>
+                                                <field name="services_provided_o2"/>
+                                                <field name="services_provided_tracheostomy"/>
+                                                <field name="services_provided_wound_care"/>
+                                                <field name="services_provided_pain_manage"/>
+                                                <field name="services_provided_hydration_therapy"/>
+                                                <field name="services_provided_o2_via_nasal"/>
+                                                <field name="services_provided_hypodermoclysis"/>
+                                                <field name="services_provided_drain_tube_mx"/>
+                                                <field name="services_provided_medication_manage"/>
+                                                <field name="services_provided_warfarin"/>
+                                            </group>
+                                        </div>
+                                        <div style="padding-right: 30px;">
+                                            <group>
+                                                <field name="services_provided_tpn"/>
+                                                <field name="services_provided_stoma_care"/>
+                                                <field name="services_provided_pdg_tube"/>
+                                                <field name="services_provided_inr_monitor"/>
+                                                <field name="services_provided_prevention_pressure_ulcer"/>
+                                                <field name="services_provided_vac_therapy"/>
+                                                <field name="services_provided_ngt"/>
+                                                <field name="services_provided_parenteral"/>
+                                                <field name="services_provided_indwelling_foley"/>
+                                                <field name="services_provided_other"/>
+                                                <div attrs="{'invisible': [('services_provided_other', '=', False)]}">
+                                                    <field name="services_provided_other_content"/>
+                                                </div>
+                                            </group>
+                                        </div>
+                                    </group>
+                                    <group string="Remarks">
+                                        <field name="notification_remarks" nolabel="1"/>
+                                    </group>
+                                    <group string="Image">
+                                        <field name="image" widget="image" nolabel="1"/>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="add_image"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <div attrs="{'invisible': [('add_image', '=', False)]}">
+                                            <field name="other_image" widget="image"/>
+                                        </div>
+                                    </group>
+                                    <group string="Head Department Comment">
+                                        <field name="comment" nolabel="1"/>
+                                    </group>
+
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_shifa_care_giver_follow_up_tree" model="ir.ui.view">
+            <field name="name">shifa_care.giver.follow.up.tree</field>
+            <field name="model">sm.shifa.care.giver.follow.up</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="care_giver_follow_up_code"/>
+                    <field name="hhc_appointment" invisible="1"/>
+                    <field name="patient"/>
+                    <field name="caregiver"/>
+                    <!--                    <field name="cg_ff"/>-->
+                    <field name="nurse_name"/>
+                    <field name="start_date"/>
+                    <field name="completed_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_care_giver_follow_up_action" model="ir.actions.act_window">
+            <field name="name">Caregiver Follow Up</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.care.giver.follow.up</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to invoice found
+                </p>
+            </field>
+        </record>
+
+        <record id="sm_shifa_caregiver_objective_lines_action" model="ir.actions.act_window">
+            <field name="name">caregiver_objective_lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.care.giver.follow.up.lines.observation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="sm_shifa_caregiver_objective_lines_form" model="ir.ui.view">
+            <field name="name">assessment.number.form</field>
+            <field name="model">sm.shifa.care.giver.follow.up.lines.observation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <label for="nutritional_status" string="Nutritional Status"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <field name="nutritional_status" string=""/>
+                        </group>
+                        <group>
+                            <label for="sleeping_pattern" string="Sleeping Pattern"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <field name="sleeping_pattern" string=""/>
+                        </group>
+                        <group>
+                            <label for="bathing_shower_toilet" string="Task/ Activities Provided"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="bathing_shower_toilet" string="Bathing/Shower (toilet)"/>
+                            </group>
+                            <group>
+                                <field name="bathing_shower_toilet_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('bathing_shower_toilet', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="bed_bath" string="Bed Bath"/>
+                            </group>
+                            <group>
+                                <field name="bed_bath_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('bed_bath', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="hair_care" string="Hair Care"/>
+                            </group>
+                            <group>
+                                <field name="hair_care_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('hair_care', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="mouth_care" string="Mouth Care"/>
+                            </group>
+                            <group>
+                                <field name="mouth_care_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('mouth_care', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="nail_care" string="Nail Care"/>
+                            </group>
+                            <group>
+                                <field name="nail_care_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('nail_care', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="shaving_needs_consent" string="Shaving (needs consent)"/>
+                            </group>
+                            <group>
+                                <field name="shaving_needs_consent_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('shaving_needs_consent', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="bowel_bladder_care" string="Bowel/Bladder Care"/>
+                            </group>
+                            <group>
+                                <field name="bowel_bladder_care_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('bowel_bladder_care', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="dressing_grooming" string="Dressing/Grooming"/>
+                            </group>
+                            <group>
+                                <field name="dressing_grooming_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('dressing_grooming', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="meals_feeding" string="Meals/Feeding"/>
+                            </group>
+                            <group>
+                                <field name="meals_feeding_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('meals_feeding', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="ambulation" string="Ambulation"/>
+                            </group>
+                            <group>
+                                <field name="ambulation_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('ambulation', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="positioning_bed" string="Positioning (Bed)"/>
+                            </group>
+                            <group>
+                                <field name="positioning_bed_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('positioning_bed', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="positioning_wheelchair" string="Positioning (wheelchair)"/>
+                            </group>
+                            <group>
+                                <field name="positioning_wheelchair_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('positioning_wheelchair', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="permitted_exercise" string="Permitted exercise"/>
+                            </group>
+                            <group>
+                                <field name="permitted_exercise_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('permitted_exercise', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="transfers_bed_to_chair" string="Transfers (Bed to chair)"/>
+                            </group>
+                            <group>
+                                <field name="transfers_bed_to_chair_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('transfers_bed_to_chair', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="medication" string="Medication"/>
+                            </group>
+                            <group>
+                                <field name="medication_text" string="Reason not done/Comment"
+                                       attrs="{'invisible': [('medication', '!=', 'Not Done')]}"/>
+                            </group>
+                            <group>
+                                <field name="other_box" string="Other"/>
+                            </group>
+                            <group>
+                                <field name="other_box_text" string="Specify"
+                                       attrs="{'invisible': [('other_box', '=', False)]}"/>
+                            </group>
+
+                        </group>
+                        <group>
+                            <label for="progress_noted" string="Progress Noted"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                        </group>
+                        <group>
+                            <field name="progress_noted" string=""/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="sm_shifa_caregiver_objective_lines_tree" model="ir.ui.view">
+            <field name="name">shifa_care.giver.follow.up.tree</field>
+            <field name="model">sm.shifa.care.giver.follow.up.lines.observation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nutritional_status" string="Nutritional Status"/>
+                    <field name="sleeping_pattern" string="Sleeping Pattern"/>
+                    <field name="progress_noted" string="Progress Noted"/>
+                    <field name="date"/>
+                    <field name="day"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="Care_Giver_Follow_Up_root"
+                  name="Caregiver Follow Up"
+                  parent="smartmind_shifa.menu_oldforms_main_form_root"
+                  action="sm_shifa_care_giver_follow_up_action"
+                  sequence="2"/>
+
+    </data>
+</odoo>

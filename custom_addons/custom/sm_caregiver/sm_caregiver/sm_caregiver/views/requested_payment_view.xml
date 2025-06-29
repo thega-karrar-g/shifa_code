@@ -1,0 +1,55 @@
+<odoo>
+    <record id="view_requested_payments_form_inherit" model="ir.ui.view">
+        <field name="name">sm.shifa.requested.payments.form.inherit</field>
+        <field name="model">sm.shifa.requested.payments</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_requested_payments_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button confirm="Are you sure you want to Create Payment?" name="create_account_payment"  string="Create Payment" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state','not in',['Paid','Done']),('payment_id','!=',False)]}"/>
+            </xpath>
+            <xpath expr="//group[12]" position="after">
+                <group attrs="{'invisible': [('type', '!=', 'caregiver')]}">
+                    <group>
+                        <field name="caregiver_contract_id" string="Caregiver Contract"/>
+                    </group>
+                    <group>
+                        <field name="date_caregiver_contract"/>
+                    </group>
+                </group>
+                <group attrs="{'invisible': [('type', '!=', 'sleep_medicine_request')]}">
+                    <group>
+                        <field name="sleep_medicine_request" string="Sleep Medicine Request"/>
+                    </group>
+                    <group>
+                        <field name="date_sleep_medicine_request"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_requested_payments_tree_inherit" model="ir.ui.view">
+        <field name="name">sm.shifa.requested.payments.tree.inherit</field>
+        <field name="model">sm.shifa.requested.payments</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_requested_payments_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="delete">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="view_requested_payments_search">
+            <field name="name">requested payment Search</field>
+            <field name="model">sm.shifa.requested.payments</field>
+            <field name="inherit_id" ref="smartmind_shifa_extra.sm_shifa_requested_payments_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="name" />
+                    <field name="patient" />
+                    <field name="ssn" />
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

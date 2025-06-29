@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Shifa HR Customization',
+    'version': '1.0',
+    'summary': 'Shifa Customization software',
+    'sequence': -100,
+    'description': """Odoo 14 Development""",
+    'category': 'Generic Modules',
+    'author': 'Shifa',
+    'license': 'AGPL-3',
+    'maintainer': 'Shifa',
+    'website': '',
+    #'depends': ['employee_approvals','mail'],
+    'depends': ['base', 'mail','employee_approvals'],
+    'data': [
+    'views/custom_approvals.xml',
+    'views/custom_approvals_request.xml',
+    'security/security.xml',
+    'data/ir_cron.xml',
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

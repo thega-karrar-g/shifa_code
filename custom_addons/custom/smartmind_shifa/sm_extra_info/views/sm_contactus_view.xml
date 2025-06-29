@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <record id="view_shifa_contactus_form" model="ir.ui.view">
+            <field name="name">shifa.contactus.form</field>
+            <field name="model">sm.shifa.contactus</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="subject"/>
+                            <field name="mobile"/>
+                            <field name="message"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_contactus_tree" model="ir.ui.view">
+            <field name="name">shifa_contactus.tree</field>
+            <field name="model">sm.shifa.contactus</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="email"/>
+                    <field name="mobile"/>
+                    <field name="subject"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_contactus_action" model="ir.actions.act_window">
+            <field name="name">Contact Us</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.contactus</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history for vital signs found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_contactus_search" model="ir.ui.view">
+            <field name="name">contactus_search</field>
+            <field name="model">sm.shifa.contactus</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Name"/>
+                </search>
+            </field>
+        </record>
+        <!--<menuitem id="Contactus_root"
+                  name="Contact Us"
+                  parent="smartmind_shifa.shifa_operations_others_menu"
+                  action="sm_shifa_contactus_action"
+                  sequence="25"/>-->
+
+    </data>
+</odoo>

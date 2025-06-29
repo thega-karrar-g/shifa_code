@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+        <record id="view_shifa_medication_profile_form" model="ir.ui.view">
+            <field name="name">medication.profile.form</field>
+            <field name="model">sm.shifa.medication.profile</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Start,PDF Created,send"/>/>
+                </header>
+                    <sheet>
+                        <group>
+                            <field name="patient"/>
+                        </group>
+                            <group>
+                                <group>
+                                    <field name="p_brand_medicine" string="Brand Medicine"/>
+                                    <field name="p_generic_name" string="Generic Medicine"/>
+                                </group>
+                                <group>
+                                       <label for="p_dose" string="Dose"/>
+                                    <div>
+                                        <field name="p_dose" placeholder="250"
+                                               style="width: 20%;  margin: 10px" required="1"/>
+                                        <field name="p_dose_unit" style="width: 40%; margin: 10px"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="p_dose_form" string="Form"/>
+                                </group>
+                                <group>
+                                    <field name="p_dose_route" string="Administration Route"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="p_common_dosage" string="Frequency" />
+                                </group>
+                                <group>
+                                    <field name="p_qty" string="Quantity"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="p_duration" string="Duration"/>
+                                <field name="p_duration_period" nolabel="1"/>
+                                </group>
+                                <group>
+                                    <field name="comment" required="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="p_indication" string="Indication"/>
+                                </group>
+                                <group>
+                                      <field name="state_app"/>
+                                <field name="pre_exter_type"/>
+                                </group>
+                            </group>
+                        <notebook>
+                            <page string="Notes">
+                                <field name="info" context="{'default_patient': patient}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="shifa_medication_profile_tree_view">
+            <field name="name">Medication Profile</field>
+            <field name="model">sm.shifa.medication.profile</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Prescription" editable="bottom">
+                    <field name="p_generic_name" string="Generic"/>
+                    <field name="p_brand_medicine" string="Brand"/>
+                    <field name="pre_exter_type"/>
+                    <field name="p_indication" string="Indication"/>
+<!--                    <field name="p_prescription_ids" string="Prescription Line"/>-->
+                    <field name="p_dose" string="Dose"/>
+                    <field name="p_dose_unit" string="Dose Unit"/>
+                    <field name="p_dose_form" string="Dose Form"/>
+                    <field name="p_common_dosage" string="Common Dosage"/>
+                    <field name="p_qty" string="Quantity"/>
+                    <field name="p_duration" string="Treatment duration"/>
+                    <field name="p_duration_period" nolabel="1"/>
+                    <field name="p_dose_route" string="Administration Route"/>
+                    <field name="patient" invisible="1"/>
+                    <field name="state_app"/>
+                    <field name="date"/>
+                    <field name="comment"/>
+                    <field name="state" invisible="1"/>
+
+                </tree>
+
+            </field>
+        </record>
+        <record id="shifa_medication_profile_action" model="ir.actions.act_window">
+            <field name="name">Medication Profile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.medication.profile</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="medication_profile_root"
+                  name="Medication Profile"
+                  parent="smartmind_shifa.menu_doctor_main_form_root"
+                  action="smartmind_shifa.shifa_medication_profile_action"
+                  sequence="5"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,143 @@
+<odoo>
+    <record id="sm_service_request_form_view" model="ir.ui.view">
+        <field name="name">Service Request Form</field>
+        <field name="model">sm.shifa.service.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="set_to_processed" states="received"
+                            string="Processed"
+                            confirm="Are you sure you want to start Process?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_nurse,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_head_physiotherapist,smartmind_shifa.group_oeh_medical_hhc_physiotherapist,smartmind_shifa.group_oeh_medical_call_center"/>
+                    <button name="set_to_canceled" states="received"
+                            string="Cancel"
+                            confirm="Are you sure you want to cancel this operation?" type="object"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="received,processed,canceled"
+                           statusbar_colors='{"received":"yellow","processed":"green","canceled":"black"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="name" string="SR#"/>
+                            <h1>
+                                <field name="name" readonly="1"
+                                       class="oe_inline"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group string="Patient Details">
+                        <group>
+                            <field name="patient" options="{'no_create': True}"/>
+                             <field name="dob"/>
+                            <field name="marital_status"/>
+                            <field name="sex"/>
+                            <label for="blood_type"/>
+                            <div>
+                                <field name="blood_type" class="oe_inline"/>
+                                <field name="rh" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="age" force_save="1"/>
+                            <field name="patient_weight" force_save="1"/>
+                            <field name="ssn" string="ID number" force_save="1"/>
+                            <field name="nationality" force_save="1"/>
+                            <field name="mobile" force_save="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                        <field name="cg_date"/>
+                            </group>
+                    </group>
+                    <group string="Service Details">
+                        <group>
+                            <field name="service" options="{'no_create': True}"/>
+                            <field name="service_type" readonly="1"/>
+                            <field name="caregiver_nationality" attrs="{'invisible': [('service_type', '!=', 'Car')]}"/>
+                            <field name="appointment" attrs="{'invisible': [('service_type', '==', 'Car')]}"/>
+                            <field name="date"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="attached_file"/>
+                            <field name="attached_file_2"/>
+                            <field name="attached_file_3"/>
+                        </group>
+                    </group>
+                    <group string="Comment">
+                        <field name="comment" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--    <record id="view_sm_service_request_sleep_medicine" model="ir.ui.view">
+            <field name="name">add questionnaire</field>
+            <field name="model">sm.shifa.service.request</field>
+            <field name="inherit_id" ref="sm_service_request_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/div[2]" position="after">
+                    <field name="sleep_medicine_lines">
+                        <form>
+                            <group string="Questionnaire">
+                                <group>
+                                    <field name="neck_circ"/>
+                                    <field name="height"/>
+                                </group>
+                                <group>
+                                    <field name="weight"/>
+                                    <field name="bmi"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="snore"/>
+                                <field name="wakeup_feeling_hasnt_sleep"/>
+                                <field name="stop_breathing_night"/>
+                                <field name="gasp_air_choke"/>
+                            </group>
+                        </form>
+                    </field>
+                </xpath>
+            </field>
+        </record>-->
+    <record model="ir.ui.view" id="sm_service_request_tree_view">
+        <field name="name">Service Request List</field>
+        <field name="model">sm.shifa.service.request</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient"/>
+                <field name="cg_date"/>
+                <field name="service"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_service_request_action" model="ir.actions.act_window">
+        <field name="name">Mobile's Requests</field>
+        <field name="res_model">sm.shifa.service.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click Create to add a new Service Request.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="sm_service_request_menu" action="sm_service_request_action"
+              name="Mobile's Requests"
+              parent="oehealth.oeh_medical_general_menu" sequence="17"/>
+</odoo>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <record id="jitsi_view_meeting" model="ir.ui.view">
+            <field name="name">jitsi.meeting.form</field>
+            <field name="model">jitsi.meeting</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Meetings">
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <h4>Jitsi Meeting</h4>
+<!--                                <field name="appointment_id" invisible="1"/>-->
+                                <field name="meeting_code" invisible="1"/>
+                                <field name="meeting_link" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Create Meeting" class="oe_highlight" type="object" name="create_meeting"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_jitsi_meeting">
+            <field name="name">Meetings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jitsi.meeting</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_jitsimeeting_view_form">
+            <field name="act_window_id" ref="open_jitsi_meeting"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="jitsi_view_meeting"/>
+        </record>
+
+    </data>
+</odoo>

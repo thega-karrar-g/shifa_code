@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record id="sm_history_form_wizard" model="ir.ui.view">
+            <field name="name">Pharmacy Medicines History Report Form Wizard</field>
+            <field name="model">sm.shifa.instant.prescriptions.history.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Pharmacy Medicines History Report">
+                    <group>
+                        <field name="is_all" widget="checkbox"/>
+                        <field name="pharmacy_chain" attrs="{'required':[('is_all', '==', False)], 'invisible':[('is_all', '==', True)]}"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_print_report" string="Print" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_history_wizard_action" model="ir.actions.act_window">
+            <field name="name">Pharmacy Medicines History Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.instant.prescriptions.history.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sm_history_form_wizard"/>
+            <field name="target">new</field>
+
+        </record>
+
+        <menuitem id="menu_shifa_medicines_history_wizard"
+                  action="sm_history_wizard_action"
+                  parent="smartmind_shifa.reports_menu"
+                  sequence="1"/>
+
+    </data>
+</odoo>

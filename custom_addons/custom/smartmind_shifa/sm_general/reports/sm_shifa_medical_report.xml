@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sm_shifa_report_patient_prescriptions" model="ir.actions.report">
+            <field name="name">Prescription</field>
+            <field name="model">oeh.medical.prescription</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa.report_patient_prescription</field>
+            <field name="report_file">smartmind_shifa.report_patient_prescriptionn</field>
+            <field name="binding_model_id" ref="oehealth.model_oeh_medical_prescription"/>
+            <field name="binding_type">report</field>
+            <field name="attachment">object.name + '.pdf'</field>
+            <field name="attachment_use">True</field>
+        </record>
+
+        <!--   Lab test report action -->
+        <record id="sm_shifa_lab_test_report_action" model="ir.actions.report">
+            <field name="name">Lab Test</field>
+            <field name="model">oeh.medical.lab.test</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa.report_lab_test</field>
+            <field name="report_file">smartmind_shifa.report_lab_test</field>
+            <field name="binding_model_id" ref="oehealth.model_oeh_medical_lab_test"/>
+            <field name="binding_type">report</field>
+            <field name="attachment">object.name + '.pdf'</field>
+            <field name="attachment_use">True</field>
+        </record>
+   <!--   Imaging report action -->
+        <record id="sm_shifa_imaging_report_action" model="ir.actions.report">
+            <field name="name">Imaging Test</field>
+            <field name="model">oeh.medical.imaging</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa.report_imaging</field>
+            <field name="report_file">smartmind_shifa.report_imaging</field>
+            <field name="binding_model_id" ref="model_oeh_medical_imaging"/>
+            <field name="binding_type">report</field>
+            <field name="attachment">object.name + '.pdf'</field>
+            <field name="attachment_use">True</field>
+        </record>
+
+    </data>
+</odoo>

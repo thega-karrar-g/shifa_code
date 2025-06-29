@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_medical_insurance_classes_view">
+            <field name="name">Insurance Classes</field>
+            <field name="model">sm.medical.insurance.classes</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Insurance Classes">
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;"/>
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="INS-Class #"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                        </div>
+                        <br/>
+                        <group style="display: flex;">
+                            <group>
+                                <field name="insured_company_id"/>
+                                <field name="class_name"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                              <group style="display: flex;">
+                            <group>
+                                <field name="insurance_policy_id"/>
+                            </group>
+                            <group>
+                                <field name="insurance_company_id"/>
+                            </group>
+                        </group>
+
+                        <group style="display: flex;">
+                            <group>
+                                <field name="serv_patient_deduct"/>
+                            </group>
+                            <group>
+                                <field name="pt_deduct_visit"/>
+                            </group>
+                            <group>
+                                <field name="approval_limit"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_medical_insurance_classes_tree">
+            <field name="name">Insurance Classes</field>
+            <field name="model">sm.medical.insurance.classes</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="class_name"/>
+                    <field name="insurance_company_id"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="sm_medical_insurance_classes_action_tree" model="ir.actions.act_window">
+            <field name="name">Insurance Classes</field>
+            <field name="res_model">sm.medical.insurance.classes</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Easily manage all of your Insurance Classes;
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_medical_insurance_classes_action_tree" parent="oehealth.oeh_medical_conf_insurances"
+                  id="sm_medical_insurance_classes" sequence="2"/>
+    </data>
+</odoo>

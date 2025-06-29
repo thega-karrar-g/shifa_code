@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+
+        <!--  Add insurance in patient model-->
+        <record id="inherited_insurance_patient_view_form" model="ir.ui.view">
+            <field name="name">inherited.patient</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oeh_medical.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active' and @invisible='1']" position="after">
+                    <group  string="Insurance Details">
+                        <group>
+                            <field name="insured_company_id"></field>
+                            <field name="insured_policy" ></field>
+                            <field name="insurance_company_id" ></field>
+                            <field name="expiration_date" ></field>
+                            <field name="insurance_state" ></field>
+
+                        </group>
+
+
+
+                        <group >
+
+                            <field name="class_company_id"/>
+                            <field name="serv_patient_deduct"/>
+                            <field name="pt_deduct_visit"/>
+                            <field name="approval_limit"/>
+
+                        </group>
+                    </group>
+
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

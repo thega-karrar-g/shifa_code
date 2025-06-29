@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+         <menuitem name="Insurance" id="sm_insurance_menu" parent="sm_configuration.sm_config_menu" sequence="1"/>
+
+
+</odoo>

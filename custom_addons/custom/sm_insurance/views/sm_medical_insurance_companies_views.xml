@@ -1,0 +1,149 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <record id="open_insurance_policies_action" model="ir.actions.act_window">
+            <field name="name">insurance polices</field>
+            <field name="res_model">sm.insurance.policy</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                </p>
+            </field>
+        </record>
+        <record id="open_price_list_action" model="ir.actions.act_window">
+            <field name="name">insurance price</field>
+            <field name="res_model">sm.service.price.list</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_medical_insurance_companies_view">
+            <field name="name">Insurance Companies</field>
+            <field name="model">sm.insurance.companies</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Insurance Companies">
+                    <header>
+                        <button name="make_active" states="draft" string="Set To Active"
+                                type="object" confirm="Are you sure you want to mark insurance as Active?"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,active,expired"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button"
+                                    name="open_policies_view"
+                                    style="border: groove"
+                                    icon="fa-list">
+                                <field string="Policies" name="insured_count" widget="statinfo"/>
+                            </button>
+
+                            <button type="object" class="oe_stat_button"
+                                    name="open_price_list_view"
+                                    style="border: groove"
+                                    icon="fa-list">
+                                <field string="Price list" name="price_list_count" widget="statinfo"/>
+                            </button>
+                        </div>
+
+                        <field name="image_1920" widget='image' class="oe_avatar" type="base64"
+                               options='{"preview_image": "image_128", "size": [90, 90]}'/>
+                        <div class="oe_left" style="width: 500px;"/>
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="name" string="INS-Comp #"/>
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline" required="0"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="company_name"/>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="company_code"/>
+                                <field name="expiration_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="parent_company_id"/>
+                            </group>
+                            <group>
+                                <field name="follow_up"/>
+                            </group>
+                        </group>
+                        <br/>
+
+                        <group>
+                            <group>
+                                <field name="street" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="street2" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="city" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="zip" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="country_id" attrs="{'readonly': [('state', '=', 'active')]}"
+                                       invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="phone" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="email" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="contact_person" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="contract_document"/>
+                            </group>
+                            <group>
+                                <field name="price_list"/>
+                            </group>
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_medical_insurance_companies_tree">
+            <field name="name">Insurance Companies</field>
+            <field name="model">sm.insurance.companies</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_name"/>
+                    <field name="company_code"/>
+                    <field name="start_date"/>
+                    <field name="expiration_date"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="sm_medical_insurance_companies_action" model="ir.actions.act_window">
+            <field name="name">Insurance Companies</field>
+            <field name="res_model">sm.insurance.companies</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Easily manage all of your Insurance Companies;
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_medical_insurance_companies_action"
+                  parent="oehealth.oeh_medical_conf_insurances"
+                  id="sm_medical_insurance_companies" sequence="1"/>
+    </data>
+</odoo>

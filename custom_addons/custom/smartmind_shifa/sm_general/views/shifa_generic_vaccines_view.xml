@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record id="view_shifa_generic_vaccines_form" model="ir.ui.view">
+            <field name="name">sm.shifa.generic.vaccines.form</field>
+            <field name="model">sm.shifa.generic.vaccines</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label class="oe_edit_only" for="name" string="Generic Vaccines"/>
+                                <h1>
+                                    <field name="name" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="therapeutic_action"/>
+                            </group>
+                            <group>
+                                <field name="pregnancy_warning"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="adverse_reaction"/>
+                            </group>
+                            <group>
+                                <field name="info"/>
+                            </group>
+                        </group>
+                        <field name="active" invisible="1"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="shifa_generic_vaccines_tree_view">
+            <field name="name">generic_vaccines_tree</field>
+            <field name="model">sm.shifa.generic.vaccines</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Prescription Lines">
+                    <field name="name"/>
+                    <field name="therapeutic_action"/>
+                    <field name="adverse_reaction"/>
+                    <field name="info"/>
+                </tree>
+            </field>
+        </record>
+        <record id="shifa_generic_vaccines_action" model="ir.actions.act_window">
+            <field name="name">Generic Vaccines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.generic.vaccines</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="shifa_generic_vaccines_action" id="shifa_generic_vaccines_list"
+                  parent="menu_medicinces_vaccines_form_root" sequence="5"/>
+    </data>
+</odoo>

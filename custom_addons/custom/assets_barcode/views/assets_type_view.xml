@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="sm_assets_type_action" model="ir.actions.act_window">
+            <field name="name">Assets type</field>
+            <field name="res_model">account.asset.category.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Assets type.
+                </p>
+            </field>
+        </record>
+        <record id="sm_assets_type_view" model="ir.ui.view">
+            <field name="name">Assets type Form</field>
+            <field name="model">account.asset.category.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Assets">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="assets_category_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="sm_assets_type_tree" model="ir.ui.view">
+            <field name="name">sm assets type Tree</field>
+            <field name="model">account.asset.category.type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Aggregator'>
+                    <field name="name"/>
+                    <field name="assets_category_id"/>
+                </tree>
+            </field>
+        </record>
+        <menuitem action="sm_assets_type_action" id="menu_assets_type" name="Assets Category Type"
+                  parent="account.account_management_menu" sequence="5"/>
+    </data>
+</odoo>

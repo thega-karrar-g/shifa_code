@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_sm_contract_inherit" model="ir.ui.view">
+        <field name="name">sm.contract.inherited</field>
+        <field name="model">sm.caregiver.contracts</field>
+        <field name="inherit_id" ref="sm_caregiver._sm_caregiver_contracts_form_view"/>
+        <field name="arch" type="xml">
+
+            <field name="caregiver" position="replace">
+                <field name="caregiver" domain="[('id','in',allowed_caregivers_ids)]"
+                    attrs="{'required': [('state','in',['scheduling','assign_caregiver'])]}"
+                    options="{'no_create': True, 'no_edit': True}"/>
+                     <field name="allowed_caregivers_ids" invisible="1"/>
+            </field>
+            <!-- <field name="caregiver"
+                           options="{'no_create': True, 'no_create_edit': True}"/>
+                           allowed_caregivers_ids -->
+        </field>
+    </record>
+</odoo>

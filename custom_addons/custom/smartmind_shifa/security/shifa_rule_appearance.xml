@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--oehealth rules-->
+        <record id="oehealth.oeh_medical_physician_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.client_res_users" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_appointment_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_prescription_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_inpatient" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_physician_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_evaluation_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_vaccines" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_lab_test_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu_admission_rounding" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu_admission" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_injury_examination" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_labtest_department" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_health_center_pharmacy" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_followup" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_health_center" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_health_center_building" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_health_center_ward" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_health_center_beds" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_labtest_types" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_treatment_type" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_insurance_type" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_insurance" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_gyneco" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_medicines" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_pathology" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_pathology_category" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <!--oehealth extra rules-->
+        <record id="oehealth_extra_addons.oeh_medical_pediatrics_psc_all" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_surgery_rcri_both" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_surgery_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_ophthalmology_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_patient_rounding_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_patient_ambulatory_cares_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_imaging_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_appointment_register_walkin_rest" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_imagingtest_department" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_imaging_test_type" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_pediatrics_newborn" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_patient_call_log" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_health_center_ot" model="ir.rule">
+            <field name="active">False</field>
+        </record>
+    </data>
+</odoo>

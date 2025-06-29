@@ -1,0 +1,120 @@
+<odoo>
+    <record id="sm_hhc_appointment_action_acc" model="ir.actions.act_window">
+        <field name="name">HHC Appointments</field>
+        <field name="res_model">sm.shifa.hhc.appointment</field>
+        <field name="view_mode">tree,calendar,form,search</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new HHC Appointment.
+            </p>
+            <p>
+                No Data to Display.
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_physiotherapy_appointment_acc" model="ir.actions.act_window">
+        <field name="name">Physiotherapy Appointment</field>
+        <field name="res_model">sm.shifa.physiotherapy.appointment</field>
+        <field name="view_mode">tree,calendar,form,search</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new Physiotherapy.
+            </p>
+            <p>
+                No Data to Display.
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_pcr_appointment_acc" model="ir.actions.act_window">
+        <field name="name">PCR Appointments</field>
+        <field name="res_model">sm.shifa.pcr.appointment</field>
+        <field name="view_mode">tree,calendar,form,search</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new PCR Appointment.
+            </p>
+            <p>
+                No Data to Display.
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_hvd_appointment_acc" model="ir.actions.act_window">
+        <field name="name">HVD Appointments</field>
+        <field name="res_model">sm.shifa.hvd.appointment</field>
+        <field name="view_mode">tree,calendar,form,search</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_shifa_instant_consultation_acc" model="ir.actions.act_window">
+        <field name="name">Instant Consultation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.instant.consultation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No history to Instant Consultation found
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_shifa_pharmacy_chain_acc" model="ir.actions.act_window">
+        <field name="name">Pharmacy Chain</field>
+        <field name="res_model">sm.shifa.pharmacy.chain</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new insurance records.
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_shifa_pharmacies_action_acc" model="ir.actions.act_window">
+        <field name="name">Pharmacies</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.pharmacies</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No history to Instant Consultation found
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_shifa_requested_payments_acc" model="ir.actions.act_window">
+            <field name="name">Requested Payments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.requested.payments</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Requested Payments found
+                </p>
+            </field>
+        </record>
+
+</odoo>

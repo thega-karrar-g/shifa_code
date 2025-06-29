@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="oeh_medical_lab_test_form" model="ir.ui.view">
+        <field name="name">oeh.medical.lab.test.form</field>
+        <field name="model">oeh.medical.lab.test</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_lab_test_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='units']" position="after">
+                <field name="result_status" decoration-success="result_status == 'normal'"
+                       decoration-danger="result_status == 'abnormal'"
+                       decoration-warning="result_status == 'be_careful'" readonly="0"/>
+            </xpath>
+            <xpath expr="//field[@name='date_analysis']" position="after">
+                <field name="result"  decoration-success="result == 'normal'"
+                       decoration-danger="result == 'abnormal'" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="oeh_medical_lab_test_type_form" model="ir.ui.view">
+        <field name="name">oeh.medical.lab.test.type.form</field>
+        <field name="model">oeh.medical.labtest.types</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_lab_test_types_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lab_criteria']" position="replace">
+                <field name="lab_criteria" nolabel="1">
+                    <form string="Create Lab Test Cases" nolabel="1">
+                        <sheet>
+                            <div class="oe_title oe_row">
+                                <label for="name"/>
+                                <field name="name"/>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="units"/>
+                                    <field name="sequence"/>
+                                </group>
+                                <group>
+                                    <field name="company_id"/>
+                                    <field name="normal_range"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="range_type"/>
+                                </group>
+                                <group>
+                                    <label for="max_value" string="Value 1" attrs="{'invisible':[('range_type', 'not in', ('','range'))]}"/>
+                                    <field name="min_value" nolabel="1" attrs="{'invisible':[('range_type', 'not in', ('','range'))]}"/>
+                                    
+                                    <label for="max_value" string="Value 2" attrs="{'invisible':[('range_type', 'in', (False,'string'))]}"/>
+                                    <field name="max_value" nolabel="1" attrs="{'invisible':[('range_type', 'in', (False,'string'))]}"/>
+                                    
+                                    <field name="str_range_value" attrs="{'invisible':[('range_type', 'not in', ('','string'))]}"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+                    <tree string="Lab Test Cases">
+                        <field name="sequence" required="1"/>
+                        <field name="name"/>
+                        <field name="range_type"/>
+                        <field name="min_value" attrs="{'readonly':[('range_type', 'in', ('upto'))]}"/>
+                        <field name="max_value"/>
+                        <field name="normal_range"/>
+                        <field name="units"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="oeh_medical_lab_test_smartmind_tree_view" model="ir.ui.view">
+            <field name="name">Result Status tree</field>
+            <field name="model">oeh.medical.lab.test</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_lab_test_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="field[@name='patient']" position="after">
+                    <field name="result" decoration-success="result == 'normal'"
+                       decoration-danger="result == 'abnormal'" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

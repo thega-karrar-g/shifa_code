@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="sm_service_price_tree">
+            <field name="name">service.price</field>
+            <field name="model">sm.service.price.list</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="insurance_company_id"/>
+                    <field name="service_id"/>
+                    <field name="price"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_service_price_form_view">
+            <field name="name">service Price</field>
+            <field name="model">sm.service.price.list</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Service Price List">
+
+                    <sheet>
+
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="name" string="#service_price" />
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline" required="0"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="insurance_company_id"/>
+                                <field name="service_id"/>
+                                <field name="public_price"/>
+                                <field name="require_approval"/>
+                            </group>
+                            <group>
+                                <field name="price"/>
+                                <field name="discount"/>
+                                <field name="code"/>
+                            </group>
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_service_price_action" model="ir.actions.act_window">
+            <field name="name">Service Price List</field>
+            <field name="res_model">sm.service.price.list</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_service_price_action"
+                  parent="oehealth.oeh_medical_conf_insurances"
+                  id="sm_service_price" sequence="1"/>
+    </data>
+</odoo>

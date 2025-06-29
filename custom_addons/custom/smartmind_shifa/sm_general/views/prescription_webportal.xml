@@ -1,0 +1,278 @@
+<odoo>
+       <!--this template for show prescription header next home icon-->
+        <template id="portal_my_home_menu_prescription" name="Portal layout : prescription menu entries"
+                  inherit_id="portal.portal_breadcrumbs" priority="25">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'prescription' or prescription_id"
+                    t-attf-class="breadcrumb-item #{'active ' if not prescription_id else ''}">
+                    <!--   this link to got back to prescriptions list   -->
+                    <a t-if="prescription_id" t-attf-href="/my/prescriptions?{{ keep_query() }}">Prescriptions</a>
+                    <t t-else="">Prescriptions</t>
+                </li>
+                <li t-if="prescription_id" class="breadcrumb-item active">
+                    <t t-esc="prescription_id.name"/>
+                </li>
+            </xpath>
+        </template>
+        <!-- this template used to show section in web portal using return of _prepare_home_portal_values method  -->
+        <template id="portal_prescription" name="Show prescriptions" customize_show="True"
+                  inherit_id="portal.portal_my_home">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="title">Prescriptions</t>
+                    <t t-set="url" t-value="'/my/prescriptions'"/>
+                    <t t-set="placeholder_count" t-value="'prescription_count'"/>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="portal_prescriptions" name="Portal: Prescriptions">
+            <t t-call="portal.portal_layout">
+
+                <t t-set="breadcrumbs_searchbar" t-value="True"/>
+                <t t-call="portal.portal_searchbar"/>
+                <t t-if="presc" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Prescription #</th>
+                            <th class="text-right">Patient</th>
+                            <th class="text-right">Doctor</th>
+                            <th class="text-right">Date</th>
+                            <th class="text-right">State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="presc" t-as="p">
+                            <tr>
+                                <td>
+<!--                                    <a t-att-href="/my/prescriptions/#{p.id}">-->
+                                    <a t-att-href="p.get_portal_url()">
+<!--                                        <t t-esc="p.name"/>-->
+                                        <t t-esc="p.name"/>
+<!--                                        <span t-field="p.get_portal_url()"/>-->
+                                        <span t-field="p.id"/>
+                                    </a>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="p.patient.name"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="p.doctor.name"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="p.date"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="p.state"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </template>
+
+        <template id="portal_my_prescription" name="Portal: My prescription">
+            <t t-call="portal.portal_layout">
+                <t t-set="prescription_id" t-value="presc"/>
+            <!--                     <t t-set="o_portal_fullwidth_alert" groups="purchase.group_purchase_manager">
+                                     <t t-call="portal.portal_back_in_edit_mode">
+                                         <t t-set="backend_url"
+                                            t-value="'/web#return_label=Website&amp;model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (p._name, p.id, p.env.ref('purchase.purchase_rfq').id)"/>
+                                     </t>
+                                 </t>-->
+                <div id="optional_placeholder"></div>
+                <div class="container">
+                    <div class="row mt16 o_portal_purchase_sidebar">
+                        <!-- Sidebar -->
+                        <t t-call="portal.portal_record_sidebar">
+                            <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+                            <!-- <t t-set="title">
+                                 <h2 class="mb-0">
+                                     <b t-field="p.amount_total" data-id="total_amount"/>
+                                 </h2>
+                             </t>-->
+                            <t t-set="entries">
+                                <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                                    <!-- download and print template -->
+                                    <li class="list-group-item flex-grow-1">
+                                        <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                            <div class="btn-group flex-grow-1 mr-1 mb-1">
+                                                <a class="btn btn-secondary btn-block o_download_btn"
+                                                   t-att-href="prescription_id.get_portal_url(report_type='pdf', download=True)"
+                                                   title="Download">
+                                                    <i class="fa fa-download"/>
+                                                    Download
+                                                </a>
+                                            </div>
+                                            <div class="btn-group flex-grow-1 mb-1">
+                                                <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print"
+                                                   t-att-href="prescription_id.get_portal_url(report_type='pdf')"
+                                                   id="print_invoice_report" title="Print" target="_blank">
+                                                    <i class="fa fa-print"/>
+                                                    Print
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li t-if="prescription_id.doctor" class="list-group-item flex-grow-1">
+                                        <div class="small mb-1">
+                                            <strong class="text-muted">Doctor</strong>
+                                              <span t-field="prescription_id.doctor.name"/>
+                                        </div>
+                                        <div class="row flex-nowrap">
+                                            <div class="col flex-grow-0 pr-2">
+                                                <img class="rounded-circle mr4 float-left o_portal_contact_img"
+                                                     t-if="prescription_id.doctor.image_1920"
+                                                     t-att-src="image_data_uri(prescription_id.doctor.image_1920)"
+                                                     alt="Contact"/>
+                                                <img class="rounded-circle mr4 float-left o_portal_contact_img"
+                                                     t-if="not prescription_id.doctor.image_1920"
+                                                     src="/web/static/src/img/placeholder.png" alt="Contact"/>
+                                            </div>
+                                             <!--            <div class="col pl-0" style="min-width: 150px">
+                                                                                             <span t-field="prescription_id.user_id"
+                                                                                                   t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                                                                             <a href="#discussion" class="small">
+                                                                                                 <i class="fa fa-comment"></i>
+                                                                                                 Send message
+                                                                                             </a>
+                                                                                         </div>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </t>
+                        </t>
+
+                        <div class=" col-lg col-12 justify-content-end w-100">
+                            <div class="card pb-5">
+                                <div class="card-header bg-white pb-1">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h2 class="font-weight-normal">
+                                                <!--   <t t-if="presc.state in ['draft', 'sent']">Request for Quotation</t>-->
+                                                Prescription
+                                                <span class="font-italic" t-esc="prescription_id.name"/>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="col-4  mb-4">
+                                        <strong>Patient Name:</strong>
+                                        <span t-field="prescription_id.patient.name"/>
+                                        <br/>
+                                        <strong>ID Number:</strong>
+                                        <span t-field="prescription_id.patient.ssn"/>
+                                        <br/>
+                                        <strong>Mobile:</strong>
+                                        <span t-field="prescription_id.patient.mobile"/>
+                                    </div>
+                                    <div class="col-4 mb-4">
+                                        <strong>Gender:</strong>
+                                        <span t-field="prescription_id.patient.sex"/>
+                                        <br/>
+                                        <strong>Age:</strong>
+                                        <span t-field="prescription_id.patient.age"/>
+                                        <br/>
+                                        <strong>Weight(kg):</strong>
+                                        <span t-field="prescription_id.patient.weight"/>
+                                    </div>
+                                    <div class="col-4 mb-4">
+                                        <strong>Address:</strong>
+                                        <span t-field="prescription_id.patient.street"/>,
+                                        <span t-if="prescription_id.patient.area"
+                                              t-field="prescription_id.patient.area"/>,
+                                        <span t-field="prescription_id.patient.city"/>
+                                        <br/>
+                                        <strong>Date:</strong>
+                                        <span class="m-0" t-field="prescription_id.date"/>
+                                    </div>
+                                    <hr/>
+                                    <div class="col-12 mb-6">
+                                        <strong style="color: blue">Allergies:</strong>
+                                        <span t-field="prescription_id.patient.has_drug_allergy"/>
+                                        ,
+                                        <span t-if="prescription_id.patient.has_drug_allergy == 'yes'">
+                                            <span t-field="prescription_id.patient.drug_allergy_content"/>
+                                        </span>
+                                        <br/>
+                                        <strong style="color: blue">Diagnosis:</strong>
+                                        <span t-field="prescription_id.provisional_diagnosis"/>
+                                        <br/>
+                                        <div t-if="prescription_id.provisional_diagnosis_add">
+                                            <span t-field="prescription_id.provisional_diagnosis_add"/>
+                                            <br/>
+                                            <span t-field="prescription_id.provisional_diagnosis_add2"/>
+                                            <br/>
+                                            <span t-field="prescription_id.provisional_diagnosis_add3"/>
+                                        </div>
+                                    </div>
+                                    <h3 class="font-weight-normal">Medicines</h3>
+                                 <!--   <table class="table table-sm">
+                                        <thead class="bg-100">
+                                            <tr>
+                                                <th class="text-left">Medicine</th>
+                                                <th class="text-left">Dose</th>
+                                                <th class="text-right">Frequency</th>
+                                                <th class="text-center">Form</th>
+                                                <th class="text-center">Route</th>
+                                                <th class="text-right">Duration</th>
+                                                <th class="text-left">Quantity</th>
+                                                <th class="text-left">Instruction</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="prescription_id.prescription_line" t-as="l">
+                                                <tr t-att-class="'bg-200 font-weight-bold">
+                                                    <td class="text-left">
+                                                        <strong>
+                                                            <span t-field="l.brand_medicine.name"/>
+                                                        </strong>
+                                                        <strong>
+                                                            <span t-field="l.generic_name.name"/>
+                                                        </strong>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <span t-field="l.dose"/>
+                                                        <span t-field="l.dose_unit.name"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-field="l.common_dosage"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-field="l.dose_form.name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-field="l.dose_route.name"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-field="l.duration"/>
+                                                        <span t-field="l.frequency_unit"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-field="l.qty"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-field="l.info"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>-->
+                                </div>
+                            </div>
+                            <!--  <div id="p_communication" class="mt-4">
+                                  <h2>History</h2>
+                                  <t t-call="portal.message_thread">
+                                      <t t-set="object" t-value="p"/>
+                                  </t>
+                              </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure mb32"/>
+            </t>
+        </template>
+</odoo>

@@ -1,0 +1,1407 @@
+
+#. module: account
+#: model:ir.ui.menu,name:account.account_invoicing_menu
+#: model:ir.ui.menu,name:account.menu_finance
+#: model_terms:ir.ui.view,arch_db:account.digest_digest_view_form
+#: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:account.view_partner_property_form
+msgid "Invoicing"
+msgstr "الحسابات"
+
+#. module: purchase
+#: model:ir.ui.menu,name:purchase.menu_purchase_root
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Purchase"
+msgstr "مشتريات"
+
+
+#. module: stock
+#: model:ir.actions.server,name:stock.action_view_quants
+#: model:ir.model,name:stock.model_stock_inventory
+#: model:ir.model.fields,field_description:stock.field_stock_inventory_line__inventory_id
+#: model:ir.model.fields,field_description:stock.field_stock_move__inventory_id
+#: model:ir.model.fields,field_description:stock.field_stock_track_confirmation__inventory_id
+#: model:ir.ui.menu,name:stock.menu_stock_root
+#: model_terms:ir.ui.view,arch_db:stock.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:stock.view_partner_stock_form
+#: model_terms:ir.ui.view,arch_db:stock.view_stock_quant_pivot
+msgid "Inventory"
+msgstr "المخازن"
+
+#. module: account
+#: model:ir.model,name:account.model_account_financial_report
+#: model:ir.model.fields,field_description:account.field_account_financial_report_children_ids
+#: model_terms:ir.ui.view,arch_db:account.view_account_financial_report_form
+#: model_terms:ir.ui.view,arch_db:account.view_account_financial_report_search
+#: model_terms:ir.ui.view,arch_db:account.view_account_financial_report_tree
+msgid "Account Report"
+msgstr "الحسابات"
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#: model:stock.picking.type,name:stock.chi_picking_type_in
+#: model:stock.picking.type,name:stock.picking_type_in
+#, python-format
+msgid "Receipts"
+msgstr "توريد مخزني"
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#: model:stock.picking.type,name:stock.chi_picking_type_out
+#: model:stock.picking.type,name:stock.picking_type_out
+#, python-format
+msgid "Delivery Orders"
+msgstr "صرف مخزني"
+
+
+#. module: purchase_stock
+#: model:ir.model.fields,field_description:purchase_stock.field_stock_warehouse__buy_to_resupply
+msgid "Buy to Resupply"
+msgstr "الشراء لإعادة التزويد"
+
+#. module: accounting_pdf_reports
+#: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_balancesheet0
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_report_bs
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_report_bs
+msgid "Balance Sheet"
+msgstr "الميزانية العمومية"
+
+
+#. module: base_accounting_kit
+#: model:account.financial.report,name:base_accounting_kit.account_financial_report_balancesheet0
+#: model:ir.actions.act_window,name:base_accounting_kit.action_balance_sheet_report
+#: model:ir.ui.menu,name:base_accounting_kit._account_financial_reports_balance_sheet
+msgid "Balance Sheet"
+msgstr "الميزانية العمومية"
+
+
+#. module: base_accounting_kit
+#: model:ir.ui.menu,name:base_accounting_kit.account_bank_book_menu
+msgid "Bank Book"
+msgstr "دفتر البنك"
+
+
+
+#. module: base_accounting_kit
+#: model:ir.model.fields.selection,name:base_accounting_kit.selection__account_asset_asset__method_time__number
+#: model:ir.model.fields.selection,name:base_accounting_kit.selection__account_asset_category__method_time__number
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.view_account_asset_category_form
+msgid "Number of Entries"
+msgstr "عدد اقساط الاهلاك"
+
+#. module: base_accounting_kit
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.view_account_asset_category_form
+msgid "One Entry Every"
+msgstr "قسط واحد كل"
+
+#. module: base_accounting_kit
+#: model:ir.model.fields.selection,name:base_accounting_kit.selection__account_asset_asset__method__linear
+#: model:ir.model.fields.selection,name:base_accounting_kit.selection__account_asset_category__method__linear
+msgid "Linear"
+msgstr "ثابت"
+
+#. module: base_accounting_kit
+#: model:ir.model.fields.selection,name:base_accounting_kit.selection__account_asset_asset__method__degressive
+#: model:ir.model.fields.selection,name:base_accounting_kit.selection__account_asset_category__method__degressive
+msgid "Degressive"
+msgstr "التناقص"
+
+
+
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_move_in_refund_type
+#: model:ir.ui.menu,name:account.menu_action_move_in_refund_type
+msgid "Refunds"
+msgstr "مردودات المشتريات"
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_move_out_refund_type
+#: model:ir.ui.menu,name:account.menu_action_move_out_refund_type
+#: model_terms:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+#: model_terms:ir.ui.view,arch_db:account.view_account_invoice_report_search
+msgid "Credit Notes"
+msgstr "مردودات المبيعات"
+
+#. module: base_accounting_kit
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.day_book_report_template
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.report_bank_book
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.report_cash_book
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.report_financial
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.report_general_ledger
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.report_journal_audit
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.report_partnerledger
+#: model_terms:ir.ui.view,arch_db:base_accounting_kit.report_trial_balance
+msgid "Credit"
+msgstr "دائن"
+
+#. module: hr
+#: model_terms:ir.ui.view,arch_db:hr.hr_employee_public_view_form
+#: model_terms:ir.ui.view,arch_db:hr.res_users_view_form_profile
+#: model_terms:ir.ui.view,arch_db:hr.view_employee_form
+msgid "Approvers"
+msgstr "الاعتماد/الموافقة"
+
+#. module: hr
+#: model:ir.model.fields,field_description:hr.field_hr_employee__identification_id
+#: model:ir.model.fields,field_description:hr.field_res_users__identification_id
+msgid "Identification No"
+msgstr "الرقم الوطني"
+
+#. module: hr_recruitment
+#: model_terms:ir.ui.view,arch_db:hr_recruitment.hr_applicant_view_form
+msgid "Contract"
+msgstr "العقد"
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid "Receive in 1 step (stock)"
+msgstr "استلام في خطوة واحدة (المخزون)"
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid "Deliver in 1 step (ship)"
+msgstr "تسليم في خطوة واحدة (الشحن)"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_product__description_sale
+#: model:ir.model.fields,field_description:product.field_product_template__description_sale
+#: model_terms:ir.ui.view,arch_db:product.product_template_form_view
+msgid "Sales Description"
+msgstr "وصف المبيعات"
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_product_product__expense_policy
+#: model:ir.model.fields,field_description:sale.field_product_template__expense_policy
+msgid "Re-Invoice Expenses"
+msgstr "مصاريف إعادة الفاتورة"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__date_order
+msgid "Order Deadline"
+msgstr "الموعد النهائي للطلب"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order__date_planned
+msgid "Receipt Date"
+msgstr "تاريخ الاستلام"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "<span>Ask confirmation</span>"
+msgstr "<span>طلب التأكيد</span>"
+
+#. module: purchase_requisition
+#: model:ir.actions.act_window,name:purchase_requisition.action_purchase_requisition_list
+msgid "Request for Quotations"
+msgstr "Cereri de ofertă"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchaseorder_document
+msgid "Request for Quotation #"
+msgstr "طلب عرض أسعار #"
+
+#. module: purchase
+#: code:addons/purchase/models/purchase.py:0
+#: model:ir.actions.report,name:purchase.report_purchase_quotation
+#: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
+#: model_terms:ir.ui.view,arch_db:purchase.report_purchasequotation_document
+#, python-format
+msgid "Request for Quotation"
+msgstr "طلب عرض أسعار"
+
+#. module: purchase
+#: model:ir.actions.report,print_report_name:purchase.report_purchase_quotation
+msgid "'Request for Quotation - %s' % (object.name)"
+msgstr "'طلب عرض أسعار - %s' % (object.name)"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_res_config_settings__group_send_reminder
+#: model:ir.model.fields,field_description:purchase.field_res_partner__receipt_reminder_email
+#: model:ir.model.fields,field_description:purchase.field_res_users__receipt_reminder_email
+msgid "Receipt Reminder"
+msgstr "تذكير الاستلام"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Automatically remind the receipt date to your vendors"
+msgstr "تذكير البائعين بتاريخ الاستلام تلقائيًا"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Automatically lock confirmed orders to prevent editing"
+msgstr "قفل الطلبات المؤكدة تلقائيًا لمنع التحرير"
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Request managers to approve orders above a minimum amount"
+msgstr "اطلب من المديرين الموافقة على الطلبات التي تزيد عن الحد الأدنى للمبلغ"
+
+#. module: purchase
+#: model:ir.model.fields.selection,name:purchase.selection__res_config_settings__default_purchase_method__receive
+msgid "Received quantities"
+msgstr "الكميات المستلمة"
+
+
+#. module: base_setup
+#: model:ir.model.fields,field_description:base_setup.field_res_config_settings__active_user_count
+msgid "Number of Active Users"
+msgstr "عدد المستخدمون النشطاء"
+
+
+#. module: base
+#: model:ir.ui.menu,name:base.menu_users
+msgid "Users & Companies"
+msgstr "المستخدمون و الشركات "
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.res_config_settings_view_form
+msgid "Get a full traceability from vendors to customers"
+msgstr "احصل على إمكانية تتبع كاملة من البائعين إلى العملاء"
+
+
+#. module: base_setup
+#: model_terms:ir.ui.view,arch_db:base_setup.res_config_settings_view_form
+msgid "Manage Companies"
+msgstr "إدارة الشركات"
+
+#. module: base
+#: model:ir.actions.act_window,name:base.action_view_base_language_install
+msgid "Add Language"
+msgstr "إضافة لغة"
+
+
+#. module: base
+#: code:addons/base/ir/ir_actions_report.py:685
+#, python-format
+msgid "Choose Your Document Layout"
+msgstr "اختر تخطيط المستندات الخاصة بك"
+
+#. module: base_setup
+#: model_terms:ir.ui.view,arch_db:base_setup.res_config_settings_view_form
+msgid "Configure Document Layout"
+msgstr "تكوين مخطط مستندك"
+
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Configure your own email servers"
+msgstr "تكوين خوادم البريد الإلكتروني الخاصة بك"
+
+#. module: account
+#: model_terms:ir.ui.view,arch_db:account.view_account_group_search
+msgid "Account groups"
+msgstr "مجموعة الحسابات"
+
+#. module: product
+#: model_terms:ir.ui.view,arch_db:product.res_config_settings_view_form
+msgid "Weight UoM"
+msgstr "وزن وحدة القياس"
+
+#. module: product
+#: model_terms:ir.ui.view,arch_db:product.res_config_settings_view_form
+msgid "Define your weight unit of measure"
+msgstr "حدد وزن وحدة القياس الخاصة بك"
+
+#. module: product
+#: model_terms:ir.ui.view,arch_db:product.res_config_settings_view_form
+msgid "Volume UoM"
+msgstr "حجم وحدة قياس"
+
+
+#. module: product
+#: model_terms:ir.ui.view,arch_db:product.res_config_settings_view_form
+msgid "Define your volume unit of measure"
+msgstr "حدد حجم وحدة القياس الخاصة بك"
+
+#. module: product
+#: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_volume_volume_in_cubic_feet__0
+msgid "Cubic Meters"
+msgstr "متر مكعب"
+
+#. module: product
+#: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_volume_volume_in_cubic_feet__1
+msgid "Cubic Feet"
+msgstr "قدم مكعب"
+
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_res_config_settings__module_sale_product_configurator
+msgid "Product Configurator"
+msgstr "مكون المنتج"
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Select product attributes and optional products from the sales order"
+msgstr "حدد سمات المنتج والمنتجات الاختيارية من أمر المبيعات"
+
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Sell variants of a product using attributes (size, color, etc.)"
+msgstr "بيع متغيرات المنتج باستخدام سمات مثل (الحجم واللون وما إلى ذلك)"
+
+#. module: stock
+#: model:res.groups,name:stock.group_stock_sign_delivery
+#: model_terms:ir.ui.view,arch_db:stock.res_config_settings_view_form
+msgid "Require a signature on your delivery orders"
+msgstr "تتطلب التوقيع على أوامر التسليم الخاصة بك"
+
+
+#. module: purchase
+#: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
+msgid "Purchase variants of a product using attributes (size, color, etc.)"
+msgstr "شراء متغيرات منتج باستخدام السمات (الحجم واللون وما إلى ذلك)"
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.res_config_settings_view_form
+msgid "Get informative or blocking warnings on partners"
+msgstr "الحصول على تحذيرات إعلامية أو حظر على الشركاء"
+
+
+
+#. module: stock
+#: code:addons/stock/models/stock_warehouse.py:0
+#, python-format
+msgid "%(warehouse)s: Supply Product from %(supplier)s"
+msgstr " %(supplier) توريد المنتج من %(warehouse):"
+
+#. module: stock
+#: code:addons/stock/stock.py:3365
+#, python-format
+msgid "%s: Supply Product from %s"
+msgstr "%s: توريد المنتج من %s"
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.res_config_settings_view_form
+msgid "Compute shipping costs"
+msgstr "احسب تكاليف الشحن"
+
+
+#. module: om_account_budget
+#: model:ir.actions.act_window,name:om_account_budget.open_budget_post_form
+#: model:ir.ui.menu,name:om_account_budget.menu_budget_post_form
+msgid "Budgetary Positions"
+msgstr "وظائف الموازنة"
+
+#. module: base_accounting_kit
+#: model:ir.ui.menu,name:base_accounting_kit.menu_account_group
+#: model:ir.actions.act_window,name:base_accounting_kit.action_account_group
+msgid "Account Groups Third Level"
+msgstr "المجموعات الحسابية المستوى الثالث"
+
+
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_account__group_id
+#: model:ir.model.fields,field_description:smartmind_odoo.field_sm_shifa_account_fourth_level__third_level
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_chart_form_inherit
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_group_form_inherit
+msgid "Third Level"
+msgstr "حساب المستوى الثالث"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_account_type__second_level_number
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_group__third_level_number
+#: model:ir.model.fields,field_description:smartmind_odoo.field_sm_shifa_account_fourth_level__fourth_level_number
+msgid "number"
+msgstr "الرقم"
+
+#. module: smartmind_odoo
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_type_form_inherit
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.view_sm_shifa_account_fourth_level_form
+msgid "to"
+msgstr "من"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_account__user_type_id
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_group__second_level
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_chart_form_inherit
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_group_form_inherit
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_type_form_inherit
+msgid "Second Level"
+msgstr "حساب المستوى الثاني"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields.selection,name:smartmind_odoo.selection__account_account_type__internal_group__income
+msgid "Revenue"
+msgstr ""
+
+
+#. module: smartmind_odoo
+#. openerp-web
+#: code:smartmind_odoo/static/src/js/account_selection.js:0
+#, python-format
+msgid "Other"
+msgstr ""
+
+#. module: smartmind_odoo
+#. openerp-web
+#: code:addons/smartmind_odoo/static/src/js/account_selection.js:0
+#, python-format
+msgid "Profit & Loss"
+msgstr ""
+
+#. module: smartmind_odoo
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_type_form_inherit
+msgid "First Level"
+msgstr "المستوى الأول"
+
+#. module: smartmind_odoo
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_type_form_inherit
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.view_sm_shifa_account_fourth_level_form
+msgid "From"
+msgstr "إلى"
+
+#. module: smartmind_odoo
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.account_type_form_inherit
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.view_sm_shifa_account_fourth_level_form
+msgid "Code Prefix"
+msgstr "بادئة الكود"
+
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_account_type__code_prefix_end
+#: model:ir.model.fields,field_description:smartmind_odoo.field_sm_shifa_account_fourth_level__code_prefix_end
+msgid "Code Prefix End"
+msgstr "نهاية بادئة الكود"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_account_type__code_prefix_start
+#: model:ir.model.fields,field_description:smartmind_odoo.field_sm_shifa_account_fourth_level__code_prefix_start
+msgid "Code Prefix Start"
+msgstr "بداية بادئة الكود"
+
+#. module: smartmind_odoo
+#: model:ir.actions.act_window,name:smartmind_odoo.sm_shifa_account_fourth_level_action
+#: model:ir.ui.menu,name:smartmind_odoo.menu_accounting_fourth
+msgid "Account Fourth Level"
+msgstr "حساب المستوى الرابع"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_account_account__level_four_id
+#: model:ir.model.fields,field_description:smartmind_odoo.field_sm_shifa_account_fourth_level__account_4level
+msgid "Fourth Level"
+msgstr "المستوى الرابع"
+
+#. module: account
+#: model:ir.model.fields.selection,name:account.selection__account_account_type__internal_group__off_balance
+msgid "Off Balance"
+msgstr "-"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_selection.js:0
+#: model:ir.model.fields.selection,name:account.selection__account_account_type__internal_group__equity
+#, python-format
+msgid "Equity"
+msgstr "الملكية"
+
+#. module: hr
+#: model:ir.model.fields,field_description:hr.field_hr_employee__km_home_work
+#: model:ir.model.fields,field_description:hr.field_res_users__km_home_work
+msgid "Home-Work Distance"
+msgstr "المسافة بين المنزل والعمل"
+
+#. module: account
+#: model:ir.model.fields,help:account.field_account_tax_repartition_line_template__tag_ids
+msgid ""
+"Additional tags that will be assigned by this repartition line for use in "
+"financial reports"
+msgstr "تقارير مالية"
+
+
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_account_moves_ledger_partner
+#: model:ir.ui.menu,name:account.menu_action_account_moves_ledger_partner
+msgid "Partner Ledger"
+msgstr "دفتر الأستاذ العام للشركاء"
+
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_configure_tax_report
+msgid "Tax Reports"
+msgstr "تقارير الضرائب"
+
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_balance_menu
+#: model:ir.actions.report,name:accounting_pdf_reports.action_report_trial_balance
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_general_balance_report
+msgid "Trial Balance"
+msgstr "ميزان المراجعة"
+
+
+
+
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_action_account_invoice_report_all
+msgid "Invoice Analysis"
+msgstr "تحليل الفواتير"
+
+
+
+
+
+#. modules: om_account_accountant, account
+#: model:ir.actions.act_window,name:om_account_accountant.action_account_payment_method
+#: model:ir.model,name:account.model_account_payment_method
+#: model:ir.ui.menu,name:om_account_accountant.menu_account_payment_method
+#: model_terms:ir.ui.view,arch_db:om_account_accountant.view_account_payment_method_form
+#: model_terms:ir.ui.view,arch_db:om_account_accountant.view_account_payment_method_search
+#: model_terms:ir.ui.view,arch_db:om_account_accountant.view_account_payment_method_tree
+msgid "Payment Methods"
+msgstr "طرق الدفع"
+
+#. modules: smartmind_shifa_extra, om_credit_limit, oehealth_extra_addons,
+#. smartmind_shifa, base, oehealth
+#: model:ir.model.fields,field_description:base.field_res_partner__credit_limit
+#: model:ir.model.fields,field_description:base.field_res_users__credit_limit
+#: model:ir.model.fields,field_description:oehealth.field_oeh_medical_health_center__credit_limit
+#: model:ir.model.fields,field_description:oehealth.field_oeh_medical_health_center_pharmacy__credit_limit
+#: model:ir.model.fields,field_description:oehealth.field_oeh_medical_insurance__credit_limit
+#: model:ir.model.fields,field_description:oehealth.field_oeh_medical_patient__credit_limit
+#: model:ir.model.fields,field_description:oehealth_extra_addons.field_oeh_medical_pediatrics_newborn__credit_limit
+#: model:ir.model.fields,field_description:om_credit_limit.field_account_bank_statement_line__partner_credit_limit
+#: model:ir.model.fields,field_description:om_credit_limit.field_account_move__partner_credit_limit
+#: model:ir.model.fields,field_description:om_credit_limit.field_account_payment__partner_credit_limit
+#: model:ir.model.fields,field_description:om_credit_limit.field_oeh_medical_health_center__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_oeh_medical_health_center_pharmacy__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_oeh_medical_insurance__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_oeh_medical_patient__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_oeh_medical_pediatrics_newborn__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_res_partner__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_res_users__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_sale_order__partner_credit_limit
+#: model:ir.model.fields,field_description:om_credit_limit.field_sm_shifa_external_facility_contract__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_sm_shifa_insurance__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_sm_shifa_pharmacies__credit_limit_compute
+#: model:ir.model.fields,field_description:om_credit_limit.field_sm_shifa_pharmacy_chain__credit_limit_compute
+#: model:ir.model.fields,field_description:smartmind_shifa.field_sm_shifa_external_facility_contract__credit_limit
+#: model:ir.model.fields,field_description:smartmind_shifa.field_sm_shifa_insurance__credit_limit
+#: model:ir.model.fields,field_description:smartmind_shifa_extra.field_sm_shifa_pharmacies__credit_limit
+#: model:ir.model.fields,field_description:smartmind_shifa_extra.field_sm_shifa_pharmacy_chain__credit_limit
+#: model_terms:ir.ui.view,arch_db:om_credit_limit.view_partner_property_form
+msgid "Credit Limit"
+msgstr "حد الائتمان"
+
+#. modules: om_account_accountant, account
+#: model:ir.actions.act_window,name:account.action_account_chart_template_form
+#: model:ir.ui.menu,name:om_account_accountant.menu_account_coa_template
+msgid "Chart of Accounts Templates"
+msgstr "النماذج/قوالب الدليل المحاسبي"
+
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__date_planned
+msgid "Delivery Date"
+msgstr "تاريخ التوصيل"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_line__qr_code_method
+#: model:ir.model.fields,field_description:account.field_account_move__qr_code_method
+#: model:ir.model.fields,field_description:account.field_account_payment__qr_code_method
+msgid "Payment QR-code"
+msgstr "كود الدفع"
+
+#. module: hr_fleet
+#: model:ir.model.fields,field_description:hr_fleet.field_fleet_vehicle__mobility_card
+#: model:ir.model.fields,field_description:hr_fleet.field_hr_employee__mobility_card
+#: model:ir.model.fields,field_description:hr_fleet.field_hr_employee_public__mobility_card
+#: model:ir.model.fields,field_description:hr_fleet.field_oeh_medical_physician__mobility_card
+msgid "Mobility Card"
+msgstr "بطاقة التنقل"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_account_tag__country_id
+#: model:ir.model.fields,field_description:account.field_account_fiscal_position__country_id
+#: model:ir.model.fields,field_description:account.field_account_fiscal_position_template__country_id
+#: model:ir.model.fields,field_description:account.field_account_invoice_report__country_id
+#: model:ir.model.fields,field_description:account.field_account_tax_report__country_id
+msgid "Country"
+msgstr "البلد"
+
+#. module: hr
+#: model:ir.model.fields,field_description:hr.field_hr_employee__country_id
+msgid "Nationality (Country)"
+msgstr "الجنسية"
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_finance_entries
+#: model_terms:ir.ui.view,arch_db:account.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:account.view_account_analytic_line_form_inherit_account
+#: model_terms:ir.ui.view,arch_db:account.view_move_form
+msgid "Accounting"
+msgstr "الحسابات"
+
+#. module: account
+#: code:addons/account/static/src/js/account_selection.js:0
+#: code:addons/account/static/src/js/account_selection.js:0
+#, python-format
+msgid "Balance Sheet"
+msgstr "الميزانية العمومية"
+
+#. module: hr
+#: model:ir.model.fields,field_description:hr.field_hr_employee__marital
+#: model:ir.model.fields,field_description:hr.field_res_users__marital
+#: model_terms:ir.ui.view,arch_db:hr.res_users_view_form_profile
+#: model_terms:ir.ui.view,arch_db:hr.view_employee_form
+msgid "Marital Status"
+msgstr "الحالة الاجتماعية"
+
+
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_financial_report_tree
+#: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_financial
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_legal_statement
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_reports_settings
+msgid "Financial Reports"
+msgstr "تقارير مالية"
+
+#. module: accounting_pdf_reports
+#: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_profitandloss0
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_report_pl
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_report_pl
+msgid "Profit and Loss"
+msgstr "الارباح والخسائر"
+
+#. module: accounting_pdf_reports
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_partner_reports
+msgid "Partner Reports"
+msgstr "تقارير الذمم"
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_aged_receivable
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_aged_receivable
+msgid "Aged Receivable"
+msgstr "اعمار الذمم المدينة"
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_aged_payable
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_aged_payable
+msgid "Aged Payable"
+msgstr "اعمار الذمم الدائنة"
+
+#. module: accounting_pdf_reports
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_audit_reports
+msgid "Audit Reports"
+msgstr "تقارير التدقيق"
+
+#. module: om_account_budget
+#: model:ir.actions.act_window,name:om_account_budget.act_crossovered_budget_lines_view
+#: model:ir.ui.menu,name:om_account_budget.menu_act_crossovered_budget_lines_view
+msgid "Budgets Analysis"
+msgstr "تحليل الميزانيات"
+
+#. module: om_account_daily_reports
+#: model:ir.ui.menu,name:om_account_daily_reports.menu_finance_daily_reports
+msgid "Daily Reports"
+msgstr "التقارير اليومية"
+
+#. module: om_account_daily_reports
+#: model:ir.actions.act_window,name:om_account_daily_reports.action_account_daybook_menu
+#: model:ir.actions.report,name:om_account_daily_reports.action_report_day_book
+#: model:ir.model,name:om_account_daily_reports.model_report_om_account_daily_reports_report_daybook
+#: model:ir.ui.menu,name:om_account_daily_reports.menu_daybook
+msgid "Day Book"
+msgstr "كشف حساب اليومية"
+
+#. module: om_account_daily_reports
+#: model:ir.actions.act_window,name:om_account_daily_reports.action_account_cashbook_menu
+#: model:ir.actions.report,name:om_account_daily_reports.action_report_cash_book
+#: model:ir.model,name:om_account_daily_reports.model_report_om_account_daily_reports_report_cashbook
+#: model:ir.ui.menu,name:om_account_daily_reports.menu_cashbook
+msgid "Cash Book"
+msgstr "كشف حساب النقدية"
+
+
+#. module: om_account_accountant
+#: model:ir.actions.act_window,name:om_account_accountant.action_account_account_tag
+#: model:ir.ui.menu,name:om_account_accountant.menu_account_tag
+msgid "Account Tags"
+msgstr "علامات الحساب"
+
+
+
+
+
+#. module: om_account_asset
+#: model:ir.actions.act_window,name:om_account_asset.action_account_asset_asset_list_normal_purchase
+#: model:ir.ui.menu,name:om_account_asset.menu_action_account_asset_asset_list_normal_purchase
+msgid "Asset Types"
+msgstr "انواع الأصول"
+
+
+
+#. module: accounting_pdf_reports
+#: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__account_report_id
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_reports
+msgid "Account Reports"
+msgstr "تقارير الحسابات"
+
+#. module: om_account_followup
+#: model:ir.actions.act_window,name:om_account_followup.action_om_account_followup_definition_form
+msgid "Payment Follow-ups"
+msgstr "متابعة الدفع"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.acquirer_form
+msgid "Payment Followup"
+msgstr "متابعة الدفع"
+
+#. module: om_recurring_payments
+#: model:ir.actions.act_window,name:om_recurring_payments.action_account_recurring_payment
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__recurring_payment_id
+#: model:ir.ui.menu,name:om_recurring_payments.menu_recurring_payment
+#: model:ir.ui.menu,name:om_recurring_payments.menu_recurring_payments
+#: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
+msgid "Recurring Payment"
+msgstr "الدفع المتكرر"
+
+#. modules: om_account_accountant, sms, mail
+#: model:ir.actions.act_window,name:mail.action_email_template_tree_all
+#: model:ir.actions.act_window,name:sms.sms_template_action
+#: model:ir.ui.menu,name:mail.menu_email_templates
+#: model:ir.ui.menu,name:om_account_accountant.menu_account_templates
+#: model_terms:ir.ui.view,arch_db:mail.email_template_form
+#: model_terms:ir.ui.view,arch_db:mail.email_template_tree
+#: model_terms:ir.ui.view,arch_db:mail.view_email_template_search
+msgid "Templates"
+msgstr "قوالب"
+
+#. module: om_account_accountant
+#: model:ir.actions.act_window,name:om_account_accountant.action_account_fiscal_position_template
+#: model:ir.ui.menu,name:om_account_accountant.menu_account_fiscal_position_template
+msgid "Fiscal Position Templates"
+msgstr "النماذج/قوالب المركز المالي"
+
+#. module: om_account_budget
+#: model:ir.actions.act_window,name:om_account_budget.act_crossovered_budget_view
+#: model:ir.ui.menu,name:om_account_budget.menu_act_crossovered_budget_view
+#: model_terms:ir.ui.view,arch_db:om_account_budget.view_crossovered_budget_line_search
+msgid "Budgets"
+msgstr "الموازنات"
+
+#. module: om_account_followup
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_health_center__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_health_center_pharmacy__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_insurance__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_patient__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_pediatrics_newborn__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_res_partner__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_res_users__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_external_facility_contract__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_insurance__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_pharmacies__payment_responsible_id
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_pharmacy_chain__payment_responsible_id
+#: model_terms:ir.ui.view,arch_db:om_account_followup.customer_followup_search_view
+msgid "Follow-up Responsible"
+msgstr "الموظف المتابع"
+
+#. module: om_account_followup
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_health_center__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_health_center_pharmacy__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_insurance__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_patient__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_pediatrics_newborn__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_res_partner__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_res_users__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_external_facility_contract__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_insurance__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_pharmacies__payment_next_action
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_pharmacy_chain__payment_next_action
+msgid "Next Action"
+msgstr "النشاط التالي"
+
+#. module: om_account_followup
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_health_center__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_health_center_pharmacy__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_insurance__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_patient__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_oeh_medical_pediatrics_newborn__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_res_partner__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_res_users__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_external_facility_contract__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_insurance__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_pharmacies__payment_note
+#: model:ir.model.fields,field_description:om_account_followup.field_sm_shifa_pharmacy_chain__payment_note
+msgid "Customer Payment Promise"
+msgstr "وعد دفع العميل"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_line__partner_bank_id
+#: model:ir.model.fields,field_description:account.field_account_move__partner_bank_id
+msgid "Recipient Bank"
+msgstr "البنك المستلم"
+
+#. modules: om_account_bank_statement_import, base_import
+#. openerp-web
+#: code:addons/base_import/static/src/xml/base_import.xml:0
+#: code:addons/base_import/static/src/xml/base_import.xml:0
+#: code:addons/om_account_bank_statement_import/models/account_journal.py:0
+#: model_terms:ir.ui.view,arch_db:om_account_bank_statement_import.journal_dashboard_view_inherit
+#, python-format
+msgid "Import"
+msgstr "استيراد"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_hr_contract__structure_type_id
+msgid "Salary Structure Type"
+msgstr "نوع هيكل المرتب"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__employee_type
+msgid "Employee Type"
+msgstr "نوع الموظف"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__contract_duration
+msgid "Contract Duration"
+msgstr "مدة العقد"
+
+#. modules: hr_contract, smartmind_odoo
+#: model:ir.model,name:hr_contract.model_hr_payroll_structure_type
+#: model:ir.model.fields,field_description:hr_contract.field_hr_payroll_structure_type__name
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__contract_type
+msgid "Contract Type"
+msgstr "نوع العقد"
+
+#. module: om_hr_payroll
+#: model:ir.model.fields,field_description:om_hr_payroll.field_hr_contract__hra
+msgid "HRA"
+msgstr "بدل السكن"
+
+#. module: om_hr_payroll
+#: model:ir.model.fields,field_description:om_hr_payroll.field_hr_contract__da
+msgid "DA"
+msgstr "بدل المظهر"
+
+#. module: om_hr_payroll
+#: model:hr.salary.rule,name:om_hr_payroll.hr_rule_travel
+#: model:hr.salary.rule.category,name:om_hr_payroll.Travel
+#: model:ir.model.fields,field_description:om_hr_payroll.field_hr_contract__travel_allowance
+msgid "Travel Allowance"
+msgstr "بدل المواصلات"
+
+#. module: om_hr_payroll
+#: model:hr.salary.rule,name:om_hr_payroll.hr_rule_meal
+#: model:hr.salary.rule.category,name:om_hr_payroll.Meal
+#: model:ir.model.fields,field_description:om_hr_payroll.field_hr_contract__meal_allowance
+msgid "Meal Allowance"
+msgstr "بدل وجبة"
+
+#. module: om_hr_payroll
+#: model:hr.salary.rule,name:om_hr_payroll.hr_rule_medical
+#: model:hr.salary.rule.category,name:om_hr_payroll.Medical
+#: model:ir.model.fields,field_description:om_hr_payroll.field_hr_contract__medical_allowance
+msgid "Medical Allowance"
+msgstr "البدل الصحي"
+
+#. module: om_hr_payroll
+#: model:hr.salary.rule.category,name:om_hr_payroll.Other
+#: model:ir.model.fields,field_description:om_hr_payroll.field_hr_contract__other_allowance
+msgid "Other Allowance"
+msgstr "بدل اخر"
+
+#. module: smartmind_odoo
+#: model_terms:ir.ui.view,arch_db:smartmind_odoo.sm_hr_contract_form_inherit
+msgid "Monthly Company's Liability"
+msgstr "مساهمة الشركة الشهرية"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__medical_insurance
+msgid "Medical Insurance"
+msgstr "التأمين الطبي"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__travel_tickets
+msgid "Travel Tickets"
+msgstr "بدل التذاكر "
+
+#. module: om_account_followup
+#: model:ir.ui.menu,name:om_account_followup.om_account_followup_s
+msgid "Do Manual Follow-Ups"
+msgstr "المتابعة اليدوية"
+
+
+
+#. module: om_account_followup
+#: model:ir.ui.menu,name:om_account_followup.menu_action_followup_stat_follow
+msgid "Follow-ups Analysis"
+msgstr "تحليل المتابعات"
+
+
+#. modules: accounting_pdf_reports, account, smartmind_odoo
+#: model:ir.model,name:smartmind_odoo.model_account_account_type
+#: model:ir.model.fields,field_description:account.field_account_account_type__name
+#: model:ir.model.fields,field_description:account.field_account_automatic_entry_wizard__account_type
+#: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__type__account_type
+#: model_terms:ir.ui.view,arch_db:account.view_account_search
+#: model_terms:ir.ui.view,arch_db:account.view_account_template_search
+#: model_terms:ir.ui.view,arch_db:account.view_account_type_form
+#: model_terms:ir.ui.view,arch_db:account.view_account_type_search
+#: model_terms:ir.ui.view,arch_db:account.view_account_type_tree
+msgid "Account Type"
+msgstr "نوع الحساب"
+
+#. module: om_account_accountant
+#: model:ir.actions.act_window,name:om_account_accountant.action_account_group_action
+#: model:ir.ui.menu,name:om_account_accountant.menu_account_group
+msgid "Account Groups"
+msgstr "مجموعة الحسابات"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__name
+#: model:ir.model.fields,field_description:om_account_asset.field_oeh_medical_health_center_beds__asset_category_id
+#: model:ir.model.fields,field_description:om_account_asset.field_oeh_medical_medicines__asset_category_id
+#: model:ir.model.fields,field_description:om_account_asset.field_product_product__asset_category_id
+#: model:ir.model.fields,field_description:om_account_asset.field_product_template__asset_category_id
+#: model:ir.model.fields,field_description:om_account_asset.field_sm_shifa_consultancy__asset_category_id
+#: model:ir.model.fields,field_description:om_account_asset.field_sm_shifa_miscellaneous_charge_service__asset_category_id
+#: model:ir.model.fields,field_description:om_account_asset.field_sm_shifa_service__asset_category_id
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "Asset Type"
+msgstr "نوع الاصول"
+
+
+
+#. modules: om_hr_payroll_account, om_account_asset, om_account_budget,
+#. account, purchase, sale, accounting_pdf_reports, sale_expense, hr_expense,
+#. analytic
+#: model:ir.model,name:om_account_budget.model_account_analytic_account
+#: model:ir.model.fields,field_description:account.field_account_analytic_default__analytic_id
+#: model:ir.model.fields,field_description:account.field_account_invoice_report__analytic_account_id
+#: model:ir.model.fields,field_description:account.field_account_move_line__analytic_account_id
+#: model:ir.model.fields,field_description:account.field_account_reconcile_model_line__analytic_account_id
+#: model:ir.model.fields,field_description:analytic.field_account_analytic_account__name
+#: model:ir.model.fields,field_description:analytic.field_account_analytic_distribution__account_id
+#: model:ir.model.fields,field_description:analytic.field_account_analytic_line__account_id
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__account_analytic_id
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_analytic_id
+#: model:ir.model.fields,field_description:om_account_budget.field_crossovered_budget_lines__analytic_account_id
+#: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_contract__analytic_account_id
+#: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_payslip_line__analytic_account_id
+#: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_salary_rule__analytic_account_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line__account_analytic_id
+#: model:ir.model.fields,field_description:purchase.field_purchase_report__account_analytic_id
+#: model:ir.model.fields,field_description:sale.field_report_all_channels_sales__analytic_account_id
+#: model:ir.model.fields,field_description:sale.field_sale_order__analytic_account_id
+#: model:ir.model.fields,field_description:sale.field_sale_report__analytic_account_id
+#: model:ir.model.fields,field_description:sale_expense.field_hr_expense__analytic_account_id
+#: model_terms:ir.ui.view,arch_db:account.view_account_analytic_default_form_search
+#: model_terms:ir.ui.view,arch_db:account.view_account_invoice_report_search_analytic_accounting
+#: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
+#: model_terms:ir.ui.view,arch_db:analytic.view_account_analytic_account_form
+#: model_terms:ir.ui.view,arch_db:analytic.view_account_analytic_account_search
+#: model_terms:ir.ui.view,arch_db:analytic.view_account_analytic_line_filter
+#: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_view_search
+msgid "Analytic Account"
+msgstr "الحساب التحليلي"
+
+#. module: om_account_asset
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "Time Method Based On"
+msgstr "اساس احتساب الوقت"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method_end
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method_time__end
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method_time__end
+msgid "Ending Date"
+msgstr "تاريخ نهاية"
+
+#. module: om_account_asset
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "One Entry Every"
+msgstr "قيد واحد كل"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__date_first_depreciation
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__date_first_depreciation
+msgid "Depreciation Dates"
+msgstr "تاريخ الاهلاك "
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__method
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__method
+msgid "Computation Method"
+msgstr "طريقة الاهلاك"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__ksa_nationality
+msgid "Nationality"
+msgstr "الجنسيه"
+
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__country_id
+msgid "Country"
+msgstr "البلد"
+
+#. module: smartmind_odoo
+#: model:ir.model.fields,field_description:smartmind_odoo.field_hr_contract__marital_status
+msgid "Marital Status"
+msgstr "الحالة الاجتماعية"
+
+
+#. modules: om_account_asset, accounting_pdf_reports
+#: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_assets0
+#: model:ir.actions.act_window,name:om_account_asset.action_account_asset_asset_form
+#: model:ir.model.fields,field_description:om_account_asset.field_account_bank_statement_line__asset_ids
+#: model:ir.model.fields,field_description:om_account_asset.field_account_move__asset_ids
+#: model:ir.model.fields,field_description:om_account_asset.field_account_payment__asset_ids
+#: model:ir.ui.menu,name:om_account_asset.menu_action_account_asset_asset_form
+#: model:ir.ui.menu,name:om_account_asset.menu_action_asset_asset_report
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_purchase_tree
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
+msgid "Assets"
+msgstr "الاصول"
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.report,name:accounting_pdf_reports.action_report_account_tax
+#: model:ir.model,name:accounting_pdf_reports.model_account_tax_report_wizard
+#: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_tax
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_report
+#: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
+msgid "Tax Report"
+msgstr "تقارير الضرائب"
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_print_journal_menu
+#: model:ir.actions.report,name:accounting_pdf_reports.action_report_journal
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_print_journal
+msgid "Journals Audit"
+msgstr "تدقيق اليوميات"
+
+#. module: om_account_daily_reports
+#: model:ir.actions.act_window,name:om_account_daily_reports.action_account_bankbook_menu
+#: model:ir.actions.report,name:om_account_daily_reports.action_report_bank_book
+#: model:ir.model,name:om_account_daily_reports.model_report_om_account_daily_reports_report_bankbook
+#: model:ir.ui.menu,name:om_account_daily_reports.menu_bankbook
+msgid "Bank Book"
+msgstr "كشف حساب البنك"
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_general_ledger_menu
+#: model:ir.actions.report,name:accounting_pdf_reports.action_report_general_ledger
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_general_ledger
+msgid "General Ledger"
+msgstr " الأستاذ العام"
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_aged_balance_view
+#: model:ir.actions.report,name:accounting_pdf_reports.action_report_aged_partner_balance
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_aged_trial_balance
+#: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
+msgid "Aged Partner Balance"
+msgstr "أعمار الذمم"
+
+#. module: accounting_pdf_reports
+#: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_partner_ledger_menu
+#: model:ir.actions.report,name:accounting_pdf_reports.action_report_partnerledger
+#: model:ir.ui.menu,name:accounting_pdf_reports.menu_partner_ledger
+#: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
+msgid "Partner Ledger"
+msgstr "أستاذ الشركاء"
+
+#. module: om_account_followup
+#: model:ir.ui.menu,name:om_account_followup.menu_finance_followup
+#: model_terms:ir.ui.view,arch_db:om_account_followup.view_partner_inherit_followup_form
+msgid "Payment Follow-up"
+msgstr "متابعة الدفع"
+
+#. module: om_account_followup
+#: model:ir.actions.act_window,name:om_account_followup.action_customer_my_followup
+#: model:ir.ui.menu,name:om_account_followup.menu_sale_followup
+msgid "My Follow-Ups"
+msgstr "متابعة العملاء الخاصة بي"
+
+#. module: om_account_followup
+#: model:ir.ui.menu,name:om_account_followup.om_account_followup_print_menu
+msgid "Send Letters and Emails"
+msgstr "ارسال الرسائل والإيميلات"
+
+#. modules: om_account_accountant, account, accounting_pdf_reports
+#: model:ir.actions.act_window,name:account.action_account_type_form
+#: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__account_type_ids
+#: model:ir.ui.menu,name:om_account_accountant.account_type_menu
+msgid "Account Types"
+msgstr "انواع الحسابات"
+
+#. module: om_account_followup
+#: model:ir.ui.menu,name:om_account_followup.om_account_followup_menu
+msgid "Follow-up Levels"
+msgstr "مستويات المتابعة"
+
+#. module: om_account_followup
+#: model:ir.model.fields,field_description:om_account_followup.field_followup_line__followup_id
+#: model:ir.model.fields,field_description:om_account_followup.field_followup_stat__followup_id
+msgid "Follow Ups"
+msgstr "المتابعه"
+
+#. module: om_recurring_payments
+#: model:ir.actions.act_window,name:om_recurring_payments.action_account_recurring_template
+#: model:ir.model,name:om_recurring_payments.model_account_recurring_template
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__template_id
+#: model:ir.ui.menu,name:om_recurring_payments.menu_recurring_template
+#: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_account_recurring_template_tree
+#: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_template_form
+msgid "Recurring Template"
+msgstr "نموذج متكرر"
+
+#. modules: om_account_accountant, om_recurring_payments
+#: model:ir.model.fields,field_description:om_account_accountant.field_account_fiscal_year__name
+#: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__name
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__journal_id
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__journal_id
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__journal_id
+msgid "Journal"
+msgstr " اليومية"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__journal_state
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__journal_state
+msgid "Generate Journal As"
+msgstr "إنشاء اليوميه"
+
+#. modules: om_account_accountant, om_recurring_payments
+#: model:ir.model.fields,field_description:om_account_accountant.field_account_fiscal_year__company_id
+#: model:ir.model.fields,field_description:om_account_accountant.field_change_lock_date__company_id
+#: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__company_id
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__company_id
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__recurring_interval
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__recurring_interval
+msgid "Recurring Interval"
+msgstr "الفاصل الزمني المتكرر"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__recurring_period
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__recurring_period
+msgid "Recurring Period"
+msgstr "فتره متكرره"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__journal_state__draft
+msgid "Un Posted"
+msgstr "غير مؤكد"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__journal_state__posted
+msgid "Posted"
+msgstr "مؤكد"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__journal_id
+msgid "Journal"
+msgstr "اليوميه"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_asset_id
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_search
+msgid "Asset Account"
+msgstr "حساب الاصل"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_depreciation_id
+msgid "Depreciation Entries: Asset Account"
+msgstr "ادخال حساب مجمع الاهلاك "
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__account_depreciation_expense_id
+msgid "Depreciation Entries: Expense Account"
+msgstr "ادخال حساب مصروف الاهلاك "
+
+#. module: om_account_asset
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method_time__number
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method_time__number
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "Number of Entries"
+msgstr "عدد من القيود"
+
+#. module: om_account_asset
+#: code:addons/om_account_asset/models/account_asset.py:0
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+#, python-format
+msgid "Journal Entries"
+msgstr "قيود اليوميه"
+
+#. module: om_account_asset
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "Periodicity"
+msgstr "فترة الاهلاك"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__open_asset
+msgid "Auto-Confirm Assets"
+msgstr "تأكيد الاصول تلقائيا"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__group_entries
+msgid "Group Journal Entries"
+msgstr "ادخالات دفتر اليومية"
+
+#. module: om_account_asset
+#: model_terms:ir.ui.view,arch_db:om_account_asset.asset_modify_form
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "months"
+msgstr "الشهور"
+
+#. module: om_account_asset
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__prorata
+#: model:ir.model.fields,field_description:om_account_asset.field_account_asset_category__prorata
+msgid "Prorata Temporis"
+msgstr "حسب الوقت"
+
+
+#. module: om_account_asset
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method__linear
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method__linear
+msgid "Linear"
+msgstr "ثابت"
+
+#. module: om_account_asset
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__method__degressive
+#: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_category__method__degressive
+msgid "Degressive"
+msgstr "متنافص"
+#. module: om_account_asset
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "Additional Options"
+msgstr "خيارات اضافية"
+
+#. module: om_account_asset
+#: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
+msgid "Depreciation Method"
+msgstr "طريقه الإهلاك"
+
+#. modules: om_account_accountant, om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__payment_type
+#: model_terms:ir.ui.view,arch_db:om_account_accountant.view_account_payment_method_search
+msgid "Payment Type"
+msgstr "نوع السداد"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__partner_id
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__partner_id
+msgid "Partner"
+msgstr "الشريك"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__amount
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__amount
+msgid "Amount"
+msgstr "المبلغ"
+
+#. modules: om_account_accountant, om_recurring_payments
+#: model:ir.model.fields,field_description:om_account_accountant.field_account_fiscal_year__date_from
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__date_begin
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+#. modules: om_account_accountant, om_recurring_payments
+#: model:ir.model.fields,field_description:om_account_accountant.field_account_fiscal_year__date_to
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__date_end
+msgid "End Date"
+msgstr "تاريخ النهاية"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields.selection,name:om_recurring_payments.selection__recurring_payment__payment_type__outbound
+msgid "Send Money"
+msgstr "سند صرف"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields.selection,name:om_recurring_payments.selection__recurring_payment__payment_type__inbound
+msgid "Receive Money"
+msgstr "سند قبض"
+
+#. module: om_recurring_payments
+#: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
+msgid "Recurring Entries"
+msgstr "القيد المتكرر"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: om_recurring_payments
+#: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__state
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__state
+#: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__state
+msgid "Status"
+msgstr "الحاله"
+
+#. modules: om_hr_payroll, hr
+#: model:ir.actions.act_window,name:hr.act_employee_from_department
+#: model:ir.actions.act_window,name:hr.hr_employee_action_from_user
+#: model:ir.actions.act_window,name:hr.hr_employee_public_action
+#: model:ir.actions.act_window,name:hr.open_view_employee_list
+#: model:ir.actions.act_window,name:hr.open_view_employee_list_my
+#: model:ir.model.fields,field_description:hr.field_hr_employee_category__employee_ids
+#: model:ir.model.fields,field_description:hr.field_hr_job__employee_ids
+#: model:ir.model.fields,field_description:om_hr_payroll.field_hr_payslip_employees__employee_ids
+#: model:ir.ui.menu,name:hr.menu_hr_employee_payroll
+#: model:ir.ui.menu,name:hr.menu_hr_employee_user
+#: model:ir.ui.menu,name:hr.menu_hr_root
+#: model:ir.ui.menu,name:om_hr_payroll.menu_hr_employee
+#: model:ir.ui.menu,name:om_hr_payroll.menu_payroll_employee
+#: model_terms:ir.ui.view,arch_db:hr.hr_department_view_kanban
+#: model_terms:ir.ui.view,arch_db:hr.hr_employee_public_view_search
+#: model_terms:ir.ui.view,arch_db:hr.hr_employee_public_view_tree
+#: model_terms:ir.ui.view,arch_db:hr.hr_employee_view_activity
+#: model_terms:ir.ui.view,arch_db:hr.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hr.view_employee_filter
+#: model_terms:ir.ui.view,arch_db:hr.view_employee_tree
+#: model_terms:ir.ui.view,arch_db:hr.view_partner_tree2
+#: model_terms:ir.ui.view,arch_db:om_hr_payroll.view_hr_payslip_by_employees
+#: model_terms:ir.ui.view,arch_db:om_hr_payroll.view_hr_payslip_filter
+#: model_terms:ir.ui.view,arch_db:om_hr_payroll.view_hr_payslip_line_filter
+msgid "Employees"
+msgstr "الموظفون"
+
+#. modules: hr_contract, om_hr_payroll
+#: model:ir.actions.act_window,name:hr_contract.act_hr_employee_2_hr_contract
+#: model:ir.actions.act_window,name:hr_contract.action_hr_contract
+#: model:ir.ui.menu,name:hr_contract.hr_menu_contract
+#: model:ir.ui.menu,name:hr_contract.menu_human_resources_configuration_contract
+#: model:ir.ui.menu,name:om_hr_payroll.hr_menu_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_activity
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_tree
+msgid "Contracts"
+msgstr "العقود"
+
+#. module: hr_payroll_account_extended
+#: model:ir.model.fields,field_description:hr_payroll_account_extended.field_hr_payslip__date_payment
+msgid "Payment Date"
+msgstr "تاريخ الدفع"
+
+#. module: hr_payroll_account_extended
+#: model:ir.model.fields,field_description:hr_payroll_account_extended.field_hr_payslip__payment_order_journal_id
+msgid "Payment Journal"
+msgstr "يومية الدفع"
+
+#. module: hr_payroll_account_extended
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account_extended.view_hr_payslip_form_payment_order
+msgid "Payment Orders"
+msgstr "اوامر الدفع"
+
+#. module: om_hr_payroll
+#: model_terms:ir.ui.view,arch_db:om_hr_payroll.hr_payslip_run_form
+msgid "Mark As Done"
+msgstr "تاكيدها"

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- Appointment -->
+        <record id="oeh_medical_appointment_smartmind_view" model="ir.ui.view">
+            <field name="name">Appointments</field>
+            <field name="model">oeh.medical.appointment</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_appointment_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='set_to_invoiced']" position="before">
+                    <button name="set_to_confirmed" states="Scheduled" string="Create Consultation Invoice"
+                            confirm="Are you sure you want to create create consultation invoice?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                </xpath>
+                <xpath expr="//button[@name='set_to_invoiced']" position="before">
+                    <button name="set_to_start" states="Confirmed" string="Start Appointment Process"
+                            confirm="Are you sure you want to start appointment?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+                </xpath>
+                <xpath expr="//button[@name='set_to_completed']" position="attributes">
+                    <attribute name="states">Start</attribute>
+                    <attribute name="string">Mark as Completed</attribute>
+                </xpath>
+                <field name="state" position="replace">
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Scheduled,Confirmed,Start,Completed,Invoiced"/>
+                </field>
+                <xpath expr="//div[@class='oe_left']" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_view_apt_invoice" class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                attrs="{'invisible':['|', ('apt_invoice_count', '=', 0), ('state', 'not in', ('Confirmed','Invoiced'))],'readonly':[('state', '!=','Start')]}">
+                            <field name="apt_invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div>
+                </xpath>
+                <xpath expr="//notebook//page[4]" position="after">
+                    <page string="Image test">
+                        <field name="image_test_ids" widget="one2many_list"
+                               attrs="{'readonly': [('state', '!=','Start')]}"
+                               context="{'default_patient':patient,'default_requestor':doctor}"/>
+                    </page>
+                </xpath>
+                <field name="prescription_line" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '!=','Start')]}</attribute>
+                </field>
+                <field name="treatment_line" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '!=','Start')]}</attribute>
+                </field>
+                <field name="labtest_line" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state', '!=','Start')]}</attribute>
+                </field>
+                <field name="evaluation_ids" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state', '!=','Start')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- Imageing Testing -->
+        <record id="oeh_medical_imaging_test_smartmind_form_view" model="ir.ui.view">
+            <field name="name">Imaging Test</field>
+            <field name="model">oeh.medical.imaging</field>
+            <field name="inherit_id" ref="oehealth_extra_addons.oeh_medical_imaging_test_form"/>
+            <field name="arch" type="xml">
+                <field name="date_requested" position="after">
+                    <field name="appointment"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="oeh_medical_patient_view_inherit_groups">
+            <field name="name">Patient</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@invisible='1']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//group[3]" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+
+
+
+
+

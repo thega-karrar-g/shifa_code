@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="view_shifa_call_center_census_form_caregiver_contract" model="ir.ui.view">
+            <field name="name">sm.shifa.call.center.census.form.caregiver.contract</field>
+            <field name="model">sm.shifa.call.center.census</field>
+            <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_call_center_census_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[3]/div" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="book_cg_cont_app"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="book_cg_cont_app"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//group[3]" position="after">
+                    <group string="Caregiver Contract" attrs="{'invisible': [('book_cg_cont_app', '=', False)]}"/>
+                    <field name="cg_cont_id" attrs="{'invisible': [('book_cg_cont_app', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

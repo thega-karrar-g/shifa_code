@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="view_shifa_pharmacy_medicines_form" model="ir.ui.view">
+            <field name="name">sm.shifa.pharmacy.medicines</field>
+            <field name="model">sm.shifa.pharmacy.medicines</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                           <div class="oe_left" style="width: 500px;">
+                                <div class="oe_title" style="width: 500px;">
+                                    <label class="oe_edit_only" for="pharmacy_medicines" string="Medicines"/>
+                                    <h1><field name="pharmacy_medicines" class="oe_inline"/></h1>
+                                </div>
+                                    <div class="oe_title" style="width: 390px;">
+                                     <label class="oe_edit_only" for="code" string="Code"/>
+                                    <h1><field name="code" class="oe_inline"/></h1>
+                                </div>
+                            </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="shifa_pharmacy_medicines_tree_view">
+            <field name="name">pharmacy_medicines_tree</field>
+            <field name="model">sm.shifa.pharmacy.medicines</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Pharmacy Medicines" editable="top">
+                    <field name="pharmacy_medicines"/>
+                    <field name="generic_medicine"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        <record id="shifa_pharmacy_medicines_action" model="ir.actions.act_window">
+            <field name="name">Pharmacy Medicines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.pharmacy.medicines</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="shifa_pharmacy_medicines_action"
+                  id="shifa_pharmacy_medicines"
+                  parent="smartmind_shifa.menu_medicinces_vaccines_form_root"
+                  sequence="4"/>
+    </data>
+</odoo>

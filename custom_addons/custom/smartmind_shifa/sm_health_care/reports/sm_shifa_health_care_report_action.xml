@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sm_shifa_report_lab_request_action" model="ir.actions.report">
+            <field name="name">Lab Request</field>
+            <field name="model">sm.shifa.lab.request</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa.report_lab_request</field>
+            <field name="report_file">smartmind_shifa.report_lab_request</field>
+            <field name="binding_model_id" ref="model_sm_shifa_lab_request"/>
+            <field name="binding_type">report</field>
+            <field name="attachment"> object.name + '.pdf'</field>
+            <field name="attachment_use">True</field>
+        </record>
+        <record id="sm_shifa_report_imaging_request_action" model="ir.actions.report">
+            <field name="name">Imaging Request</field>
+            <field name="model">sm.shifa.imaging.request</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa.report_imaging_request</field>
+            <field name="report_file">smartmind_shifa.report_imaging_request</field>
+            <field name="binding_model_id" ref="model_sm_shifa_imaging_request"/>
+            <field name="binding_type">report</field>
+            <field name="attachment"> object.name + '.pdf'</field>
+            <field name="attachment_use">True</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_assets_barcode" model="ir.ui.view">
+        <field name="name">assets_barcode_inherit</field>
+        <field name="model">account.asset.asset</field>
+        <field name="inherit_id" ref="om_account_asset.view_account_asset_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="category_type_id"/>
+            </xpath>
+            <xpath expr="//field[@name='analytic_tag_ids']" position="after">
+                <label for="barcode"/>
+                <div class="o_row">
+                    <field name="barcode" readonly="1"/>
+                    <button string="Generate" class="btn btn-link" type="object" name="generate_barcode"
+                            attrs="{'invisible': [('barcode', '!=', False)]}"/>
+                    <button name="%(account_print_barcode)d" string="Print Barcode" class="btn btn-link" type="action"
+                            attrs="{'invisible': [('barcode', '=', False)]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

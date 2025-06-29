@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="res_config_user_profile_stamp" model="ir.ui.view">
+        <field name="name">res.user.stamp.profile</field>
+        <field name="model">res.users</field>
+        <field name="priority" eval="26"/>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='signature']" position="after">
+                <group>
+                    <group>
+                        <field name="stamp" widget="image" help="Upload Your Stamp"/>
+                        <field name="user_signature" widget="image" help="Upload Your Signature"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherited_res_users_stamp_form" model="ir.ui.view">
+        <field name="name">inherited.res.users.stamp.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='signature']" position="before">
+                        <field name="stamp" widget="image" help="Upload Your Stamp"/>
+                        <field name="user_signature" widget="image" help="Upload Your Signature"/>
+            </xpath>
+<!--            External Supervisor join with external_facility module-->
+<!--
+             <xpath expr="//field[@name='in_group_151']" position="after">
+                        <field name="external_facility"   attrs="{'invisible': [('in_group_151', '=', False)]}"/>
+            </xpath>-->
+        </field>
+    </record>
+</odoo>

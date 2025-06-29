@@ -1,0 +1,136 @@
+<odoo>
+    <record id="action_open_instant_consultation" model="ir.actions.act_window">
+        <field name="name">instant consultation from Patient</field>
+        <field name="res_model">sm.shifa.instant.consultation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('patient', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new instant consultation
+            </p>
+        </field>
+    </record>
+    <record id="patient_nursing_assessment_view_form_inherit" model="ir.ui.view">
+        <field name="name">Shifa Patient Comprehensive</field>
+        <field name="model">oeh.medical.patient</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(smartmind_shifa.action_open_pcr_appointment)d']" position="after">
+                <button type="action" class="oe_stat_button" name="%(action_open_instant_consultation)d"
+                        context="{'search_default_doctor': active_id,'default_doctor': active_id,'default_name':'/'}"
+                        icon="fa-calendar">
+                    <field name="instant_consultation_count" widget="statinfo"/>
+                </button>
+             <button type="object" class="oe_stat_button" name="open_package_view"
+                        icon="fa-list-alt">
+                    <field name="package_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[5]" position="after">
+                <!--  <page string="Comprehensive Nursing Assessment">
+                      <field name="nursing_comprehensive_ids" widget="one2many_list"
+                             context="{'default_patient': active_id}" readonly="1"/>
+                  </page>-->
+                <page string="old Forms">
+                    <notebook>
+                        <page string="Comprehensive Nurse Assessment">
+
+                            <field name="comprehensive_nurse_line" widget="one2many_list"
+                                   context="{'default_patient': active_id}"/>
+
+                        </page>
+                        <page string="Continence Care">
+                            <field name="continence_care_line" widget="one2many_list"
+                                   context="{'default_patient': active_id}"/>
+
+
+                        </page>
+                        <page string="Parenteral Drug Fluid">
+                            <field name="parenteral_drugfluid_line" widget="one2many_list"
+                                   context="{'default_patient': active_id}"/>
+
+                        </page>
+                        <page string="Wound Assessment">
+                            <field name="wound_assessment_line" widget="one2many_list"
+                                   context="{'default_patient': active_id}"/>
+
+                        </page>
+                        <page string="Physician Admission">
+                            <field name="phy_adm_id" widget="one2many_list" nolabel="1"
+                                   context="{'default_patient': active_id}"/>
+                        </page>
+                        <page string="Comprehensive Nurse Assessment Follow up">
+                            <field name="nursing_comprehensive_fu_ids" widget="one2many_list" nolabel="1"
+                                   context="{'default_patient': active_id}"/>
+                        </page>
+                         <page string="Parenteral Drug Fluid Follow up">
+                            <field name="parenteral_drugfluid_fu_line" widget="one2many_list" nolabel="1"
+                                   context="{'default_patient': active_id}"/>
+                        </page>
+
+                        <page string="Wound Assessment Follow up">
+                            <field name="wound_assessment_fu_line" widget="one2many_list" nolabel="1"
+                                   context="{'default_patient': active_id}"/>
+                        </page>
+                        <page string="Physician Admission Follow up">
+                            <field name="physician_admission_fu_line" widget="one2many_list" nolabel="1"
+                                   context="{'default_patient': active_id}"/>
+                        </page>
+
+                    </notebook>
+                </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[11]" position="before">
+                <page string="Multidisciplinary Team Meeting">
+                    <field name="multidisciplinary_line" widget="one2many_list"
+                           context="{'default_patient': active_id}"/>
+                </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[7]" position="after">
+                    <page string="Physician Assessment">
+                        <field name="physician_assessment_line" widget="one2many_list" nolabel="1"
+                               context="{'default_patient': active_id}"/>
+                    </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[8]" position="after">
+                    <page string="Nurse Assessment">
+                        <field name="nurse_assessment_line" widget="one2many_list" nolabel="1"
+                               context="{'default_patient': active_id}"/>
+                    </page>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page[9]" position="after">
+                <!--<page string="Vaccines">
+                    <field name="vaccines_line" widget="one2many_list"
+                           context="{'default_patient': active_id}" readonly="1"/>
+                </page>-->
+                <page string="Requested Payment">
+                    <field name="requested_payments_line" widget="one2many_list"
+                           context="{'default_patient': active_id}"/>
+
+                </page>
+                <page string="Cancelation and Postponed and Refund">
+                    <field name="cancellation_refund_line" widget="one2many_list"
+                           context="{'default_patient': active_id}"/>
+
+                </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                <page string="Instant prescription">
+                    <field name="instant_prescription_line" widget="one2many_list"
+                           context="{'default_patient': active_id}"/>
+
+                </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[14]" position="after">
+                <page string="Report">
+                    <field name="report_line" widget="one2many_list"
+                           context="{'default_patient': active_id}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+

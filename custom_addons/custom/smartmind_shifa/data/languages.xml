@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="sm.shifa.language" id="lang_1">
+            <field name="name">Arabic</field>
+            <field name="name_ar">العربية</field>
+        </record>
+
+        <record model="sm.shifa.language" id="lang_2">
+            <field name="name">English</field>
+            <field name="name_ar">اﻻنجليزية</field>
+        </record>
+
+        <record model="sm.shifa.language" id="lang_3">
+            <field name="name">French</field>
+            <field name="name_ar">الفرنيسية</field>
+        </record>
+
+        <record model="sm.shifa.language" id="lang_4">
+            <field name="name">German</field>
+            <field name="name_ar">اﻻلمانية</field>
+        </record>
+
+        <record model="sm.shifa.language" id="lang_5">
+            <field name="name">Turkish</field>
+            <field name="name_ar">التركية</field>
+        </record>
+
+        <record model="sm.shifa.language" id="lang_6">
+            <field name="name">Bengali</field>
+            <field name="name_ar">البنجالية</field>
+        </record>
+
+        <record model="sm.shifa.language" id="lang_7">
+            <field name="name">Filipino</field>
+            <field name="name_ar">الفليبنية</field>
+        </record>
+
+    </data>
+</odoo>

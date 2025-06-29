@@ -1,0 +1,265 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_discharge_form_view">
+            <field name="name">sm.discharge.form.view</field>
+            <field name="model">sm.discharge.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Discharge Summary">
+                    <header>
+                        <button name="download_pdf"
+                                states="completed" string="Download Report" type="object" class="oe_highlight"/>
+                        <button name="mark_as_completed"
+                                states="draft" string="Make As Completed" type="object" class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,completed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;"></div>
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="name" string="dr#"/>
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+
+                        <group style="display: flex;" col="2">
+                            <group string="Patient Details" >
+                                <field name="patient_id"/>
+                                <field name="ssn"/>
+                                <field name="mobile"/>
+                                <field name="sex"/>
+                                <field name="age" force_save="1"/>
+                                <field name="patient_weight"/>
+                                <field name="dob"/>
+                            </group>
+                            <group string="Medical Staffs" >
+                                <field name="doctor_id"/>
+                                <field name="doctor_id_2"/>
+                                <field name="doctor_id_3"/>
+                                <field name="nurse_id"/>
+                                <field name="sec_nurse_id"/>
+                                <field name="physiotherapist_id"/>
+                            </group>
+
+                        </group>
+                        <separator style="border-top: 1px solid #dddddd; margin-top: 10px; margin-bottom: 10px;"/>
+                        <group col="2">
+                            <group>
+                                <field name="date_enrolled"/>
+                            </group>
+                            <group>
+                                <field name="transfer_date"/>
+                            </group>
+                        </group>
+
+
+                        <group col="2">
+                            <group>
+                                <field name="physician_notified" widget="radio"
+                                       options="{'horizontal': true}"/>
+                            </group>
+                            <group>
+                                <field name="doctor_id" attrs="{'invisible': [('physician_notified', '!=', 'yes')]}"
+                                       nolabel="1"/>
+                            </group>
+                        </group>
+                        <group string="Primary Program" col="5">
+                            <group>
+                                <field name="nursing_program"/>
+                            </group>
+                            <group>
+                                <field name="respiratory_program"/>
+                            </group>
+                            <group>
+                                <field name="durable_medical_equipment_program"/>
+                            </group>
+                            <group>
+                                <field name="other_program"/>
+                            </group>
+                            <group>
+                                <field name="other_program_text" attrs="{'invisible': [('other_program', '=', False)]}"
+                                       nolabel="1"/>
+                            </group>
+                        </group>
+                        <group string="Secondary Program" col="5">
+                            <group>
+                                <field name="nursing_2_program"/>
+                            </group>
+                            <group>
+                                <field name="respiratory_2_program"/>
+                            </group>
+                            <group>
+                                <field name="durable_medical_2_equipment"/>
+                            </group>
+                            <group>
+                                <field name="other_text"/>
+                            </group>
+                            <group>
+                                <field name="program_text" attrs="{'invisible': [('other_text', '=', False)]}"
+                                       nolabel="1"/>
+                            </group>
+                        </group>
+                        <group string="Primary Team *Discharge / Transfer Summary" col="5" >
+                            <group>
+                                <field name="nursing"/>
+                            </group>
+                            <group>
+                                <field name="respiratory"/>
+                            </group>
+                            <group>
+                                <field name="durable_medical_equipment"/>
+                            </group>
+                            <group>
+                                <field name="other_text_transfer"/>
+                            </group>
+                            <group>
+                                <field name="transfer_text" attrs="{'invisible': [('other_text_transfer', '=', False)]}"
+                                       nolabel="1"/>
+                            </group>
+                        </group >
+                        <group>
+                            <field name="open_text"/>
+                        </group>
+                        <group string="Secondary  Team *Discharge / Transfer Summary" col="5">
+                            <group>
+                                <field name="second_nursing"/>
+                            </group>
+                            <group>
+                                <field name="second_respiratory"/>
+                            </group>
+                            <group>
+                                <field name="second_durable_equipment"/>
+                            </group>
+                            <group>
+                                <field name="second_text"/>
+                            </group>
+                            <group>
+                                <field name="second_transfer_text" attrs="{'invisible': [('second_text', '=', False)]}"
+                                       nolabel="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="second_open_text"/>
+                        </group>
+                        <group string="Patient’s condition upon *discharge / transfer" >
+                            <group>
+                                <field name="patient_condition" widget="radio" nolabel="1"
+                                       options="{'horizontal': true}"/>
+                            </group>
+                            <group>
+                                <field name="other_condition"
+                                       attrs="{'invisible': [('patient_condition', '!=', 'other')]}"
+                                />
+                            </group>
+                        </group>
+                        <group col="2">
+                            <group>
+                                <field name="patient_condition_transfer" string="Patient Condition"
+                                />
+                            </group>
+                            <group>
+                                <field name="other_condition_transfer"
+                                       attrs="{'invisible': [('patient_condition_transfer', '!=', 'other')]}"/>
+                            </group>
+                        </group>
+                        <group string="Reason for *Discharge / Transfer"  style=" font-size: 16px; color:#5D8DA8; font-weight:bold">
+                            <group>
+                                <field name="home_care_service"/>
+                                <field name="respiratory_home_care"/>
+                                <field name="nursing_home_care"/>
+                                <field name="moved_out"/>
+                                <field name="physician_request_services"/>
+                            </group>
+                            <group>
+                                <field name="home_care_criteria"/>
+                                <field name="refusing_treatment"/>
+                                <field name="patient_expired"/>
+                                <field name="other_reason"/>
+                                <field name="other_reason_text" nolabel="1"
+                                       attrs="{'invisible': [('other_reason', '!=', True)]} "/>
+                            </group>
+                        </group>
+                        <separator style="border-top: 1px solid #dddddd; margin-top: 10px; margin-bottom: 10px;"/>
+                        <group col="4">
+                            <field name="patient_equipments"/>
+                        </group>
+                        <group>
+                            <field name="caregiver_education"/>
+                            <field name="discharge_note"/>
+
+                        </group>
+
+
+                        <group col="3">
+                            <label for="team_signatures_show" string="Team Signatures"
+                                   style=" font-size: 20px; color:#5D8DA8; font-weight:bold" />
+                            <div class="oe_inline">
+                                <field name="team_signatures_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('team_signatures_show', '=', False)]}">
+                            <group>
+                                <field attrs="{'invisible': [('doctor_id', '=', False)]}" name="signatures_doctor_1"
+                                       widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('doctor_id_2', '=', False)]}"
+                                       name="signatures_doctor_2" widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('doctor_id_3', '=', False)]}" name="signatures_doctor_3"
+                                       widget="image" force_save="1" readonly="1"/>
+
+
+                            </group>
+                            <group>
+                                  <field attrs="{'invisible': [('nurse_id', '=', False)]}"
+                                       name="signatures_nurse" widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('sec_nurse_id', '=', False)]}"
+                                       name="signatures_sec_nurse" widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('physiotherapist_id', '=', False)]}"
+                                       name="sign_physiotherapist" widget="image" force_save="1"
+                                       readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+
+        </record>
+        <record id="sm_discharge_action_view" model="ir.actions.act_window">
+            <field name="name">Discharge Report</field>
+            <field name="res_model">sm.discharge.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new discharge record.
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sm_discharge_tree_view">
+            <field name="name">discharge.tree</field>
+            <field name="model">sm.discharge.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="patient_id"/>
+                    <field name="date_enrolled"/>
+                    <field name="transfer_date"/>
+                    <field name="doctor_id"/>
+                    <field name="doctor_id_2"/>
+                    <field name="doctor_id_3"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem action="sm_discharge_action_view"
+                  id="sm_discharge_menu"
+                  parent="smartmind_shifa.reports_menu"
+                  sequence="107"/>
+
+
+    </data>
+</odoo>

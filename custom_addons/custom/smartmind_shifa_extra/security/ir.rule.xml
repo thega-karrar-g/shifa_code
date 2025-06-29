@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="oeh_medical_caregiver_followup_by_caregiver" model="ir.rule">
+            <field name="name">Each caregiver can see only own caregiver followup</field>
+            <field name="model_id" ref="smartmind_shifa_extra.model_sm_shifa_care_giver_follow_up"/>
+            <field name="domain_force">[('caregiver.oeh_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('smartmind_shifa.group_oeh_medical_caregiver'))]"/>
+        </record>
+
+    </data>
+</openerp>

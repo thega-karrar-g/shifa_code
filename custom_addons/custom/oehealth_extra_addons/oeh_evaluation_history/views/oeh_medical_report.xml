@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_patient_evaluation_history" model="ir.actions.report">
+            <field name="name">Patient Evaluation History</field>
+            <field name="model">oeh.medical.evaluation</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">oehealth_extra_addons.report_patient_evaluation_history</field>
+            <field name="report_file">oehealth_extra_addons.report_patient_evaluation_history</field>
+        </record>
+
+    </data>
+</odoo>

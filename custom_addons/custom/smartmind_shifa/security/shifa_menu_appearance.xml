@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="oehealth.oeh_medical_menu" model="ir.ui.menu">
+            <field name="name">Shifa</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_menu" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu_rounding_mgmnt_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="menu_appointment_root" model="ir.ui.menu">
+            <field name="name">Telemedicine Appointments</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_appointment_list" model="ir.ui.menu">
+            <field name="name">Telemedicine Appointments</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu_rounding_mgmnt_list" model="ir.ui.menu">
+            <field name="name">Home Roundings</field>
+        </record>
+
+        <record id="menu_doctor_root" model="ir.ui.menu">
+            <field name="name">Medical Staffs</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_physician_list" model="ir.ui.menu">
+            <field name="name">Medical Staffs</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu_menu" model="ir.ui.menu">
+            <field name="name">Admission Management</field>
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_operations_other" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_gyneco_mgmt_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_ambulatory_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_register_for_walkin_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_surgery_menu" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_surgery_rcri_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_surgery_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_pediatrics_psc_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_pediatrics_menu" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_injury_examination_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_followup_menu" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_inpatient_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_hospital_menu" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.menu_oehealth_general_settings" model="ir.ui.menu">
+            <field name="name">Shifa Settings</field>
+        </record>
+
+        <record id="oehealth.menu_oehealth_general_settings" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_nursing_menu" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_ophthalmology_menu" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_conf_patient" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_conf_physician" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_prescription_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_evaluation_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_medicines_list" model="ir.ui.menu">
+            <field name="sequence">4</field>
+        </record>
+        <record id="oehealth.oeh_medical_vaccines_listview" model="ir.ui.menu">
+            <field name="sequence">6</field>
+        </record>
+        <record id="oehealth.oeh_medical_dose_unit_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth.oeh_medical_drug_route_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth.oeh_medical_drug_forms_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth.oeh_medical_dosage_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth.oeh_medical_treatment_type_listview" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+        <record id="oehealth.oeh_medical_insurance_conf_list" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+        <record id='oehealth.oeh_medical_vaccines_listview' model='ir.ui.menu'>
+            <field name="active">False</field>
+        </record>
+        <record id='oehealth.oeh_medical_medicines_list' model='ir.ui.menu'>
+            <field name="active">False</field>
+        </record>
+
+    </data>
+</odoo>

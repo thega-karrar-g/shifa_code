@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="discharge_reports">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h3>Discharge Report</h3>
+                        </div>
+
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div t-if="o.patient_id" class="col-6 bm-6 text-left">
+
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.patient_id.name"/>
+                                <br/>
+                                <strong>ID Number:</strong>
+                                <span t-field="o.patient_id.ssn"/>
+                                <br/>
+                                <strong>Mobile:</strong>
+                                <span t-field="o.patient_id.mobile"/>
+
+                            </div>
+                            <div t-if="o.patient_id" class="col-4 bm-4 text-left">
+                                <strong>Gender:</strong>
+                                <span t-field="o.patient_id.sex"/>
+                                <br/>
+                                <strong>Age:</strong>
+                                <span t-field="o.patient_id.age"/>
+                                <br/>
+                                <strong>Weight(kg):</strong>
+                                <span t-field="o.patient_id.weight"/>
+                                <br/>
+                                <strong>Transfer Date:</strong>
+                                <span class="m-0" t-field="o.transfer_date"/>
+
+                            </div>
+                        </div>
+                        <hr/>
+
+
+                        <h4 style="color: blue">
+                            Primary Program:
+                        </h4>
+                        <div class="col-12 bm-6" t-if="o.nursing_program">
+                            <h9>nursing</h9>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.respiratory_program">
+                            <h9>Respiratory</h9>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.durable_medical_equipment_program">
+                            <h9>Durable Medical Equipment</h9>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.other_program">
+                            <span t-field="o.other_program_text"/>
+                        </div>
+                        <hr/>
+                        <h4 style="color: blue">
+                            Secondary Program:
+                        </h4>
+                        <div class="col-12 bm-6" t-if="o.nursing_2_program">
+                            <h9>nursing</h9>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.respiratory_2_program">
+                            <h9>Respiratory</h9>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.durable_medical_2_equipment">
+                            <h9>Durable Medical Equipment</h9>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.other_text">
+                            <span t-field="o.program_text"/>
+                        </div>
+                        <hr/>
+                        <style>
+                            .text-block {
+                            margin-bottom: 10px; /* Adjust the value as needed */
+                            }
+                        </style>
+                        <div class="col-12 bm-6">
+                            <span class="m-0" t-field="o.open_text"/>
+                            <hr/>
+                        </div>
+                        <div>
+                             <span class="m-0" t-field="o.second_open_text"/>
+                        </div>
+
+                        <hr/>
+                        <h4 style="color: blue">
+                            Team Signatures
+                        </h4>
+                        <div class="row mt32 mb32 col-12" style="padding-left: 13px">
+                            <div class="col-6 bm-6">
+                                <div t-if="o.doctor_id">
+                                    <strong>First Doctor:</strong>
+                                    <span t-field="o.doctor_id.name"/>
+                                    <br/>
+                                    <strong>Signature:</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.signatures_doctor_1}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.doctor_id_2">
+                                    <strong>Second Doctor:</strong>
+                                    <span t-field="o.doctor_id_2.name"/>
+                                    <br/>
+                                    <strong>Signature:</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.signatures_doctor_2}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.doctor_id_3">
+                                    <strong>Third Doctor:</strong>
+                                    <span t-field="o.doctor_id_2.name"/>
+                                    <br/>
+                                    <strong>Signature:</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.signatures_doctor_3}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.nurse_id">
+                                    <strong>First Nurse:</strong>
+                                    <span t-field="o.nurse_id.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.signatures_nurse}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.sec_nurse_id">
+                                    <strong>Second Nurse:</strong>
+                                    <span t-field="o.sec_nurse_id.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.signatures_sec_nurse}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                                <div t-if="o.physiotherapist_id">
+                                    <strong>Physiotherapist:</strong>
+                                    <span t-field="o.physiotherapist_id.name"/>
+                                    <br/>
+                                    <strong>Signature</strong>
+                                    <img t-attf-src="data:image/jpg;base64,{{o.sign_physiotherapist}}"
+                                         style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

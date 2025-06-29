@@ -1,0 +1,36 @@
+<odoo>
+    <record id="view_shifa_instant_consultation_form_inherit" model="ir.ui.view">
+        <field name="name">sm.shifa.instant.consultation.form.inherit</field>
+        <field name="model">sm.shifa.instant.consultation</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_instant_consultation_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='patient']" position="before">
+                <field name="branch" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shifa_instant_prescriptions_form_inherit" model="ir.ui.view">
+        <field name="name">sm.shifa.instant.prescriptions.form.inherit</field>
+        <field name="model">sm.shifa.instant.prescriptions</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_instant_prescriptions_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='patient']" position="before">
+                <field name="branch" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sm_treatments_form_view_inherit" model="ir.ui.view">
+        <field name="name">sm.treatments.form.inherit</field>
+        <field name="model">sm.treatments</field>
+        <field name="inherit_id" ref="sm_search_patient.sm_treatments_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='patient_id']" position="before">
+                <field name="branch" />
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

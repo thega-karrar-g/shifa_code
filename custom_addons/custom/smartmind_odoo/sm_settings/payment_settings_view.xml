@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">payment res config settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='oeh_inventory_setting_container']" position="after">
+                  <h2>Payment Journals for Payment Process</h2>
+                    <!--   product box -->
+                    <div class="row mt16 o_settings_container" name="payment_setting_container">
+                        <div class="col-6 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="product_type_conf">
+                                <label for="journal_cash" string="Payment type"/>
+                                <span class="fa fa-lg fa-building-o" title="Payment type" aria-label="Payment type" groups="base.group_multi_company" role="img"/>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="journal_cash" string="Cash" class="col-lg-4 o_light_label"/>
+                                        <field name="journal_cash"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="journal_point_sale" string="Point of Sale" class="col-lg-4 o_light_label"/>
+                                        <field name="journal_point_sale"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="journal_bank" string="Bank" class="col-lg-4 o_light_label"/>
+                                        <field name="journal_bank"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--   journal box -->
+                        <div class="col-6 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="appointment_duration_conf">
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="journal_mobile" string="Mobile App" class="col-lg-4 o_light_label"/>
+                                        <field name="journal_mobile"/>
+                                    </div>
+                                  <div class="row mt16">
+                                        <label for="journal_portal" string="SMS Portal" class="col-lg-4 o_light_label"/>
+                                        <field name="journal_portal"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

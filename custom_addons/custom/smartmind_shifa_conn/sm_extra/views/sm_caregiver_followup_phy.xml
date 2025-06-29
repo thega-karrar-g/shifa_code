@@ -1,0 +1,33 @@
+<odoo>
+    <record id="caregiver_followup_phys_assess_inherit" model="ir.ui.view">
+        <field name="name">caregiver_followup_physician_assessment</field>
+        <field name="model">sm.shifa.care.giver.follow.up</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_care_giver_follow_up_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='patient']" position="after">
+                <field name="phy_asse"/>
+            </xpath>
+            <xpath expr="/form/sheet/group[8]/group[1]" position="inside">
+                <br/>
+                <div style="padding-left: 10px;">
+                    <field name="medical_care_plan" nolabel="1"/>
+                </div>
+            </xpath>
+            <xpath expr="/form/sheet/group[7]" position="inside">
+                <br/>
+                <br/>
+                <div>
+                    <field name="provisional_diagnosis" string=""/>
+                    <br/>
+                    <field name="provisional_diagnosis_add" string=""/>
+                    <br/>
+                    <field name="provisional_diagnosis_add2" string=""/>
+                    <br/>
+                    <field name="provisional_diagnosis_add3" string=""/>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

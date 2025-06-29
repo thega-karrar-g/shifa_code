@@ -1,0 +1,170 @@
+<odoo>
+    <data>
+        <record id="view_shifa_lab_request_form" model="ir.ui.view">
+            <field name="name">shifa.lab.request.form</field>
+            <field name="model">sm.shifa.lab.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Call Center,Team,Patient,Done"/>
+                        <button confirm="Are you sure you want to send?" name="set_to_team"
+                                states="Call Center" string="Team" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_telemedicine_doctor,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor"/>
+                        <button confirm="Are you sure you want to send to Patient?" name="set_to_patient"
+                                states="Call Center" string="Patient" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_telemedicine_doctor,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor"/>
+                        <button confirm="Are you sure you want to set to Done?" name="set_to_upload"
+                                states="Team" string="Done" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager"/>
+                        <button confirm="Are you sure you want to Download pdf?" name="download_pdf"
+                                states="Team" string="Download pdf" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to Download pdf?" name="download_pdf"
+                                states="Patient" string="Download pdf" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to Download pdf?" name="download_pdf"
+                                states="Done" string="Download pdf" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="LR#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="patient"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="hhc_appointment"/>
+                                <field name="hvd_appointment"/>
+                                <field name="appointment"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                                <field name="discharge_date"/>
+                                <field name="link"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="doctor"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <label for="lab_request_ids" string="Requested Tests"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <field name="lab_request_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="lab_section"/>
+                                    <field name="type_test" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="3">
+                            <label for="lab_test_show" string="Lab Test"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="lab_test_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('lab_test_show', '=', False)]}">
+                            <group>
+                                <field name="lab_test_ids" nolabel="1"
+                                       context="{'default_patient':patient, 'default_hhc_appointment':hhc_appointment, 'default_requestor_id':doctor, 'default_lab_Request':id}"/>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_lab_request_tree" model="ir.ui.view">
+            <field name="name">shifa.lab.request.tree</field>
+            <field name="model">sm.shifa.lab.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Reference"/>
+                    <field name="hhc_appointment"/>
+                    <field name="hvd_appointment"/>
+                    <field name="appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_lab_request_action" model="ir.actions.act_window">
+            <field name="name">Lab Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.lab.request</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Lab Request found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_lab_request_search" model="ir.ui.view">
+            <field name="name">lab.request.search</field>
+            <field name="model">sm.shifa.lab.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="name" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+        <menuitem id="lab_request_root"
+                  name="Lab Request"
+                  parent="oehealth.oeh_medical_operations_laboratory"
+                  action="sm_shifa_lab_request_action"
+                  sequence="8"/>
+
+        <record id="sm_shifa_lab_request_line_action" model="ir.actions.act_window">
+            <field name="name">Lab Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.lab.request.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Lab Request found
+                </p>
+            </field>
+        </record>
+        <record id="view_shifa_lab_request_line_form" model="ir.ui.view">
+            <field name="name">shifa.lab.request.line.form</field>
+            <field name="model">sm.shifa.lab.request.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="lab_section"/>
+                            <field name="type_test" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_shifa_lab_request_line_tree" model="ir.ui.view">
+            <field name="name">shifa.lab.request.line.tree</field>
+            <field name="model">sm.shifa.lab.request.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="lab_section"/>
+                    <field name="type_test" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

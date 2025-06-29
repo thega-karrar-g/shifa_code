@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_oeh_medical_injury_result_wizard" model="ir.ui.view">
+        <field name="name">Choose Examination Result</field>
+        <field name="model">oeh.medical.injury.result.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Confirmation">
+                <group>
+                    <field name="name" required="1" widget="radio"/>
+                </group>
+                <group attrs="{'invisible':[('name','not in',['Died', 'Dead on Arrival'])]}">
+                    <group>
+                        <field name="dod" attrs="{'required':[('name','in',['Died', 'Dead on Arrival'])]}"/>
+                    </group>
+                    <group>
+                        <field name="cod" attrs="{'required':[('name','in',['Died', 'Dead on Arrival'])]}"/>
+                    </group>
+                </group>
+                <group attrs="{'invisible':[('name','!=','Admitted')]}">
+                    <field name="inpatient" attrs="{'required':[('name','=','Admitted')]}"/>
+                </group>
+                <group>
+                    <field name="examination_details" required="1"/>
+                </group>
+                <footer>
+                    <button name="save_result" string="Save" type="object"
+                        class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_oeh_medical_injury_result_wizard" model="ir.actions.act_window">
+        <field name="name">Choose Examination Result</field>
+        <field name="res_model">oeh.medical.injury.result.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Create Invoice action button in Inpatient Admission screen-->
+
+    <record id="oeh_medical_injury_examination_result_view" model="ir.ui.view">
+        <field name="name">Injury Examination Procedures</field>
+        <field name="model">oeh.medical.injury.examination</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_injury_examination_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='print_injury_examination_report']" position="before">
+                <button confirm="Are you sure you want to store the result?" name="%(action_oeh_medical_injury_result_wizard)d" states="Draft" string="Record Examination Result" type="action" class="oe_highlight" groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

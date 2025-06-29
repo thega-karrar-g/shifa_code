@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="sm_dashboard_insurance_template" xml:space="preserve">
+	<t t-name="SMInsDashboard">
+		<div class="home_insurancedashboards" style="background-color: #ecf3f9">
+			<div class="container-fluid my-5 home_main_refdashboard"/>
+		</div>
+	</t>
+    <t t-name="SMInsDashboardFilter">
+		<section class="dashboard_main_section" id="home_filter_section">
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 d-block text-right">
+					<form class="form-group sm_dashboard_filter_btn">
+						<button id="home_filter_btn_today" class="btn">
+							Today
+						</button>
+                        <button id="home_filter_btn_week" class="btn">
+							This Week
+						</button>
+                        <button id="home_filter_btn_month" class="btn">
+							This Month
+						</button>
+                        <button id="home_filter_btn_now" class="btn">
+							Till Now
+						</button>
+					</form>
+				</div>
+			</div>
+		</section>
+	</t>
+    <t t-name="ReayhAdminInsu" class="grey-bg container-fluid">
+		<section class="hc_dashboard" id="medical_reayah_admin">
+			<div class="img_url" style="text-align: center"/>
+            <div class="user_name" style="text-align: center"/>
+            <div class="container">
+				<div class="row">
+	                <div class="col-sm load_eligibility_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_eligibility_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_authorization_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+                <div class="row">
+	                <div class="col-sm load_authorization_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm "/>
+                    <div class="col-sm "/>
+
+
+				</div>
+
+				</div>
+		</section>
+	</t>
+    <t t-name="AdminInsu" class="grey-bg container-fluid">
+		<section class="hc_dashboard" id="medical_reayah_admin">
+			<div class="img_url" style="text-align: center"/>
+            <div class="user_name" style="text-align: center"/>
+            <div class="container">
+				<div class="row">
+	                <div class="col-sm load_eligibility_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_eligibility_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_authorization_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+                <div class="row">
+	                <div class="col-sm load_authorization_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm "/>
+                    <div class="col-sm "/>
+
+
+				</div>
+
+				</div>
+		</section>
+	</t>
+    <t t-name="OperationMangerInsu" class="grey-bg container-fluid">
+		<section class="hc_dashboard" id="medical_reayah_admin">
+			<div class="img_url" style="text-align: center"/>
+            <div class="user_name" style="text-align: center"/>
+            <div class="container">
+				<div class="row">
+	                <div class="col-sm load_eligibility_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_eligibility_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_authorization_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+                <div class="row">
+	                <div class="col-sm load_authorization_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm "/>
+                    <div class="col-sm "/>
+
+
+				</div>
+
+				</div>
+		</section>
+	</t>
+    <t t-name="physicianInsu" class="grey-bg container-fluid">
+		<section class="hc_dashboard" id="medical_reayah_admin">
+			<div class="img_url" style="text-align: center"/>
+            <div class="user_name" style="text-align: center"/>
+            <div class="container">
+				<div class="row">
+	                <div class="col-sm load_eligibility_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_eligibility_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_eligibility_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Eligibility Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm load_authorization_request_sent">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_sent">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Sent)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+                <div class="row">
+	                <div class="col-sm load_authorization_request_processed">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<div class="media d-flex">
+										<div class="media-body text-left">
+											<h3 id="wait_ref_no" class="sm_total_authorization_request_processed">
+											</h3>
+                                            <span style="color: #9ab2cb;">
+												Authorization Request (Processed)
+											</span>
+										</div>
+                                        <div class="align-self-center">
+											<i id="wait_ref_icon" class="icon-radiology icon-large-2 float-right">
+											</i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-sm "/>
+                    <div class="col-sm "/>
+
+
+				</div>
+
+				</div>
+		</section>
+	</t>
+
+
+
+
+</templates>

@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+        <record id="mail.menu_root_discuss" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="purchase.menu_purchase_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="hr.menu_hr_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="sale.sale_menu_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <!--        <record id="crm.crm_menu_root" model="ir.ui.menu">
+                    <field name="groups_id"
+                           eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee'))]"/>
+                </record>-->
+        <!--    <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+                <field name="groups_id"
+                       eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee'))]"/>
+            </record>-->
+        <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('smartmind_shifa.group_oeh_medical_telemedicine_doctor')]) ,(6,0,[ref('oehealth.group_oeh_medical_receptionist')]) ,(6,0,[ref('oehealth.group_oeh_medical_physician')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_head_doctor')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_head_nurse')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_hhc_nurse')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_head_physiotherapist')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_hhc_physiotherapist')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_operation_manager')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_call_center')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_lab_technician')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_social_worker')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_home_visit_doctor')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_respiratory_therapist')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_clinical_dietitian')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_health_educator')]) ,(6,0,[ref('smartmind_shifa.group_oeh_medical_diabetic_educator')])]"/>
+        </record>
+        <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+      <!--  <record id="hr_expense.menu_hr_expense_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>-->
+        <record id="fleet.menu_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="stock.menu_stock_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="hr.menu_hr_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="account.menu_finance" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="mail.menu_root_discuss" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+       <!--  <record id="om_hr_payroll.menu_hr_payroll_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record> -->
+
+        <record id="hr_attendance.menu_hr_attendance_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="contacts.menu_contacts" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+
+        <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+        </record>
+    </data>
+</odoo>

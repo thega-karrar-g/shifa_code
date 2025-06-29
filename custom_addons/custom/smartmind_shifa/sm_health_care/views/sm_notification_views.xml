@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shifa_physician_notification_tree" model="ir.ui.view">
+        <field name="name">physiotherapy.followup.tree</field>
+        <field name="model">sm.physician.notification</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="hhc_appointment"/>
+                <field name="patient"/>
+                <field name="requested_by"/>
+                <field name="start_date"/>
+                <field name="completed_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_shifa_physician_notification_form" model="ir.ui.view">
+        <field name="name">physician.followup.notification.form</field>
+        <field name="model">sm.physician.notification</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button confirm="Are you sure you want to start process?" name="set_to_start"
+                            states="Start" string="Send" type="object" class="oe_highlight"/>
+                    <button confirm="Are you sure you want to make as complete?" name="set_to_done"
+                            states="Send" string="Done" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_operation_manager,
+                                    smartmind_shifa.group_oeh_medical_head_physiotherapist,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_head_doctor"
+                    />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Start,Send,Done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="patient"/>
+                            <field name="requested_by"/>
+                            <!--                            <field name="phy_adm"/>-->
+                        </group>
+                        <group>
+                            <field name="hhc_appointment"/>
+                             <field name="phy_appointment"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="dob"/>
+                            <field name="marital_status"/>
+                            <field name="sex"/>
+                            <field name="blood_type"/>
+                            <field name="rh"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="completed_date"/>
+                        </group>
+                    </group>
+                    <group string="Services Provided">
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_o2"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_o2"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_tracheostomy"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_tracheostomy"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_wound_care"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_wound_care"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_pain_manage"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_pain_manage"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_hydration_therapy"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_hydration_therapy"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_o2_via_nasal"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_o2_via_nasal"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_hypodermoclysis"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_hypodermoclysis"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_drain_tube_mx"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_drain_tube_mx"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_medication_manage"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_medication_manage"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_warfarin"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_warfarin"/>
+                                    </div>
+                                </div>
+
+                            <!--<group>
+                                <field name="services_provided_o2"/>
+                                <field name="services_provided_tracheostomy"/>
+                                <field name="services_provided_wound_care"/>
+                                <field name="services_provided_pain_manage"/>
+                                <field name="services_provided_hydration_therapy"/>
+                                <field name="services_provided_o2_via_nasal"/>
+                                <field name="services_provided_hypodermoclysis"/>
+                                <field name="services_provided_drain_tube_mx"/>
+                                <field name="services_provided_medication_manage"/>
+                                <field name="services_provided_warfarin"/>
+                            </group>-->
+
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_tpn"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_tpn"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_stoma_care"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_stoma_care"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_pdg_tube"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_pdg_tube"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_inr_monitor"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_inr_monitor"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_prevention_pressure_ulcer"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_prevention_pressure_ulcer"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_vac_therapy"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_vac_therapy"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_ngt"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_ngt"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_parenteral"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_parenteral"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_indwelling_foley"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_indwelling_foley"/>
+                                    </div>
+                                </div>
+                               <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="services_provided_other"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="services_provided_other"/>
+                                    </div>
+                                   <div attrs="{'invisible': [('services_provided_other', '=', False)]}">
+                                    <field name="services_provided_other_content"/>
+                                </div>
+                                </div>
+
+                           <!-- <group>
+                                <field name="services_provided_tpn"/>
+                                <field name="services_provided_stoma_care"/>
+                                <field name="services_provided_pdg_tube"/>
+                                <field name="services_provided_inr_monitor"/>
+                                <field name="services_provided_prevention_pressure_ulcer"/>
+                                <field name="services_provided_vac_therapy"/>
+                                <field name="services_provided_ngt"/>
+                                <field name="services_provided_parenteral"/>
+                                <field name="services_provided_indwelling_foley"/>
+                                <field name="services_provided_other"/>-->
+
+                            </div>
+                            </group>
+                    <group string="Video url">
+                          <field name="invitation_text_jitsi" nolabel="1" widget="html"/>
+                    </group>
+
+                    <group string="Remarks">
+
+                        <field name="notification_remarks" nolabel="1"/>
+                    </group>
+                    <group string="Image">
+                        <field name="image" widget="image" nolabel="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="add_image"/>
+                        </group>
+                    </group>
+                    <group>
+                        <div attrs="{'invisible': [('add_image', '=', False)]}">
+                            <field name="other_image" widget="image"/>
+                        </div>
+                    </group>
+                    <group string="Head Department Comment">
+                        <field name="comment" nolabel="1"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_shifa_physician_notification_action" model="ir.actions.act_window">
+        <field name="name">Supervisor Consultation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.physician.notification</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="followup_notification_root"
+              name="Supervisor Consultation"
+              parent="shifa_operations_others_menu"
+              sequence="103"
+              action="sm_shifa_physician_notification_action"/>
+</odoo>

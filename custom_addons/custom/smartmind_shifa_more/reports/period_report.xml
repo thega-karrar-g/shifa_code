@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="instant_prescription_history_report" model="ir.actions.report">
+            <field name="name">Instant Prescription Medicines Report</field>
+            <field name="model">sm.shifa.instant.prescriptions.history.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa_more.instant_prescription_report_template</field>
+            <field name="report_file">smartmind_shifa_more.instant_prescription_report_template</field>
+            <field name="binding_model_id" ref="smartmind_shifa_more.model_sm_shifa_instant_prescriptions_history_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="instant_consultation_report" model="ir.actions.report">
+            <field name="name">Instant Consultations Report</field>
+            <field name="model">sm.shifa.instant.consultation.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">smartmind_shifa_more.instant_consultation_report_template</field>
+            <field name="report_file">smartmind_shifa_more.instant_consultation_report_template</field>
+            <field name="binding_model_id" ref="smartmind_shifa_more.model_sm_shifa_instant_consultation_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

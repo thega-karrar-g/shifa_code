@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_patient_treatment_tree" model="ir.ui.view">
+        <field name="name">patient.treatment.tree</field>
+        <field name="model">sm.shifa.patient.treatment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient"/>
+                <field name="date_enrolled"/>
+                <field name="date_60days"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_patient_treatment_form" model="ir.ui.view">
+        <field name="name">patient.treatment.form</field>
+        <field name="model">sm.shifa.patient.treatment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h2 align="center">PATIENT TREATMENT PLAN AND PROGRESS SUMMARY</h2>
+                    <h2>
+                        <field name="patient_treatment_code" readonly="1"/>
+                    </h2>
+                    <group col="2">
+                        <group>
+                            <field name="patient"/>
+                            <separator colspan="2"/>
+                            <field name="program"/>
+                        </group>
+                        <group>
+                            <field name="date_enrolled"/>
+                            <separator colspan="2"/>
+                            <label for="date_60days" style="font-size: 13px"
+                                   string='Date of 60 Days Patient Treatment Plan'/>
+                            <field name="date_60days" nolabel="1"/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+
+                        <h2 col="2" style="font-weight:bold; color:#5D8DA8">Services Provided:</h2>
+                        <br/>
+                        <group>
+                            <field name="services_provided_wound_care" string="Wound Care"/>
+                            <field name="services_provided_stoma_care" string="Stoma Care"/>
+                            <field name="services_provided_PEG_tube" string="PEG Tube"/>
+                            <field name="services_provided_TPN" string="TPN"/>
+                            <field name="services_provided_NGT" string="NGT"/>
+                            <field name="services_provided_oxygen_dependent" string="Oxygen Dependent"/>
+                            <field name="services_provided_CPAP_dependent" string="CPAP Dependent"/>
+                            <field name="services_provided_BiPAP_dependent" string="BiPAP Dependent"/>
+                            <field name="services_provided_hydration_therapy" string="Hydration Therapy"/>
+                            <field name="services_provided_hypodermoclysis" string="Hypodermoclysis"/>
+                            <field name="services_VAC_therapy" string="VAC Therapy"/>
+                            <field name="services_provided_ventilator_dependent" string="Ventilator Dependent"/>
+                            <field name="services_provided_tracheostomy" string="Tracheostomy"/>
+                        </group>
+                        <group>
+                            <field name="services_provided_pain_management" string="Pain Management"/>
+                            <field name="services_provided_indwelling_foley_catheter"
+                                   string="Indwelling Foley Catheter"/>
+                            <field name="services_provided_parenteral_antimicrobial" string="Parenteral Antimicrobial"/>
+                            <field name="services_provided_INR_monitoring" string="INR Monitoring"/>
+                            <field name="services_provided_prevention_pressure_ulcer"
+                                   string="Prevention of Pressure Ulcer"/>
+                            <field name="services_provided_O2_via_nasal_cannula" string="O2 via nasal cannula"/>
+                            <field name="services_provided_symptom_management" string="Symptom Management"/>
+                            <field name="services_provided_drain_tube_management" string="Drain Tube Management"/>
+                            <field name="services_provided_medication_management" string="Medication Management"/>
+                            <field name="services_provided_warfarin_stabilization" string="Warfarin Stabilization"/>
+                        </group>
+
+                        <h2 col="2" style="font-weight:bold; color:#5D8DA8">Mental Status</h2>
+                        <br/>
+                        <group>
+                            <field name="mental_status_oriented" string="Oriented"/>
+                            <field name="mental_status_comatose" string="Comatose"/>
+                            <field name="mental_status_forgetful" string="Forgetful"/>
+                            <field name="mental_status_depressed" string="Depressed"/>
+                        </group>
+                        <group>
+                            <field name="mental_status_lethargic" string="Lethargic"/>
+                            <field name="mental_status_agitated" string="Agitated"/>
+                            <field name="mental_status_disoriented" string="Disoriented"/>
+                        </group>
+                        <separator colspan="2"/>
+                        <h2 col="2" style="font-weight:bold; color:#5D8DA8">Functional Limitation</h2>
+                        <br/>
+                        <group>
+                            <field name="functional_limitation_amputation" string="Oriented"/>
+                            <field name="functional_limitation_contracture" string="Contracture"/>
+                            <field name="functional_limitation_paralysis" string="Paralysis"/>
+                            <field name="functional_limitation_ambulation" string="Ambulation"/>
+                            <field name="functional_limitation_speech" string="Speech"/>
+                            <field name="functional_limitation_hearing" string="Hearing"/>
+                        </group>
+                        <group>
+                            <field name="functional_limitation_endurance" string="Endurance"/>
+                            <field name="functional_limitation_legally_blind" string="Legally blind"/>
+                            <field name="functional_limitation_bowel_bladder" string="Bowel/Bladder (incontinence)"/>
+                            <field name="functional_limitation_dyspnea_minimal_exertion"
+                                   string="Dyspnea with minimal exertion"/>
+                            <field name="functional_limitation_other" string="Other"/>
+                            <field name="functional_limitation_other_content" nolabel="1"
+                                   attrs="{'invisible': [('functional_limitation_other', '!=', True)]}"/>
+
+                        </group>
+                        <separator colspan="2"/>
+                        <h2 col="2" style="font-weight:bold; color:#5D8DA8">Activities Permitted</h2>
+                        <br/>
+                        <group>
+                            <field name="activities_permitted_bed_rest" string="Bed rest BRP"/>
+                            <field name="activities_permitted_exercises_prescribed" string="Exercises Prescribed"/>
+                            <field name="activities_permitted_transfer_bed_chair" string="Transfer Bed/Chair"/>
+                            <field name="activities_permitted_cane" string="Cane"/>
+                            <field name="activities_permitted_crutches" string="Crutches"/>
+                            <field name="activities_permitted_up_tolerated" string="Up As Tolerated"/>
+                        </group>
+                        <group>
+                            <field name="activities_permitted_complete_bed_rest" string="Complete bed rest"/>
+                            <field name="activities_permitted_partial_weight_bearing" string="Partial Weight Bearing"/>
+                            <field name="activities_permitted_Walker" string="Walker"/>
+                            <field name="activities_permitted_wheelchair" string="Wheelchair"/>
+                            <field name="activities_permitted_No_restrictions" string="No Restrictions"/>
+                            <field name="activities_permitted_independent_home" string="Independent at Home"/>
+
+                        </group>
+                        <separator colspan="2"/>
+                        <group>
+                            <field name="patient_condition"/>
+                            <separator colspan="2"/>
+                        </group>
+                        <group>
+                            <field name="prognosis"/>
+                            <separator colspan="2"/>
+                        </group>
+                    </group>
+                    <h2 style="font-weight:bold; color:#5D8DA8">Progress Summary
+                        <span style="color:red; font-size:13px">(Last 60 days)</span>
+                    </h2>
+                    <notebook>
+                        <page string="Nursing">
+                            <group>
+                                <field name="nursing_visit" string="Visit"/>
+                                <field name="nursing_visit_times"
+                                       attrs="{'invisible': [('nursing_visit', '!=', 'Visited')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="nursing_maintain_blood_pressure" style="font-weight: bold"
+                                           string="Maintaining Systolic blood pressure between 100-120mmHg/diastolic Blood pressure 80-90 mmHg?"/>
+                                </div>
+                                <group>
+                                    <field name="nursing_maintain_blood_pressure" nolabel="1"/>
+                                </group>
+                                <field name="nursing_maintain_blood_pressure_ifNo"
+                                       attrs="{'invisible': [('nursing_maintain_blood_pressure', '!=', 'No')]}"
+                                       nolabel="1"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="nursing_maintain_blood_glucose" style="font-weight: bold"
+                                           string="Maintaining blood glucose level between 80 to 100 mg/dilution?"/>
+                                </div>
+                                <group>
+                                    <field name="nursing_maintain_blood_glucose" nolabel="1"/>
+                                </group>
+                                <field name="nursing_maintain_blood_glucose_ifNo"
+                                       attrs="{'invisible': [('nursing_maintain_blood_glucose', '!=', 'No')]}"
+                                       nolabel="1"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="nursing_status_improved_homestay" style="font-weight: bold"
+                                           string="Wound status improved within 2 months of homestay?"/>
+                                </div>
+                                <group>
+                                    <field name="nursing_status_improved_homestay" nolabel="1"/>
+                                </group>
+                                <field name="nursing_status_improved_homestay_ifNo"
+                                       attrs="{'invisible': [('nursing_status_improved_homestay', '!=', 'No')]}"
+                                       nolabel="1"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="nursing_urinary_infection_indwelling" style="font-weight: bold"
+                                           string="Urinary infection related to presence of indwelling catheter within 2 months of home stay? "/>
+                                </div>
+                                <group>
+                                    <field name="nursing_urinary_infection_indwelling" nolabel="1"/>
+                                </group>
+                                <field name="nursing_urinary_infection_indwelling_ifYes"
+                                       attrs="{'invisible': [('nursing_urinary_infection_indwelling', '!=', 'Yes')]}"
+                                       string="Specify treatment"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="nursing_latest_wound_measurement" style="font-weight: bold"
+                                           string="Latest wound measurement within 2 months of home stay. (Specify big wounds only)"/>
+                                </div>
+                                <field name="nursing_latest_wound_measurement" nolabel="1"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="nursing_comments" style="font-weight: bold"
+                                           string="Comments"/>
+                                </div>
+                                <field name="nursing_comments" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Respiratory Therapist">
+                            <group>
+                                <field name="respiratory_visit" string="Visit"/>
+                                <field name="respiratory_visit_times"
+                                       attrs="{'invisible': [('respiratory_visit', '!=', 'Visited')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="respiratory_hospitalized_2months" style="font-weight: bold"
+                                           string="Hospitalized  within 2 months ?"/>
+                                </div>
+                                <group>
+                                    <field name="respiratory_hospitalized_2months" nolabel="1"/>
+                                </group>
+                                <field name="respiratory_hospitalized_2months_others" nolabel="1"
+                                       attrs="{'invisible': [('respiratory_hospitalized_2months', '!=', 'Other')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="respiratory_trache_changed" style="font-weight: bold"
+                                           string="Trache changed?"/>
+                                </div>
+                                <group>
+                                    <field name="respiratory_trache_changed" nolabel="1"/>
+                                </group>
+                                <field name="respiratory_trache_changed_others"
+                                       attrs="{'invisible': [('respiratory_trache_changed', '!=', 'Other')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="respiratory_ventilator_support" style="font-weight: bold"
+                                           string="Ventilator support?"/>
+                                </div>
+                                <field name="respiratory_ventilator_support" nolabel="1"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="respiratory_history_ventilator_malfunctioning" style="font-weight: bold"
+                                           string="Any history of ventilator malfunctioning?"/>
+                                </div>
+                                <field name="respiratory_history_ventilator_malfunctioning" nolabel="1"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="respiratory_ventilator_current_setting" style="font-weight: bold"
+                                           string="Ventilator current setting"/>
+                                </div>
+                                <field name="respiratory_ventilator_current_setting" nolabel="1"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="respiratory_comments" style="font-weight: bold"
+                                           string="Comments"/>
+                                </div>
+                                <field name="respiratory_comments" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Occupational Therapist">
+                            <group>
+                                <field name="occupational_visit" string="Visit"/>
+                                <field name="occupational_visit_times"
+                                       attrs="{'invisible': [('occupational_visit', '!=', 'Visited')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="occupational_comments" style="font-weight: bold"
+                                           string="Comments"/>
+                                </div>
+                            </group>
+                            <field name="occupational_comments" nolabel="1"/>
+                        </page>
+                        <page string="Physiotherapist">
+                            <group>
+                                <field name="physiotherapist_visit" string="Visit"/>
+                                <field name="physiotherapist_visit_times"
+                                       attrs="{'invisible': [('physiotherapist_visit', '!=', 'Visited')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="physiotherapist_comments" style="font-weight: bold"
+                                           string="Comments"/>
+                                </div>
+                            </group>
+                            <field name="physiotherapist_comments" nolabel="1"/>
+
+                        </page>
+                        <page string="Social Worker">
+                            <group>
+                                <field name="social_worker_visit" string="Visit"/>
+                                <field name="social_worker_visit_times"
+                                       attrs="{'invisible': [('social_worker_visit', '!=', 'Visited')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="social_worker_comments" style="font-weight: bold"
+                                           string="Comments"/>
+                                </div>
+                            </group>
+                            <field name="social_worker_comments" nolabel="1"/>
+                        </page>
+                        <page string="Nutritionist">
+                            <group>
+                                <field name="nutritionist_visit" string="Visit"/>
+                                <field name="nutritionist_visit_times"
+                                       attrs="{'invisible': [('nutritionist_visit', '!=', 'Visited')]}"/>
+                            </group>
+                            <group>
+                                <div>
+                                    <label for="nutritionist_comments" style="font-weight: bold"
+                                           string="Comments"/>
+                                </div>
+                            </group>
+                            <field name="nutritionist_comments" nolabel="1"/>
+                        </page>
+                        <page string="Goal and Treatment Plan">
+                            <group>
+                                <field name="new_goal" string="New Measurable Goal:"/>
+                                <field name="plan_care" string="Plan of Care:"/>
+                            </group>
+
+                            <group string="Treatment Plan/ Intervention as per following protocol:">
+                                <group>
+                                    <field name="following_protocol_wound_care" string="Wound Care"/>
+                                    <field name="following_protocol_vac_therapy" string="VAC Therapy"/>
+                                    <field name="following_protocol_home_tpn" string="Home TPN"/>
+                                    <field name="following_protocol_home_infusion" string="Home Infusion"/>
+                                    <field name="following_protocol_home_antibiotics" string="Home Antibiotics"/>
+                                    <field name="following_protocol_enteral_feeding" string="Enteral Feeding"/>
+                                    <field name="following_protocol_indwelling_urinary"
+                                           string="Indwelling Urinary Catheter"/>
+                                    <field name="following_protocol_prevention_pressure"
+                                           string="Prevention of Pressure Ulcer"/>
+                                    <field name="following_protocol_drain_tube" string="Drain Tube Management"/>
+                                    <field name="following_protocol_anticoagulation"
+                                           string="Anticoagulation Management"/>
+                                    <field name="following_protocol_bipap_manag" string="BiPAP management/weaning"/>
+                                    <field name="following_protocol_advanced_airway"
+                                           string="Advanced airway clearance management and weaning"/>
+                                </group>
+                                <group>
+                                    <field name="following_protocol_adult_oxygen"
+                                           string="Adult oxygen management and weaning"/>
+                                    <field name="following_protocol_pediatric_oxygen"
+                                           string="Pediatric oxygen management and weaning"/>
+                                    <field name="following_protocol_mechanical_ventilation"
+                                           string="Mechanical ventilation management and weaning"/>
+                                    <field name="following_protocol_pediatric_tracheotomy"
+                                           string="Pediatric tracheotomy management and weaning"/>
+                                    <field name="following_protocol_adult_tracheotomy"
+                                           string="Adult tracheotomy management and weaning"/>
+                                    <field name="following_protocol_apnea_monitoring"
+                                           string="Apnea monitoring management and weaning"/>
+                                    <field name="following_protocol_cpap_manag" string="CPAP management/weaning"/>
+                                </group>
+                            </group>
+                            <!--<h2 align="center">Re-Certification of Equipment:</h2>-->
+                            <group string="Re-Certification of Equipment:">
+                                <group>
+                                    <field name="re_certification_oxygen_cylinder" string="Oxygen Cylinder"/>
+                                    <field name="re_certification_oxygen_concentrator" string="Oxygen Concentrator"/>
+                                    <field name="re_certification_feeding_pump" string="Feeding Pump"/>
+                                    <field name="re_certification_vest" string="Vest"/>
+                                    <field name="re_certification_pulse_oximetry" string="Pulse Oximetry"/>
+                                    <field name="re_certification_acti_vac_machine" string="Acti VAC Machine"/>
+                                    <field name="re_certification_infusion_pump" string="Infusion pump"/>
+                                </group>
+                                <group>
+                                    <field name="re_certification_air_compressor" string="Air Compressor"/>
+                                    <field name="re_certification_ventilator" string="Ventilator"/>
+                                    <field name="re_certification_suction_machine" string="Suction Machine"/>
+                                    <field name="re_certification_nebulizer_machine" string="Nebulizer Machine"/>
+                                    <field name="re_certification_electronic_bed" string="Electronic Bed"/>
+                                    <field name="re_certification_wheel_chair" string="Wheel Chair"/>
+                                    <field name="re_certification_hoyer_lift" string="Hoyer Lift"/>
+                                    <field name="re_certification_bipap_cpap" string="BIPAP/CPAP/AUTO CPAP"/>
+                                </group>
+
+                            </group>
+
+                            <group string="The following services shall be provided as required:"></group>
+                            <group string="Home care team">
+                                <group>
+                                    <field name="following_services_physician" string="Physician"/>
+                                    <field name="following_services_nurse" string="Nurse"/>
+                                    <field name="following_services_respiratory" string="Respiratory Therapist"/>
+                                    <field name="following_services_physiotherapist" string="Physiotherapist"/>
+                                </group>
+                                <group>
+                                    <field name="following_services_occupational" string="Occupational Therapist"/>
+                                    <field name="following_services_social_worker" string="Social Worker"/>
+                                    <field name="following_services_nutritionist" string="Nutritionist"/>
+                                </group>
+                            </group>
+
+                            <group string="Approved by Home Care Physician">
+                                <field name="approved_by_doctor" string="Approved By:"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_patient_treatment_action" model="ir.actions.act_window">
+        <field name="name">Patient Treatment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.patient.treatment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No patient to invoice found
+            </p>
+        </field>
+    </record>
+
+   <!-- <menuitem id="patientTreatment"
+              name="Patient Treatment"
+              parent="menu_other_main_form_root"
+              action="sm_patient_treatment_action"
+              sequence="15"/>-->
+</odoo>

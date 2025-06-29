@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_sm_eligibility_check_request_reayah_admin,sm.eligibility.check.request,model_sm_eligibility_check_request,,1,1,1,1
+access_sm_eligibility_check_request_operation,sm.eligibility.check.request,model_sm_eligibility_check_request,,1,1,1,1
+access_sm_eligibility_check_request_nurse,sm.eligibility.check.request,model_sm_eligibility_check_request,,1,0,0,0
+access_sm_eligibility_check_request_physician,sm.eligibility.check.request,model_sm_eligibility_check_request,,1,0,0,0
+
+access_sm_pre_authorization_attachment,sm.pre.authorization.attachment,model_sm_pre_authorization_attachment,,1,1,1,1
+
+
+access_sm_pre_authorization_diagnosis,sm.pre.authorization.diagnosis,model_sm_pre_authorization_diagnosis,,1,1,1,1
+
+
+
+access_sm_pre_authorization_request_reayah_admin,sm.pre.authorization.request,model_sm_pre_authorization_request,,1,1,1,1
+access_sm_pre_authorization_request_operation,sm.pre.authorization.request,model_sm_pre_authorization_request,,1,1,1,1

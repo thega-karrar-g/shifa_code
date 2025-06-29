@@ -1,0 +1,374 @@
+<odoo>
+    <data>
+        <record id="view_shifa_trache_care_form" model="ir.ui.view">
+            <field name="name">shifa.trache.care.form</field>
+            <field name="model">sm.shifa.trache.care</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                                states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="trache_care_code" string="TC#"/>
+                                <h1>
+                                    <field name="trache_care_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                            </group>
+                            <group>
+                                <field name="doctor"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                            </group>
+                            <group>
+                                <field name="discharge_date"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                <field name="blood_type"/>-->
+                                <!--                                <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <notebook>
+                            <page string="Clinical Pathway">
+                                <group col="3">
+                                    <label for="conscious_state_show" string="Conscious State"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="conscious_state_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('conscious_state_show', '=', False)]}">
+                                    <group col="4">
+                                        <label for="conscious_state" string="Conscious State"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="conscious_state"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="pain_present_show" string="Pain Present"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                    <group col="4">
+                                        <label for="pain_score" string="Pain Score"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="pain_score"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="scale_used" string="Scale Used"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="scale_used"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="functional_activity_show" string="Functional Activity"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                                    <group col="4">
+                                        <label for="functional_activity" string="Functional Activity"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="functional_activity"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                        <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                        <field name="hr_min" string="HR(/min)"/>
+                                    </group>
+                                    <group>
+                                        <field name="temperature_c" string="Temperature(C)"/>
+                                        <field name="rr_min" string="RR(/min)"/>
+                                        <field name="o2_sat" string="O2 Sat(%)"/>
+                                        <field name="char_other_oxygen" string=""
+                                               attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                        <!--                                    <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                        <!--                                            <div>-->
+                                        <!--                                                <group col="7">-->
+                                        <!--                                                    <span colspan="2">at room air</span>-->
+                                        <!--                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                        <!--                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                </group>-->
+                                        <!--                                                <field name="char_other_oxygen" string=""/>-->
+                                        <!--                                            </div>-->
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="type_tracheostomy_inserted_show" string="Type of Tracheostomy Inserted"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="type_tracheostomy_inserted_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('type_tracheostomy_inserted_show', '=', False)]}">
+
+                                    <group col="4">
+                                        <label for="type_tracheostomy_inserted" string="Type of Tracheostomy Inserted"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="type_tracheostomy_inserted"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                    <group>
+                                        <field name="type_tracheostomy_inserted_text" string="Comment"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="potential_acual_risk_show" string="Potential/Acual Risk"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="potential_acual_risk_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('potential_acual_risk_show', '=', False)]}">
+
+                                    <group col="4">
+                                        <label for="impaired_skin_integrity_surrounding_stoma" string="Impaired skin integrity surrounding stoma related to reaction to product/chemicals"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="impaired_skin_integrity_surrounding_stoma"  nolabel="1" style="width: 70%;"/>
+                                    </group>
+                                     <group col="4">
+
+                                        <label for="improper_fitting_care_appliance_skin" string="Improper fitting/care of appliance/skin"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="improper_fitting_care_appliance_skin"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="measurable_goals_show" string="Measurable Goals"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="measurable_goals_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('measurable_goals_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="skin_integrity_around_stoma_will" string="Skin integrity around stoma will be maintained"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="skin_integrity_around_stoma_will" nolabel="1" style="width: 70%;"/>
+                                    </group>
+                                     <group col="4">
+
+                                        <label for="patient_caregiver_will_demonstrate_behaviours" string="Patient/caregiver will demonstrate behaviours/techniques to promote healing/prevent skin breakdown"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="patient_caregiver_will_demonstrate_behaviours"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_assessment_show" string="Patient Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_assessment_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="breathing_effectively" string="Breathing effectively?"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="breathing_effectively" nolabel="1" style="width: 70%;"/>
+                                          <label for="coping_with_presence_of_tracheostomy" string="Coping with presence of tracheostomy tube and stoma"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="coping_with_presence_of_tracheostomy" nolabel="1" style="width: 70%;"/>
+
+                                    </group>
+                                     <group col="4">
+
+                                        <label for="managing_skin_integrity_around" string="Managing Skin integrity around stoma"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="managing_skin_integrity_around"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+
+                                </group>
+                                <group col="3">
+                                    <label for="stoma_site_assessment_show" string="Stoma Site Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="stoma_site_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('stoma_site_assessment_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="presence_of_hypergranulation" string="Presence of hypergranulation"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="presence_of_hypergranulation" nolabel="1" style="width: 70%;"/>
+                                          <label for="presence_of_excoriation" string="Presence of excoriation"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="presence_of_excoriation" nolabel="1" style="width: 70%;"/>
+
+                                    </group>
+                                     <group col="4">
+
+                                        <label for="stoma_dressind_done" string="Stoma dressind done"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="stoma_dressind_done"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_caregiver_education_show" string="Patient Caregiver Education"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_caregiver_education_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_caregiver_education_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="change_trache_ties_every_other" string="Change trache ties every other day and as needed"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="change_trache_ties_every_other" nolabel="1" style="width: 70%;"/>
+                                          <label for="use_finger_technique_to_determine" string="Use 2 finger technique to determine tightness and comfort of the patient"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="use_finger_technique_to_determine" nolabel="1" style="width: 70%;"/>
+
+                                    </group>
+                                     <group col="4">
+
+                                        <label for="observe_for_stomal_complications_and_report" string="Observe for stomal complications and report such as skin irritation or ulcers surrounding stoma"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="observe_for_stomal_complications_and_report"
+                                                nolabel="1" style="width: 70%;" />
+                                          <label for="demonstrate_safe_use_of_equipment_and" string="Demonstrate safe use of equipment and/or procedure practice during suctioning"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="demonstrate_safe_use_of_equipment_and"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="remarks_show" string="Nurse Notes"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="remarks_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('remarks_show', '=', False)]}">
+
+                                    <field name="remarks" string="Remarks"/>
+
+                                </group>
+                            </page>
+                            <page string="Follow Up">
+                                <field name="trache_follow_up_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_tc_xx': id, 'default_nurse_name':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                            <page string="Internal Referral">
+                                <field name="referral_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_doctor':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_trache_care_tree" model="ir.ui.view">
+            <field name="name">shifa_trache.care.tree</field>
+            <field name="model">sm.shifa.trache.care</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="trache_care_code"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_trache_care_action" model="ir.actions.act_window">
+            <field name="name">Trache Care</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.trache.care</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history for trache care found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_trache_care_search" model="ir.ui.view">
+            <field name="name">trache_care_search</field>
+            <field name="model">sm.shifa.trache.care</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="trache_care_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+      <!--  <menuitem id="Trache_Care_root"
+                  name="Trache Care"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_shifa_trache_care_action"
+                  sequence="24"/>-->
+    </data>
+</odoo>

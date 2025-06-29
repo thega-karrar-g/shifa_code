@@ -1,0 +1,32 @@
+<odoo>
+    <!-- Form View -->
+    <record id="view_sm_pre_authorization_diagnosis_form" model="ir.ui.view">
+        <field name="name">sm.pre.authorization.diagnosis.form</field>
+        <field name="model">sm.pre.authorization.diagnosis</field>
+        <field name="arch" type="xml">
+            <form string="Diagnosis">
+                <sheet>
+                    <group>
+                        <field name="diagnosis_code"/>
+                        <field name="description"/>
+                        <field name="type"/>
+                        <field name="on_admission"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_sm_pre_authorization_diagnosis_tree" model="ir.ui.view">
+        <field name="name">sm.pre.authorization.diagnosis.tree</field>
+        <field name="model">sm.pre.authorization.diagnosis</field>
+        <field name="arch" type="xml">
+            <tree string="Diagnoses">
+                <field name="diagnosis_code"/>
+                <field name="type"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

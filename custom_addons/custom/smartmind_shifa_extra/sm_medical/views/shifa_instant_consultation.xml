@@ -1,0 +1,296 @@
+<odoo>
+    <data>
+        <record id="view_shifa_instant_consultation_form" model="ir.ui.view">
+            <field name="name">shifa.instant.consultation.form</field>
+            <field name="model">sm.shifa.instant.consultation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="waiting,approved,ready,in_process,evaluation,completed,dr_canceled,canceled"/>
+                        <button confirm="Are you sure you want to Approved?" name="set_to_approved"
+                                states="waiting" string="Accept Request" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to Ready?" name="set_to_ready"
+                                states="approved" string="Paid" type="object" class="oe_highlight"/>
+
+                        <button confirm="Are you sure you want to In Process?" name="set_to_in_process"
+                                states="ready" string="Start Consultation" type="object" class="oe_highlight"/>
+
+                        <button confirm="Are you sure you want to Completed?" name="set_to_evaluation"
+                                states="in_process" string="Mark as completed" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to Cancel?" name="set_to_dr_canceled"
+                                states="in_process" string="Cancelled by Dr" type="object" class="oe_highlight"/>
+
+                        <button confirm="Are you sure you want to Evaluation?" name="set_to_completed"
+                                states="evaluation" string="Done" type="object" class="oe_highlight"/>
+
+                        <button confirm="Are you sure you want to Download Prescription?" name="download_pdf"
+                                states="completed" string="Download Prescription" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="IC#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group string="Patient Details">
+                            <group>
+                                <field name="patient"/>
+                                <field name="dob"/>
+                                <field name="marital_status"/>
+                                <field name="gender"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline" force_save="1"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="patient_weight"/>
+                                <field name="ssn" string="ID number"/>
+                                <field name="nationality"/>
+                                <field name="mobile"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="approved_date"/>
+                                <field name="start_date"/>
+                                <field name="evaluation_date" />
+                                <field name="day" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="pharmacy_chain"/>
+                            </group>
+                        </group>
+                        <group string="Price Details">
+                            <group>
+                                <field name="price" force_save="True"/>
+                            </group>
+                            <group>
+                                <field name="discount" force_save="True"/>
+                            </group>
+                            <group>
+                                <field name="tax"/>
+                                <!--                                <field name="amount_pri_dis"/>-->
+                            </group>
+                            <group>
+                                <field name="amount_payable"/>
+                            </group>
+                        </group>
+
+                        <group string="Doctor">
+                            <group>
+                                <field name="doctor" string=""
+                                       attrs="{'required': [('state','=','approved')]}"/>
+                            </group>
+
+                        </group>
+                        <group string="Other Details">
+                            <group>
+                                <!--                            <field name="insurance"/>-->
+                                <field name="payment_type" string="Mobile Payment State"/>
+                                <field name="deduction_amount"/>
+                                <field name="payment_reference"/>
+                            </group>
+                            <group>
+                                <field name="order_id" readonly="1"/>
+                                <field name="move_id" readonly="1"/>
+                                <field name="evaluation"/>
+                            </group>
+                        </group>
+                        <group string="Invitation Link">
+                            <field name="invitation_text_jitsi" nolabel="1" widget="html" string='Link'/>
+                        </group>
+                        <group string="Chief Complaint">
+                            <group>
+                                <field name="chief_complaint" string=""/>
+                                <field name="active" invisible="1"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="link" invisible="1"/>
+                            </group>
+
+                        </group>
+                        <group string="History">
+                            <group>
+                                <field name="history" string=""/>
+                            </group>
+                        </group>
+                        <group string="Vital Signs">
+
+                            <group>
+                                <field name="weight"/>
+                                <field name="heart_rate"/>
+                                <field name="o2_saturation"/>
+                                <field name="blood_sugar"/>
+                            </group>
+                            <group>
+                                <field name="blood_pressure_d"/>
+                                <field name="blood_pressure_s" string=""/>
+
+                                <field name="respiration"/>
+                                <field name="temperature"/>
+
+                            </group>
+                        </group>
+                        <group string="Diagnosis">
+                            <group>
+                                <field name="diagnosis" string=""/>
+                            </group>
+                            <!--                            <group>-->
+                            <!--                                <field name="diagnosis_yes_no" string="Add other"/>-->
+                            <!--                            </group>-->
+                            <!--                            <div attrs="{'invisible': [('diagnosis_yes_no', '=', False)]}">-->
+                            <group>
+                                <field name="diagnosis_add2" string=""/>
+                            </group>
+                            <!--                             </div>-->
+
+                            <!--                                 <group attrs="{'invisible': [('diagnosis_yes_no', '=', False)]}">-->
+                            <!--                                <field name="diagnosis_yes_no_2" string="Add other"/>-->
+                            <!--                            </group>-->
+                            <!--                            <div attrs="{'invisible': [('diagnosis_yes_no_2', '=', False)]}">-->
+                            <group>
+                                <field name="diagnosis_add3" string=""/>
+                            </group>
+                            <!--                            </div>-->
+
+                        </group>
+                        <group string="Allergy">
+                            <group>
+                                <field name="drug_allergy" string="Drug Allergy" force_save="1"/>
+                            </group>
+                            <group attrs="{'invisible': [('drug_allergy', '=', 'no')]}">
+                                <field name="drug_allergy_text" force_save="1"
+                                       attrs="{'required': [('drug_allergy', '=', 'yes')]}"/>
+                            </group>
+                        </group>
+                        <group string="Recommendations">
+                            <field name="recommendations" nolabel="1"/>
+                        </group>
+                        <group string="Prescription">
+                            <field name="prescription_line" context="{'default_patient': patient}"
+                                   widget="one2many_list" nolabel="1">
+                                <form>
+                                    <sheet>
+                                        <div>
+                                            <group>
+                                                <group>
+                                                    <field name="pharmacy_medicines" required="1" string="Medicines"/>
+                                                    <field name="start_treatment" invisible="1"/>
+                                                    <field name="patient" required="1" invisible="1"/>
+                                                </group>
+                                                <group>
+                                                    <label for="dose"/>
+                                                    <div>
+                                                        <field name="dose" placeholder="250"
+                                                               style="width: 20%;  margin: 10px" required="1"/>
+                                                        <field name="dose_unit" style="width: 40%; margin: 10px"/>
+                                                    </div>
+                                                    <field name="end_treatment" invisible="1"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="dose_form"/>
+                                                </group>
+                                                <group>
+                                                    <field name="dose_route"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="common_dosage" required="1"/>
+                                                    <field name="frequency" invisible="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="qty"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="duration" string="Duration" required="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="frequency_unit" required="1"/>
+                                                </group>
+                                            </group>
+                                        </div>
+                                    </sheet>
+                                </form>
+                                <tree string="Prescription Lines">
+                                    <field name="pharmacy_medicines" string="Medicines"/>
+                                    <field name="dose"/>
+                                    <field name="dose_unit"/>
+                                    <field name="dose_form"/>
+                                    <field name="common_dosage"/>
+                                    <field name="duration"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Other Prescriptions">
+                            <group col="2">
+                                <field name="other_prescription_1"/>
+                                <field name="other_prescription_1_done"/>
+                            </group>
+                            <group col="2">
+                                <field name="other_prescription_2"/>
+                                <field name="other_prescription_2_done"/>
+                            </group>
+                            <group col="2">
+                                <field name="other_prescription_3"/>
+                                <field name="other_prescription_3_done"/>
+                            </group>
+                        </group>
+                        <group string="Comment">
+                            <field name="dr_comment" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_instant_consultation_tree" model="ir.ui.view">
+            <field name="name">shifa.instant.consultation.tree</field>
+            <field name="model">sm.shifa.instant.consultation</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state=='approved'" decoration-bf="state=='ready'"
+                      decoration-primary="state=='in_process'"
+                      decoration-info="state=='waiting'" decoration-success="state=='completed'"
+                      decoration-danger="state=='canceled'">
+                    <field name="name" string="Reference"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="pharmacy_chain"/>
+<!--                    <field name="pharmacy"/>-->
+<!--                    <field name="pharmacist"/>-->
+                    <field name="discount"/>
+                     <field name="evaluation"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_instant_consultation_action" model="ir.actions.act_window">
+            <field name="name">Instant Consultation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.instant.consultation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Instant Consultation found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="instant_consultation_root"
+                  name="Instant Consultation"
+                  parent="oehealth.oeh_medical_general_menu"
+                  action="sm_shifa_instant_consultation_action"
+                  sequence="18"/>
+
+    </data>
+</odoo>

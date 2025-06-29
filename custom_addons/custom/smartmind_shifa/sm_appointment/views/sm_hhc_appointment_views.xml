@@ -1,0 +1,374 @@
+<odoo>
+    <record id="sm_hhc_appointment_form_view" model="ir.ui.view">
+        <field name="name">HHC Appointment</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="arch" type="xml">
+            <form string="HHC Appointment" duplicate="0">
+                <header>
+                    <button name="set_to_head_doctor" states="scheduled" string="Send to Head Doctor"
+                            confirm="Are you sure you want to send to Head Doctor?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_head_nurse"/>
+                    <button name="set_to_Head_Nurse" states="head_doctor" string="Send to Head Nurse"
+                            confirm="Are you sure you want to send to head nurse?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor"/>
+                    <!--<button name="set_back_to_call_center" states="head_doctor" string="Back to Call Center"
+                            confirm="Are you sure you want to back to call center?" type="object"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor"/>-->
+                    <button name="set_to_operation_manager" states="head_nurse" string="Send to Operation Manager"
+                            confirm="Are you sure you want to send to Operation Manager?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                    <!-- <button name="set_back_to_head_doctor" states="head_nurse" string="Back to Head Doctor"
+                             confirm="Are you sure you want to back to head doctor?" type="object"
+                             class="oe_highlight"
+                             groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_operation_manager"/>-->
+                    <button name="set_to_start" states="team" string="Starting Time HV"
+                            confirm="Are you sure you want to Start Time HV?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_hhc_nurse,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_respiratory_therapist,smartmind_shifa.group_oeh_medical_social_worker,smartmind_shifa.group_oeh_medical_health_educator,smartmind_shifa.group_oeh_medical_diabetic_educator,smartmind_shifa.group_oeh_medical_clinical_dietitian,smartmind_shifa.group_oeh_medical_head_physiotherapist,smartmind_shifa.group_oeh_medical_hhc_physiotherapist"/>
+
+                    <button name="set_back_to_operation_manager" states="team,requestCancellation"
+                            string="Back to Operation Manager"
+                            confirm="Are you sure you want to back to operation manager?" type="object"
+                            class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_head_physiotherapist,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_clinical_dietitian,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_hhc_physiotherapist,smartmind_shifa.group_oeh_medical_respiratory_therapist,smartmind_shifa.group_oeh_medical_social_worker,smartmind_shifa.group_oeh_medical_health_educator,smartmind_shifa.group_oeh_medical_diabetic_educator"/>
+
+                    <button name="set_to_team" states="operation_manager,head_nurse" string="Send to Team"
+                            confirm="Are you sure you want to send to team?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_call_center"/>
+
+                    <button name="set_to_end_hiv" states="in_progress" string="Ending Time HV"
+                            confirm="Are you sure you want to End Time HV?" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_nurse,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_respiratory_therapist,smartmind_shifa.group_oeh_medical_social_worker,smartmind_shifa.group_oeh_medical_health_educator,smartmind_shifa.group_oeh_medical_diabetic_educator,smartmind_shifa.group_oeh_medical_clinical_dietitian,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_head_physiotherapist,smartmind_shifa.group_oeh_medical_hhc_physiotherapist"/>
+                    <button name="set_to_incomplete" states="in_progress,visit_done" string="Incomplete"
+                            confirm="Are you sure you want to incomplete this operation?" type="object"/>
+
+                    <button confirm="Are you sure you want to add a service?" name="open_treatment_form"
+                            states="operation_manager" string="Add Service" type="object"
+                            class="oe_highlight"/>
+
+                    <button name="set_to_canceled"
+                            states="scheduled,head_doctor,head_nurse,operation_manager,team,in_progress"
+                            string="Cancel Appointment" confirm="Are you sure you want to cancel this operation?"
+                            type="object"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_doctor"/>
+                    <button name="set_to_Head_Nurse_followup" states="scheduled" string="Send to Head Nurse"
+                            attrs="{'invisible': ['|','&amp;','&amp;', ('service_code', '!=', 'FUPH'), ('service_code_2', '!=', 'FUPH'), ('service_code_3', '!=', 'FUPH')]}"
+                            confirm="Are you sure you want to send to Head Nurse?" type="object"/>
+                    <!--<button name="set_to_req_cancellation"
+                            states="requestCancellation"
+                            string="Cancel"
+                            confirm="Are you sure you want to cancel this operation?"
+                            type="object"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_doctor"
+                            attrs="{'invisible': ['|', ('state', '!=', 'requestCancellation'), ('payment_made_through', 'not in', ['aggregator_package', 'package'])]}"/>
+-->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="scheduled,head_doctor,head_nurse,operation_manager,team,in_progress,visit_done,incomplete,canceled"
+                           statusbar_colors="{&quot;scheduled&quot;:&quot;yellow&quot;,&quot;head_doctor&quot;:&quot;red&quot;,&quot;head_nurse&quot;:&quot;pink&quot;,&quot;operation_manager&quot;:&quot;pink&quot;,&quot;team&quot;:&quot;blue&quot;,&quot;in_progress&quot;:&quot;red&quot;,&quot;visit_done&quot;:&quot;green&quot;,&quot;incomplete&quot;:&quot;grey&quot;,&quot;canceled&quot;:&quot;black&quot;}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title">
+                            <!--                            <label for="name" class="oe_edit_only"/>-->
+                            <h1>
+                                <field name="name"/>
+                                <field name="display_name" invisible="1"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group col="3"
+                           states="head_doctor,head_nurse,operation_manager,team,in_progress,visit_done,canceled"
+                           attrs="{'invisible': [('state', 'in', ['in_progress','team'])]}">
+                        <group>
+                            <field name="start_process_date"
+                                   groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                        </group>
+                        <group>
+                            <field name="complete_process_date"
+                                   groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                        </group>
+                        <group>
+                            <field name="appointment_duration" readonly="1"/>
+                        </group>
+                    </group>
+                    <group col="3">
+                        <div style="display: flex;">
+                            <group string="Patient Details">
+                                <field name="patient" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="ssn" string="ID number" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                       readonly="1" force_save="1"/>
+                                <field name="mobile" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                                       force_save="1"/>
+                                <field name="sex" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                                       force_save="1"/>
+                                <label for="blood_type" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                                       force_save="1"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"
+                                           attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                                           force_save="1"/>
+                                    <field name="rh" class="oe_inline"
+                                           attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                                           force_save="1"/>
+                                </div>
+                                <field name="dob" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                                       force_save="1"/>
+                                <field name="marital_status" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                       readonly="1" force_save="1"/>
+                                <field name="ksa_nationality" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                       readonly="1" force_save="1"/>
+                                <field name="house_location" widget="url"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1" force_save="1"/>
+                                <field name="branch"
+                                       attrs="{'readonly': [('state','!=','scheduled')], 'required': [('state','=','scheduled')]}"/>
+                                <field name="house_number" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                       readonly="1" force_save="1"/>
+                                <field name="active" invisible="1" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                            </group>
+                            <!-- change service fields-->
+                            <group string="Service Details">
+                                <field name="appointment_date_only"
+                                       attrs="{'readonly': [('state','not in',['scheduled','operation_manager'])]}"/>
+                                <field name="day" readonly="1" force_save="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="appointment_time" widget="float_time" force_save="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="appointment_date" force_save="True" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="period"
+                                       attrs="{'readonly': [('state','not in',['scheduled','operation_manager'])]}"/>
+                                <field name="changed_timeslot" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="available_appointment" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                       readonly="1" force_save="1"/>
+                                <field name="duration" widget="float_time" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_type_choice" options="{'horizontal': true}" widget="radio"
+                                       force_save="1"/>
+                                <field name="service" options="{'no_create': True}" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'operation_manager')]}"/>
+                                <field name="service_price" readonly="1" force_save="1"
+                                       attrs="{'readonly': [('state','in',['operation_manager'])]}"/>
+                            </group>
+                            <group>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <field name="meeting_id" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_type_choice_2" options="{'horizontal': true}" widget="radio"
+                                       force_save="1"/>
+                                <field name="service_2" options="{'no_create': True}" force_save="1"
+                                       attrs="{'invisible': [('state', '=', 'operation_manager')]}"/>
+                                <field name="service_2_price"
+                                       attrs="{'readonly': [('state','in',['operation_manager'])]}" force_save="1"
+                                       readonly="1"/>
+                                <field name="service_type_choice_3" options="{'horizontal': true}" widget="radio"/>
+                                <field name="service_3" options="{'no_create': True}" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'operation_manager')]}"/>
+                                <field name="service_3_price"
+                                       attrs="{'readonly': [('state','in',['operation_manager'])]}" force_save="1"
+                                       readonly="1"/>
+                                <field name="service_name" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_name_2" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_name_3" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_code" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_code_2" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_code_3" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                <field name="service_type" invisible="1"
+                                       attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                            </group>
+                        </div>
+                    </group>
+                    <group col="3">
+                        <group string="Other Details">
+                            <field name="location" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                   force_save="1"/>
+                            <field name="payment_made_through" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                            <field name="pro_pending"
+                                   attrs="{'readonly': [('state', '!=', 'scheduled')], 'invisible': [('payment_made_through', '!=', 'pending')]}"
+                                   groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                            <field name="pro_deferred_pay"
+                                   attrs="{'readonly': [('state', '!=', 'scheduled')], 'invisible': [('payment_made_through', '!=', 'deferred')]}"
+                                   groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                            <field name="payment_type" string="Mobile Payment State"
+                                   attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1" force_save="1"/>
+                            <field name="deduction_amount" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                   readonly="1" force_save="1"/>
+                            <field name="payment_reference" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                   readonly="1" force_save="1"/>
+                            <field name="payment_method_name" attrs="{'readonly': [('state','!=','scheduled')]}"
+                                   readonly="1" force_save="1"/>
+                            <!--                            <field name="order_id" readonly="1"/>-->
+                        </group>
+                        <group string="Team Leader">
+                            <field name="nurse" options="{'no_create': True}"
+                                   attrs="{'required':[('state','in',['operation_manager','head_nurse'])],'readonly': [('state','in',['in_progress','visit_done', 'team','incomplete','canceled'])]}"/>
+                            <field name="timeslot" options="{'no_create': False}"
+                                   attrs="{'required':[('nurse','!=',False)],'readonly': [('state','in',['in_progress','visit_done','incomplete','canceled'])]}"/>
+                            <field name="doctor" options="{'no_create': True}"
+                                   attrs="{'readonly': [('state','not in',['scheduled','operation_manager','head_doctor','head_nurse'])]}"/>
+                            <field name="timeslot_doctor"
+                                   attrs="{'required':[('doctor','!=',False)],'readonly': [('state','not in',['scheduled','operation_manager','head_doctor','head_nurse','team'])]}"/>
+                            <field name="physiotherapist" options="{'no_create': True}"
+                                   attrs="{'readonly': [('state','not in',['scheduled','operation_manager','head_doctor','head_nurse'])]}"/>
+                            <field name="timeslot_phy"
+                                   attrs="{'required':[('physiotherapist','!=',False)],'readonly': [('state','not in',['scheduled','operation_manager','head_doctor','head_nurse'])]}"/>
+                        </group>
+                    </group>
+                    <group col="2">
+                        <group string="Comments">
+                            <field name="checkup_comment"
+                                   attrs="{'readonly': [('state', 'in', ['in_progress','visit_done','team','canceled','incomplete'])]}"/>
+                            <field name="visit_comment"
+                                   attrs="{'readonly': [('state', 'in', ['in_progress','visit_done','team','canceled','incomplete'])]}"/>
+                            <field name="operation_comment"
+                                   attrs="{'readonly': [('state', 'in', ['in_progress','visit_done','team','canceled','incomplete'])]}"/>
+                        </group>
+                        <group string="Patient Uploaded Documents">
+                            <field name="attached_file" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                            <field name="attached_file_2" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                            <field name="patient_comment" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                        </group>
+                    </group>
+                    <group col="2">
+                        <group string="Doctor Instructions">
+                            <field name="head_doctor" string="Head Doctor"
+                                   attrs="{'readonly': [('state','!=','head_doctor')]}"/>
+                            <field name="treatment_comment" style="color:Red;"
+                                   attrs="{'readonly': [('state','!=','head_doctor')]}"/>
+                            <field name="allergy_test"
+                                   attrs="{'readonly': [('state', 'not in', ['head_doctor'])]}"/>
+                            <field name="prescribed_medicine"
+                                   attrs="{'readonly': [('state', 'not in', ['head_doctor'])]}"/>
+                        </group>
+                        <group string="Prescribed Medicine"
+                               attrs="{'invisible': [('prescribed_medicine', '=', False)],'readonly': [('state','!=','scheduled')]}">
+                            <field name="doctor_instruction" nolabel="1">
+                                <tree string="Doctor Instruction" editable="bottom" nolabel="1">
+                                    <field name="medicine"/>
+                                    <field name="qty"/>
+                                    <field name="dose"/>
+                                    <field name="dose_unit" style="width:30px"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_hhc_appointment_event_calendar" model="ir.ui.view">
+        <field name="name">HHC Appointment Calendar</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="HHC Appointments" date_start="appointment_date"
+                      color="nurse" quick_add="False" mode="week">
+                <field name="state" filters="1"/>
+                <field name="nurse" filters="1"/>
+                <field name="doctor" filters="1"/>
+                <field name="physiotherapist" filters="1"/>
+                <field name="service" filters="1"/>
+                <field name="branch" filters="1"/>
+                <field name="social_worker"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sm_hhc_appointment_tree_view">
+        <field name="name">HHC Appointment List</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string='HHC Appointments' decoration-muted="state=='operation_manager'"
+                  decoration-bf="state=='in_progress'" decoration-primary="state=='head_doctor'"
+                  decoration-info="state=='scheduled'" decoration-success="state=='visit_done'"
+                  decoration-danger="state=='canceled'" multi_edit="1">
+                <field name="name"/>
+                <field name="patient"/>
+                <field name="doctor"/>
+                <field name="nurse"/>
+                <field name="physiotherapist"/>
+                <field name="service"/>
+                <field name="payment_made_through"/>
+                <field name="appointment_time"/>
+                <field name="appointment_date_only"/>
+                <field name="day"/>
+                <!--                <field name="appointment_date_time"/>-->
+                <field name="start_process_date"/>
+                <field name="complete_process_date"/>
+                <field name="appointment_duration"/>
+                <field name="payment_type" string="Mobile payment state"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_hhc_appointment_action_tree" model="ir.actions.act_window">
+        <field name="name">HHC Appointments</field>
+        <field name="res_model">sm.shifa.hhc.appointment</field>
+        <field name="view_mode">tree,calendar,form,search</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new HHC Appointment.
+            </p>
+            <p>
+                No Data to Display.
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_hhc_appointment_search_view" model="ir.ui.view">
+        <field name="name">hhc_appointment_search</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient" string="Patient Name"/>
+                <field name="name" string="Reference"/>
+                <field name="doctor" string="Doctor"/>
+                <filter string="Scheduled" name="scheduled" domain="[('state', '=', 'scheduled')]" help="Scheduled"/>
+                <filter string="In progress" name="in_progress" domain="[('state', '=', 'in_progress')]"
+                        help="In progress"/>
+                <filter string="Canceled" name="canceled" domain="[('state', '=', 'canceled')]" help="Canceled"/>
+                <separator/>
+                <filter string="Mobile App" name="mobile" domain="[('payment_made_through', '=', 'mobile')]"
+                        help="Mobile App"/>
+                <filter string="Package" name="package" domain="[('payment_made_through', '=', 'package')]"
+                        help="Package"/>
+                <filter string="Aggregator Package" name="aggregator_package"
+                        domain="[('payment_made_through', '=', 'aggregator_package')]" help="Aggregator Package"/>
+                <group string="Group by">
+                    <filter string="Patients" name="patient" context="{'group_by': 'patient'}"/>
+                    <filter string="States" name="state" context="{'group_by': 'state'}"/>
+                    <filter string="Doctor" name="doctor" context="{'group_by':'doctor'}"/>
+                    <filter string="Nurse" name="nurse" context="{'group_by':'nurse'}"/>
+                    <filter string="Date" name="appointment_date_only" context="{'group_by':'appointment_date_only'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="sm_hhc_appointment_list" action="sm_hhc_appointment_action_tree"
+              parent="oehealth.oeh_medical_general_menu" sequence="16"/>
+
+</odoo>
+

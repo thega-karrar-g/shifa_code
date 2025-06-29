@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="instant_prescription_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"></div>
+                    <div class="text-center">
+                        <h2>Medicines History Report</h2>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row text-center" id="hash_header">
+                        <div class="col-4">
+                            <h5>Pharmacy chain:
+                                <t t-if="form.get('pharmacy_chain')">
+                                    <t t-esc="form['pharmacy_chain'][1]"/>
+                                </t>
+                            </h5>
+                        </div>
+                        <div class="col-4">
+                            <h5>From:
+                                <t t-if="form.get('start_date')">
+                                    <t t-esc="form['start_date']"/>
+                                </t>
+                            </h5>
+                        </div>
+                        <div class="col-4">
+                            <h5>To:
+                                <t t-if="form.get('end_date')">
+                                    <t t-esc="form['end_date']"/>
+                                </t>
+                            </h5>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12" id="hash_data_consistency_table">
+                            <table class="table table-bordered" style="table-layout: fixed">
+                                <thead style="display: table-row-group">
+                                    <th class="text-center" style="width: 10%" scope="col">
+                                        <span>No</span>
+                                    </th>
+                                    <th class="text-center" style="width: 25%" scope="col">
+                                        <span>Medicine Name</span>
+                                    </th>
+                                    <th class="text-center" style="width: 25%" scope="col">
+                                        <span>Pharmacist</span>
+                                    </th>
+                                    <th class="text-center" style="width: 12%" scope="col">
+                                        <span>Pharmacy</span>
+                                    </th>
+                                    <th class="text-center" style="width: 15%" scope="col">
+                                        <span>Pharmacy chain</span>
+                                    </th>
+                                    <th class="text-center" style="width: 25%" scope="col">
+                                        <span>Doctor</span>
+                                    </th>
+                                    <th class="text-center" style="width: 15%" scope="col">
+                                        <span>Prescription Code</span>
+                                    </th>
+                                    <th class="text-center" style="width: 20%" scope="col">
+                                        <span>Date</span>
+                                    </th>
+                                    <th class="text-center" style="width: 15%" scope="col">
+                                        <span>Dispensed</span>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="medicines" t-as="m">
+                                        <tr>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m_index + 1"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m['medicine_name']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m['pharmacist']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m['pharmacy']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m['pharmacy_chain']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m['doctor']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m['prescription_code']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="m['date']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-if="m['dispensed']">
+                                                    Yes
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="instant_consultation_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"></div>
+                    <div class="text-center">
+                        <h2>Instant Consultations Report</h2>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row text-center" id="hash_header">
+                        <div class="col-3">
+                            <h5>Pharmacy chain:
+                                <t t-if="form.get('pharmacy_chain')">
+                                    <t t-esc="form['pharmacy_chain'][1]"/>
+                                </t>
+                            </h5>
+                        </div>
+                        <div class="col-3">
+                            <h5>Doctor:
+                                <t t-if="form.get('doctor')">
+                                    <t t-esc="form['doctor'][1]"/>
+                                </t>
+                            </h5>
+                        </div>
+                        <div class="col-3">
+                            <h5>From:
+                                <t t-if="form.get('start_date')">
+                                    <t t-esc="form['start_date']"/>
+                                </t>
+                            </h5>
+                        </div>
+                        <div class="col-3">
+                            <h5>To:
+                                <t t-if="form.get('end_date')">
+                                    <t t-esc="form['end_date']"/>
+                                </t>
+                            </h5>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12" id="hash_data_consistency_table">
+                            <table class="table table-bordered" style="table-layout: fixed">
+                                <thead style="display: table-row-group">
+                                    <th class="text-center" style="width: 10%" scope="col">
+                                        <span>No</span>
+                                    </th>
+                                    <th class="text-center" style="width: 11%" scope="col">
+                                        <span>Reference</span>
+                                    </th>
+                                    <th class="text-center" style="width: 30%" scope="col">
+                                        <span>Requested by</span>
+                                    </th>
+                                    <th class="text-center" style="width: 26%" scope="col">
+                                        <span>Doctor</span>
+                                    </th>
+                                    <th class="text-center" style="width: 15%" scope="col">
+                                        <span>Pharmacy chain</span>
+                                    </th>
+                                    <th class="text-center" style="width: 10%" scope="col">
+                                        <span>Discount</span>
+                                    </th>
+                                    <th class="text-center" style="width: 12%" scope="col">
+                                        <span>Evaluation</span>
+                                    </th>
+                                    <th class="text-center" style="width: 15%" scope="col">
+                                        <span>Date</span>
+                                    </th>
+                                    <th class="text-center" style="width: 12%" scope="col">
+                                        <span>State</span>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="consultations" t-as="c">
+                                        <tr>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="c_index + 1"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="c['name']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-if="c['patient']">
+                                                    <t t-esc="c['patient'][1]"/>
+                                                </t>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-if="c['doctor']">
+                                                    <t t-esc="c['doctor'][1]"/>
+                                                </t>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-if="c['pharmacy_chain']">
+                                                    <t t-esc="c['pharmacy_chain'][1]"/>
+                                                </t>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="c['discount']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="c['evaluation']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="c['date']"/>
+                                            </td>
+                                            <td class="text-center" scope="col">
+                                                <t t-esc="c['state']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

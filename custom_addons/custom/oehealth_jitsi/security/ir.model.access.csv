@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jitsi_meeting_all,jitsi.meeting all,model_jitsi_meeting,,1,1,1,1

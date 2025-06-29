@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_hhc_appointment_root"
+              name="HHC Appointments"
+              parent="oeh_medical_appointments_menu"
+              action="sm_hhc_appointment_action_tree"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_head_doctor,group_oeh_medical_head_nurse,group_oeh_medical_head_physiotherapist,oehealth.group_oeh_medical_physician,group_oeh_medical_clinical_dietitian,group_oeh_medical_hhc_nurse,group_oeh_medical_operation_manager,group_oeh_medical_call_center,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_respiratory_therapist,group_oeh_medical_social_worker,group_oeh_medical_health_educator,group_oeh_medical_diabetic_educator"
+              sequence="1"/>
+
+
+    <menuitem id="menu_physiotherapy_appointment_root"
+              name="Physiotherapy Appointment"
+              parent="oeh_medical_appointments_menu"
+              action="sm_physiotherapy_appointment_action_tree"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_head_physiotherapist,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_operation_manager,group_oeh_medical_call_center"
+              sequence="2"/>
+
+    <!--<menuitem id="menu_tele_appointment_root"
+              name="Telemedicine Appointments"
+              parent="oeh_medical_appointments_menu"
+              action="sm_tele_appointment_action"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_head_doctor,group_oeh_medical_telemedicine_doctor,group_oeh_medical_call_center,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_head_physiotherapist,oehealth.group_oeh_medical_physician,group_oeh_medical_clinical_dietitian,group_oeh_medical_hhc_nurse,group_oeh_medical_head_nurse,group_oeh_medical_respiratory_therapist,group_oeh_medical_social_worker,group_oeh_medical_health_educator,group_oeh_medical_diabetic_educator"
+              sequence="3"/>-->
+
+    <!--<menuitem id="menu_pcr_appointment_root"
+              name="PCR Appointments"
+              parent="oeh_medical_appointments_menu"
+              action="sm_pcr_appointment_action_tree"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_hhc_nurse,group_oeh_medical_lab_technician,group_oeh_medical_operation_manager,group_oeh_medical_call_center"
+              sequence="4"/>-->
+
+    <menuitem id="menu_hvd_appointment_root"
+              name="HVD Appointments"
+              parent="oeh_medical_appointments_menu"
+              action="sm_hvd_appointment_action_tree"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_home_visit_doctor,group_oeh_medical_call_center,oehealth.group_oeh_medical_physician"
+              sequence="5"/>
+
+    <menuitem id="menu_appointment_root"
+              name="Old Telemedicine Appointments"
+              parent="oeh_medical_appointments_menu"
+              action="oehealth.oeh_medical_appointment_action_tree"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_head_doctor,group_oeh_medical_telemedicine_doctor,group_oeh_medical_call_center,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_head_physiotherapist,oehealth.group_oeh_medical_physician,group_oeh_medical_clinical_dietitian,group_oeh_medical_hhc_nurse,group_oeh_medical_head_nurse,group_oeh_medical_respiratory_therapist,group_oeh_medical_social_worker,group_oeh_medical_health_educator,group_oeh_medical_diabetic_educator"
+              sequence="6"/>
+
+    <menuitem id="menu_patient_root"
+              name="Patients"
+              action="oehealth.oeh_medical_patient_action_tree"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_head_doctor,group_oeh_medical_head_physiotherapist,group_oeh_medical_head_nurse,group_oeh_medical_operation_manager,group_oeh_medical_call_center,group_oeh_medical_freelance_doctor,group_oeh_medical_external_supervisor"
+              web_icon="smartmind_shifa,static/description/person.png" sequence="6"/>
+
+    <menuitem id="menu_doctor_root"
+              name="Doctors"
+              action="oehealth.oeh_medical_physician_action_tree"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_operation_manager,group_oeh_medical_call_center,group_oeh_medical_head_doctor,group_oeh_medical_head_nurse,group_oeh_medical_head_physiotherapist"
+              web_icon="smartmind_shifa,static/description/doctor_male.png" sequence="7"/>
+
+    <menuitem id="menu_doctor_profile_root"
+              name="My Profile"
+              action="oeh_medical_physician_action_my_profile"
+              groups="oehealth.group_oeh_medical_physician,group_oeh_medical_home_visit_doctor,group_oeh_medical_telemedicine_doctor,group_oeh_medical_respiratory_therapist,group_oeh_medical_social_worker,group_oeh_medical_health_educator,group_oeh_medical_diabetic_educator,group_oeh_medical_clinical_dietitian,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_hhc_nurse"
+              web_icon="smartmind_shifa,static/description/doctor_male.png" sequence="7"/>
+
+    <menuitem id="menu_prescription_root"
+              name="Prescriptions"
+              action="oehealth.oeh_medical_prescription_action_tree"
+              groups="oehealth.group_oeh_medical_manager,group_oeh_medical_telemedicine_doctor,oehealth.group_oeh_medical_physician,group_oeh_medical_home_visit_doctor"
+              web_icon="smartmind_shifa,static/description/prescription_48.png" sequence="8"/>
+
+    <menuitem id="menu_lab_test_root"
+              name="Lab Request"
+              action="sm_shifa_lab_request_action"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_home_visit_doctor,group_oeh_medical_telemedicine_doctor,oehealth.group_oeh_medical_receptionist,oehealth.group_oeh_medical_physician,group_oeh_medical_call_center,group_oeh_medical_head_nurse"
+              web_icon="smartmind_shifa,static/description/lab_test.png" sequence="9"/>
+
+    <menuitem id="menu_imaging_test_root"
+              name="Image Request"
+              action="sm_shifa_imaging_request_action"
+              groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,group_oeh_medical_home_visit_doctor,group_oeh_medical_telemedicine_doctor,oehealth.group_oeh_medical_receptionist,oehealth.group_oeh_medical_physician,group_oeh_medical_call_center,group_oeh_medical_head_nurse"
+              web_icon="smartmind_shifa,static/description/x-ray_48.png" sequence="10"/>
+
+    <menuitem id="menu_referral_root"
+              name="Internal Referral"
+              action="sm_referral_action"
+              groups="oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,group_oeh_medical_head_physiotherapist,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_operation_manager"
+              web_icon="smartmind_shifa,static/description/refer.png" sequence="13"/>
+
+    <menuitem id="menu_notification_root"
+              name="Supervisor Consultation"
+              action="sm_shifa_physician_notification_action"
+              groups="oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,group_oeh_medical_head_physiotherapist,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_operation_manager"
+              web_icon="smartmind_shifa,static/description/notification.png" sequence="14"/>
+
+    <menuitem id="menu_physiotherapy_assessments_root"
+              name="Physiotherapy Assessment"
+              action="shifa_physiotherapy_assessment_action"
+              groups="group_oeh_medical_head_physiotherapist,group_oeh_medical_hhc_physiotherapist"
+              web_icon="smartmind_shifa,static/description/physical-therapy.png" sequence="15"/>
+
+    <menuitem id="menu_physiotherapy_assessments_followup_root"
+              name="Physiotherapy Follow up"
+              action="shifa_physiotherapy_followup_action"
+              groups="group_oeh_medical_head_physiotherapist,group_oeh_medical_hhc_physiotherapist"
+              web_icon="smartmind_shifa,static/description/physiotherapy_followup.png" sequence="16"/>
+
+
+    <menuitem id="menu_web_request_root"
+              name="Web Request"
+              action="sm_shifa_web_request_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_call_center"
+              web_icon="smartmind_shifa,static/description/web_request.png" sequence="14"/>
+
+
+</odoo>

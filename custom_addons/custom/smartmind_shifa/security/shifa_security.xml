@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="oehealth.module_oeh_medical_category">
+        <field name="name">GlobCare</field>
+        <field name="sequence">0</field>
+        <field name="visible" eval="0"/>
+    </record>
+
+    <record id="group_oeh_medical_telemedicine_doctor" model="res.groups">
+        <field name="name">Telemedicine Doctor</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="oehealth.group_oeh_medical_receptionist" model="res.groups">
+        <field name="name">Command Center</field>
+    </record>
+
+    <record id="oehealth.group_oeh_medical_physician" model="res.groups">
+        <field name="name">HHC Doctor</field>
+    </record>
+
+    <record id="group_oeh_medical_head_doctor" model="res.groups">
+        <field name="name">Head Doctor</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_head_nurse" model="res.groups">
+        <field name="name">Head Nurse</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+    <record id="group_oeh_medical_hhc_nurse" model="res.groups">
+        <field name="name">HHC Nurse</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_head_physiotherapist" model="res.groups">
+        <field name="name">Head Physiotherapist</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+    <record id="group_oeh_medical_hhc_physiotherapist" model="res.groups">
+        <field name="name">HHC Physiotherapist</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_operation_manager" model="res.groups">
+        <field name="name">Operations Manager</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_call_center" model="res.groups">
+        <field name="name">Call Center</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_lab_technician" model="res.groups">
+        <field name="name">Lab Technician</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_caregiver" model="res.groups">
+        <field name="name">Caregiver</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_social_worker" model="res.groups">
+        <field name="name">Social Worker</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_home_visit_doctor" model="res.groups">
+        <field name="name">Home Visit Doctor</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_respiratory_therapist" model="res.groups">
+        <field name="name">Respiratory Therapist</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_clinical_dietitian" model="res.groups">
+        <field name="name">Clinical Dietitian</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_health_educator" model="res.groups">
+        <field name="name">Health Educator</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_diabetic_educator" model="res.groups">
+        <field name="name">Diabetic Educator</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_freelance_doctor" model="res.groups">
+        <field name="name">Freelance Doctor</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+    <record id="group_oeh_medical_external_supervisor" model="res.groups">
+        <field name="name">External Supervisor</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="group_oeh_medical_accountant" model="res.groups">
+        <field name="name">Accountant</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+        <field name="implied_ids" eval="[(4,ref('hr.group_hr_user'))]"/>
+    </record>
+
+    <record id="oehealth.group_oeh_medical_employee" model="res.groups">
+        <field name="name">Employee</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+        <field name="implied_ids" eval="[(4,ref('hr.group_hr_user'))]"/>
+    </record>
+
+    <record id="group_oeh_medical_Pharmacies_Supervisor" model="res.groups">
+        <field name="name">Pharmacies Supervisor</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+    
+</odoo>

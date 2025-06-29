@@ -1,0 +1,844 @@
+<odoo>
+    <data>
+        <!--the following actions appointments tree must declare before action buttons-->
+        <record id="action_open_hvd_appointment" model="ir.actions.act_window">
+            <field name="name">HVD Appointments from Patient</field>
+            <field name="res_model">sm.shifa.hvd.appointment</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="domain">[('patient', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new appointment.
+                </p>
+                <p>
+                    Easily manage all of your appointment schedules;
+                </p>
+            </field>
+        </record>
+        <record id="action_open_hhc_appointment" model="ir.actions.act_window">
+            <field name="name">HHC Appointments from Patient</field>
+            <field name="res_model">sm.shifa.hhc.appointment</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="domain">[('patient', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new HHC Appointment.
+                </p>
+                <p>
+                    No Data to Display.
+                </p>
+            </field>
+        </record>
+        <record id="action_open_physiotherapy_appointment" model="ir.actions.act_window">
+            <field name="name">Physiotherapy Appointment from Patient</field>
+            <field name="res_model">sm.shifa.physiotherapy.appointment</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="domain">[('patient', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Physiotherapy.
+                </p>
+                <p>
+                    No Data to Display.
+                </p>
+            </field>
+        </record>
+        <record id="action_open_pcr_appointment" model="ir.actions.act_window">
+            <field name="name">PCR Appointments from Patient</field>
+            <field name="res_model">sm.shifa.pcr.appointment</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="domain">[('patient', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new PCR Appointment.
+                </p>
+                <p>
+                    No Data to Display.
+                </p>
+            </field>
+        </record>
+        <record id="action_open_move_out_invoice" model="ir.actions.act_window">
+            <field name="name">Invoices from Patient</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[('patient', '=', active_id)]</field>
+            <field name="context">{'default_move_type': 'out_invoice'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a customer invoice
+                </p>
+                <p>
+                    Create invoices, register payments and keep track of the discussions with your customers.
+                </p>
+            </field>
+        </record>
+
+        <record id="patient_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.patient.inherit</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header" position="inside">
+                    <button confirm="Are you sure you want to Send by SMS?" type="object" class="oe_stat_button"
+                            name="action_send_sms" icon="fa-solid fa-comment" string="Send Invitation" states="single_service"
+                            widget="statinfo">
+                    </button>
+                    <button confirm="Are you sure you want to change state to admitted?" name="set_to_admit"
+                            states="single_service" string="Admit" type="object" class="oe_highlight"/>
+                    <button confirm="Are you sure you want to change state to admitted?" name="set_to_discharge"
+                            states="admitted" string="Discharge" type="object" class="oe_highlight"/>
+                    <button confirm="Are you sure you want to change state to Single service?" name="set_to_single_service"
+                            states="admitted" string="Single Service" type="object" class="oe_highlight"/>
+                    <button confirm="Are you sure you want to change state to admitted?" name="set_to_admit"
+                            states="discharged" string="Back to Admit" type="object" class="oe_highlight"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="single_service,admitted,discharged"/>
+                </xpath>
+                <xpath expr="//field[@name='ssn']" position="attributes">
+                    <attribute name="string">ID number</attribute>
+                </xpath>
+                <xpath expr="//field[@name='current_insurance']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='current_insurance']" position="after">
+                    <field name="house_location" class="o_address_street" widget="url"/>
+                    <field name="house_number"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="create_date" string="Created at"/>
+                </xpath>
+
+                <xpath expr="//field[@name='doctor']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/div[1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/div[1]" position="after">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="action" class="oe_stat_button"
+                                name="%(oehealth.oeh_medical_appointment_action_tree)d"
+                                context="{'search_default_patient': active_id,'default_patient': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field string="Tele-Appointments" name="app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_hvd_appointment)d"
+                                context="{'search_default_patient': active_id,'default_patient': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field name="hvd_app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_hhc_appointment)d"
+                                context="{'search_default_patient': active_id,'default_patient': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field name="hhc_app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_physiotherapy_appointment)d"
+                                context="{'search_default_patient': active_id,'default_patient': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field name="phy_app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_pcr_appointment)d"
+                                context="{'search_default_patient': active_id,'default_patient': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field name="pcr_app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_move_out_invoice)d"
+                                context="{'search_default_patient': active_id,'default_patient': active_id,'default_name':'/'}"
+                                icon="fa-pencil-square-o">
+                            <field string="Invoices" name="invoice_count" widget="statinfo"/>
+                        </button>
+                        <button type="object" class="oe_stat_button" icon="fa-dollar"
+                                name="open_account_payment">
+                            <field string="Payment" name="payment_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='ssn']" position="attributes">
+                    <attribute name="string">ID number</attribute>
+                </xpath>
+                <field name="oeh_patient_user_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="dob" position="before">
+                    <field name="mobile" required="1"/>
+                    <field name="second_mobile"/>
+                    <field name="parent_id"/>
+                    <!--                    <field name="patient_image" widget="image"/>-->
+                </field>
+                <xpath expr="/form/sheet/group[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group/group[2]" position="after">
+                    <group>
+                        <field name="weight"/>
+                        <field name="external_facility"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="patient_fcm_token"/>
+                        </group>
+                        <group>
+                            <field name="device_type"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[1]" position="before">
+                    <page name="personal_family" string="Personal and Family">
+                        <group>
+                            <group string="Address">
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="area" placeholder="Area" class="o_address_street"/>
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="house_location" class="o_address_street" widget="url"/>
+                                <field name="house_number"/>
+                            </group>
+                            <group string="Communication">
+                                <field name="phone" string="Land Line"/>
+                                <field name="patient_live_alone"/>
+                                <field name="household_no"/>
+                            </group>
+                        </group>
+                        <group col="10" string="Patient lives with: (Tick all that apply)"
+                               attrs="{'invisible':[('patient_live_alone','=',True)]}">
+                            <field name="mother"/>
+                            <field name="father"/>
+                            <field name="son"/>
+                            <field name="sisters"/>
+                            <field name="brothers"/>
+                            <field name="daughter"/>
+                            <field name="spouse"/>
+                            <field name="driver"/>
+                            <field name="housemaid"/>
+                            <field name="other"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group>
+                            <group string="Emergency Contact">
+                                <field name="emergency_name"/>
+                                <field name="emergency_phone" string="Phone"/>
+                                <field name="emer_contact_relation"/>
+                                <field name="has_same_address"/>
+                                <field name="emergency_address"/>
+                            </group>
+                            <group string="Emergency Address"
+                                   attrs="{'invisible':[('has_same_address','=',True)]}">
+                                <field name="city" class="o_address_city"/>
+                                <field name="area" class="o_address_street"/>
+                                <field name="street" class="o_address_street"/>
+                                <field name="street" string="Land line" class="o_address_street"/>
+                                <field name="street" string="Mobile" class="o_address_street"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="deceased"/>
+                                <field name="cod" attrs="{'invisible':[('deceased','=',False)]}"/>
+                            </group>
+                            <group>
+                                <field name="dod"
+                                       attrs="{'invisible':[('deceased','=',False)],'required':[('deceased','=',True)]}"/>
+                            </group>
+                        </group>
+                        <group string="Family Members">
+                            <field name="family" nolabel="1">
+                                <tree string="Family" editable="bottom" nolabel="1">
+                                    <field name="name"/>
+                                    <field name="relation"/>
+                                    <field name="age"/>
+                                    <field name="deceased"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <group string="Caregiver 1 Information">
+                                <field name="cg_1_name" string="Name"/>
+                                <field name="cg_1_relation" string="Relation"/>
+                                <field name="cg_1_age" string="Age"/>
+                                <field name="cg_1_gender" string="Gender"/>
+                                <field name="cg_1_education" string="Level of Education"/>
+                                <field name="cg_1_occupation" string="Occupation"/>
+                                <field name="cg_1_speak_arabic" string="Arabic"/>
+                                <field name="cg_1_speak_english" string="English"/>
+                                <field name="cg_1_smoke" string="Smoker"/>
+                            </group>
+                            <group string="Caregiver 2 Information">
+                                <field name="cg_2_name" string="Name"/>
+                                <field name="cg_2_relation" string="Relation"/>
+                                <field name="cg_2_age" string="Age"/>
+                                <field name="cg_2_gender" string="Gender"/>
+                                <field name="cg_2_education" string="Level of Education"/>
+                                <field name="cg_2_occupation" string="Occupation"/>
+                                <field name="cg_2_speak_arabic" string="Arabic"/>
+                                <field name="cg_2_speak_english" string="English"/>
+                                <field name="cg_2_smoke" string="Smoker"/>
+                            </group>
+                        </group>
+                        <group col="4">
+                            <field name="care_give" string="Patient’s dependence on caregiver"/>
+                            <field name="is_required_asmc"
+                                   string="Does the patient requires ASMC Home Health Aide Services"/>
+                            <field name="care_give_understand_res"
+                                   string="Caregiver Understanding the Responsibilities"/>
+                        </group>
+                        <group col="4" string="Responsibilities of Caregiver">
+                            <field name="equipment_care" string="Equipment Care"/>
+                            <field name="suctioning" string="Suctioning"/>
+                            <field name="medication" string="Medication"/>
+                            <field name="chest_physiotherapy" string="Chest Physiotherapy"/>
+                            <field name="supervision" string="Supervision"/>
+                            <field name="feeding" string="Feeding"/>
+                            <field name="housekeeping" string="Housekeeping"/>
+                            <field name="shopping" string="Shopping"/>
+                            <field name="transportation" string="Transportation"/>
+                            <field name="bathing" string="Bathing"/>
+                            <field name="grooming" string="Grooming"/>
+                            <field name="laundry" string="Laundry"/>
+                            <field name="patient_require_24" string="Patient Requires 24 Hours Supervision"/>
+                        </group>
+                        <group>
+                            <group string="Critical Information">
+                                <field name="critical_info" nolabel="1"/>
+                            </group>
+                            <group string="Extra Information">
+                                <field name="general_info" nolabel="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='personal_family']" position="after">
+                    <xpath expr="/form/sheet/notebook/page[8]" position="move"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[2]" position="after">
+                    <xpath expr="/form/sheet/notebook/page[10]" position="move"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[3]/notebook/page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[3]/notebook/page[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[8]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[11]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[12]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[13]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook//page[16]/group[12]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook//page[16]/group[13]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook//page[16]/group[14]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook//page[16]/group[15]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook//page[16]/group[16]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[6]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[7]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[9]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[10]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[15]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[16]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='age']" position="after">
+                    <field name="ksa_nationality" widget="radio"
+                           options="{'horizontal': true}" force_save="1"/>
+                    <field name="country_id" attrs="{'readonly': [('ksa_nationality', '!=', 'NON')]}"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                    <page string="History">
+                        <group col="3">
+                            <label for="past_medical_history_show" string="Past medical History"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="past_medical_history_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('past_medical_history_show', '=', False)]}"
+                             style="padding-left: 10px;">
+                            <group>
+                                <group>
+                                    <field name="past_medical_history" string="Past medical History"
+                                           colspan="2"/>
+                                    <field name="past_medical_history_date" string="Date"/>
+                                </group>
+                                <group>
+                                    <field name="past_medical_history_1st_add_other" string="Add other"/>
+                                </group>
+                            </group>
+                            <br/>
+                            <group>
+                                <group attrs="{'invisible': [('past_medical_history_1st_add_other', '=', False)]}">
+                                    <field name="past_medical_history_1st_add" string="Past medical History"
+                                           colspan="2"/>
+                                    <field name="past_medical_history_1st_add_date" string="Date"/>
+                                </group>
+                                <group attrs="{'invisible': [('past_medical_history_1st_add_other', '=', False)]}">
+                                    <field name="past_medical_history_2nd_add_other" string="Add other"/>
+                                </group>
+                            </group>
+                            <group attrs="{'invisible': ['|',('past_medical_history_1st_add_other', '=', False), ('past_medical_history_2nd_add_other', '=', False)]}">
+                                <group>
+                                    <field name="past_medical_history_2nd_add" string="Past medical History"
+                                           colspan="2"/>
+                                    <field name="past_medical_history_2nd_add_date" string="Date"/>
+                                </group>
+                            </group>
+                        </div>
+                        <br/>
+                        <group col="3">
+                            <label for="surgical_history_show" string="Surgical History"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="surgical_history_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div colospan="4" attrs="{'invisible': [('surgical_history_show', '=', False)]}"
+                             style="padding-left: 10px;">
+                            <group>
+                                <group>
+                                    <field name="surgical_history_procedures" string="Surgical History"/>
+                                    <field name="surgical_history_procedures_date" string="Date"/>
+                                </group>
+                                <group>
+                                    <field name="surgical_history_procedures_1st_add_other" string="Add other"/>
+                                </group>
+                            </group>
+                            <br/>
+                            <group attrs="{'invisible': [('surgical_history_procedures_1st_add_other', '=', False)]}">
+                                <group>
+                                    <field name="surgical_history_procedures_1st_add"
+                                           string="Surgical History"/>
+                                    <field name="surgical_history_procedures_1st_add_date" string="Date"/>
+                                </group>
+                                <group>
+                                    <field name="surgical_history_procedures_2nd_add_other" string="Add other"/>
+                                </group>
+                            </group>
+                            <br/>
+                            <group attrs="{'invisible': ['|',('surgical_history_procedures_2nd_add_other', '=', False),('surgical_history_procedures_2nd_add_other', '=', False)]}">
+                                <group>
+                                    <field name="surgical_history_procedures_2nd_add"
+                                           string="Surgical History"/>
+                                    <field name="surgical_history_procedures_2nd_add_date" string="Date"/>
+                                </group>
+                            </group>
+                        </div>
+                        <br/>
+                        <group col="3">
+                            <label for="family_history_show" string="Family History"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="family_history_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div style="padding-left: 10px;"
+                             attrs="{'invisible': [('family_history_show', '=', False)]}">
+                            <group>
+                                <field name="family_history" nolabel="1"/>
+                            </group>
+                        </div>
+                        <br/>
+                        <group col="3">
+                            <label for="allergies_show" string="Allergies"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="allergies_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('allergies_show', '=', False)]}"
+                             style="padding-left: 10px;">
+                            <group>
+                                <group>
+                                    <field name="has_drug_allergy" widget="radio"
+                                           options="{'horizontal': true}"/>
+                                </group>
+                                <group attrs="{'invisible': [('has_drug_allergy', '=', 'no')]}">
+                                    <field name="drug_allergy_content" nolabel="1" style="color:Red;"
+                                           attrs="{'required': [('has_drug_allergy', '=', 'yes')]}"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="has_food_allergy" widget="radio"
+                                           options="{'horizontal': true}"/>
+                                </group>
+                                <group>
+                                    <field name="food_allergy_content" nolabel="1" style="color:Red;"
+                                           attrs="{'invisible': [('has_food_allergy', '=', 'no')]}"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="has_other_allergy" widget="radio"
+                                           options="{'horizontal': true}"/>
+                                </group>
+                                <group>
+                                    <field name="other_allergy_content" nolabel="1" style="color:Red;"
+                                           attrs="{'invisible': [('has_other_allergy', '=', 'no')]}"/>
+                                </group>
+                            </group>
+                        </div>
+                        <br/>
+                        <group col="3">
+                            <label for="personal_habits_show" string="Personal Habits"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="personal_habits_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                            <h4 style="color: #184553">Physical Exercise</h4>
+                            <br/>
+                            <div style="padding-left: 10px;">
+                                <group>
+                                    <field name="exercise"/>
+                                    <field name="exercise_minutes_day"
+                                           attrs="{'invisible': [('exercise', '=', False)]}"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                            <h4 style="color: #184553">Sleep</h4>
+                            <br/>
+                            <div style="padding-left: 10px;">
+                                <group>
+                                    <field name="sleep_during_daytime"/>
+                                    <field name="sleep_hours"
+                                           attrs="{'invisible': [('sleep_during_daytime', '=', False)]}"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                            <h4 style="color: #184553">Smoking</h4>
+                            <br/>
+                            <div style="padding-left: 10px;">
+                                <group>
+                                    <field name="smoking"/>
+                                    <field name="smoking_number"
+                                           attrs="{'invisible': [('smoking', '=', False)]}"/>
+                                    <field name="age_start_smoking"
+                                           attrs="{'invisible': [('smoking', '=', False)]}"/>
+
+                                    <field name="ex_smoker"/>
+                                    <field name="age_start_ex_smoking"
+                                           attrs="{'invisible': [('ex_smoker', '=', False)]}"/>
+                                    <field name="age_quit_smoking"
+                                           attrs="{'invisible': [('ex_smoker', '=', False)]}"/>
+                                    <field name="second_hand_smoker"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                            <h4 style="color: #184553">Drinking</h4>
+                            <br/>
+                            <div style="padding-left: 10px;">
+                                <group>
+                                    <field name="alcohol"/>
+                                    <field name="age_start_drinking"
+                                           attrs="{'invisible': [('alcohol', '=', False)]}"/>
+                                    <field name="alcohol_beer_number"
+                                           attrs="{'invisible': [('alcohol', '=', False)]}"/>
+                                    <field name="alcohol_liquor_number"
+                                           attrs="{'invisible': [('alcohol', '=', False)]}"/>
+                                    <field name="ex_alcoholic"/>
+                                    <field name="age_quit_drinking"
+                                           attrs="{'invisible': [('ex_alcoholic', '=', False)]}"/>
+                                    <field name="alcohol_wine_number"
+                                           attrs="{'invisible': [('ex_alcoholic', '=', False)]}"/>
+                                </group>
+                            </div>
+                        </group>
+                        <br/>
+                        <group col="3">
+                            <label for="vaccination_show" string="Vaccination"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="vaccination_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('vaccination_show', '=', False)]}"
+                             style="padding-left: 10px;">
+                            <group>
+                                <group>
+                                    <field name="Vaccination" string="Vaccination"/>
+                                    <field name="vaccination_date" string="Date"/>
+                                </group>
+                                <group>
+                                    <field name="Vaccination_1st_add_other" string="Add other"/>
+                                </group>
+                            </group>
+                            <br/>
+                            <group attrs="{'invisible': [('Vaccination_1st_add_other', '=', False)]}">
+                                <group>
+                                    <field name="Vaccination_1st_add" string="Vaccination"/>
+                                    <field name="Vaccination_1st_add_date" string="Date"/>
+                                </group>
+                                <group attrs="{'invisible': [('Vaccination_1st_add_other', '=', False)]}">
+                                    <field name="Vaccination_2nd_add_other" string="Add other"/>
+                                </group>
+                            </group>
+
+                            <br/>
+                            <group attrs="{'invisible': ['|',('Vaccination_1st_add_other', '=', False),('Vaccination_2nd_add_other', '=', False)]}">
+                                <group>
+                                    <field name="Vaccination_2nd_add" string="Vaccination"/>
+                                    <field name="Vaccination_2nd_add_date" string="Date"/>
+                                </group>
+                            </group>
+                        </div>
+                        <br/>
+                    </page>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[2]" position="after">
+                    <page string="Prescription">
+                        <field name="prescription_id" widget="one2many_list" nolabel="1"
+                               context="{'default_patient': active_id}"/>
+                    </page>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                    <page string=" External Prescription">
+                        <field name="ext_pre_id" widget="one2many_list" nolabel="1"
+                               context="{'default_patient': active_id}"/>
+                    </page>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[4]" position="after">
+                    <page string="Medication Profile">
+                        <field name="med_pro_id" widget="one2many_list" nolabel="1"
+                               context="{'default_patient': active_id}"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="patient_questionnaire_view_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Patient Questionnaire</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                    <page string="Safe Home Visit Screening ">
+                        <field name="home_questionnaire_ids" widget="one2many_list" nolabel="1"
+                               context="{'default_patient': name}"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="patient_investigations_view_form_inherit" model="ir.ui.view">
+            <field name="name">Patient Investigations</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                    <page string="Investigations">
+                        <notebook>
+                            <page string="Lab Request">
+                                <field name="lab_request_ids" widget="one2many_list" nolabel="1"
+                                       context="{'default_patient':active_id, 'default_doctor':doctor}"/>
+                            </page>
+                            <page string="Lab Test">
+                                <field name="lab_test_ids" widget="one2many_list" nolabel="1"
+                                       context="{'default_patient':active_id, 'default_doctor':doctor}"/>
+                            </page>
+                            <page string="Imaging Request">
+                                <field name="image_request_id" widget="one2many_list" nolabel="1"
+                                       context="{'default_patient':active_id, 'default_doctor': doctor}"/>
+                            </page>
+                            <page string="Imaging Test">
+                                <field name="image_test_ids" widget="one2many_list"
+                                       context="{'default_patient':active_id,'default_requestor':doctor}"/>
+                            </page>
+                            <page string="Other">
+                                <field name="investigation_ids" widget="one2many_list" nolabel="1"
+                                       string="Investigation"
+                                       context="{'default_patient': active_id, 'default_requester_id':doctor, 'default_appointment':id}">
+                                    <form>
+                                        <header>
+                                            <button confirm="Are you sure you want to call center?"
+                                                    name="set_to_call_center"
+                                                    states="Draft" string="Send" type="object" class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                    states="Draft" string="Upload" type="object" class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to send?" name="set_to_team"
+                                                    states="Call Center" string="Send" type="object"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to cancel?" name="set_to_cancel"
+                                                    states="Call Center" string="Cancel" type="object"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                    states="Test In Progress" string="Upload" type="object"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to Start?"
+                                                    name="set_to_investigation_start"
+                                                    states="Team" string="Start" type="object" class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <field name="state" widget="statusbar"
+                                                   statusbar_visible="Draft,Call Center,Test In Progress,Team,Uploaded,Cancelled"/>
+                                        </header>
+                                        <sheet>
+                                            <h1>
+                                                <field name="name" readonly="1"/>
+                                            </h1>
+                                            <group invisible="1">
+                                                <group>
+                                                    <field name="patient"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group invisible="1">
+                                                    <field name="hhc_appointment"/>
+                                                    <field name="hvd_appointment"/>
+                                                    <field name="appointment"/>
+                                                </group>
+                                                <group>
+                                                    <field name="date_requested"/>
+                                                    <field name="date_analysis"/>
+                                                </group>
+                                            </group>
+                                            <group invisible="1">
+                                                <group>
+                                                    <field name="requester_id"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="investigation_name"/>
+                                                </group>
+                                            </group>
+                                            <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                                            <br/>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Document
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_document" nolabel="1"/>
+                                            </group>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Analysis
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_analysis" nolabel="1"/>
+                                            </group>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Results
+                                                </h5>
+                                                <br/>
+                                                <field name="result" nolabel="1"/>
+                                            </group>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Conclusion
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_conclusion" nolabel="1"/>
+                                            </group>
+                                            <br/>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Image
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_image" nolabel="1" widget="image"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="patient_physiotherapy_assessment_view_form_inherit" model="ir.ui.view">
+            <field name="name">Patient Physiotherapy Assessment</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[6]" position="after">
+                    <page string="Physiotherapy Assessment">
+                        <field name="physiotherapy_assessment_line" widget="one2many_list" nolabel="1"
+                               context="{'default_patient': active_id}"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="oeh_medical_patient_tree_inherit" model="ir.ui.view">
+            <field name="name">patient.list.inherit</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string='Patient Information'>
+                        <field name="name"/>
+                        <field name="identification_code"/>
+                        <field name="sex"/>
+                        <field name="age"/>
+                        <field name="ssn"/>
+                        <field name="mobile"/>
+                        <field name="state"/>
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

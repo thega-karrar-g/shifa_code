@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+        <record id="open_insurance_policies_action" model="ir.actions.act_window">
+            <field name="name">insurance polices</field>
+            <field name="res_model">sm.insurance.policy</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                </p>
+            </field>
+        </record>
+
+        <record id="open_insurance_classes_action" model="ir.actions.act_window">
+            <field name="name">insurance Classes</field>
+            <field name="res_model">sm.medical.insurance.classes</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_medical_insured_companies_view">
+            <field name="name">Insured Companies</field>
+            <field name="model">sm.medical.insured.companies</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Insured Companies">
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button"
+                                    name="open_policies_view"
+                                    style="border: groove"
+                                    icon="fa-list">
+                                <field string="Policies" name="insured_count" widget="statinfo"/>
+                            </button>
+                            <button type="object" class="oe_stat_button"
+                                    name="open_classes_view"
+                                    style="border: groove"
+                                    icon="fa-list">
+                                <field string="Classes" name="classes_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <br/>
+
+                        <field name="image_1920" widget='image' class="oe_avatar" type="base64"
+                               options='{"preview_image": "image_128", "size": [90, 90]}'/>
+                        <div class="oe_left" style="width: 500px;"/>
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="name" string="IN-Comp #"/>
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="company_name"/>
+                            </group>
+                            <group>
+                                <field name="company_code"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="street"/>
+                                <field name="street2"/>
+                                <field name="city"/>
+                                <field name="zip"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="contact_person"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_medical_insured_companies_tree">
+            <field name="name">Insured Companies</field>
+            <field name="model">sm.medical.insured.companies</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_name"/>
+                    <field name="company_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_medical_insured_companies_action_tree" model="ir.actions.act_window">
+            <field name="name">Insured Companies</field>
+            <field name="res_model">sm.medical.insured.companies</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Easily manage all of your Insured Companies;
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_medical_insured_companies_action_tree" parent="oehealth.oeh_medical_conf_insurances"
+                  id="sm_medical_insured_companies" sequence="3"/>
+
+    </data>
+</odoo>

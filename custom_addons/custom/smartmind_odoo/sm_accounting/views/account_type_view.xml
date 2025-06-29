@@ -1,0 +1,29 @@
+<odoo>
+     <record id="account_type_form_inherit" model="ir.ui.view">
+            <field name="name">odoo.account.type.inherit</field>
+            <field name="model">account.account.type</field>
+            <field name="inherit_id" ref="account.view_account_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                     <field name="internal_group" string="First Level"/>
+                </xpath>
+            </field>
+
+     </record>
+  <!--     <menuitem id="menu_accounting_type" name="Account Types Second Level"
+                  action="account.action_account_type_form" sequence="11"
+                  parent="account.account_account_menu"/>
+      <record id="account.action_account_type_form" model="ir.actions.act_window">
+            <field name="name">Account Types Second Level</field>
+        </record>-->
+    <record id="account_type_search_inherit" model="ir.ui.view">
+            <field name="name">odoo.account.type.search.inherit</field>
+            <field name="model">account.account.type</field>
+            <field name="inherit_id" ref="account.view_account_type_search"/>
+            <field name="arch" type="xml">
+                   <xpath expr="//field[@name='name']" position="after">
+                       <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
+                 </xpath>
+            </field>
+    </record>
+</odoo>

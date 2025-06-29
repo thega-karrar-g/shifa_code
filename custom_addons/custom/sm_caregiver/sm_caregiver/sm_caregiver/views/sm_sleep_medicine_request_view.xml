@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_sleep_medicine_form_view">
+            <field name="name">sleep_medicine_form_view</field>
+            <field name="model">sm.sleep.medicine.request</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sleep medicine request">
+
+                    <header>
+                        <button confirm="Are you sure you want to move to paid state ?" name="check_paid"
+                                string="Paid" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state','!=','unpaid'),('payment_made_through','!=','call_center')]}"
+                        />
+                        <button confirm="Are you sure you want to evaluate?" name="continue_action"
+                                string="Continue" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state','!=','draft'),('payment_made_through','!=','pending')]}"
+                        />
+                        <button confirm="Are you sure you want to evaluate request?" name="set_to_evaluation"
+                                states="paid" string="Send for Evaluation" type="object" class="oe_highlight"
+                        />
+
+                        <button confirm="Are you sure you want to schedule appointment?" name="set_to_scheduling"
+                                states="evaluation" string="Schedule appointment" type="object"
+                                class="oe_highlight"
+                        />
+                        <button confirm="Are sure you want to create an appointment?" name="create_appointment"
+                                states="scheduling" string="Create appointment" type="object"
+                                class="oe_highlight"
+                        />
+                        <button name="set_to_cancelled"
+                                states="draft,unpaid,paid,evaluation,create_appointment" string="Cancel" type="object"
+                                class="oe_highlight"/>
+
+                        <button confirm="Are you want to create payment request?" name="open_payment_request"
+                                states="active,paid,evaluation" string="Create payment request"
+                                type="object"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center"
+                                class="oe_highlight"/>
+
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,unpaid,paid,evaluation,scheduling,create_appointment,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button" icon="fa-credit-card"
+                                    name="open_payment_view"
+                                    string="Req.Payments" attrs="{'invisible': [('request_payment_id','==',False)]}">
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-dollar"
+                                    attrs="{'invisible': [('move_id','==',False)]}"
+                                    name="open_invoice_view" string="Invoice">
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-calendar"
+                                    attrs="{'invisible': [('hhc_appointment_id','==',False)]}"
+                                    name="open_appointment_view" string="HHC Appointment">
+                            </button>
+
+                        </div>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group col="3">
+                            <group string="Patient Details">
+                                <field name="patient_id"/>
+                                <field name="ssn"/>
+                                <field name="nationality"/>
+                                <field name="house_location"/>
+                                <field name="branch"/>
+                                <field name="house_number"/>
+                            </group>
+                            <group string="Service Details">
+                                <field name="date"/>
+                                <field name="service_id" options="{'no_create':True}"/>
+                                <field name="service_price"/>
+                                <field name="discount_id"/>
+                                <field name="discount"/>
+                                <field name="discount_val"/>
+                                <field name="vat"/>
+                                <field name="amount_payable"/>
+                            </group>
+                            <group string="Other Details">
+                                <field name="payment_made_through"/>
+                                <field name="pro_pending"
+                                       attrs="{'invisible': [('payment_made_through', '!=', 'pending')]}"
+                                       groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                                <field name="mobile_payment_state"/>
+                                <field name="deduction_amount"/>
+                                <field name="payment_reference"/>
+                                <field name="payment_method_name"/>
+                                <field name="refund_req" readonly="1" force_save="1"
+                                       attrs="{'invisible': [('refund_req','=',False)]}"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <group string="Questionnaire" states="unpaid,paid,evaluation,scheduling,create_appointment">
+                                <field name="height"/>
+                                <field name="weight"/>
+                                <field name="bmi"/>
+
+                                <div>
+                                    <label for="is_snore" string="Do you snore?"/>
+                                    <field name="is_snore" widget="radio" options="{'horizontal': true}"/>
+                                    <label for="has_not_feeling_slept" style="width: 180%;"
+                                           string="Do you wake up feeling like he/she hasn't slept and feeling fatigued during the day?"/>
+                                    <field name="has_not_feeling_slept" widget="radio" options="{'horizontal': true}"/>
+                                    <label for="is_stop_breathing" style="width: 200%;"
+                                           string="Have you been told that you stop breathing at night?"/>
+                                    <field name="is_stop_breathing" widget="radio" options="{'horizontal': true}"/>
+                                    <label for="is_high_blood_pressure" style="width: 180%;"
+                                           string="Do you have high blood pressure or on medication to control high blood pressure?"/>
+                                    <field name="is_high_blood_pressure" widget="radio" options="{'horizontal': true}"/>
+                                    <label for="is_male" string="Are you male?"/>
+                                    <field name="is_male" widget="radio" options="{'horizontal': true}"/>
+                                    <label for="is_50years_older" string="Are you 50 years old or older?"/>
+                                    <field name="is_50years_older" widget="radio" options="{'horizontal': true}"/>
+                                    <label for="comment" string="Comment" style="width: 180%;"/>
+                                    <field name="comment"/>
+                                </div>
+                            </group>
+                            <group string="Evaluation" states="evaluation,scheduling,create_appointment">
+                                <div>
+                                    <label for="is_bmi_greater_28"
+                                           string="Is the patient body mass index greater than 28?"/>
+                                    <field name="is_bmi_greater_28" widget="radio" options="{'horizontal': true}"/>
+                                    <label for="is_neck_circumference" style="width: 100%;"
+                                           string="Is the patient a male with neck circumference greater than 43cm, or a female with neck circumference greater than 40cm?"/>
+                                    <field name="is_neck_circumference" widget="radio" options="{'horizontal': true}"/>
+                                </div>
+                                <br/>
+                                <div style="display:inline-flex; margin:10px" states="evaluation,scheduling">
+                                    <button string="Send meeting link to patient" class='btn btn-primary btn-lg'
+                                            style='font-size:bold;' type="object" name="send_to_patient"/>
+                                    <field name="invitation_text_jitsi" widget="html" class="oe_inline"
+                                           style="margin-left:10px"/>
+                                </div>
+                            </group>
+                            <group string="Appointment Details" states="scheduling,create_appointment">
+                                <field name="appointment_date" attrs="{'required': [('state','=', 'scheduling')]}"/>
+                                <field name="day"/>
+                                <field name="period" attrs="{'required': [('state','=', 'scheduling')]}"/>
+                                <field name="appointment_time" widget="float_time"/>
+                                <field name="nurse_id" attrs="{'required': [('state','=', 'scheduling')]}"/>
+                                <field name="nurse_timeslot_id" attrs="{'required': [('nurse_id','!=', False)]}"/>
+                                <field name="physician_id"/>
+                                <field name="timeslot_physician_id"
+                                       attrs="{'required': [('physician_id','!=', False)]}"/>
+                                <field name="request_payment_id" invisible="1"/>
+                                <field name="move_id" invisible="1"/>
+                                <field name="hhc_appointment_id" invisible="1"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_sleep_medicine_tree_view" model="ir.ui.view">
+            <field name="name">sleep_medicine_request_tree</field>
+            <field name="model">sm.sleep.medicine.request</field>
+            <field name="arch" type="xml">
+                <tree string="Patient Medicine">
+                    <field name="name"/>
+                    <field name="patient_id"/>
+                    <field name="service_id"/>
+                    <field name="amount_payable"/>
+                    <field name="nurse_id"/>
+                    <field name="state"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_sleep_medicine_request_action" model="ir.actions.act_window">
+            <field name="name">Sleep Medicine Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.sleep.medicine.request</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+
+        <record id="sm_sleep_medicine_request_filter" model="ir.ui.view">
+            <field name="name">Sleep medicine filter</field>
+            <field name="model">sm.sleep.medicine.request</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Sleep medicine request">
+                    <separator orientation="vertical"/>
+                    <field name="name"/>
+                    <field name="patient_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="11" col="11">
+                        <filter string="State" name="group_state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <menuitem id="sm_sleep_medicine_request_menu"
+                  name="Sleep medicine requests"
+                  parent="oehealth.oeh_medical_general_menu"
+                  action="sm_sleep_medicine_request_action"
+                  sequence="8"/>
+
+        <menuitem id="menu_sleep_medicine_request_acc"
+                  name="Sleep Medicine Requests"
+                  parent="smartmind_shifa_more.oeh_medical_appointments_menu_acc"
+                  action="sm_sleep_medicine_request_action"
+                  groups="smartmind_shifa.group_oeh_medical_accountant"
+                  sequence="10"/>
+    </data>
+</odoo>

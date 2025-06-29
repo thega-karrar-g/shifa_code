@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_imaging">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h3>Imaging Result</h3>
+                        </div>
+                        <t t-set="o" t-value="o.with_context({'lang':o.patient.partner_id.lang})"/>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div t-if="o.patient" class="col-6 bm-6">
+                                <strong>Imaging#:</strong>
+                                <span t-field="o.name"/>
+                                <br/>
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.patient.name"/>
+                            </div>
+                            <div t-if="o.patient" class="col-6 bm-6">
+                                <strong>Date:</strong>
+                                <span class="m-0" t-field="o.date_analysis"/>
+                                <br/>
+                                <strong>Mobile:</strong>
+                                <span t-field="o.patient.mobile"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div class="col-6 bm-6">
+                                <strong style="font-weight: bold; color: #0097a7">Test type:</strong>
+                                <br/>
+                                <span style="padding-left: 13px;" class="m-0" t-field="o.imaging_department.name"/>
+                                <br/>
+                                <strong style="font-weight: bold; color: #0097a7">Analysis:</strong>
+                                <br/>
+                                <span style="padding-left: 13px;" class="m-0" t-field="o.analysis"/>
+                            </div>
+                            <hr/>
+                            <div class="col-6 bm-6">
+                                <strong style="font-weight: bold; color: #0097a7">Procedure Description:</strong>
+                                <br/>
+                                <span style="padding-left: 13px;" class="m-0" t-field="o.test_type.name"/>
+                                <br/>
+                                <strong style="font-weight: bold; color: #0097a7">Conclusion:</strong>
+                                <br/>
+                                <span style="padding-left: 13px;" t-field="o.conclusion"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <strong style="font-weight: bold; padding-left: 13px;">Results:</strong>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div class="col-6 bm-6">
+                                <img t-if="o.image1" t-attf-src="data:image/jpg;base64,{{o.image1}}"
+                                     style="width:300px; height:300px; padding-bottom: 5px"/>
+                                <img t-if="o.image3" t-attf-src="data:image/jpg;base64,{{o.image3}}"
+                                     style="width:300px; height:300px; padding-bottom: 5px"/>
+                                <img t-if="o.image5" t-attf-src="data:image/jpg;base64,{{o.image5}}"
+                                     style="width:300px; height:300px; padding-bottom: 5px"/>
+                            </div>
+                            <div class="col-6 bm-6">
+                                <img t-if="o.image2" t-attf-src="data:image/jpg;base64,{{o.image2}}"
+                                     style="width:300px; height:300px; padding-bottom: 5px"/>
+                                <img t-if="o.image4" t-attf-src="data:image/jpg;base64,{{o.image4}}"
+                                     style="width:300px; height:300px; padding-bottom: 5px"/>
+                                <img t-if="o.image6" t-attf-src="data:image/jpg;base64,{{o.image6}}"
+                                     style="width:300px; height:300px; padding-bottom: 5px"/>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-left: 13px">
+                            <div style="position:related; page-break-inside: avoid;">
+                                <div t-if="o.requestor">
+                                    <strong>Requested By:</strong>
+                                    <br/>
+                                    <span t-field="o.requestor.name"/>
+                                </div>
+                                <div t-if="o.radiologist">
+                                    <strong>Radiologist:</strong>
+                                    <br/>
+                                    <span t-field="o.radiologist.name"/>
+                                </div>
+                                <strong>Signature and Stamp:</strong>
+                                <br/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.radiologist.oeh_user_id.user_signature}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.radiologist.oeh_user_id.stamp}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

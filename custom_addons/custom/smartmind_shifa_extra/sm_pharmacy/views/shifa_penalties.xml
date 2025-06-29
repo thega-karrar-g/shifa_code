@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+
+        <record id="sm_penalties_tree" model="ir.ui.view">
+            <field name="name">Penalties</field>
+            <field name="model">sm.shifa.penalties</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="missed_conslt"/>
+                    <field name="amount"/>
+                    <field name="comment"/>
+                </tree>
+            </field>
+        </record>
+       <record id="sm_penalties_form" model="ir.ui.view">
+            <field name="name">Penalties</field>
+            <field name="model">sm.shifa.penalties</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="missed_conslt"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                        </group>
+                        <group>
+                            <field name="comment"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_penalties_action" model="ir.actions.act_window">
+            <field name="name">Penalties</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.penalties</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No data to show here
+                </p>
+            </field>
+        </record>
+
+        <!--<menuitem id="sm_penalties"
+                  name="Penalties"
+                  parent="smartmind_shifa.shifa_config_others_menu"
+                  action="sm_penalties_action"
+                  sequence="29"/>-->
+    </data>
+</odoo>

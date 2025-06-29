@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_report_form_view">
+            <field name="name">Medical Report</field>
+            <field name="model">sm.medical.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <header>
+                        <button name="set_to_start"
+                                states="Draft" string="Start Record Report" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to upload report?" name="set_to_done_upload"
+                                states="Draft" string="Start Upload Report" type="object" class="oe_highlight"/>
+                        <button name="download_report"
+                                attrs="{'invisible': ['|', ('link','=',False), ('state','!=','Completed')]}"
+                                string="Download Report" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to complete record?" name="set_to_done"
+                                states="upload_result" string="Done" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to complete record?" name="mark_as_completed"
+                                states="start_record" string="Done" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Completed"/>
+                    </header>
+                    <sheet>
+                        <div attrs="{'invisible':[('state','!=','upload_result')]}">
+                        <h4 style=" color: red;">Note:
+                            Upload Result file from Attachment PDF icon
+                            <button style="border: none; color:red;" icon="fa-light fa-paperclip"/>
+                            Then click on Add attachments
+                            <button style="border: none;" icon="fa-thin fa-plus"/>
+                            You can find it at the end of the form or on the side
+                        </h4>
+                        </div>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="Rept#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group string="Patient Details">
+                            <group>
+                                <field name="patient"/>
+                                <field name="dob"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="patient_weight"/>
+                                <field name="ssn" string="ID number"/>
+                                <!--                            <field name="is_ksa" force_save="1"/>-->
+                                <field name="nationality"/>
+                                <field name="mobile"/>
+                                <field name="link" widget="url"/>
+
+                            </group>
+                        </group>
+                        <group col="2">
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group string="Prepared By">
+                            <group>
+                                <field name="doctor"/>
+                                <field name="nurse"/>
+                                <field name="physiotherapist"/>
+                                <field name="respiratory_therapist"/>
+                            </group>
+                            <group>
+                                <field name="diabetic_educator"/>
+                                <field name="clinical_dietitian"/>
+                                <field name="social_worker"/>
+                            </group>
+                        </group>
+                        <group string="Language" attrs="{'invisible': [('state', '!=', 'start_record')]}">
+                            <field name="language" required="1" widget="radio" nolabel="1"
+                                   options="{'horizontal': true}"/>
+                        </group>
+                        <group string="Report" attrs="{'invisible': [('state', '!=', 'start_record')]}">
+                            <field name="report" required="1" widget="radio" nolabel="1"
+                                   options="{'horizontal': true}"/>
+                        </group>
+
+                        <!--    these are English reports -->
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('report', '!=', 'treatment_plan')]}">
+                            <h3 style="text-align:center">Treatment Plan (Physiotherapy)</h3>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">Diagnosis</h3>
+                                    <br/>
+                                    <field name="diagnosis_comm" nolabel="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">Patient Assessment</h3>
+                                    <br/>
+                                    <field name="patient_assessment" nolabel="1" widget="html"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">Goals</h3>
+                                    <br/>
+                                    <field name="goals" nolabel="1" widget="html"/>
+                                </group>
+                            </group>
+                            <group colspan="2">
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">Treatment Plan</h3>
+                                <br/>
+                                <field name="treatment_plan" nolabel="1"/>
+                            </group>
+                            <div>
+                                Treatment sessions:
+                                <field name="number3" nolabel="1" class="oe_inline"/>
+                                visit/month
+                                <field name="number4" nolabel="1" class="oe_inline"/>
+                                (visits/week)
+                            </div>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('report', '!=', 'Physiotherapy_medical')]}">
+                            <h3 style="text-align:center">Physiotherapy Medical Services Report</h3>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">Diagnosis</h3>
+                                    <br/>
+                                    <field name="diagnosis_comm_2" nolabel="1"/>
+                                </group>
+                            </group>
+                            <div>
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">Treatment Plan</h3>
+                                <field name="number1" nolabel="1" class="oe_inline"/>
+                                therapy sessions in
+                                <field name="number2" nolabel="1" class="oe_inline"/>
+                                month completd according to the plan in the table below
+                            </div>
+                            <group colspan="2">
+                                <field name="treatment_plan" nolabel="1"/>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">The patient’s health condition after treatment</h3>
+                                    <br/>
+                                    <field name="health_after_treatment" nolabel="1" widget="html"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">Recommendation</h3>
+                                    <br/>
+                                    <field name="recommendation" nolabel="1"/>
+                                </group>
+                            </group>
+
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'Arabic'),('report', '!=', 'Physician_home_visit')]}">
+                            <h3 style="text-align:center">Physician Home Visit Report</h3>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">Chief Complaint</h3>
+                                    <br/>
+                                    <field name="chief_complaint" nolabel="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">History of present illness</h3>
+                                    <br/>
+                                    <field name="history_illness" nolabel="1"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <label for="vital_signs_show" string="Vital Signs"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                <group>
+                                    <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                    <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                    <field name="hr_min" string="HR(/min)"/>
+                                </group>
+                                <group>
+                                    <field name="temperature_c" string="Temperature(C)"/>
+                                    <field name="rr_min" string="RR(/min)"/>
+                                    <field name="o2_sat" string="O2 Sat(%)"/>
+                                    <field name="char_other_oxygen" string=""
+                                           attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                </group>
+                            </group>
+                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                Diagnosis
+                            </h5>
+                            <br/>
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis" string=""/>
+                                    <field name="provisional_diagnosis_add" string=""/>
+
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add2" string=""/>
+                                    <field name="provisional_diagnosis_add3" string=""/>
+                                    <field name="provisional_diagnosis_add_other4" string="Add other"/>
+                                </group>
+                            </group>
+                            <div attrs="{'invisible': [('provisional_diagnosis_add_other4', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add4" string=""/>
+                                    </group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add_other5" string="Add other"/>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('provisional_diagnosis_add_other5', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add5" string=""/>
+                                    </group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add_other6" string="Add other"/>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('provisional_diagnosis_add_other6', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add6" string=""/>
+                                    </group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add_other7" string="Add other"/>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('provisional_diagnosis_add_other7', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add7" string=""/>
+                                    </group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add_other8" string="Add other"/>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('provisional_diagnosis_add_other8', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add8" string=""/>
+                                    </group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add_other9" string="Add other"/>
+                                    </group>
+                                </group>
+                            </div>
+                            <div attrs="{'invisible': [('provisional_diagnosis_add_other9', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add9" string=""/>
+                                    </group>
+                                </group>
+                            </div>
+
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">Plan of Care</h3>
+                                    <br/>
+                                    <field name="plan_care" nolabel="1"/>
+                                </group>
+                            </group>
+
+
+                        </div>
+
+                        <!--    these are Arabic reports -->
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('report', '!=', 'treatment_plan')]}"
+                             dir="rtl" style="text-align: right">
+                            <h3 style="text-align:center">الخطة العلاجية (علاج طبيعي)</h3>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">التشخيص</h3>
+                                    <br/>
+                                    <field name="diagnosis_comm" nolabel="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">الفحص السريري</h3>
+                                    <br/>
+                                    <field name="patient_assessment" nolabel="1" widget="html"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">الأهداف</h3>
+                                    <br/>
+                                    <field name="goals" nolabel="1" widget="html"/>
+                                </group>
+                            </group>
+                            <group colspan="2">
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">الخطة العلاجية</h3>
+                                <br/>
+                                <field name="treatment_plan" nolabel="1" widget="html"/>
+                            </group>
+
+                            <div>
+                                الزيارات العلاجية:
+                                <field name="number3" nolabel="1" class="oe_inline"/>
+                                زيارة/بالشهر
+                                <field name="number4" nolabel="1" class="oe_inline"/>
+                                زيارة/بالاسبوع
+                            </div>
+                        </div>
+                        <div attrs="{'invisible': ['|',('language', '=', 'English'),('report', '!=', 'Physiotherapy_medical')]}"
+                             dir="rtl" style="text-align: right">
+                            <h3 style="text-align:center">تقرير الخدمات المقدمة (علاج طبيعي)</h3>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">التشخيص</h3>
+                                    <br/>
+                                    <field name="diagnosis_comm_2" nolabel="1"/>
+                                </group>
+                            </group>
+                            <div>
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">الخطة العلاجية</h3>
+                                تم توفيرعدد
+                                <field name="number1" nolabel="1" class="oe_inline"/>
+                                (جلسة / جلسات) خلال
+                                <field name="number2" nolabel="1" class="oe_inline"/>
+                                (جلسة/ شهر) كما موضح بالجدول ادناه:
+                            </div>
+                            <group colspan="3">
+                                <field name="treatment_plan" nolabel="1" widget="html"/>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">الوضع الصحي للمريض بعد العلاج</h3>
+                                    <br/>
+                                    <field name="health_after_treatment" nolabel="1" widget="html"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group colspan="2">
+                                    <h3 col="2" style="font-weight:bold; color:#5D8DA8">التوصيات</h3>
+                                    <br/>
+                                    <field name="recommendation" nolabel="1"/>
+                                </group>
+                            </group>
+                        </div>
+                        <group col="3" attrs="{'invisible': [('state', '!=', 'start_record')]}">
+                            <label for="team_signatures_show" string="Team Signatures"
+                                   style=" font-size: 20px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="team_signatures_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('team_signatures_show', '=', False)]}">
+                            <group>
+                                <field name="team_signatures_doctor" widget="image" force_save="1" readonly="1"/>
+                                <field name="team_signatures_nurse" widget="image" force_save="1" readonly="1"/>
+                                <field name="team_signatures_physiotherapist" widget="image" force_save="1"
+                                       readonly="1"/>
+                                <field name="team_signatures_respiratory_therapist" widget="image" force_save="1"
+                                       readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="team_signatures_diabetic_educator" widget="image" force_save="1"
+                                       readonly="1"/>
+                                <field name="team_signatures_clinical_dietitian" widget="image" force_save="1"
+                                       readonly="1"/>
+                                <field name="team_signatures_social_worker" widget="image" force_save="1" readonly="1"/>
+                            </group>
+
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+
+
+        </record>
+        <record id="sm_medical_report_action_tree" model="ir.actions.act_window">
+            <field name="name">Medical Report</field>
+            <field name="res_model">sm.medical.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new report.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_medical_report_tree_view">
+            <field name="name">Medical Report</field>
+            <field name="model">sm.medical.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="patient"/>
+                    <field name="date"/>
+                    <field name="doctor"/>
+                    <field name="nurse"/>
+                    <field name="physiotherapist"/>
+                    <field name="respiratory_therapist"/>
+                    <field name="diabetic_educator"/>
+                    <field name="clinical_dietitian"/>
+                    <field name="social_worker"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem action="sm_medical_report_action_tree"
+                  id="sm_medical_report_opera_list"
+                  parent="smartmind_shifa.reports_menu"
+                  groups="smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_operation_manager,oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_Pharmacies_Supervisor"
+                  sequence="110"/>
+
+    </data>
+</odoo>

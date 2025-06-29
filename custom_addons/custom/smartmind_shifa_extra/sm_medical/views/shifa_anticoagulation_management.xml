@@ -1,0 +1,422 @@
+<odoo>
+    <data>
+        <record id="view_shifa_anticoagulation_management_form" model="ir.ui.view">
+            <field name="name">shifa.anticoagulation.management.form</field>
+            <field name="model">sm.shifa.anticoagulation.management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                                states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="anticoagulation_management_code" string="AntiC#"/>
+                                <h1>
+                                    <field name="anticoagulation_management_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                            </group>
+                            <group>
+                                <field name="doctor"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                            </group>
+                            <group>
+                                <field name="discharge_date"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                <field name="blood_type"/>-->
+                                <!--                                <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+
+                        <notebook>
+                            <page string="Clinical Pathway">
+                                <group col="3">
+                                    <label for="conscious_state_show" string="Conscious State"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="conscious_state_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('conscious_state_show', '=', False)]}">
+                                    <field name="conscious_state" string="Conscious State"/>
+                                </group>
+                                <group col="3">
+                                    <label for="pain_present_show" string="Pain Present"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                    <field name="pain_score" string="Pain Score"/>
+                                    <field name="scale_used" string="Scale Used"/>
+                                </group>
+                                <group col="3">
+                                    <label for="functional_activity_show" string="Functional Activity"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                                    <field name="functional_activity" string="Functional Activity"/>
+                                </group>
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                        <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                        <field name="hr_min" string="HR(/min)"/>
+                                    </group>
+                                    <group>
+                                        <field name="temperature_c" string="Temperature(C)"/>
+                                        <field name="rr_min" string="RR(/min)"/>
+                                        <field name="o2_sat" string="O2 Sat(%)"/>
+                                        <field name="char_other_oxygen" string=""
+                                               attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                        <!--                                    <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                        <!--                                            <div>-->
+                                        <!--                                                <group col="7">-->
+                                        <!--                                                    <span colspan="2">at room air</span>-->
+                                        <!--                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                        <!--                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                </group>-->
+                                        <!--                                                <field name="char_other_oxygen" string=""/>-->
+                                        <!--                                            </div>-->
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="type_of_anticoagulation_show" string="Type of Anticoagulation"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="type_of_anticoagulation_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('type_of_anticoagulation_show', '=', False)]}">
+                                    <group>
+                                        <field name="type_warfarin" string="Warfarin"/>
+                                        <field name="type_other" string="Other"/>
+                                        <field name="type_other_text" string=""
+                                               attrs="{'invisible': [('type_other', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="frequency_inr_monitoring_show" string="Frequency of INR Monitoring"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="frequency_inr_monitoring_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('frequency_inr_monitoring_show', '=', False)]}">
+                                    <group>
+                                        <field name="frequency_daily" string="Daily"/>
+                                        <field name="frequency_weekly" string="Weekly"/>
+                                        <field name="frequency_as_pre_primary" string="As pre Primary Physician"/>
+                                    </group>
+                                    <group>
+                                        <field name="frequency_bimonthly" string="Bimonthly"/>
+                                        <field name="frequency_other" string="Other"/>
+                                        <field name="frequency_other_text" string=""
+                                               attrs="{'invisible': [('frequency_other', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="ant_potential_actual_risk_show" string="Potential/Actual Risk"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="ant_potential_actual_risk_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('ant_potential_actual_risk_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="potential_for_complication_injury_related_anti_coagulation" string="Potential for complication, injury related to Anti-coagulation Medication"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="potential_for_complication_injury_related_anti_coagulation"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="over_or_under_anticoagulation_related_to_non_compliance" string="Over or under anticoagulation related to non compliance in taking warfarin"
+                                            class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="over_or_under_anticoagulation_related_to_non_compliance"  nolabel="1" style="width: 70%;"/>
+                                    </group>
+                                    <group col="4">
+                                          <label for="over_or_under_therapeutic_level_inr_related_to_non_compliance" string="Over or under therapeutic level of INR related to non-compliance in taking warfarin"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="over_or_under_therapeutic_level_inr_related_to_non_compliance" nolabel="1" style="width: 70%;"/>
+                                   <label for="medication_error_related_to_inappropriate_taking_of_warfarin" string="Medication error related to inappropriate taking of warfarin dose"
+                                         class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="medication_error_related_to_inappropriate_taking_of_warfarin" nolabel="1" style="width: 70%;"/>
+                                       </group>
+                                </group>
+                                <group col="3">
+                                    <label for="ant_measurable_goals_show" string="Measurable Goals"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="ant_measurable_goals_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('ant_measurable_goals_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="will_be_remain_free_from_complications_bleeding_injury" string="Will be/remain free from complications, bleeding, injury related to use of anticoagulation drugs"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="will_be_remain_free_from_complications_bleeding_injury"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="inr_will_be_within_therapeutic_level" string="INR will be within therapeutic level"
+                                            class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="inr_will_be_within_therapeutic_level"  nolabel="1" style="width: 70%;"/>
+                                    </group>
+                                    <group col="4">
+                                          <label for="there_will_be_no_medication_error_related_to_taking" string="There will be no medication error related to taking of inappropriate warfarin dose"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="there_will_be_no_medication_error_related_to_taking" nolabel="1" style="width: 70%;"/>
+                                   <label for="patient_will_be_compliant_with_taking_warfarin" string="Patient will be compliant with taking warfarin dose"
+                                         class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="patient_will_be_compliant_with_taking_warfarin" nolabel="1" style="width: 70%;"/>
+                                       </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_assessment_show" string="Patient Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="vital_signs_normal" string="Vital signs normal"/>
+                                        <field name="any_change_in_diet" string="Any change in diet"/>
+                                    </group>
+                                    <group>
+                                        <field name="develop_any_infection_that"
+                                               string="Develop any infection that requires medication/antibiotics"/>
+                                    </group>
+                                    <group>
+                                        <field name="presence_of_chest_pain" string="Presence of chest pain"/>
+                                        <field name="presence_of_short_of_breath" string="Presence of short of breath"/>
+                                    </group>
+                                    <group>
+                                        <field name="presence_of_bleeding" string="Presence of bleeding"/>
+                                        <field name="presence_of_bruising" string="Presence of bruising"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="medication_review_show" string="Medication Review (Since Last Visit)"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="medication_review_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('medication_review_show', '=', False)]}">
+                                    <group>
+                                        <field name="ensure_that_patient_taking"
+                                               string="Ensure that patient taking analgesia as prescribed"/>
+                                    </group>
+                                    <group>
+                                        <field name="taken_warfarin_dose"
+                                               string="Taken warfarin dose appropriately since"/>
+                                    </group>
+                                    <group>
+                                        <field name="any_new_medication_commenced"
+                                               string="Any new medication commenced since last visit"/>
+                                    </group>
+                                    <group>
+                                        <field name="enough_appropriate_warfarin"
+                                               string="Enough appropriate warfarin tablets supply untill next visit"/>
+                                    </group>
+                                    <group>
+                                        <field name="started_on_antibiotics"
+                                               string="Started on antibiotics since last visit"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="caregiver_assessment_show" string="Caregiver Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="caregiver_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('caregiver_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="administer_correct_warfarin_dose_since"
+                                               string="Administer correct warfarin dose since last instructed"/>
+                                    </group>
+                                    <group>
+                                        <field name="understand_dosing_regime" string="Understand dosing regime"/>
+                                    </group>
+                                    <group>
+                                        <field name="medication_storage_appropriately"
+                                               string="Medication storage appropriately"/>
+                                    </group>
+                                    <group>
+                                        <field name="one_reliable_family_member"
+                                               string="One reliable family member identified for Warfarin dosing"/>
+                                    </group>
+                                    <group>
+                                        <field name="caregiver_name_identified" string="Caregiver's Name identified"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_caregiver_education_show" string="Patient Caregiver Education"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_caregiver_education_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_caregiver_education_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="warfarin_tablets_to_be_given" string="Warfarin tablets to be given the same time every night"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="warfarin_tablets_to_be_given"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="to_report_missed_dose" string="To report missed dose or delayed dosing"
+                                            class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="to_report_missed_dose"  nolabel="1" style="width: 70%;"/>
+                                          <label for="check_with_home_care_staff_before" string="Check with home care staff before commencing new unprescribed drug"
+                                            class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="check_with_home_care_staff_before"  nolabel="1" style="width: 70%;"/>
+                                    </group>
+                                    <group col="4">
+                                          <label for="to_observe_for_any_bleeding" string="To observe for any bleeding from orifices"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="to_observe_for_any_bleeding" nolabel="1" style="width: 70%;"/>
+                                   <label for="correct_technique_in_performing" string="Correct technique in performing subcutaneous enoxaparin injection"
+                                         class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="correct_technique_in_performing" nolabel="1" style="width: 70%;"/>
+                                         <label for="rotate_injection_sites" string="Rotate injection sites and manage bruising"
+                                         class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="rotate_injection_sites" nolabel="1" style="width: 70%;"/>
+                                       </group>
+
+                                </group>
+                                <group col="3">
+                                    <label for="remarks_show" string="Nurse Notes"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="remarks_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('remarks_show', '=', False)]}">
+                                    <field name="remarks" string=""/>
+                                </group>
+                            </page>
+                            <page string="Internal Referral">
+                                <field name="referral_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_doctor':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_anticoagulation_management_follow_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Anticoagulation Management</field>
+            <field name="model">sm.shifa.anticoagulation.management</field>
+            <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_anticoagulation_management_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                    <page string="Follow Up">
+                        <field name="anticoagulation_follow_up_id" widget="one2many_list"
+                               context="{'default_patient':patient, 'default_antic_ss': id, 'default_nurse_name':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                        <!--                               context="{'default_patient':patient"/>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_shifa_anticoagulation_management_tree" model="ir.ui.view">
+            <field name="name">shifa_anticoagulation.management.tree</field>
+            <field name="model">sm.shifa.anticoagulation.management</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="anticoagulation_management_code"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_anticoagulation_management_action" model="ir.actions.act_window">
+            <field name="name">Anticoagulation Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.anticoagulation.management</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Anticoagulation Management found
+                </p>
+            </field>
+        </record>
+        <record id="view_anticoagulation_management_search" model="ir.ui.view">
+            <field name="name">anticoagulation_management_search</field>
+            <field name="model">sm.shifa.anticoagulation.management</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="anticoagulation_management_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+      <!--  <menuitem id="Anticoagulation_Management_root"
+                  name="Anticoagulation Management"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_shifa_anticoagulation_management_action"
+                  sequence="1"/>-->
+
+    </data>
+</odoo>

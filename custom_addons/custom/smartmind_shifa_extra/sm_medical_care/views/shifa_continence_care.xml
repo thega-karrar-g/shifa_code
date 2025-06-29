@@ -1,0 +1,447 @@
+<odoo>
+    <data>
+        <record id="view_shifa_continence_care_form" model="ir.ui.view">
+            <field name="name">shifa.continence.care.form</field>
+            <field name="model">sm.shifa.continence.care</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                                states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="continence_care_code" string="CC#"/>
+                                <h1>
+                                    <field name="continence_care_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                            </group>
+                            <group>
+                                <field name="doctor"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                            </group>
+                            <group>
+                                <field name="discharge_date"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                <field name="blood_type"/>-->
+                                <!--                                <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <notebook>
+                            <page string="Clinical Pathway">
+                                <group col="3">
+                                    <label for="clinical_pathway_show" string="Conscious State"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="clinical_pathway_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('clinical_pathway_show', '=', False)]}">
+                                    <field name="clinical_pathway" string="Clinical Pathway"/>
+                                </group>
+                                <group col="3">
+                                    <label for="pain_present_show" string="Pain Present"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                    <field name="pain_score" string="Pain Score"/>
+                                    <field name="scale_used" string="Scale Used"/>
+                                </group>
+                                <group col="3">
+                                    <label for="functional_activity_show" string="Functional Activity"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                                    <field name="functional_activity" string="Functional Activity"/>
+                                </group>
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                        <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                        <field name="hr_min" string="HR(/min)"/>
+                                    </group>
+                                    <group>
+                                        <field name="temperature_c" string="Temperature(C)"/>
+                                        <field name="rr_min" string="RR(/min)"/>
+                                        <field name="o2_sat" string="O2 Sat(%)"/>
+                                        <field name="char_other_oxygen" string=""
+                                               attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                        <!--                                    <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                        <!--                                            <div>-->
+                                        <!--                                                <group col="7">-->
+                                        <!--                                                    <span colspan="2">at room air</span>-->
+                                        <!--                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                        <!--                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                </group>-->
+                                        <!--                                                <field name="char_other_oxygen" string=""/>-->
+                                        <!--                                            </div>-->
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="type_continence_show" string="Type of Continence Care"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="type_continence_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('type_continence_show', '=', False)]}">
+                                    <group>
+                                        <field name="bladder" string="Bladder"/>
+                                    </group>
+                                    <group>
+                                        <field name="bowel" string="Bowel"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="type_devices_used_show"
+                                           string="Type of devices used to manage continence"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="type_devices_used_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('type_devices_used_show', '=', False)]}">
+                                    <group>
+                                        <field name="indwelling_foley" string="Indwelling Foley's Catheter"/>
+                                        <field name="suprapubic_catheter" string="Suprapubic Catheter"/>
+                                    </group>
+                                    <group>
+                                        <field name="urosheath_condom" string="Urosheath/Condom"/>
+                                        <field name="diaper" string="Diaper"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="con_potential_actual_risk_show" string="Potential/Actual Risk"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="con_potential_actual_risk_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('con_potential_actual_risk_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="impaired_skin_integrity_related_bowel_or_bladder" string="Impaired skin integrity related to bowel or bladder incontinence"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="impaired_skin_integrity_related_bowel_or_bladder"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                    <group col="4">
+                                          <label for="complications_related_indwelling_urinary_catheter" string="Complications related to indwelling urinary catheter"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="complications_related_indwelling_urinary_catheter" nolabel="1" style="width: 70%;"/>
+                                       </group>
+
+                                </group>
+                                <group col="3">
+                                    <label for="con_measurable_goals_show" string="Measurable Goals"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="con_measurable_goals_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('con_measurable_goals_show', '=', False)]}">
+
+                                    <group col="4">
+                                        <label for="will_remain_clean_dry_free_from_urinary_or_faecal"
+                                               string="Will remain clean, dry and free from urinary or faecal odor with use of incontinence products and prompt incontinence care"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="will_remain_clean_dry_free_from_urinary_or_faecal"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                    <group col="4">
+                                          <label for="will_remain_free_signs_and_symptoms_of_complications"
+                                                 string="Will remain free of signs and symptoms of complications related to indwelling catheter"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="will_remain_free_signs_and_symptoms_of_complications" nolabel="1" style="width: 70%;"/>
+                                       </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_assessment_show" string="Patient Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="color_urine" string="Color of Urine"/>
+                                        <field name="consistency" string="Consistency"/>
+                                    </group>
+                                    <group>
+                                        <field name="amount_ml" string="Amount (ml)"/>
+                                        <field name="presence_urinary_frequency"
+                                               string="Presence of urinary/frequency"/>
+                                    </group>
+                                    <group>
+                                        <field name="diaper_changed" string="Diaper Changed"/>
+                                        <field name="presence_burning" string="Presence of burning"/>
+                                    </group>
+                                    <group>
+                                        <field name="presence_foul_smelling" string="Presence of foul smelling urine"/>
+                                        <field name="presence_altered_mental"
+                                               string="Presence of altered mental status"/>
+                                    </group>
+                                    <group>
+                                        <field name="catheter_still_required" string="Catheter still required"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="urinaty_catheter_bag_show" string="Urinary Catheter Bag"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="urinaty_catheter_bag_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('urinaty_catheter_bag_show', '=', False)]}">
+                                    <group>
+                                        <field name="secured_appropriately" string="Secured Appropriately"/>
+                                        <field name="bag_off_floor" string="Bag is off the floor"/>
+                                    </group>
+                                    <group>
+                                        <field name="bag_below_level" string="Bag is below level of bladder"/>
+                                        <field name="tubing_not_taut" string="Tubing not taut or kinked"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="catheter_change_show" string="Catheter Change"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="catheter_change_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('catheter_change_show', '=', False)]}">
+                                    <group>
+                                        <field name="catheter_change_done" string="Catheter change done today"/>
+                                        <field name="type_of_catheter" string="Type of catheter"/>
+                                    </group>
+                                    <group>
+                                        <field name="size_of_catheter" string="Size of catheter"/>
+                                        <field name="catheter_change_due_on" string="Catheter change due on"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="bowel_assessment_show" string="Bowel Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="bowel_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('bowel_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="bowels_opened" string="Bowels opened"/>
+                                        <field name="color_of_stool" string="Color of stool"/>
+                                    </group>
+                                    <group>
+                                        <field name="consistency_of_stool" string="Consistency of stool"/>
+                                        <field name="perineal_area" string="Perineal area"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="caregiver_assessment_show" string="Caregiver Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="caregiver_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('caregiver_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="maintain_patient_hygiene" string="Maintain patient's hygiene"/>
+                                    </group>
+                                    <group>
+                                        <field name="use_incontinence_products" string="Use of incontinence products"/>
+                                    </group>
+                                    <group>
+                                        <field name="keep_patient_odourless" string="Keep patient odourless and dry"/>
+                                    </group>
+                                    <group>
+                                        <field name="ability_cope_care" string="Ability to cope with care"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_caregiver_education_show" string="Patient/Caregiver Education"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_caregiver_education_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_caregiver_education_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="patient_caregiver_should"
+                                               string="Patient/caregiver should always wash their hands before and after any procedure"
+                                               class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                        <field name="patient_caregiver_should"
+                                               nolabel="1" style="width: 70%;"/>
+                                        <label for="maintain_fluids_high_fibre"
+                                               string="Maintain fluids and high fibre diet to prevent constipation"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="maintain_fluids_high_fibre" nolabel="1"
+                                               style="width: 70%;"/>
+                                        <label for="drinking_least_litres_fluid"
+                                               string="Drinking at least 2 litres of fluid a day helps maintain the catheter to drain"
+                                               class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                        <field name="drinking_least_litres_fluid"
+                                               nolabel="1" style="width: 70%;"/>
+                                        <label for="do_not_kink_clamp"
+                                               string="Do not kink or clamp the catheter tubing"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="do_not_kink_clamp" nolabel="1"
+                                               style="width: 70%;"/>
+                                    </group>
+                                    <group col="4">
+                                        <label for="always_attach_catheter"
+                                               string="Always attach the catheter to the drainage bag or catheter valve"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="always_attach_catheter" nolabel="1"
+                                               style="width: 70%;"/>
+                                        <label for="keep_closed_system_drainage"
+                                               string="Keep a closed system of drainage and empty the drainage bag regularly"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="keep_closed_system_drainage" nolabel="1"
+                                               style="width: 70%;"/>
+                                        <label for="carers_should_wash_their"
+                                               string="Carers should wash their hands and wear non-sterile gloves when emptying or changing the drainage bag"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="carers_should_wash_their" nolabel="1"
+                                               style="width: 70%;"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="remarks_show" string="Nurse Notes"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="remarks_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('remarks_show', '=', False)]}">
+                                    <field name="remarks" string=""/>
+                                </group>
+                            </page>
+                            <page string="Internal Referral">
+                                <field name="referral_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_doctor':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_continence_care_follow_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Continence Care</field>
+            <field name="model">sm.shifa.continence.care</field>
+            <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_continence_care_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                    <page string="Follow Up">
+                        <field name="continence_follow_up_id" widget="one2many_list"
+                               context="{'default_patient':patient, 'default_cc_sf': id, 'default_nurse_name':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                        <!--                               context="{'default_patient':patient"/>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_shifa_continence_care_tree" model="ir.ui.view">
+            <field name="name">shifa_continence.care.tree</field>
+            <field name="model">sm.shifa.continence.care</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="continence_care_code"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_continence_care_action" model="ir.actions.act_window">
+            <field name="name">Continence Care</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.continence.care</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history for continence care found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_continence_care_search" model="ir.ui.view">
+            <field name="name">continence_care_search</field>
+            <field name="model">sm.shifa.continence.care</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="continence_care_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+        <menuitem id="Continence_Care_root"
+                  name="Continence Care"
+                  parent="smartmind_shifa.menu_oldforms_main_form_root"
+                  action="sm_shifa_continence_care_action"
+                  sequence="2"/>
+
+    </data>
+</odoo>

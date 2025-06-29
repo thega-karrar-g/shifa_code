@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="_sm_caregiver_contracts_form_view" model="ir.ui.view">
+            <field name="name">caregiver_contracts_form_view</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sleep medicine request">
+                    <header>
+                        <button confirm="Are you sure you want to move to paid state?" name="check_paid"
+                                string="Paid" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state','!=','unpaid'),('payment_made_through','not in',['call_center','deferred'])]}"
+                        />
+                        
+                        <button confirm="Are you sure you want to evaluate?" name="continue_action"
+                                string="Continue" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state','!=','draft'),('payment_made_through','!=','pending')]}"
+                        />
+                        <button confirm="Are you sure you want to evaluate request?" name="set_to_evaluation"
+                                states="paid" string="Send for evaluation" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to assign caregiver?" name="set_to_assign_caregiver"
+                                states="evaluation" string="Send to assign caregiver" type="object"
+                                class="oe_highlight"/>
+                        <!-- <button confirm="Are you sure you want to renew contract?" name="set_to_renew"
+                                 states="evaluation" string="Renew" type="object"
+                                 class="oe_highlight"/> -->
+                        <button confirm="Are you want to active record?" name="set_to_active"
+                                states="assign_caregiver,renew" string="Activate" type="object"
+                                class="oe_highlight"/>
+                        <!-- <button confirm="Are you want to active record?" name="set_to_active"
+                                 states="evaluation,renew" string="Activate" type="object"
+                                 class="oe_highlight"/> -->
+                        <button confirm="Are you want to hold request?" name="set_to_holdreq"
+                                states="active" string="Hold Req." type="object"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,sm_caregiver.group_oeh_medical_super_caregiver"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to terminate request?" name="set_to_terminationreq"
+                                states="active,hold" string="Termination Req." type="object"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,sm_caregiver.group_oeh_medical_super_caregiver"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to terminate record?" name="set_to_terminated"
+                                states="terminationreq" string="Terminate" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to complete the contract?" name="set_to_completed"
+                                states="active,terminationreq" string="Complete" type="object"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to go back to active?" name="back_to_active"
+                                states="terminationreq,holdreq" string="Back to active" type="object"
+                                class="oe_highlight"/>
+                        <!-- <button confirm="Are you want to terminate record?" name="set_to_terminated"
+                                 states="active,hold" string="End the contract" type="object"
+                                 class="oe_highlight"/> -->
+                        <button confirm="Are you want to Reactivate record?" name="set_to_reactivated"
+                                states="reactivation_request" string="Reactivate the contract" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to Reactivate Request?" name="set_to_reactivated_req"
+                                states="hold" string="Reactivate Request" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to create payment request?" name="open_payment_request"
+                                states="unpaid,paid,evaluation,renew" string="Create payment request" type="object"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to create invoice?" name="generate_invoice"
+                                states="active" invisible="1" string="Create invoice" type="object"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center"
+                                class="oe_highlight"/>
+                        <button confirm="Are you want to Hold record?" name="set_to_hold"
+                                states="holdreq" string="Hold" type="object"
+                                class="oe_highlight"/>
+
+                        <button confirm="Are you sure you want to add a service?" name="open_treatment_form"
+                                states="active,evaluation,unpaid,renew" string="Add Service" type="object"
+                                class="oe_highlight"/>
+
+                        <button name="set_to_cancelled"
+                                states="unpaid,paid,evaluation,assign_caregiver,renew" string="Cancel" type="object"
+                                class="oe_highlight"/>
+
+                        <button confirm="Are you want to do this?" name="set_to_unpaid" states="cancel" string="Back to unpaid" type="object" class="oe_highlight" groups="oehealth.group_oeh_medical_manager"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,unpaid,paid,evaluation,assign_caregiver,active,terminated,reactivation_request"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button" icon="fa-credit-card"
+                                    name="open_payment_view"
+                                    string="Req.Payments">
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-dollar"
+                                    name="open_invoice_view" string="Invoice">
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-credit-card"
+                                    name="open_treatment_view" string="Additional Services">
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                                    attrs="{'invisible': [('caregiver_id','==',False)]}"
+                                    name="open_caregiver_view" string="Caregiver">
+                            </button>
+                            <field name="cancellation_count" invisible="1"/>
+                            <button type="object" class="oe_stat_button" icon="fa-credit-card"
+                                    name="open_cancel_request" string="Refund Requests"
+                                    attrs="{'invisible': [('cancellation_count','&lt;',1)]}">
+                            </button>
+                        <button class="oe_stat_button" name="action_view_caregiver_contracts" type="object" icon="fa-shopping-cart">
+                            <field string="Caregiver Contracts" name="caregiver_contract_count" widget="statinfo"/>
+                        </button>
+
+                        </div>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group col="3">
+                            <group string="Patient Details">
+                                <field name="patient_requested_id"
+                                       attrs="{'readonly': [('state', 'not in', ['draft', 'reactivation_request'])],
+                    'required': [('state', '=', 'draft')]}"/>
+                                <field name="ssn"/>
+                                <field name="mobile" />
+                                <field name="house_location" readonly="1" force_save="1"/>
+                                <field name="branch"/>
+                                <field name="house_number" readonly="1" force_save="1"/>
+                            </group>
+                            <group string="Service Details">
+                                <field name="date"/>
+                                <!--<field name="no_caregiver"/>-->
+                                <field name="no_caregiver"
+                                       attrs="{'readonly': [('state', 'in', ['assign_caregiver', 'active', 'holdreq', 'hold', 'reactivation_request', 'cancel', 'terminationreq', 'terminated', 'completed'])]}"/>
+                                <field name="service_id" options="{'no_create':True}"/>
+                                <field name="additional_service_id" options="{'no_create':True}"/>
+                                <field name="service_price" readonly="1" force_save="1"/>
+                                <field name="duration" readonly="1" force_save="1"/>
+                                <!--<field name="service_price" force_save="1"
+                                       attrs="{'readonly': [('state','=','terminated')]}"/>
+                                <field name="duration" force_save="1"
+                                       attrs="{'readonly': [('state','=','terminated')]}"/>-->
+                                <field name="discount_id"/>
+                                <field name="discount"/>
+                                <field name="discount_val"/>
+                                <field name="vat"/>
+                                <field name="amount_payable"/>
+                            </group>
+                            <group string="Other Details">
+                                <field name="payment_made_through" required="1"/>
+                                <field name="pro_pending"
+                                       attrs="{'invisible': [('payment_made_through', '!=', 'pending')]}"
+                                       groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                                <field name="mobile_payment_state"/>
+                                <field name="deduction_amount" readonly="1" force_save="1"/>
+                                <field name="payment_reference"/>
+                                <field name="payment_method_name"/>
+                                <field name="auto_renew"
+                                       attrs="{'readonly': [('state','in',['terminated','cancel','hold','holdreq'])]}"/>
+                                <field name="refund_req" readonly="1" force_save="1"
+                                       attrs="{'invisible': [('refund_req','=',False)]}"/>
+                                <field name="patient_diseased" readonly="1" force_save="1" />
+                                <field name="cancellation_reason" readonly="1" force_save="1"
+                                       attrs="{'invisible': [('cancellation_reason','=',False)]}"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <group string="Questionnaire"
+                                   states="evaluation,scheduling,assign_caregiver,active,terminated,hold,holdreq,terminationreq,cancel,reactivation_request,renew,completed">
+
+                                <div>
+                                    <label for="is_patient_conscious" string="Is the patient conscious?"/>
+                                    <field name="is_patient_conscious" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="have_chronic_diseases" style="width: 120%;"
+                                           string="Does the patient have any chronic diseases?"/>
+                                    <field name="have_chronic_diseases" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="mention_diseases" string="please mention them:"
+                                           attrs="{'invisible': [('have_chronic_diseases','in',['no', False])]}"/>
+                                    <field name="mention_diseases" nolabel="1"
+                                           attrs="{'invisible': [('have_chronic_diseases','in',['no', False])]}"/>
+                                    <label for="use_insulin_needles"
+                                           string="Does the patient use insulin needles?"/>
+                                    <field name="use_insulin_needles" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="can_move_or_seated"
+                                           string="Can the patient move or is seated?"/>
+                                    <field name="can_move_or_seated" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="eat_food_or_tube"
+                                           string="Can the patient eat food or through a feeding tube?"/>
+                                    <field name="eat_food_or_tube" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="tube_position" string="Is the tube in the nose or in the abdomen?"
+                                           attrs="{'invisible': [('eat_food_or_tube','in',['eat_food', False])]}"/>
+                                    <field name="tube_position" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'invisible': [('eat_food_or_tube','in',['eat_food', False])]}"/>
+                                    <label for="is_laryngeal_cleft" string="Is there a laryngeal cleft?"/>
+                                    <field name="is_laryngeal_cleft" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="use_oxygen_inhaled_medications"
+                                           string="Does the patient use oxygen or inhaled medication?"/>
+                                    <field name="use_oxygen_inhaled_medications" widget="radio"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"
+                                           options="{'horizontal': true}"/>
+                                    <label for="have_any_catheter"
+                                           string="Does the patient have any type of catheter?"/>
+                                    <field name="have_any_catheter" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="wounds_diabetic_bed_sores"
+                                           string="Does the patient have wounds, diabetic feet, or bed sores?"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <field name="wounds_diabetic_bed_sores" widget="radio"
+                                           options="{'horizontal': true}"/>
+                                    <label for="wear_diapers" string="Does the patient wear diapers?"/>
+                                    <field name="wear_diapers" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                    <label for="comment" string="Comment" style="width: 120%;"/>
+                                    <field name="comment"/>
+                                </div>
+                            </group>
+
+                            <group string="Contract Details"
+                                   states="evaluation,scheduling,assign_caregiver,active,terminated,hold,holdreq,terminationreq,cancel,reactivation_request,renew,completed">
+                                <field name="first_party_user"
+                                       attrs="{'required': [('state','=', 'evaluation')], 'readonly': [('state','!=', 'evaluation')]}"/>
+                                <field name="patient_id" options="{'no_create':True, 'no_open': True}"
+                                       attrs="{'required': [('state','=', 'evaluation')], 'readonly': [('state','!=', 'evaluation')]}"/>
+                                <field name="patient_ssn"/>
+                                <field name="second_party" invisible="1"/>
+                                <field name="second_party_id" invisible="1"/>
+                                <field name="nationality" attrs="{'required': [('state','=', 'evaluation')]}"/>
+                                <field name="second_party_mobile"
+                                       attrs="{'required': [('state','=', 'evaluation')], 'readonly': [('state','!=', 'evaluation')]}"/>
+                                <field name="evaluation_date"
+                                       attrs="{'required': [('state','=', 'evaluation')], 'readonly': [('state','!=', 'evaluation')]}"/>
+                                <field name="starting_date"
+                                       attrs="{'readonly': [('state','not in', ['evaluation','active'])]}"/>
+                                <field name="ending_date"
+                                       attrs="{'readonly': [('state','not in', ['evaluation','active'])]}" />
+                                <field name="attachment_ids" widget="many2many_binary"/>
+				<field name="link" widget="url" attrs="{'invisible': [('state','not in',['assign_caregiver'])]}"/>
+                                <br/>
+                                <div style="display:block">
+                                    <div style="display:inline-flex; margin:5px" states="evaluation,assign_caregiver,reactivation_request,completed">
+                                        <button string="Send link to patient" class='btn btn-primary btn-lg'
+                                                style='font-size:bold;' type="object" name="send_to_patient"/>
+                                        <field name="invitation_text_jitsi" widget="html" class="oe_inline"
+                                               style="margin-left:5px"/>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </group>
+
+                            <group string="Caregivers"
+                                   states="scheduling,assign_caregiver,active,terminated,hold,holdreq,terminationreq,cancel,reactivation_request,renew,completed">
+                                <field name="caregiver"
+                                       attrs="{'required': [('state','in',['scheduling','assign_caregiver'])]}"/>
+                                <field name="caregiver_second" attrs="{'invisible': [('no_caregiver','==','1')]}"/>
+                                <field name="caregiver_third" attrs="{'invisible': [('no_caregiver','in',['1','2'])]}"/>
+                            </group>
+                            <group string="Reminder/Payments Date" states="active,reactivation_request,completed">
+                                <field name="payment_date" invisible="1"/>
+                                <field name="date_payment" invisible="1"/>
+                                <field name="reminder_date"
+                                       attrs="{'invisible': ['|',('reminder_date','=',False),('state','!=','active')]}"/>
+                            </group>
+                            <group string="Holding Details"
+                                   states="active,hold,terminated,terminationreq,completed,cancel,reactivation_request,renew,completed">
+                                <field name="hold" invisible="1"/>
+                                <field name="reactivation" invisible="1"/>
+                                <!--  <field name="hold_reason" attrs="{'invisible': [('hold','=',False)]}"/>
+                                  <field name="hold_date" attrs="{'invisible': [('hold','=',False)]}"/> -->
+                                <field name="hold_reason_ids" readonly="1" force_save="1" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="remaining_days"/>
+                                    </tree>
+                                </field>
+                                <!--<field name="reactivation_reason" string="Reason"  attrs="{'invisible': [('reactivation','=',False)]}"/>
+                                <field name="reactivation_date" attrs="{'invisible': [('reactivation','=',False)]}"/> -->
+                            </group>
+                            <group string="Reactivation Details" states="active,cancel,terminated,terminationreq,hold,reactivation_request,renew,completed">
+                                <field name="hold" invisible="1"/>
+                                <field name="reactivation" invisible="1"/>
+                                <!--  <field name="hold_reason" attrs="{'invisible': [('hold','=',False)]}"/>
+                                  <field name="hold_date" attrs="{'invisible': [('hold','=',False)]}"/> -->
+                                <field name="reactivation_reason_count" invisible="1"/>
+                                <field name="reactivation_reason_ids" readonly="1" force_save="1" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                    </tree>
+                                </field>
+                                <!--<field name="reactivation_reason" string="Reason"  attrs="{'invisible': [('reactivation','=',False)]}"/>
+                                <field name="reactivation_date" attrs="{'invisible': [('reactivation','=',False)]}"/> -->
+                            </group>
+                            <group string="Termination Details" states="terminated,cancel,reactivation_request,renew,completed">
+                                <field name="termination_reason"
+                                       attrs="{'readonly': [('state','in',['cancel','terminated'])]}"/>
+                                <field name="termination_date"
+                                       attrs="{'readonly': [('state','in',['cancel','terminated'])]}"/>
+                                <field name="remaining_days"/>
+                            </group>
+                        </group>
+                        <field name="move_ids" invisible="1"/>
+                        <field name="request_payment_ids" invisible="1"/>
+                        <field name="caregiver_id" invisible="1"/>
+                        <field name="active" invisible="1"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_form_reason_view" model="ir.ui.view">
+            <field name="name">caregiver_contracts_request_form_reason</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <p>
+                                The date you enter represents the day when the caregiver left the customer's house and it is not counted from the contract duration.
+                            </p>
+                            <group>
+                                <field name="hold_date" required="1"/>
+                                <field name="hold_reason" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="hold_rec" string="Save" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_form_start_date_view" model="ir.ui.view">
+            <field name="name">caregiver_contracts_start_date</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="state" invisible="1"/>
+                                <field name="starting_date" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="activate" string="Save" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_form_start_date_view_1" model="ir.ui.view">
+            <field name="name">caregiver_contracts_start_date</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="state" invisible="1"/>
+                                <field name="starting_date" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="activate_renew" string="Save" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_form_reactivate_reason_view" model="ir.ui.view">
+            <field name="name">caregiver_contracts_request_form_reason</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                        <p>
+                            When you enter the date, it signifies the start date of the contract
+                        </p>
+                            <group>
+                                <field name="reactivation_date" required="1"/>
+                                <field name="reactivation_reason" required="1" string="Reason"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="reactivate" string="Save" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_form_terminate_reason_view" model="ir.ui.view">
+            <field name="name">caregiver_contracts_request_form_reason</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                        <p>
+                            The date you enter represents the final day the caregiver was with the customer and it counted as a day from the contract duration.
+                        </p>                        
+                            <group>
+                                <field name="termination_date" required="1"/>
+                                <field name="termination_reason" required="1" string="Reason"/>
+                                <field name="patient_diseased" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="terminate" string="Save" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_form_cancellation_reason_view" model="ir.ui.view">
+            <field name="name">cancellation.reason.form</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="cancellation_reason" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="set_to_cancelled_1" string="Confirm" type="object" class="oe_highlight"/>
+                        <button string="Discard" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_patient_diseased" model="ir.ui.view">
+            <field name="name">patient.deceased.form</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="patient_diseased" />
+                                <field name="cancellation_reason" string='Reason'/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="set_to_cancelled_1" string="Confirm" type="object" class="oe_highlight"/>
+                        <button string="Discard" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_tree_view" model="ir.ui.view">
+            <field name="name">caregiver_contracts_request_tree</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="arch" type="xml">
+                <tree string="Patient Medicine">
+                    <field name="name"/>
+                    <field name="patient_requested_id"/>
+                    <field name="date" />
+                    <field name="patient_id" />
+                    <field name="starting_date" />
+                    <field name="ending_date" />
+                    <field name="service_id"/>
+                    <field name="amount_payable"/>
+                    <field name="no_caregiver"/>
+                    <field name="state"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_caregiver_contracts_action" model="ir.actions.act_window">
+            <field name="name">Caregiver Contracts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.caregiver.contracts</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+
+        <record id="sm_caregiver_contracts_filter" model="ir.ui.view">
+            <field name="name">Caregiver Contracts filter</field>
+            <field name="model">sm.caregiver.contracts</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Sleep medicine request">
+                    <separator orientation="vertical"/>
+                    <field name="patient_requested_id"/>
+                    <field name="ssn"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="11" col="11">
+                        <filter string="State" name="group_state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <menuitem id="sm_caregiver_contracts_menu"
+                  name="Caregiver Contracts"
+                  parent="oehealth.oeh_medical_general_menu"
+                  action="sm_caregiver_contracts_action"
+                  sequence="8"/>
+
+        <menuitem id="sm_caregiver_contracts_super_care_menu"
+                  name="Caregiver Contracts"
+                  action="sm_caregiver_contracts_action"
+                  groups="sm_caregiver.group_oeh_medical_super_caregiver"
+                  web_icon="sm_caregiver,static/description/contract.png"
+                  sequence="9"/>
+
+        <menuitem id="menu_caregiver_contracts_acc"
+                  name="Caregiver Contracts"
+                  parent="smartmind_shifa_more.oeh_medical_appointments_menu_acc"
+                  action="sm_caregiver_contracts_action"
+                  groups="smartmind_shifa.group_oeh_medical_accountant"
+                  sequence="11"/>
+
+    </data>
+</odoo>

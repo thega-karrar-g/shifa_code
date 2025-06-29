@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_medical_strength_unit_tree">
+            <field name="name">Dose Units</field>
+            <field name="model">sm.medical.strength.units</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Strength Dose Units' editable="top">
+                    <field name="name"/>
+                    <field name="desc"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_medical_strength_unit_filter" model="ir.ui.view">
+            <field name="name">Strength Dose Units</field>
+            <field name="model">sm.medical.strength.units</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Units">
+                    <separator orientation="vertical"/>
+                    <field name="name" select="1"/>
+                    <field name="desc" select="1"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="sm_medical_strength_unit_action" model="ir.actions.act_window">
+            <field name="name">Strength Dose Units</field>
+            <field name="res_model">sm.medical.strength.units</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new strength dose unit.
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_medical_strength_unit_action" id="sm_medical_strength_dose_unit_list"
+                  parent="menu_other_hp_form_root" sequence="3"/>
+
+        <!--        Add archive feature for oehealth modules dose ,dosage, form ,and route -->
+        <record id="oeh_medical_dosage_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh_medical_dosage_tree_inherit</field>
+            <field name="model">oeh.medical.dosage</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_dosage_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='abbreviation']" position="after">
+                    <field name="active" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="oeh_medical_dose_unit_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh_medical_dose_unit_tree_inherit</field>
+            <field name="model">oeh.medical.dose.unit</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_dose_unit_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='desc']" position="after">
+                    <field name="active" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="oeh_medical_drug_forms_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh_medical_drug_forms_tree_inherit</field>
+            <field name="model">oeh.medical.drug.form</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_drug_forms_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="active" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="oeh_medical_drug_route_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh_medical_drug_route_inherit</field>
+            <field name="model">oeh.medical.drug.route</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_drug_route_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="active" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

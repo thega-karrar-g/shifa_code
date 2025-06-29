@@ -1,0 +1,30 @@
+<odoo>
+    <record id="account_chart_form_inherit" model="ir.ui.view">
+        <field name="name">odoo.account.chart.inherit</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_type_id']" position="attributes">
+                <attribute name="string">Second Level</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_type_id']" position="before">
+                <field name="reconcile"/>
+            </xpath>
+            <xpath expr="//field[@name='group_id']" position="attributes">
+                <attribute name="string">Third Level</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="account_chart_search_inherit" model="ir.ui.view">
+        <field name="name">odoo.account.chart.inherit.search</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="/search" position="inside">
+                  <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

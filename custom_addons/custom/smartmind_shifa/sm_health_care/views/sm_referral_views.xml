@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sm_referral_tree" model="ir.ui.view">
+        <field name="name">Internal Referral list</field>
+        <field name="model">sm.shifa.referral</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference"/>
+                <field name="hhc_appointment"/>
+                <field name="patient"/>
+                <field name="doctor"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sm_referral_form" model="ir.ui.view">
+        <field name="name">Internal Referral</field>
+        <field name="model">sm.shifa.referral</field>
+        <field name="arch" type="xml">
+            <form string="Internal Referral">
+                <header>
+                    <button name="set_to_call_center" string="Send to Call Center"
+                            confirm="Are you sure you want to send to call center?"
+                            states="start" type="object" class="oe_highlight"/>
+                    <button name="set_to_done" string="Done"
+                            confirm="Are you sure you want to finish this process?"
+                            states="call_center" type="object" class="oe_highlight"/>
+                    <button name="set_to_cancel" string="Cancel"
+                            confirm="Are you sure you want to cancel this process?"
+                            states="call_center" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="start,call_center,done,canceled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="reference" string="Ref #"/>
+                        <h1>
+                            <field name="reference" readonly="1" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient"/>
+                            <field name="active" invisible="1"/>
+                            <field name="hhc_appointment"/>
+                            <!--                            <field name="pt_appointment"/>-->
+                        </group>
+                        <group>
+                            <field name="hvd_appointment"/>
+                        </group>
+                        <br/>
+                        <group>
+                            <field name="dob"/>
+                            <field name="marital_status"/>
+                            <field name="sex"/>
+                            <field name="blood_type"/>
+                            <field name="rh"/>
+                        </group>
+                        <group>
+                            <field name="doctor"/>
+                            <field name="requested_date"/>
+                            <field name="processed_date"/>
+                        </group>
+                    </group>
+                    <h3 style="color:#5D8DA8;">Referral to Other Specialty</h3>
+                    <group>
+                        <div class="row mt16 o_settings_container">
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_respiratory_therapist"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_respiratory_therapist"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_clinical_dietitian"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_clinical_dietitian"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_physiotherapist"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_physiotherapist"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_occupational"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_occupational"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_therapist"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_therapist"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_social_worker"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_social_worker"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_physician"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_physician"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_lab_test"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_lab_test"/>
+                                    </div>
+                                </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="referral_image_test"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="referral_image_test"/>
+                                    </div>
+                                </div>
+                        </div>
+
+                       <!-- <group>
+                            <field name="referral_respiratory_therapist" class="oe_inline"/>
+                            <field name="referral_clinical_dietitian" class="oe_inline"/>
+                            <field name="referral_physiotherapist" class="oe_inline"/>
+                            <field name="referral_occupational" class="oe_inline"/>
+                        </group>
+                        <group>
+                            <field name="referral_therapist" class="oe_inline"/>
+                            <field name="referral_social_worker" class="oe_inline"/>
+                            <field name="referral_physician" class="oe_inline"/>
+                            <field name="referral_lab_test" class="oe_inline"/>
+                            <field name="referral_image_test" class="oe_inline"/>
+                        </group>-->
+                    </group>
+                    <group>
+                        <h3 style="color:#5D8DA8;">Urgency Level</h3>
+                        <br/>
+                        <group>
+                            <field name="urgency_level"/>
+                        </group>
+                    </group>
+                    <group>
+                        <h3 style="color:#5D8DA8;">Comment</h3>
+                        <br/>
+                        <field name="comment" nolabel="1"/>
+                    </group>
+                    <group>
+                        <h3 style="color:#5D8DA8;">Call Center Comment</h3>
+                        <br/>
+                        <field name="call_center_comment" nolabel="1"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_referral_action" model="ir.actions.act_window">
+        <field name="name">Internal Referral</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.referral</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data to show here
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="sm_referral"
+              name="Internal Referral"
+              parent="shifa_operations_others_menu"
+              action="sm_referral_action"
+              sequence="10"/>
+
+</odoo>

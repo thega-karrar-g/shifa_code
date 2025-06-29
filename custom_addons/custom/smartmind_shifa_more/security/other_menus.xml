@@ -1,0 +1,110 @@
+<odoo>
+
+    <menuitem name="Appointments" id="oeh_medical_appointments_menu_acc"
+              parent="smartmind_shifa.sm_medical_his_menu"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="1"/>
+
+    <menuitem name="Financial" id="sm_medical_financial_menu"
+              parent="smartmind_shifa.sm_medical_his_menu"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="2"/>
+
+    <menuitem id="menu_hhc_appointment_acc"
+              name="HHC Appointments"
+              parent="oeh_medical_appointments_menu_acc"
+              action="sm_hhc_appointment_action_acc"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="1"/>
+
+    <menuitem id="menu_physiotherapy_appointment_acc"
+              name="Physiotherapy Appointment"
+              parent="oeh_medical_appointments_menu_acc"
+              action="sm_physiotherapy_appointment_acc"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="2"/>
+
+    <menuitem id="menu_hvd_appointment_acc"
+              name="HVD Appointments"
+              parent="oeh_medical_appointments_menu_acc"
+              action="sm_hvd_appointment_acc"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="5"/>
+
+    <menuitem id="menu_appointment_acc"
+              name="Telemedicine Appointments"
+              parent="oeh_medical_appointments_menu_acc"
+              action="oehealth.oeh_medical_appointment_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="6"/>
+
+    <menuitem id="menu_instant_consultation_acc"
+              name="Instant Consultation"
+              parent="oeh_medical_appointments_menu_acc"
+              action="sm_shifa_instant_consultation_acc"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="7"/>
+
+    <menuitem id="menu_package_acc"
+              name="Package"
+              parent="oeh_medical_appointments_menu_acc"
+              action="sm_shifa_package_appointments_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="8"/>
+
+    <menuitem id="menu_multipackage_acc"
+              name="Multi-Package"
+              parent="oeh_medical_appointments_menu_acc"
+              action="sm_shifa_package_appointments_multi_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="9"/>
+
+    <menuitem id="menu_requested_payments_acc"
+              name="Requested Payments"
+              parent="sm_medical_financial_menu"
+              action="sm_shifa_requested_payments_acc"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="1"/>
+
+    <menuitem id="menu_cancellation_refund_acc"
+              name="Cancellation and Refund"
+              parent="sm_medical_financial_menu"
+              action="smartmind_shifa_extra.sm_shifa_cancellation_refund_action"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="2"/>
+
+    <menuitem id="menu_pharmacy_medicine_history_acc"
+              name="Pharmacy Medicines History"
+              parent="sm_medical_financial_menu"
+              action="smartmind_shifa_extra.sm_shifa_history_action"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="3"/>
+
+    <menuitem id="menu_pharmacy_medicine_history_report_acc"
+              name="Pharmacy Medicines History Report"
+              parent="sm_medical_financial_menu"
+              action="sm_history_wizard_action"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="4"/>
+
+    <menuitem id="menu_instant_consultation_report_acc"
+              name="Instant Consultations Report"
+              parent="sm_medical_financial_menu"
+              action="sm_consultation_wizard_action"
+              groups="smartmind_shifa.group_oeh_medical_accountant"
+              sequence="5"/>
+    <menuitem action="sm_medical_report_action_tree"
+              id="sm_medical_report_rule_list"
+              parent="menu_reports_root"
+              sequence="1"/>
+    <menuitem id="menu_report_instant_consultation_wizard"
+              action="sm_consultation_wizard_action"
+              parent="menu_reports_root"
+              sequence="2"/>
+    <menuitem id="menu_report_medicines_history_wizard"
+              action="sm_history_wizard_action"
+              parent="menu_reports_root"
+              sequence="3"/>
+
+
+</odoo>

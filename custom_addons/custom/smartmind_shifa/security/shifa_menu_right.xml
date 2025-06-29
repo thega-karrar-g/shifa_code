@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--        <record id="menu_appointment_root" model="ir.ui.menu">
+                    <field name="groups_id"
+                           eval="[(4,ref('group_oeh_medical_telemedicine_doctor'))]"/>
+                </record>
+
+                <record id="menu_patient_root" model="ir.ui.menu">
+                    <field name="groups_id"
+                           eval="[(4,ref('group_oeh_medical_telemedicine_doctor'))]"/>
+                </record>
+
+                <record id="menu_prescription_root" model="ir.ui.menu">
+                    <field name="groups_id"
+                           eval="[(4,ref('group_oeh_medical_telemedicine_doctor'))]"/>
+                </record>
+
+                <record id="menu_lab_test_root" model="ir.ui.menu">
+                    <field name="groups_id"
+                           eval="[(4,ref('group_oeh_medical_telemedicine_doctor'))]"/>
+                </record>
+
+                <record id="menu_imaging_test_root" model="ir.ui.menu">
+                    <field name="groups_id"
+                           eval="[(4,ref('group_oeh_medical_telemedicine_doctor'))]"/>
+                </record>-->
+        <record id="oehealth.oeh_medical_lab_test_conf_list" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(4,ref('group_oeh_medical_head_nurse')), (4,ref('group_oeh_medical_hhc_nurse'))]"/>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_imaging_test_conf_list" model="ir.ui.menu">
+            <field name="groups_id"
+                   eval="[(4,ref('group_oeh_medical_head_nurse')), (4,ref('group_oeh_medical_hhc_nurse'))]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="oehealth.oeh_medical_general_menu">
+            <field name="groups_id"
+                   eval="[(6, 0, [ref('oehealth.group_oeh_medical_physician'),
+                          ref('oehealth.group_oeh_medical_manager'),
+                          ref('oehealth.group_oeh_medical_receptionist'),
+                          ref('smartmind_shifa.group_oeh_medical_accountant')])]"/>
+        </record>
+    </data>
+</odoo>
+        <!--, (4,ref('')), (4,ref(''))], (4,ref(''))], (4,ref(''))], (4,ref(''))-->

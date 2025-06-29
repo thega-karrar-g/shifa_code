@@ -1,0 +1,409 @@
+<odoo>
+    <data>
+        <record id="action_open_hvd_appointment_in_doctor" model="ir.actions.act_window">
+            <field name="name">HVD Appointments from Patient</field>
+            <field name="res_model">sm.shifa.hvd.appointment</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="domain">[('doctor', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new appointment.
+                </p>
+                <p>
+                    Easily manage all of your appointment schedules;
+                </p>
+            </field>
+        </record>
+        <record id="action_open_hhc_appointment_in_doctor" model="ir.actions.act_window">
+            <field name="name">HHC Appointments from Patient</field>
+            <field name="res_model">sm.shifa.hhc.appointment</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="domain">['|','|','|','|','|','|','|', ('head_doctor', '=', active_id), ('nurse','=',active_id),
+                ('physiotherapist','=',active_id), ('doctor','=',active_id), ('social_worker','=',active_id),
+                ('clinical_dietitian','=',active_id),('diabetic_educator','=',active_id),
+                ('respiratory_therapist','=',active_id)]
+            </field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new HHC Appointment.
+                </p>
+                <p>
+                    No Data to Display.
+                </p>
+            </field>
+        </record>
+        <record id="action_open_physiotherapy_appointment_in_doctor" model="ir.actions.act_window">
+            <field name="name">Physiotherapy Appointment from Patient</field>
+            <field name="res_model">sm.shifa.physiotherapy.appointment</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="domain">[('physiotherapist', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Physiotherapy.
+                </p>
+                <p>
+                    No Data to Display.
+                </p>
+            </field>
+        </record>
+        <record id="action_open_pcr_appointment_in_doctor" model="ir.actions.act_window">
+            <field name="name">PCR Appointments from Patient</field>
+            <field name="res_model">sm.shifa.pcr.appointment</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="domain">[('head_doctor', '=', active_id)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new PCR Appointment.
+                </p>
+                <p>
+                    No Data to Display.
+                </p>
+            </field>
+        </record>
+        <record id="physician_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.physician.form.inherit</field>
+            <field name="model">oeh.medical.physician</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_physician_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet" position="before">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,active,inactive"/>
+                        <button confirm="Are you sure you want to activate ?" name="set_to_active"
+                                states="draft" string="Activate" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                        <button confirm="Are you sure you want to get back to draft ?" name="set_to_draft"
+                                states="active" string="Back to Draft" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                        <button confirm="Are you sure you want to deactivate ?" name="set_to_inactive"
+                                states="active" string="Deactivate" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                        <button confirm="Are you sure you want to activate ?" name="set_to_active"
+                                states="inactive" string="Activate" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                    </header>
+                </xpath>
+                <xpath expr="/form/sheet/div[1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/div[1]" position="after">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="action" class="oe_stat_button"
+                                name="%(oehealth.oeh_medical_appointment_action_tree)d"
+                                context="{'search_default_doctor': active_id,'default_doctor': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field string="Tele-Appointments" name="app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_hvd_appointment_in_doctor)d"
+                                context="{'search_default_doctor': active_id,'default_doctor': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field name="hvd_app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_hhc_appointment_in_doctor)d"
+                                icon="fa-calendar">
+                            <!-- context="{'search_default_doctor': active_id,'default_doctor': active_id,'default_name':'/'}"-->
+                            <field name="hhc_app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button"
+                                name="%(action_open_physiotherapy_appointment_in_doctor)d"
+                                context="{'search_default_doctor': active_id,'default_doctor': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field name="phy_app_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" class="oe_stat_button" name="%(action_open_pcr_appointment_in_doctor)d"
+                                context="{'search_default_doctor': active_id,'default_doctor': active_id,'default_name':'/'}"
+                                icon="fa-calendar">
+                            <field name="pcr_app_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                </xpath>
+                <field name="institution" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="speciality" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="is_pharmacist" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <xpath expr="/form/sheet/group[1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group[1]" position="before">
+                    <group>
+                        <group>
+                            <field name="mobile"/>
+                            <field name="ssn"/>
+                            <field name="branch"/>
+                            <field name="role_type"/>
+                            <field name="degree_id" widget="many2many_tags" placeholder="Degrees..." invisible="1"/>
+                            <field name="doctor_type" attrs="{'invisible':[('role_type','!=','HVD')]}" invisible="1"/>
+                            <field name="code"/>
+
+                        </group>
+                        <group attrs="{'invisible':[('role_type','not in',['HD', 'HHCD', 'TD', 'HVD', 'HP', 'HHCP', 'HN', 'RT', 'CD', 'HE', 'DE', 'HHCN', 'SW'])]}">
+                            <field name="consultancy_type"/>
+                            <field name="tele_price"/>
+                            <field name="hv_consultancy_type"/>
+                            <field name="hv_price"/>
+                            <field name="show_in_mobile_app"/>
+                            <field name="dr_categories_mobile"/>
+                        </group>
+                    </group>
+
+                </xpath>
+                <xpath expr="/form/sheet/group[2]" position="after">
+                    <group attrs="{'invisible':[('role_type','not in',['HD', 'HHCD', 'TD', 'HVD', 'HP', 'HHCP', 'HN', 'RT', 'CD', 'HE', 'DE', 'HHCN', 'SW'])]}">
+                        <group>
+                            <field name="speciality" attrs="{'readonly':[('state','in',['active','inactive'])]}"/>
+                            <field name="license"/>
+                            <field name="employer"/>
+                            <field name="scientific_expertise"/>
+                            <field name="languages" widget="many2many_tags"/>
+                            <field name="country"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="job"/>
+                            <field name="license_no"/>
+                            <field name="experience_years"/>
+                            <field name="practical_expertise"/>
+                            <!--                            <field name="code"/>-->
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="/form/sheet/group[1]" position="after">
+                    <div class="oe_title">
+                        <label for="name_ar" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name_ar" required="1"/>
+                        </h1>
+                    </div>
+                </xpath>
+                <xpath expr="/form/sheet/group[3]" position="after">
+                    <group attrs="{'invisible':[('role_type','not in',['HD', 'HHCD', 'TD', 'HVD', 'HP', 'HHCP', 'HN', 'RT', 'CD', 'HE', 'DE', 'HHCN', 'SW'])]}">
+                        <group>
+                            <field name="speciality_ar"/>
+                            <field name="license"/>
+                            <field name="employer_ar"/>
+                            <field name="scientific_expertise_ar"/>
+                            <field name="country_ar"/>
+                        </group>
+                        <group>
+                            <field name="job_ar"/>
+                            <field name="practical_expertise_ar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="doctor_fcm_token"/>
+                        </group>
+                        <group>
+                            <field name="device_type"/>
+                        </group>
+                    </group>
+                </xpath>
+                <field name="name" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}
+                    </attribute>
+                </field>
+                <field name="code" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}
+                    </attribute>
+                </field>
+                <field name="appointment_type" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}
+                    </attribute>
+                </field>
+                <field name="oeh_user_id" position="attributes">
+                    <attribute name="attrs">{'invisible':[('state','!=','draft')]}
+                    </attribute>
+                </field>
+                <field name="address_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','=','inactive')]}
+                    </attribute>
+                </field>
+                <field name="mobile_phone" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','=','inactive')]}
+                    </attribute>
+                </field>
+                <field name="work_phone" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','=','inactive')]}
+                    </attribute>
+                </field>
+                <field name="work_email" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','=','inactive')]}
+                    </attribute>
+                </field>
+                <field name="work_location" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','=','inactive')]}
+                    </attribute>
+                </field>
+                <field name="notes" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','=','inactive')]}
+                    </attribute>
+                </field>
+                <xpath expr="/form/sheet/notebook/page[1]" position="replace">
+                    <page string="Medical staffs Schedule Availability">
+                        <field name="schedule_availability" widget="one2many_list" nolabel="1"
+                               context="{'default_doctor': active_id}">
+                            <form string="Medical staffs Schedule">
+                    <header>
+                        <button confirm="Are you sure you want to generate this doctor schedule?"
+                                name="set_to_scheduled" states="draft"
+                                string="Generate Schedule" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,generated"
+                               statusbar_colors='{"draft":"yellow","generated":"green"}'/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="doctor" readonly="1"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group col="3" string="Start and End Time (24h format)">
+                            <group>
+                                <field name="start_time" widget="timepicker" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="end_time" widget="timepicker" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="duration"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group col="3" string="Start and End Date">
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <hr/>
+                        <group col="4" string="Week Days">
+                            <group>
+                                <field name="is_saturday" widget="checkbox"/>
+                            </group>
+                            <group>
+                                <field name="is_sunday" widget="checkbox"/>
+                            </group>
+                            <group>
+                                <field name="is_monday" widget="checkbox"/>
+                            </group>
+                            <group>
+                                <field name="is_tuesday" widget="checkbox"/>
+                            </group>
+                        </group>
+                        <group col="4">
+                            <group>
+                                <field name="is_wednesday" widget="checkbox"/>
+                            </group>
+                            <group>
+                                <field name="is_thursday" widget="checkbox"/>
+                            </group>
+                            <group>
+                                <field name="is_friday" widget="checkbox"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Weekly Availability">
+                                <group string="Weekly Appointment Schedule">
+                                    <field name="available_lines" nolabel="1">
+                                        <tree string="Doctor Availability" nolabel="1" editable="bottom">
+                                            <field name="schedule_id" invisible="1"/>
+                                            <field name="date"/>
+                                            <field name="day"/>
+                                            <field name="duration"/>
+                                            <field name="start_time" widget="float_time"/>
+                                            <field name="end_time" widget="float_time"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+                        </field>
+                        <!--                        <field name="schedule_availability" widget="one2many_list" nolabel="1" context="{'default_doctor': id}"/>-->
+                    </page>
+                    <!--<page string="Timeslot">
+                        <field name="name"></field>
+                    </page>-->
+                </xpath>
+                <!--<xpath expr="/form/sheet/notebook/page[1]/group[2]" position="replace">
+                    <field name="available_lines" nolabel="1" attrs="{'readonly':[('state','=','inactive')]}">
+                        <tree string="Doctor Availability" nolabel="1" editable="bottom">
+                            <field name="date"/>
+                            <field name="name" invisible="1"/>
+                            <field name="day"/>
+                            <field name="duration"/>
+                            <field name="start_time" widget="float_time"/>
+                            <field name="end_time" widget="float_time"/>
+                        </tree>
+                    </field>
+                </xpath>-->
+                <xpath expr="/form/sheet/notebook/page[4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/notebook" position="attributes">
+                    <attribute name="attrs">{'invisible':[('role_type','not in',['HD', 'HHCD', 'TD', 'HVD', 'HP',
+                        'HHCP', 'HN', 'RT', 'CD', 'HE', 'DE', 'HHCN', 'SW'])]}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="physician_view_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.physician.tree.inherit</field>
+            <field name="model">oeh.medical.physician</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_physician_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="role_type"/>
+                    <field name="state" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="physician_view_speciality_tree_inherit" model="ir.ui.view">
+            <field name="name">Shifa Doctor Specialities</field>
+            <field name="model">oeh.medical.speciality</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_physician_speciality_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name"/>
+                    <field name="name_ar"/>
+                </field>
+            </field>
+        </record>
+
+        <menuitem action="oehealth.oeh_medical_physician_speciality_action_tree"
+                  id="oehealth.oeh_medical_physician_speciality_list"
+                  name="Specialties"
+                  parent="smartmind_shifa.shifa_setup_data_menu" sequence="3"/>
+
+        <record id="oeh_medical_physician_action_my_profile" model="ir.actions.act_window">
+            <field name="name">My Profile</field>
+            <field name="res_model">oeh.medical.physician</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('oeh_user_id', '=', uid)]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
+

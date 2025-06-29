@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wound_assessment_number_form" model="ir.ui.view">
+        <field name="name">assessment.number.form</field>
+        <field name="model">sm.shifa.wound.assessment.values</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="3">
+                        <label for="wound_assessment_show" string="Wound Assessment"
+                               style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                        <div class="oe_inline">
+                            <field name="wound_assessment_show" nolabel="1" widget="checkbox"/>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible': [('wound_assessment_show', '=', False)]}">
+                        <group>
+                            <field name="wound_number" required="1"/>
+                            <field name="analgesia_pre_dressing" required="1"/>
+                        </group>
+                    </group>
+                    <div attrs="{'invisible': [('wound_assessment_show', '=', False)]}">
+                        <h4 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                            Wound Base
+                        </h4>
+                        <group>
+                            <group>
+                                <field name="wound_base_necrotic" required="1"/>
+                                <field name="wound_base_stough_yellow" required="1"/>
+                                <field name="wound_base_granulation_red" required="1"/>
+                                <field name="wound_base_epithelialisation_pink" required="1"/>
+                            </group>
+                            <group>
+                                <field name="wound_base_other_choose"/>
+                                <div attrs="{'invisible': ['|', ('wound_assessment_show', '=', False), ('wound_base_other_choose', '=', False)]}">
+                                    <field name="wound_base_other_content" nolabel="1" class="oe_inline"/>
+                                    <group col="3">
+                                        <label for="wound_base_other" string="(%)"
+                                               style=" font-size: 12px;"/>
+                                        <div class="oe_inline">
+                                            <field name="wound_base_other" nolabel="1"/>
+                                        </div>
+                                    </group>
+                                </div>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="exudate_volume" required="1"/>
+                                <field name="exudate_type" required="1"/>
+                            </group>
+                            <group>
+                                <field name="offensive_odour" required="1"/>
+                                <field name="surrounding_skin" required="1"/>
+                            </group>
+                        </group>
+                        <h4 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                            Measurement
+                        </h4>
+                        <group>
+                            <group>
+                                <field name="Measurement_length" required="1"/>
+                                <field name="Measurement_width" required="1"/>
+                            </group>
+                            <group>
+                                <field name="Measurement_depth" required="1"/>
+                                <field name="Measurement_undermining_area" required="1"/>
+                                <field name="measurement_other"/>
+                            </group>
+                        </group>
+                    </div>
+                    <group col="3">
+                        <label for="dressing_plan_show" string="Dressing Plan"
+                               style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                        <div class="oe_inline">
+                            <field name="dressing_plan_show" nolabel="1" widget="checkbox"/>
+                        </div>
+                    </group>
+                    <div attrs="{'invisible': [('dressing_plan_show', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="location_wound" required="1"/>
+                                <field name="dressing_frequency" required="1"/>
+                                <field name="periwound_skin_care" required="1"/>
+                                <field name="periwound_care_other" attrs="{'invisible': [('periwound_skin_care', '!=', 'others')]}"/>
+                                <field name="secure_with" required="1"/>
+                                <field name="secure_other" attrs="{'invisible': [('secure_with', '!=', 'others')]}"/>
+                            </group>
+                            <group>
+                                <field name="clean_irrigate" required="1"/>
+                                <field name="clean_irrigate_other" attrs="{'invisible': [('clean_irrigate', '!=', 'others')]}"/>
+                                <field name="primary_dressing" required="1"/>
+                                <field name="primary_dress_other" attrs="{'invisible': [('primary_dressing', '!=', 'others')]}"/>
+                                <field name="secondary_dressing" required="1"/>
+                                <field name="secondary_dress_other" attrs="{'invisible': [('secondary_dressing', '!=', 'others')]}"/>
+                                <field name="for_pressure_ulcer" required="1"/>
+                                <field name="pressure_ulcer_other" attrs="{'invisible': [('for_pressure_ulcer', '!=', 'others')]}"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="negative_pressure_wound_vac" string="Negative Pressure Wound Therapy (VAC)"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="negative_pressure_wound_vac" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                    </div>
+                        <div attrs="{'invisible': ['|', ('negative_pressure_wound_vac', '=', False), ('dressing_plan_show', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="foam_colour" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="number_foam" required="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="pressure" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="pressure_pump_setting" required="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="canister_changed" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="event_recorder"/>
+                                    <field name="event_recorder_content" nolabel="1" attrs="{'invisible': [('event_recorder', '=', False)]}"/>
+                                </group>
+                            </group>
+                        </div>
+                      <group col="3">
+                            <label for="present_infection" string="Present of Infection"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="present_infection" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                    <group attrs="{'invisible': [('present_infection', '=', False)]}">
+                        <field name="present_infection_content" nolabel="1" required="1"/>
+                    </group>
+               <group col="3">
+                            <label for="surgical_clips" string="Surgical Clips or Stitches Remove"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="surgical_clips" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                    <group attrs="{'invisible': [('surgical_clips', '=', False)]}">
+                        <field name="surgical_clips_content" nolabel="1" required="1"/>
+                    </group>
+                 <group col="3">
+                            <label for="image_show" string="Image"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="image_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                    <group attrs="{'invisible': [('image_show', '=', False)]}">
+                        <field name="image_dressing" nolabel="1" widget="image" required="1"/>
+                    </group>
+                    <group col="3">
+                            <label for="wound_assessment_remarks_show" string="Remarks"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="wound_assessment_remarks_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                    <group attrs="{'invisible': [('wound_assessment_remarks_show', '=', False)]}">
+                        <field name="wound_assessment_remarks_text" string=""/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wound_number_assessment_action" model="ir.actions.act_window">
+        <field name="name">woundNumberAssessment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.wound.assessment.values</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_patient_ophthalmology" model="ir.actions.report">
+            <field name="name">Ophthalmology Report</field>
+            <field name="model">oeh.medical.ophthalmology</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">oehealth_extra_addons.report_patient_ophthalmology_evaluation</field>
+            <field name="report_file">oehealth_extra_addons.report_patient_ophthalmology_evaluation</field>
+        </record>
+
+    </data>
+</odoo>

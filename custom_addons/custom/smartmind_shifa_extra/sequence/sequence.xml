@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_anticoagulation_management" model="ir.sequence">
+            <field name="name">anticoagulation management</field>
+            <field name="code">anticoagulation.management</field>
+            <field name="prefix">AntiC</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_anticoagulation_management_follow_up" model="ir.sequence">
+            <field name="name">anticoagulation management follow up</field>
+            <field name="code">anticoagulation.management.follow.up</field>
+            <field name="prefix">AntiC-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_continence_care" model="ir.sequence">
+            <field name="name">continence care</field>
+            <field name="code">continence.care</field>
+            <field name="prefix">CC</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_continence_care_follow_up" model="ir.sequence">
+            <field name="name">continence care follow up</field>
+            <field name="code">continence.care.follow.up</field>
+            <field name="prefix">CC-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_diabetic_care" model="ir.sequence">
+            <field name="name">diabetic care</field>
+            <field name="code">diabetic.care</field>
+            <field name="prefix">DC</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_diabetic_care_follow_up" model="ir.sequence">
+            <field name="name">diabetic care follow up</field>
+            <field name="code">diabetic.care.follow.up</field>
+            <field name="prefix">DC-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_breast_surgery" model="ir.sequence">
+            <field name="name">breast surgery</field>
+            <field name="code">breast.surgery</field>
+            <field name="prefix">DT</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_breast_surgery_follow_up" model="ir.sequence">
+            <field name="name">breast surgery follow up</field>
+            <field name="code">breast.surgery.follow.up</field>
+            <field name="prefix">DT-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_enteral_feeding" model="ir.sequence">
+            <field name="name">enteral feeding</field>
+            <field name="code">enteral.feeding</field>
+            <field name="prefix">EFC</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_enteral_feeding_follow_up" model="ir.sequence">
+            <field name="name">enteral feeding follow up</field>
+            <field name="code">enteral.feeding.follow.up</field>
+            <field name="prefix">EFC-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_newborn_care" model="ir.sequence">
+            <field name="name">newborn care</field>
+            <field name="code">newborn.care</field>
+            <field name="prefix">NB</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_newborn_care_follow_up" model="ir.sequence">
+            <field name="name">newborn care follow up</field>
+            <field name="code">newborn.care.follow.up</field>
+            <field name="prefix">NB-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_palliative_care" model="ir.sequence">
+            <field name="name">palliative care</field>
+            <field name="code">palliative.care</field>
+            <field name="prefix">PC</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_palliative_care_follow_up" model="ir.sequence">
+            <field name="name">palliative care follow up</field>
+            <field name="code">palliative.care.follow.up</field>
+            <field name="prefix">PC-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_postnatal_care" model="ir.sequence">
+            <field name="name">postnatal care</field>
+            <field name="code">postnatal.care</field>
+            <field name="prefix">PCM</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_postnatal_care_follow_up" model="ir.sequence">
+            <field name="name">postnatal care follow up</field>
+            <field name="code">postnatal.care.follow.up</field>
+            <field name="prefix">PCM-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_parenteral_drugfluid" model="ir.sequence">
+            <field name="name">parenteral drugfluid</field>
+            <field name="code">parenteral.drugfluid</field>
+            <field name="prefix">PDFA</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_parenteral_drugfluid_follow_up" model="ir.sequence">
+            <field name="name">parenteral drugfluid follow up</field>
+            <field name="code">parenteral.drugfluid.follow.up</field>
+            <field name="prefix">PDFA-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_pressure_ulcer" model="ir.sequence">
+            <field name="name">pressure ulcer</field>
+            <field name="code">pressure.ulcer</field>
+            <field name="prefix">PU</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_pressure_ulcer_follow_up" model="ir.sequence">
+            <field name="name">pressure ulcer follow up</field>
+            <field name="code">pressure.ulcer.follow.up</field>
+            <field name="prefix">PU-F</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_stoma_care" model="ir.sequence">
+            <field name="name">stoma care</field>
+            <field name="code">stoma.care</field>
+            <field name="prefix">SC</field>
+            <field name="padding">4</field>
+        </record>
+		<record id="sequence_stoma_care_follow_up" model="ir.sequence">
+            <field name="name">stoma care follow up</field>
+            <field name="code">stoma.care.follow.up</field>
+            <field name="prefix">SC-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_vital_signs" model="ir.sequence">
+            <field name="name">vital signs</field>
+            <field name="code">vital.signs</field>
+            <field name="prefix">VS</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_oxygen_administration" model="ir.sequence">
+            <field name="name">oxygen administration</field>
+            <field name="code">oxygen.administration</field>
+            <field name="prefix">OA</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_oxygen_administration_follow_up" model="ir.sequence">
+            <field name="name">oxygen administration follow up</field>
+            <field name="code">oxygen.administration.follow.up</field>
+            <field name="prefix">OA-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_nebulization_care" model="ir.sequence">
+            <field name="name">nebulization care</field>
+            <field name="code">nebulization.care</field>
+            <field name="prefix">NC</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_nebulization_care_follow_up" model="ir.sequence">
+            <field name="name">nebulization care follow up</field>
+            <field name="code">nebulization.care.follow.up</field>
+            <field name="prefix">NC-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_trache_care" model="ir.sequence">
+            <field name="name">trache care</field>
+            <field name="code">trache.care</field>
+            <field name="prefix">TC</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_trache_care_follow_up" model="ir.sequence">
+            <field name="name">trache care follow up</field>
+            <field name="code">trache.care.follow.up</field>
+            <field name="prefix">TC-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_care_giver" model="ir.sequence">
+            <field name="name">care giver</field>
+            <field name="code">care.giver</field>
+            <field name="prefix">CG</field>
+            <field name="padding">4</field>
+        </record>
+         <record id="sequence_care_giver_follow_up" model="ir.sequence">
+            <field name="name">care giver follow up</field>
+            <field name="code">care.giver.follow.up</field>
+            <field name="prefix">CG-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_subcut_injection" model="ir.sequence">
+            <field name="name">subcut injection</field>
+            <field name="code">subcut.injection</field>
+            <field name="prefix">SICI</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_subcut_injection_follow_up" model="ir.sequence">
+            <field name="name">subcut injection follow up</field>
+            <field name="code">subcut.injection.follow.up</field>
+            <field name="prefix">SICI-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_comprehensive_nurse" model="ir.sequence">
+            <field name="name">comprehensive nurse</field>
+            <field name="code">comprehensive.nurse</field>
+            <field name="prefix">CNA</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_comprehensive_nurse_follow_up" model="ir.sequence">
+            <field name="name">comprehensive nurse follow up</field>
+            <field name="code">comprehensive.nurse.follow.up</field>
+            <field name="prefix">CNA-F</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_vaccines" model="ir.sequence">
+            <field name="name">vaccines</field>
+            <field name="code">vaccines.code</field>
+            <field name="prefix">VAC</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_requested_payment" model="ir.sequence">
+            <field name="name">requested payment</field>
+            <field name="code">sm.shifa.requested.payments</field>
+            <field name="prefix">Req-P</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_cancellation_refund" model="ir.sequence">
+            <field name="name">Cancellation Refund</field>
+            <field name="code">sm.shifa.cancellation.refund</field>
+            <field name="prefix">Can-Re</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_instant_consultation" model="ir.sequence">
+            <field name="name">Instant Consultation</field>
+            <field name="code">sm.shifa.instant.consultation</field>
+            <field name="prefix">IC</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record id="sequence_instant_prescriptions" model="ir.sequence">
+            <field name="name">Instant Prescriptions</field>
+            <field name="code">sm.shifa.instant.prescriptions</field>
+            <field name="prefix">IP</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record id="sequence_pharmacies" model="ir.sequence">
+            <field name="name">Pharmacies</field>
+            <field name="code">sm.shifa.pharmacies</field>
+            <field name="prefix">Phar</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_pharmacy_chain" model="ir.sequence">
+            <field name="name">Pharmacy Chain</field>
+            <field name="code">sm.shifa.pharmacy.chain</field>
+            <field name="prefix">Ph/Ch</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_call_center_census" model="ir.sequence">
+            <field name="name">Call Center Census</field>
+            <field name="code">sm.shifa.call.center.census</field>
+            <field name="prefix">CCC/%(day)s-%(month)s-%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_oeh_medical_patient_medical_cert" model="ir.actions.report">
+            <field name="name">Medical Certificate</field>
+            <field name="model">oeh.medical.patient.medical.cert</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">oehealth_extra_addons.report_patient_medical_cert</field>
+            <field name="report_file">oehealth_extra_addons.report_patient_medical_cert</field>
+        </record>
+
+    </data>
+</odoo>

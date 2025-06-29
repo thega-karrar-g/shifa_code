@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_investigation_tree" model="ir.ui.view">
+        <field name="name">investigation.tree</field>
+        <field name="model">sm.shifa.investigation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Reference"/>
+                <field name="patient"/>
+                <field name="date_requested"/>
+                <field name="date_analysis"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_investigation_form" model="ir.ui.view">
+        <field name="name">investigation.form</field>
+        <field name="model">sm.shifa.investigation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button confirm="Are you sure you want to call center?" name="set_to_call_center"
+                            states="Draft" string="Send" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                            states="Draft" string="Upload" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to send?" name="set_to_team"
+                            states="Call Center" string="Send" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to cancel?" name="set_to_cancel"
+                            states="Call Center" string="Cancel" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                            states="Test In Progress" string="Upload" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to Start?" name="set_to_investigation_start"
+                            states="Team" string="Start" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <!--<button name="print_patient_labtest" states="Test In Progress,Completed,Invoiced"
+                            string="Print Investigation" type="object"
+                    />-->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Draft,Call Center,Test In Progress,Team,Uploaded,Cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="Inv#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                    <group>
+                        <group>
+                            <field name="patient"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="hhc_appointment"/>
+                            <field name="hvd_appointment"/>
+                            <field name="appointment"/>
+                        </group>
+                        <group>
+                            <field name="date_requested"/>
+                            <field name="date_analysis"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="requester_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="investigation_name" string="Investigation name"/>
+                        </group>
+                    </group>
+                    <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                    <br/>
+                    <group>
+                        <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                            Document
+                        </h5>
+                        <br/>
+                        <field name="investigation_document" nolabel="1"/>
+                    </group>
+                    <group>
+                        <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                            Analysis
+                        </h5>
+                        <br/>
+                        <field name="investigation_analysis" nolabel="1"/>
+                    </group>
+                    <group>
+                        <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                            Results
+                        </h5>
+                        <br/>
+                        <field name="result" nolabel="1"/>
+                    </group>
+                        <div attrs="{'invisible': [('state', 'not in', ['Draft', 'Uploaded'])]}">
+                            <p>
+                                <span attrs="{'invisible': [('state', '=', 'Uploaded')]}">Click here to add result
+                                </span>
+                                <field name="attachment_ids" nolabel="1" widget="many2many_binary"/>
+                            </p>
+                        </div>
+                        <br/>
+                    <group>
+                        <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                            Conclusion
+                        </h5>
+                        <br/>
+                        <field name="investigation_conclusion" nolabel="1"/>
+                    </group>
+                    <br/>
+                    <group>
+                        <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                            Image
+                        </h5>
+                        <br/>
+                        <field name="investigation_image" nolabel="1" widget="image"/>
+                    </group>
+
+                    <!--                    <group>-->
+                    <!--                        <field name="investigation_document"/>-->
+                    <!--                        <field name="investigation_analysis"/>-->
+                    <!--                        <field name="result"/>-->
+                    <!--                        <field name="investigation_conclusion"/>-->
+                    <!--                        <br/>-->
+                    <!--                    </group>-->
+                    <!--                    <group col="2">-->
+                    <!--                        <field name="investigation_image" nolabel="1" widget="image"/>-->
+                    <!--                    </group>-->
+                    <!--                    <group>
+                                            <group>
+                                                <field name="patient"/>
+                                                <field name="investigation_name"/>
+                                            </group>
+                                            <group>
+                                                <field name="investigation_analysis"/>
+                                                <field name="investigation_conclusion"/>
+                                                <field name="investigation_document"/>
+                                            </group>
+                                            <group>
+                                                <field name="investigation_image" nolabel="1" widget="image"/>
+                                            </group>
+                                        </group>-->
+                </sheet>
+                 <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_investigation_action" model="ir.actions.act_window">
+        <field name="name">Investigation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.investigation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Investigation found
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="investigation"
+              name="Investigation"
+              parent="menu_doctor_main_form_root"
+              action="sm_investigation_action"
+              sequence="6"/>
+</odoo>

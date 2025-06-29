@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="medical_pharmacy_prescriptions_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h3>Prescription Detail</h3>
+                        </div>
+                        <t t-set="o" t-value="o.with_context({'lang':o.patient.partner_id.lang})"/>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div t-if="o.patient" class="col-4 bm-4">
+                                <strong>InstPr#:</strong>
+                                <span t-field="o.name"/>
+                                <br/>
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.cunsultancy_name"/>
+                                <br/>
+                                <strong>ID Number:</strong>
+                                <span t-field="o.cunsultancy_id"/>
+                                <br/>
+                                <strong>Date:</strong>
+                                <span class="m-0" t-field="o.date_time"/>
+                            </div>
+                            <div t-if="o.cunsultancy_sex" class="col-4 bm-4">
+                                <br/>
+                                <strong>Gender:</strong>
+                                <span t-field="o.cunsultancy_sex"/>
+                                <br/>
+                                <strong>Age:</strong>
+                                <span t-field="o.cunsultancy_age"/>
+                                <br/>
+                                <strong>Weight(kg):</strong>
+                                <span t-field="o.weight"/>
+                            </div>
+                            <div t-if="o.patient" class="col-4 bm-4">
+                                <br/>
+                                <strong>Requested by:</strong>
+                                <span t-field="o.patient"/>
+                                <br/>
+                                <strong>ID Number:</strong>
+                                <span t-field="o.patient.ssn"/>
+                                <br/>
+                                <strong>Mobile:</strong>
+                                <span t-field="o.patient.mobile"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="col-12 bm-6">
+                            <strong style="color: blue">Allergies:</strong>
+                            <span t-field="o.drug_allergy"/>
+                            <span t-if="o.drug_allergy == 'yes'">
+                                ,
+                                <span t-field="o.drug_allergy_text"/>
+                            </span>
+                            <br/>
+                            <strong style="color: blue">Diagnosis:</strong>
+                            <div t-if="o.diagnosis">
+                                <ul>
+                                    <li>
+                                        <span t-if="o.diagnosis" t-field="o.diagnosis"/>
+                                    </li>
+                                    <div t-if="o.diagnosis_add2">
+                                        <li>
+                                            <span t-if="o.diagnosis_add2" t-field="o.diagnosis_add2"/>
+                                        </li>
+                                    </div>
+                                    <div t-if="o.diagnosis_add3">
+                                        <li>
+                                            <span t-if="o.diagnosis_add3" t-field="o.diagnosis_add3"/>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                        <table class="table table-condensed mt32">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Medicine</th>
+                                    <th class="text-left">Strength</th>
+                                    <th class="text-left">Dose</th>
+                                    <th class="text-center">Form</th>
+                                    <th class="text-center">Route</th>
+                                    <th class="text-right">Frequency</th>
+                                    <th class="text-right">Duration</th>
+                                    <th class="text-left">Instruction</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody" style="font-size: 14px">
+                                <tr t-foreach="o.inst_prescription_line" t-as="l">
+                                    <td class="text-left">
+                                        <strong>
+                                            <span t-field="l.pharmacy_medicines"/>
+                                        </strong>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="l.strength"/>
+                                        <span t-field="l.strength_unit.name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="l.dose"/>
+                                        <span t-field="l.dose_unit.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.dose_form.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.dose_route.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.common_dosage"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.duration"/>
+                                        <span t-field="l.frequency_unit"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.info"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-6 bm-6">
+                                <strong style="color: blue">Other Prescription:</strong>
+                                <div t-if="o.other_prescription_1" style="padding-left: 13px">
+                                    <ul>
+                                        <li>
+                                            <span t-if="o.other_prescription_1" t-field="o.other_prescription_1"/>
+                                        </li>
+                                        <div t-if="o.other_prescription_2">
+                                            <li>
+                                                <span t-if="o.other_prescription_2" t-field="o.other_prescription_2"/>
+                                            </li>
+                                        </div>
+                                        <div t-if="o.other_prescription_3">
+                                            <li>
+                                                <span t-if="o.other_prescription_3" t-field="o.other_prescription_3"/>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 bm-6">
+                                <strong style="color: blue">Recommendation:</strong>
+                                <div t-if="o.recommendations">
+                                    <span t-field="o.recommendations"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-left: 13px">
+                            <div style="position:related; page-break-inside: avoid;">
+                                <div t-if="o.doctor">
+                                    <strong>Doctor Name:</strong>
+                                    <br/>
+                                    <span t-field="o.doctor.name"/>
+                                </div>
+                                <strong>Signature and Stamp:</strong>
+                                <br/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.doctor.oeh_user_id.user_signature}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.doctor.oeh_user_id.stamp}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="row">
+                           <div style="position:related; page-break-inside: avoid;">
+                               <strong>company stamp:</strong>
+                               <div>
+                                   <img class="img-responsive" t-attf-src="data:image/jpg;base64,{{o.company_id.stamp}}"
+                                        style="width:120px; height:80px;margin-left:55px; margin:5px"/>
+                               </div>
+                           </div>
+                    </div>-->
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

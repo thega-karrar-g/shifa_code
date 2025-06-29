@@ -1,0 +1,13 @@
+<odoo>
+    <template id="hr_attendance_kiosk_mode_inherit" inherit_id="hr_attendance.kiosk_mode">
+        <!-- Make the parent container position: relative -->
+        <xpath expr="//div[contains(@class, 'o_hr_attendance_kiosk_mode')]" position="attributes">
+            <attribute name="style">position: relative;</attribute>
+        </xpath>
+
+        <!-- Move check-in/check-out button to upper right -->
+        <xpath expr="//div[contains(@class, 'o_hr_attendance_button')]" position="attributes">
+            <attribute name="style">position: absolute; top: 20px; right: 20px; z-index: 999;</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Patient Management -->
+        <record id="seq_oeh_medical_patient" model="ir.sequence">
+            <field name="name">Patient</field>
+            <field name="code">oeh.medical.patient</field>
+            <field name="prefix">HP</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Appointments Management -->
+        <record id="seq_oeh_medical_appointment" model="ir.sequence">
+            <field name="name">Appointments</field>
+            <field name="code">oeh.medical.appointment</field>
+            <field name="prefix">AP</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Prescription Management -->
+        <record id="seq_oeh_medical_prescription" model="ir.sequence">
+            <field name="name">Prescriptions</field>
+            <field name="code">oeh.medical.prescription</field>
+            <field name="prefix">PR</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Inpatient Admission Management -->
+        <record id="seq_oeh_medical_inpatient" model="ir.sequence">
+            <field name="name">Inpatient Administration</field>
+            <field name="code">oeh.medical.inpatient</field>
+            <field name="prefix">IN</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Evaluation Management -->
+        <record id="seq_oeh_medical_evaluation" model="ir.sequence">
+            <field name="name">Evaluation</field>
+            <field name="code">oeh.medical.evaluation</field>
+            <field name="prefix">EN</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Gynaco Management -->
+        <record id="seq_oeh_medical_gyneco_perinatal_monitor" model="ir.sequence">
+            <field name="name">Parinatal</field>
+            <field name="code">oeh.medical.perinatal.monitor</field>
+            <field name="prefix">PR</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_oeh_medical_gyneco_puerperium_monitor" model="ir.sequence">
+            <field name="name">Puerperium</field>
+            <field name="code">oeh.medical.puerperium.monitor</field>
+            <field name="prefix">PU</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_oeh_medical_gyneco" model="ir.sequence">
+            <field name="name">Gynaco</field>
+            <field name="code">oeh.medical.gyneco</field>
+            <field name="prefix">GY</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Lab Test Management -->
+        <record id="seq_oeh_medical_lab_test" model="ir.sequence">
+            <field name="name">Lab Tests</field>
+            <field name="code">oeh.medical.lab.test</field>
+            <field name="prefix">LT</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Treatment Management -->
+        <record id="seq_oeh_medical_treatment" model="ir.sequence">
+            <field name="name">Treatments</field>
+            <field name="code">oeh.medical.treatment</field>
+            <field name="prefix">TR</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!--ICU Management-->
+        <record id="seq_oeh_medical_icu_glasgow" model="ir.sequence">
+            <field name="name">ICU - Glasgow Coma Scale</field>
+            <field name="code">oeh.medical.icu.glasgow</field>
+            <field name="prefix">GCS</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_oeh_medical_icu_apacheIIscoring" model="ir.sequence">
+            <field name="name">ICU - ApacheII Scoring</field>
+            <field name="code">oeh.medical.icu.apache2</field>
+            <field name="prefix">APS</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_oeh_medical_icu_admissions" model="ir.sequence">
+            <field name="name">ICU - Admissions</field>
+            <field name="code">oeh.medical.icu.admission</field>
+            <field name="prefix">ICU-ADM-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_oeh_medical_icu_rounding" model="ir.sequence">
+            <field name="name">ICU - Rounding</field>
+            <field name="code">oeh.medical.icu.admission.rounding</field>
+            <field name="prefix">ICUR/%(day)s-%(month)s-%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <!-- Injury Examination Procedure -->
+        <record id="seq_oeh_medical_injury_examination" model="ir.sequence">
+            <field name="name">Injury Examination Procedure</field>
+            <field name="code">oeh.medical.injury.examination</field>
+            <field name="prefix">IE</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+
+    </data>
+</odoo>

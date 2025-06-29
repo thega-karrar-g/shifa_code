@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="ir.sequence" id="seq_sm_eligibility_check_request">
+            <field name="name">Insurance Companies</field>
+            <field name="code">sm.eligibility.check.request</field>
+            <field name="prefix">Eli</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record model="ir.sequence" id="seq_sm_pre_authorization_request">
+            <field name="name">seq_sm_pre_authorization_request</field>
+            <field name="code">sm.pre.authorization.request</field>
+            <field name="prefix">auth</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+
+    </data>
+</odoo>

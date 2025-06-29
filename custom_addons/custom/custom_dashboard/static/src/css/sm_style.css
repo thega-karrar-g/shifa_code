@@ -1,0 +1,240 @@
+
+.main-part {
+    margin: 0 auto;
+    text-align: center;
+    padding: 0px 5px;
+}
+
+.cpanel {
+    display: inline-block;
+    color: #376291;
+    margin-top: 50px;
+    border-radius: 5%;
+    padding: 10px;
+}
+
+.oeh_total_service_request h1, .oeh_total_referral h1, .oeh_total_notification h1, .sm_total_web_req h1, .sm_total_investigation h1,
+.sm_total_ta h1, .sm_total_tac h1, .sm_total_hhc h1, .sm_total_hhc_om h1, .sm_total_hhc_hn h1, .sm_total_hhc_t h1,
+.sm_total_hhc_c h1, .sm_total_lab_request h1, .sm_total_image_request h1, .sm_total_payment h1, .sm_total_cancellation_refund h1,
+.sm_total_hvd h1, .sm_total_hvd_c h1, .sm_total_phys h1, .sm_total_phys_hp h1, .sm_total_phys_om h1, .sm_total_phys_t h1,
+.sm_total_pcr_app h1, .sm_total_pcr_app_team h1, .sm_total_my_tele_tod h1, .sm_total_my_hvd_tod h1, .sm_total_my_hhc_tod h1,
+.sm_total_pcr_app_confirmed h1, .sm_total_investigation h1, .sm_total_lab_request h1, .sm_total_image_request h1,
+.sm_total_my_phy_tod h1, .sm_total_my_pcr_tod h1, .sm_total_pcr_opm h1, .oeh_total_referral h1, .sm_total_my_tele_sch_con h1,
+.sm_total_my_hhc_all h1, .sm_total_my_pcr_all h1, .sm_total_my_hvd_sch_con h1, .sm_total_my_phy_all h1, .sm_total_hhc_tod_tm_res_the h1,
+.sm_total_tele_tod_con_head_phy h1, .sm_total_hhc_tod_tm_head_nurse h1, .sm_total_pcr_tod_tm_head_nurse h1, .sm_total_hvd_tod_con_head_doctor h1,
+.sm_total_hhc_tod_tm_head_doctor h1, .sm_total_hhc_tod_tm_head_phy h1, .sm_total_phy_tod_tm_head_phy h1, .sm_total_call_center h1,
+.sm_total_slep_me_req_unpaid h1, .sm_total_slep_me_req_paid h1, .sm_total_slep_me_req_ev h1, .sm_total_slep_me_req_sch h1, .sm_total_car_cont_unpaid h1, .sm_total_car_cont_paid h1, .sm_total_car_cont_ev h1, .sm_total_car_cont_as_car h1,
+.sm_total_car_cont_act h1, .sm_total_car_cont_hrq h1, .sm_total_car_cont_trq h1, .sm_total_car_cont_rew h1, .sm_total_car_cont_hol h1,
+.sm_total_call_center_op h1, .sm_total_hhc_inp h1, .sm_total_hhc_vd h1, .sm_total_hhc_ca h1, .sm_total_phys_inp h1, .sm_total_phys_vd h1, .sm_total_phys_ca h1, .sm_total_paid_payment h1 , .sm_total_cancellation_refund_op h1
+, .sm_total_cancellation_refund_pr h1, .sm_total_send_payment h1, .sm_total_hhc_app_cr h1, .sm_total_phy_app_cr h1, .sm_cancel_medicines h1, .sm_total_draft_payment h1, .sm_missed_medicines h1, .sm_total_car_cont_rea_req h1 {
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: inherit;
+    color: #376291;
+    font-family: Arial;
+    border-bottom: 0px;
+    font-size: calc(0.5rem + 0.7vw);
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    color: #333;
+    background-color: #fff;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+
+}
+
+.icon-part i {
+    font-size: 36px;
+    padding: 16px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    margin-top: -22px;
+    margin-bottom: 12px;
+    background-color: #34495E;
+}
+
+.icon-part p {
+    margin: 8px;
+    font-size: 20px;
+    padding-bottom: 0px;
+}
+
+.card-content-part {
+    background-color: #2F4254;
+    padding: 5px 0px;
+}
+
+.cpanel .btn:hover {
+    background-color: #5a5a5a;
+    cursor: pointer;
+}
+
+.cpanel-azr .icon-part i {
+    background-color: #34495E;
+    color: white;
+}
+
+.cpanel-azr .icon-part {
+    background-color: #34495E;
+    border-radius: 5%;
+}
+
+.cpanel-green .icon-part i {
+    background-color: #16A085;
+    color: white;
+}
+
+.cpanel-green .icon-part {
+    background-color: #16A085;
+    border-radius: 5%;
+}
+
+.cpanel-orange .icon-part i {
+    background-color: #e5dbc0;
+    color: white;
+}
+
+.cpanel-orange .icon-part {
+    background-color: #fbf4e0;
+    border-radius: 5%;
+}
+
+.cpanel-blue .icon-part i {
+    background-color: #2980B9;
+    color: white;
+}
+
+.cpanel-blue .icon-part {
+    background-color: #2573A6;
+    border-radius: 5%;
+}
+
+.cpanel-red .icon-part i {
+    background-color: #e2c4c4de;
+    color: white;
+}
+
+.cpanel-red .icon-part {
+    background-color: #fbe7e7cf;
+    border-radius: 5%;
+}
+
+.cpanel-skyblue .icon-part i {
+    background-color: #b3bede;
+    color: white;
+}
+
+.cpanel-skyblue .icon-part {
+    background-color: #e3e8f6;
+    border-radius: 5%;
+}
+
+.cpanel-serv .icon-part i {
+    background-color: #cfa389;
+    color: white;
+}
+
+.cpanel-serv .icon-part {
+    background-color: #cfa389;
+    border-radius: 5%;
+}
+
+.first-row {
+    display: inline-block;
+}
+
+.second-row {
+    display: inline-block;
+}
+
+.box {
+    display: inline-block;
+}
+
+.cpanel-bg .icon-part i {
+    background-color: #cdd8ac;
+    color: white;
+}
+
+.cpanel-bg .icon-part {
+    background-color: #e2f1b5;
+    border-radius: 5%;
+}
+
+.cpanel-rfg .icon-part i {
+    background-color: #9b7269;
+    color: white;
+}
+
+.cpanel-rfg .icon-part {
+    background-color: #9b7269;
+    border-radius: 5%;
+}
+
+.cpanel-ptr .icon-part i {
+    background-color: #c5966f;
+    color: white;
+}
+
+.cpanel-ptr .icon-part {
+    background-color: #c5966f;
+    border-radius: 5%;
+}
+
+.cpanel-ala .icon-part i {
+    background-color: #cdd8ac;
+    color: white;
+}
+
+.cpanel-ala .icon-part {
+    background-color: #e2f1b5;
+    border-radius: 5%;
+}
+
+.cpanel-zip .icon-part i {
+    background-color: #efaae3;
+}
+
+.cpanel-zip .icon-part {
+    background-color: #efaae3;
+    border-radius: 5%;
+}
+
+.cpanel-loo .icon-part i {
+    background-color: #b3bede;
+    color: white;
+}
+
+.cpanel-loo .icon-part {
+    background-color: #e3e8f6;
+    border-radius: 5%;
+}
+
+.cpanel-tug .icon-part i {
+    background-color: #cdd8ac;
+    color: white;
+}
+
+.cpanel-tug .icon-part {
+    background-color: #e2f1b5;
+    border-radius: 5%;
+}

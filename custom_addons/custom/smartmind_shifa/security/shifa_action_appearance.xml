@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="oehealth.oeh_medical_appointment_action_tree" model="ir.actions.act_window">
+            <field name="name">Telemedicine Appointments</field>
+        </record>
+
+        <record id="oehealth_extra_addons.oeh_medical_register_for_walkin_action_tree" model="ir.actions.act_window">
+            <field name="name">HHC Appointments</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_physician_action_tree" model="ir.actions.act_window">
+            <field name="name">Medical Staffs</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu_admission_mgmnt_action" model="ir.actions.act_window">
+            <field name="name">Home Admission</field>
+        </record>
+
+        <record id="oehealth.oeh_medical_icu_rounding_mgmnt_action" model="ir.actions.act_window">
+            <field name="name">Home Roundings</field>
+        </record>
+        <record id="oehealth.oeh_medical_labtest_department_action_tree" model="ir.actions.act_window">
+            <field name="name">Section</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_imagingtest_department_action_tree" model="ir.actions.act_window">
+            <field name="name">Test Type</field>
+        </record>
+        <record id="oehealth_extra_addons.oeh_medical_imaging_test_type_action_tree" model="ir.actions.act_window">
+            <field name="name">Procedure Description</field>
+        </record>
+    </data>
+</odoo>

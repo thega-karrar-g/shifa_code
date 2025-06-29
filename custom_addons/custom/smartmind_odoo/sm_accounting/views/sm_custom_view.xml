@@ -1,0 +1,13 @@
+<odoo>
+    <record id="contacts_form_inherit" model="ir.ui.view">
+        <field name="name">odoo.contacts.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="before">
+                <field name="credit_limit_compute"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

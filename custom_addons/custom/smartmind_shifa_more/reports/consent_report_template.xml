@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_consent">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <div t-if="o.language == 'Arabic'">
+                                <div t-if="o.type == 'Vaccination'">
+                                    <h3 class="text-center">الموافقة على التطعيم</h3>
+                                </div>
+                                <div t-if="o.type == 'Urinary Catheterization'">
+                                    <h3 class="text-center">الموافقة على القسطرة البولية</h3>
+                                </div>
+                                <div t-if="o.type == 'Peripherally Inserted Central Catheter Care and Management'">
+                                    <h3 class="text-center">الموافقة على رعاية وإدارة القسطرة الوريدية المركزية المدخلة
+                                    طرفيا</h3>
+                                </div>
+                                <div t-if="o.type == 'Photograph and Video Permission'">
+                                    <h3 class="text-center" style="color: blue">إذن أخذ صور/فيديو
+                                    </h3>
+                                </div>
+                                <div t-if="o.type == 'Testosterone Replacement Therapy'">
+                                    <h3 class="text-center" style="color: blue">الموافقة على أخذ علاج ببديل هرمون التستوستيرون عبر حقنة
+                                    العضل
+                                    </h3>
+                                </div>
+
+                            </div>
+                            <div t-if="o.language == 'English'">
+                                 <div t-if="o.type == 'Vaccination'">
+                                    <h3 class="text-center">Consent For Vaccination</h3>
+                                </div>
+                                <div t-if="o.type == 'Urinary Catheterization'">
+                                    <h3 class="text-center">Consent for Urinary Catheterization</h3>
+                                </div>
+                                <div t-if="o.type == 'Peripherally Inserted Central Catheter Care and Management'">
+                                    <h3 class="text-center">Peripherally Inserted Central Catheter Care and Management</h3>
+                                </div>
+                                <div t-if="o.type == 'Photograph and Video Permission'">
+                                    <h3 class="text-center" style="color: blue">Photograph and Video Permission
+                                    </h3>
+                                </div>
+                                <div t-if="o.type == 'Testosterone Replacement Therapy'">
+                                    <h3 class="text-center" style="color: blue">Testosterone Replacement Therapy
+                                    </h3>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--                        <t t-set="o" t-value="o.with_context({'lang':o.patient.partner_id.lang})"/>-->
+                        <!--                        <div t-if="o.name" style="padding-left: 13px" class="text-center">-->
+                        <!--                            <strong>Ref#:</strong>-->
+                        <!--                            <span t-field="o.name"/>-->
+                        <!--                        </div>-->
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div t-if="o.patient" class="col-6 bm-6 text-center">
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.patient.name"/>
+                                <br/>
+                                <strong>Age:</strong>
+                                <span t-field="o.patient.age"/>
+                                <br/>
+                                <!--                                <strong>Type:</strong>-->
+                                <!--                                <span t-field="o.type"/>-->
+                            </div>
+                            <div t-if="o.patient" class="col-6 bm-6 text-center">
+                                <strong>ID Number:</strong>
+                                <span t-field="o.ssn"/>
+                                <br/>
+                                <!--                                <strong>Weight(kg):</strong>-->
+                                <!--                                <span t-field="o.patient_weight"/>-->
+                                <!--                                <br/>-->
+                                <strong>Date:</strong>
+                                <span class="m-0" t-field="o.date"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="col-12 bm-6" style="text-align: right" t-if="o.language == 'Arabic'" dir="rtl">
+                            <div t-if="o.type == 'Vaccination'" dir="RTL">
+                                <span style="font-size: 14px" dir="RTL">انا</span>
+                                <span style="font-size: 14px" t-field="o.person_name" dir="RTL"/>
+                                <span style="font-size: 14px" t-field="o.relation_p_A_list" dir="RTL"/>
+                                <br/>
+                                <strong style="font-size: 14px" t-field="o.approval_A_list" dir="RTL"/>
+                                <br/>
+                                <span style="font-size: 16px" dir="RTL">
+                                    على إعطاء اللقاح. وتم تلقي المريض كافة التعليمات ومناقشته بكامل التفاصيل بوضوح للقاح
+                                    مع الطبيب و الممرضة و شرح لي كيفية التعامل في حال حصول أي رد فعل تحسي.
+                                    <br/>
+                                    <u>اهم علامات الأعراض الجانبية:</u>
+                                    <br/>
+                                    حرارة ، ألم، احمرار، تورم حول مكان الحقنة، النوم اكثر من المعتاد، حكة حول منطقة
+                                    الحقن، طفح جلدي، صداع،غثيان.
+                                    <br/>
+                                    <strong>
+                                        في حالات نادرة يحدث رد فعلي تحسسي شديد في غضون بضع دقائق من اخذ الحقنة التوجة
+                                        بالمريض للمستشفى فورا.
+                                    </strong>
+                                    <br/>
+                                    فهمت بشكل كامل ومدرك كيفية التعامل في حال حدوث رد فعل تحسسي للجسم او اعراض جانبيه
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Urinary Catheterization'" dir="RTL">
+                                <span style="font-size: 14px" dir="RTL">انا</span>
+                                <span style="font-size: 14px" t-field="o.person_name" dir="RTL"/>
+                                <span style="font-size: 14px" t-field="o.relation_p_A_list" dir="RTL"/>
+                                <br/>
+                                <strong style="font-size: 14px" t-field="o.approval_A_list" dir="RTL"/>
+                                <br/>
+                                <span style="font-size: 16px" dir="RTL">
+                                    على إجراء
+                                    <br/>
+                                    <strong t-if="o.Reinsertion_type">
+                                        إعادة إدخال القسطرة البولية
+                                    </strong>
+                                    <br/>
+                                    <strong t-if="o.In_and_out_catheterization">
+                                        ادخال او اخراج القسطرة البولية لتحليل البول
+                                    </strong>
+                                    <br/>
+                                    فهمت بشكل كامل ومدرك كيفية التعامل في حال حدوث رد فعل تحسسي للجسم او اعراض جانبيه
+                                    <br/>
+                                    وتمت المناقشة مع فريق جلوب كير مع الطبيب/الممرضة في جميع التفاصيل بوضوح للإجراء
+                                    المطلوب
+                                    <br/>
+                                    <b>
+                                        <u>المخاطر و الفوائد و النتائج المترتبة:</u>
+                                    </b>
+                                    <ol>
+                                        <li>اجراء محادثة مباشرة مع مقدم الرعاية واتيحت لي من خلالها المناقشة وطرح
+                                            الأسئلة
+                                            بخصوص هذا الاجراء (القسطرة البولية )
+                                        </li>
+                                        <li>تمت الإجابة على اسئلتي و مناقشة المخاطر والفوائد و اي بدائل عملية معها بلغة
+                                            أفهمها
+                                        </li>
+                                        <li>يجب التواصل مع جلوب كير في غضون 2-5 ساعات بعد الاجراء اذا وجد
+                                            <ul>
+                                                <li>دم في البول.</li>
+                                                <li>خروج القسطرة من مكانها.</li>
+                                                <li>خروج كميات قليلة للبول او عدم خروج البول.</li>
+                                            </ul>
+                                        </li>
+                                        <li>إحالة المريض الى الطوارئ المستشفى على الفور عند وجود علامات التهاب في البول:
+                                            <ul>
+                                                <li>دم في البول.</li>
+                                                <li>ألم و انتفاخ حول المثانة.</li>
+                                                <li>ارتفاع في درجة الحرارة 3 أيام.</li>
+                                                <li>اضطراب و عدم الراحة للمريض.</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Photograph and Video Permission'" dir="RTL">
+                                <span style="font-size: 14px" dir="RTL">انا</span>
+                                <span style="font-size: 14px" t-field="o.person_name" dir="RTL"/>
+                                <span style="font-size: 14px" t-field="o.relation_p_A_list" dir="RTL"/>
+                                <br/>
+                                <strong style="font-size: 14px" t-field="o.approval_A_list" dir="RTL"/>
+                                <br/>
+                                <span style="font-size: 16px" dir="RTL">
+                                    على إعطاء الاذن لأخذ فيديو/ التصوير الفوتوغرافي للتوثيق الطبي والأغراض التعليمية.
+                                    <br/>
+                                    <ul>
+                                        <li>حيث اني اقر بأنني أتيحت لي الفرصة لطرح الاسئلة و أجيب عليها.
+                                        </li>
+                                    </ul>
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Peripherally Inserted Central Catheter Care and Management'"
+                                 dir="RTL">
+                                <span style="font-size: 14px" dir="RTL">انا</span>
+                                <span style="font-size: 14px" t-field="o.person_name" dir="RTL"/>
+                                <span style="font-size: 14px" t-field="o.relation_p_A_list" dir="RTL"/>
+                                <br/>
+                                <strong style="font-size: 14px" t-field="o.approval_A_list" dir="RTL"/>
+                                <br/>
+                                <span style="font-size: 16px" dir="RTL">
+                                    على إجراء:
+                                    <br/>
+                                    <strong t-if="o.PICC_d">
+                                        ضماد و غيار للقسطرة الوريدية المركزية المدخلة طرفيا
+                                    </strong>
+                                    <br/>
+                                    <strong t-if="o.PICC_f">
+                                        تفريغ وتسليك القسطرة الوريدية المركزية المدخلة طرفيا
+                                    </strong>
+                                    <br/>
+                                    <strong t-if="o.PICC_a">
+                                        تقييم و فحص القسطرة الوريدية المركزية المدخلة طرفيا
+                                    </strong>
+                                    <br/>
+                                    <!--                                    <strong t-if="o.other_list">-->
+                                    <!--                                        أخرى-->
+                                    <!--                                    </strong>-->
+                                    <strong t-if="o.other_choice">
+                                        <span t-field="o.other_choice"/>
+                                    </strong>
+                                    <br/>
+                                    تلقيت التعليمات وطريقة العناية بالقسطرة الوريدية وتمت المناقشة بوضوح لجميع التفاصيل
+                                    مع
+                                    الطبيب/ الممرضة لجلوب كير للإجراء
+                                    <b>
+                                        <u>المخاطر والنتائج المترتبة للإجراء:</u>
+                                    </b>
+                                    <ol>
+                                        <li>اجراء محادثة مباشرة مع مقدم الرعاية واتيحت لي من خلالها المناقشة وطرح
+                                            الأسئلة
+                                            بخصوص هذا الاجراء (القسطرة الوريدية المركزية ).
+                                        </li>
+                                        <li>تمت الإجابة على جميع الأسئلة ومناقشة المخاطر والفوائد واي بدائل بلغة افهمها
+                                        </li>
+                                        <li>يجب التواصل مع جلوب كير في غضون 1-5 ساعات بعد هذا الاجراء في حال وجدت هذه
+                                            العلامات:
+                                            <ul>
+                                                <li>تحسس من الضمادات المستخدمة والمطهرات<br/>( احمرار حول او في المنطقة
+                                                    ).
+                                                </li>
+                                                <li>يجب اخذ صورة و ارسالها لجلوب كير لتقيم الحالة</li>
+                                            </ul>
+                                        </li>
+                                        <li>نقل المريض الى طوارئ المستشفى عند وجود علامات التهاب و عدوى مثل:
+                                            <ul>
+                                                <li>احمرار في المنطقة بشكل كبير</li>
+                                                <li>افرازات غزيرة من الصديد</li>
+                                                <li>الم و حكة</li>
+                                                <li>ارتفاع في درجة الحرارة</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Testosterone Replacement Therapy'"
+                                 dir="RTL">
+                                <span style="font-size: 14px" dir="RTL">انا</span>
+                                <span style="font-size: 14px" t-field="o.person_name" dir="RTL"/>
+                                <span style="font-size: 14px" t-field="o.relation_p_A_list" dir="RTL"/>
+                                <br/>
+                                <strong style="font-size: 14px" t-field="o.approval_A_list" dir="RTL"/>
+                                <br/>
+                                <span style="font-size: 16px" dir="RTL">
+                                    على أخذ ابرة عضل لهرمون الذكورة.
+                                    <b>بعد توقيعي على هذا النموذج اقر بأن:</b>
+                                    <ul>
+                                        <li>تم التواصل المباشر مع مقدم الرعاية الصحية وخلالها تم الإجابة على جميع
+                                            الأسئلة
+                                            المطروحة المتعلقة بالعلاج و الإجراءات.
+                                        </li>
+                                        <li>تمت الإجابة على جميع الأسئلة ومناقشتها وتوضيح المخاطر و الفوائد بلغة واضحة
+                                            وطريقة مفهومة.
+                                        </li>
+                                        <li>الفهم الكامل للعلاج من طريقة اخذه مع الفوائد و الأضرار.
+                                        </li>
+                                    </ul>
+                                    <b>
+                                        <u>الفوائد:</u>
+                                    </b>
+                                    <ul>
+                                        <li>تحسين الأداء الجنسي من الانتصاب، تأخر القذف (زيادة الرغبة الجنسية) ابتداء من
+                                            الشهر الأول حتى ثلاث اشهر.
+                                        </li>
+                                        <li>تحسن: المزاج، الطاقة و النشاط الحركي، زيادة الكتلة العضلية ابتداء من 3 شهور
+                                            الى
+                                            سنة.
+                                        </li>
+                                    </ul>
+                                    <b>
+                                        <u>الأعراض الجانبية :</u>
+                                    </b>
+                                    <ul>
+                                        <li>إمكانية حدوث تحسس بعد اخذ ابرة هرمون الذكورة.
+                                        </li>
+                                        <li>قلة إنتاج الحيوانات المنوية والعقم.
+                                        </li>
+                                        <li>ارتفاع مستوى الهيماتوكريت اللزوجة في الدم و التخثر.
+                                        </li>
+                                        <li>تسرع من تطور حدوث سرطان البروستاتا وتضخم البروستاتا.
+                                        </li>
+                                        <li>تخثر في الاوعية الدموية الرئوية.
+                                        </li>
+
+                                    </ul>
+                                </span>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div style="text-align: right" dir="RTL">
+                                <strong>اسم المريض / ولي أمره:</strong>
+                                <span t-field="o.patient_name"/>
+                                <br/>
+                                <strong>العلاقة:</strong>
+                                <span t-field="o.relationship"/>
+                                <br/>
+                                <strong>التوقيع:</strong>
+                                <img t-attf-src="data:image/jpg;base64,{{o.signature}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+
+                            </div>
+                        </div>
+                        <div class="col-12 bm-6" t-if="o.language == 'English'">
+                            <div t-if="o.type == 'Vaccination'" dir="LTR">
+                                <span dir="LTR">I am</span>
+                                <span t-field="o.person_name" dir="LTR"/>
+                                the
+                                <span t-field="o.relation_p_E_list" dir="LTR"/>
+                                <strong t-field="o.approval_E_list" dir="LTR"/>
+                                <br/>
+                                <span dir="LTR" style="font-size: 16px">
+                                    For vaccine to be given. I have received the education for the vaccine and clearly
+                                    discussed
+                                    to me in details by Globcare physician and nurse.
+                                    <br/>
+                                    <u>Minor Side Effects:Fever</u>, Pain, redness or swelling around the injection
+                                    area,
+                                    Sleeping
+                                    more than usual, Itchiness around the injection area, Mild rash, Headache, Nausea.
+                                    In rare cases, <b>a severe allergic reaction may occur within a few minutes</b>after
+                                    vaccination.
+                                    <br/>
+                                    Patient must presented to hospital immediately.
+                                    <br/>
+                                    I, fully understand and aware of the management in case allergic reaction arises.
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Urinary Catheterization'" dir="LTR">
+                                <span style="font-size: 14px" dir="RTL">I am</span>
+                                <span t-field="o.person_name" dir="LTR"/>
+                                the
+                                <span t-field="o.relation_p_E_list" dir="LTR"/>
+                                <strong t-field="o.approval_E_list" dir="LTR"/>
+                                <span style="font-size: 16px" dir="LTR">
+                                    for the procedure to be given.
+                                    <br/>
+                                    <strong t-if="o.Reinsertion_type">
+                                        Reinsertion of intermittent indwelling Foley's Catheter
+                                    </strong>
+                                    <br/>
+                                    <strong t-if="o.In_and_out_catheterization">
+                                        In and Out catheterization for urine analysis
+                                    </strong>
+                                    <br/>
+                                    I have received the education, care and management for the urine catheterization and
+                                    clearly discussed
+                                    to me in details by Globcare physician/nurse.
+                                    <br/>
+                                    <b>
+                                        <u>Risk, Benefits and Consequences</u>
+                                    </b>
+                                    <ol>
+                                        <li>I have had a direct conversation with my healthcare provider, during which I
+                                            had
+                                            the opportunity to ask questions
+                                            regarding this procedure.
+                                        </li>
+                                        <li>My questions have been answered and the risks, benefits and any practical
+                                            alternatives have been
+                                            discussed with me in a language which I understand.
+                                        </li>
+                                        <li>Patient must be referred to Globcare within 2-5 hours after procedure; If
+                                            these
+                                            is
+                                            <ul>
+                                                <li>slight hematuria noted.</li>
+                                                <li>pulled out catheter.</li>
+                                                <li>little or no urine output.</li>
+                                            </ul>
+                                        </li>
+                                        <li>Patient must presented to Emergency/hospital immediately if patient has
+                                            signs of
+                                            urinary tract infection:
+                                            <ul>
+                                                <li>Bloody urine output.</li>
+                                                <li>Pain and bladder distention.</li>
+                                                <li>Fever after 3 days.</li>
+                                                <li>Patient is agitated.</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Photograph and Video Permission'" dir="LTR">
+                                <span style="font-size: 14px" dir="LTR">I am</span>
+                                <span t-field="o.person_name" dir="LTR"/>
+                                the
+                                <span t-field="o.relation_p_E_list" dir="LTR"/>
+                                <strong t-field="o.approval_E_list" dir="LTR"/>
+                                <span style="font-size: 16px" dir="LTR">
+                                    for the taking of video/photography for medical documentation and educational
+                                    purposes.
+                                    <ul>
+                                        <li>I acknowledge that I have had that opportunity to ask questions and have had
+                                            them answered.
+                                        </li>
+                                    </ul>
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Peripherally Inserted Central Catheter Care and Management'"
+                                 dir="LTR">
+                                <span style="font-size: 14px" dir="LTR">I am</span>
+                                <span t-field="o.person_name" dir="LTR"/>
+                                the
+                                <span t-field="o.relation_p_E_list" dir="LTR"/>
+                                <strong t-field="o.approval_E_list" dir="LTR"/>
+                                <span style="font-size: 16px" dir="LTR">
+                                    for the procedure to be given.
+                                    <br/>
+                                    <strong t-if="o.PICC_d">
+                                        PICC Line dressing
+                                    </strong>
+                                    <br/>
+                                    <strong t-if="o.PICC_f">
+                                        PICC Line flushing
+                                    </strong>
+                                    <br/>
+                                    <strong t-if="o.PICC_a">
+                                        PICC Line assessment
+                                    </strong>
+                                    <br/>
+                                    <!--                                    <strong t-if="o.other_list">-->
+                                    <!--                                        Other-->
+                                    <!--                                    </strong>-->
+                                    <strong t-if="o.other_choice">
+                                        <span t-field="o.other_choice"/>
+                                    </strong>
+                                    <br/>
+                                    I have received the education, care and management for the PICCLINE/Central and
+                                    clearly
+                                    discussed
+                                    to me in details by Globcare physician/nurse.
+                                    <b>
+                                        <u>Risk, Benefits and Consequences</u>
+                                    </b>
+                                    <ol>
+                                        <li>I have had a direct conversation with my healthcare provider, during which I
+                                            had
+                                            the opportunity to ask questions
+                                            regarding this procedure.
+                                        </li>
+                                        <li>My questions have been answered and the risks, benefits and any practical
+                                            alternatives have been
+                                            discussed with me in a language which I understand.
+                                        </li>
+                                        <li>Patient must be referred to Globcare within 1-5 hours after procedure; If
+                                            these
+                                            are signs of any:
+                                            <ul>
+                                                <li>Allergies to adhesive dressing, latex, disinfection like
+                                                    (chlorhexidine
+                                                    stick, povidone, alcohol)<br/>(Redness on central line site).
+                                                </li>
+                                                <li>A phone must be sent for assessment.</li>
+                                            </ul>
+                                        </li>
+                                        <li>Patient must presented to Emergency\hospital immediately if patient has
+                                            signs of
+                                            central line infection:
+                                            <ul>
+                                                <li>Redness on central line site, big size.</li>
+                                                <li>Heavy discharge or purulent (pus) discharge.</li>
+                                                <li>Pain and itchiness.</li>
+                                                <li>Fever.</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                </span>
+                            </div>
+                            <div t-if="o.type == 'Testosterone Replacement Therapy'" dir="LTR">
+                                <span style="font-size: 14px" dir="LTR">I am</span>
+                                <span t-field="o.person_name" dir="LTR"/>
+                                the
+                                <span t-field="o.relation_p_E_list" dir="LTR"/>
+                                <strong t-field="o.approval_E_list" dir="LTR"/>
+                                <span style="font-size: 16px" dir="LTR">
+                                    for testosterone Replacement Therapy.
+                                    <b>by signing this form, I certify that:</b>
+                                    <ul>
+                                        <li>I have had a direct conversation with my healthcare provider, during which I
+                                            had
+                                            the opportunity to ask questions
+                                            regarding to this treatment and procedure.
+                                        </li>
+                                        <li>My questions have been answered and the risks, benefits and any practical
+                                            alternatives have been
+                                            discussed with me in a language which I understand.
+                                        </li>
+                                        <li>That I have been given ample opportunity to ask questions and that any
+                                            questions
+                                            have been answered to my satisfaction
+                                        </li>
+                                    </ul>
+                                    <b>
+                                        <u>Benefits:</u>
+                                    </b>
+                                    <ul>
+                                        <li>Contral's sexual function: Sexual interest (libido), Erection/ejaculations
+                                            starting from 1 month to 3 months.
+                                        </li>
+                                        <li>Improves mood, energy, wellbeing and quality of life and increases muscle
+                                            mass
+                                            and strength and decreases overall body fat mass starting from 1 months
+                                            to 1 year.
+                                        </li>
+                                    </ul>
+                                    <b>
+                                        <u>Side effects:</u>
+                                    </b>
+                                    <ul>
+                                        <li>Anaphylactic reaction after Nebido injection have been reported.
+                                        </li>
+                                        <li>Reduced sperm production and infertility.
+                                        </li>
+                                        <li>Elevation in hematocrit and hypercoagulability.
+                                        </li>
+                                        <li>Androgens may accelerate the progression of sub-clinical prostatic caneer
+                                            and
+                                            benign prostatic hyperplasia .
+                                        </li>
+                                        <li>Pulmonary micro embolism of oily solutions.
+                                        </li>
+
+                                    </ul>
+                                </span>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div style="text-align: left">
+                                <strong>Patient Name / Guardian:</strong>
+                                <span t-field="o.patient_name"/>
+                                <br/>
+                                <strong>relationship:</strong>
+                                <span t-field="o.relationship"/>
+                                <br/>
+                                <strong>Signature:</strong>
+                                <img t-attf-src="data:image/jpg;base64,{{o.signature}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

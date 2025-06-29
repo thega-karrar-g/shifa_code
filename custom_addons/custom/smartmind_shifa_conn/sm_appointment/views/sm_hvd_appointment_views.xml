@@ -1,0 +1,355 @@
+<odoo>
+    <record id="action_open_requested_payment_from_hvd" model="ir.actions.act_window">
+        <field name="name">Requested Payment from HVD Appointments</field>
+        <field name="res_model">sm.shifa.requested.payments</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('hvd_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_hvd_appointment_form_view_inherit" model="ir.ui.view">
+        <field name="name">HVD Appointment Payments</field>
+        <field name="model">sm.shifa.hvd.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_hvd_appointment_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button confirm="Are you sure you want to print the prescription?" name="download_pdf"
+                        string="Download Prescription" type="object"
+                        attrs="{'invisible': ['|', ('check_pres','=',False),('state','!=','Completed')]}"
+                        class="oe_highlight"/>
+
+                <button confirm="Are you sure you want to mark appointment as completed?"
+                        name="set_to_completed" states="Start" string="Mark as Completed" type="object"
+                        class="oe_highlight"
+                        groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_home_visit_doctor,smartmind_shifa.group_oeh_medical_head_doctor,oehealth.group_oeh_medical_physician"/>
+            </xpath>
+            <xpath expr="/form/sheet/div[@class='oe_left']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button type="action" class="oe_stat_button" icon="fa-dollar"
+                            name="%(action_open_requested_payment_from_hvd)d"
+                            attrs="{'invisible':[('pay_req_id','==',False)]}"
+                            string="Req. Payment">
+                    </button>
+                    <button type="object" class="oe_stat_button" icon="fa-dollar"
+                            attrs="{'invisible': [('move_id','=',False)]}"
+                            name="open_invoice_view" string="Invoice">
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="/form/sheet/group[2]/group[2]" position="after">
+                <group string="Price Details">
+                    <field name="total_service_price" force_save="True"/>
+                    <field name="discount_name" options="{'no_create': True}"/>
+                    <field name="discount" force_save="True"/>
+                    <field name="discount_val" force_save="True"/>
+                    <field name="tax"/>
+                    <field name="check_pres" invisible="1"/>
+                    <field name="amount_payable"/>
+                    <!--                    <field name="add_payment_request" style="font-size:24px;"/>-->
+                </group>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_reference']" position="after">
+                <field name="order_id" readonly="1" invisible="1"/>
+                <!--<button name="pay_req_link"
+                        string="Create payment request" type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':['|',('pay_req_id','!=',False),('payment_made_through', 'in', ['mobile','package','aggregator', False])]}"/>-->
+                <field name="pay_req_id" invisible="1"/>
+                <!--                <field name="pay_req_id" attrs="{'invisible':[('pay_req_id','=',False)]}"/>-->
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                <page string="Investigations">
+                    <notebook>
+                        <page string="Lab Request">
+                            <!-- <field name="labtest_line" widget="one2many_list" nolabel="1"
+                                    context="{'default_patient':patient, 'default_doctor':doctor, 'default_hvd_appointment': id}"/>-->
+                            <field name="lab_request_test_line" widget="one2many_list" nolabel="1"/>
+
+                        </page>
+                        <page string="Imaging Request">
+                            <!--<field name="image_test_ids" widget="one2many_list" nolabel="1"
+                                   context="{'default_patient':patient, 'default_hvd_appointment': id, 'default_doctor': doctor}"/>-->
+                            <field name="image_request_test_ids" widget="one2many_list" nolabel="1"/>
+
+                        </page>
+                        <!--<page string="Other">
+                            <field name="investigation_ids" widget="one2many_list" nolabel="1"
+                                   string="Investigation"
+                                   context="{'default_patient': patient, 'default_requester_id':doctor}">
+                                <form>
+                                    <header>
+                                        <button confirm="Are you sure you want to call center?"
+                                                name="set_to_call_center"
+                                                states="Draft" string="Send" type="object" class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                states="Draft" string="Upload" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to send?" name="set_to_team"
+                                                states="Call Center" string="Send" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to cancel?" name="set_to_cancel"
+                                                states="Call Center" string="Cancel" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                states="Test In Progress" string="Upload" type="object"
+                                                class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <button confirm="Are you sure you want to Start?"
+                                                name="set_to_investigation_start"
+                                                states="Team" string="Start" type="object" class="oe_highlight"
+                                                groups="oehealth.group_oeh_medical_manager"/>
+                                        <field name="state" widget="statusbar"
+                                               statusbar_visible="Draft,Call Center,Test In Progress,Team,Uploaded,Cancelled"/>
+                                    </header>
+                                    <sheet>
+                                        <h1>
+                                            <field name="name" readonly="1"/>
+                                        </h1>
+                                        <group invisible="1">
+                                            <group>
+                                                <field name="patient"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group invisible="1">
+                                                <field name="hhc_appointment"/>
+                                                <field name="hvd_appointment"/>
+                                                <field name="appointment"/>
+                                            </group>
+                                            <group>
+                                                <field name="date_requested"/>
+                                                <field name="date_analysis"/>
+                                            </group>
+                                        </group>
+                                        <group invisible="1">
+                                            <group>
+                                                <field name="requester_id"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group>
+                                                <field name="investigation_name"/>
+                                            </group>
+                                        </group>
+                                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                                        <br/>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Document
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_document" nolabel="1"/>
+                                        </group>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Analysis
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_analysis" nolabel="1"/>
+                                        </group>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Results
+                                            </h5>
+                                            <br/>
+                                            <field name="result" nolabel="1"/>
+                                        </group>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Conclusion
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_conclusion" nolabel="1"/>
+                                        </group>
+                                        <br/>
+                                        <group>
+                                            <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                Image
+                                            </h5>
+                                            <br/>
+                                            <field name="investigation_image" nolabel="1" widget="image"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>-->
+                    </notebook>
+                </page>
+                <page string="Prescriptions">
+                    <field name="pres_hvd_line" widget="one2many_list" nolabel="1"
+                           context="{'default_patient':patient}"/>
+                    <!--<field name="prescription_ids" widget="one2many_list"
+                           context="{'default_patient':patient, 'default_hvd_appointment':id, 'default_doctor':doctor, 'default_provisional_diagnosis':provisional_diagnosis, 'default_provisional_diagnosis_add_other':provisional_diagnosis_add_other,
+                                    'default_provisional_diagnosis_add':provisional_diagnosis_add,'default_provisional_diagnosis_add_other2':provisional_diagnosis_add_other2,'default_provisional_diagnosis_add2':provisional_diagnosis_add2,
+                                    'default_provisional_diagnosis_add_other3':provisional_diagnosis_add_other3,'default_provisional_diagnosis_add3':provisional_diagnosis_add3}">
+                        <tree string='Prescriptions'>
+                            <field name="name"/>
+                            <field name="hvd_appointment"/>
+                            <field name="patient"/>
+                            <field name="date"/>
+                            <field name="doctor"/>
+                            <field name="state"/>
+                        </tree>
+                        <form>
+                            <header>
+                                <field name="state" widget="statusbar"
+                                       statusbar_visible="Start,PDF Created"/>
+                                <button confirm="Are you sure you want to create PDF?" name="set_to_pdf_create"
+                                        states="Start" string="Create PDF" type="object" class="oe_highlight"
+                                        groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor,oehealth.group_oeh_medical_physician"/>
+                                <button name="download_pdf" type="object" string="Download" class="oe_highlight"
+                                        groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor, oehealth.group_oeh_medical_physician"
+                                        states="PDF Created"/>
+                            </header>
+                            <div class="oe_left" style="width: 500px;">
+                                <div class="oe_title">
+                                    <label for="name" string="Prescription #" class="oe_edit_only"/>
+                                    <h1>
+                                        <field name="name"/>
+                                    </h1>
+                                </div>
+                            </div>
+                            <group invisible="1">
+                                <group>
+                                    <field name="patient"/>
+                                </group>
+                            </group>
+                            <group invisible="1">
+                                <group>
+                                    <field name="hhc_appointment"/>
+                                    <field name="hvd_appointment"/>
+                                    <field name="appointment"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group invisible="1">
+                                    <field name="doctor"/>
+                                </group>
+                                <group>
+                                    <field name="date"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Prescription Lines">
+                                    <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                        Diagnosis
+                                    </h5>
+                                    <br/>
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis" string=""/>
+                                        </group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add_other"
+                                                   string="Add other"/>
+                                        </group>
+                                    </group>
+                                    <div attrs="{'invisible': [('provisional_diagnosis_add_other', '=', False)]}">
+                                        <group>
+                                            <group>
+                                                <field name="provisional_diagnosis_add" string=""/>
+                                            </group>
+                                            <group>
+                                                <field name="provisional_diagnosis_add_other2"
+                                                       string="Add other"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <div attrs="{'invisible': [('provisional_diagnosis_add_other2', '=', False)]}">
+                                        <group>
+                                            <group>
+                                                <field name="provisional_diagnosis_add2" string=""/>
+                                            </group>
+                                            <group>
+                                                <field name="provisional_diagnosis_add_other3"
+                                                       string="Add other"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add3" string=""
+                                                   attrs="{'invisible': [('provisional_diagnosis_add_other3', '=', False)]}"/>
+                                        </group>
+                                    </group>
+                                    <field name="prescription_line" context="{'default_patient': patient}"/>
+                                </page>
+                                <page string="Notes">
+                                    <field name="info" nolabel="1"/>
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>-->
+                </page>
+                <page string="Internal Referral">
+                    <field name="referral_ids" widget="one2many_list"
+                           context="{'default_patient':patient}"/>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='payment_method_name']" position="after">
+                    <field name="pay_req_id" readonly="1" attrs="{'invisible': [('pay_req_id','=',False)]}" />
+                    <field name="refund_request_id" readonly="1" attrs="{'invisible': [('refund_request_id','=',False)]}" />
+                    <field name="move_type" invisible="1" />
+                    <field name="move_id" readonly="1" attrs="{'invisible': [('move_type','!=','out_invoice')]}" string='Invoice'/>
+                    <field name="cancelation_reason" readonly="1" attrs="{'invisible': [('cancelation_reason','=',False)]}" />
+                    <field name="credit_note_id" readonly="1" attrs="{'invisible': [('credit_note_id','=',False)]}" />
+                    <field name="reason" readonly="1" attrs="{'invisible': [('reason','=',False)]}" />
+                    <field name="new_appointment" readonly="1" attrs="{'invisible': [('new_appointment','=',False)]}" />
+                </xpath>
+            <xpath expr="//button[@name='set_to_canceled']" position="attributes">
+                <attribute name="name">open_cancel_reason</attribute>
+                <attribute name="states">Scheduled,Confirmed,Start</attribute>
+                <attribute name="groups">
+                    oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sm_hvd_appointment_cancellation_form" model="ir.ui.view">
+        <field name="name">HVD Appointment Cancel</field>
+        <field name="model">sm.shifa.hvd.appointment</field>
+        <field name="priority" eval="1000"/>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="cancelation_reason" required="1"/>
+                        <field name="reason" required="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="set_to_canceled" string="Validate" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sm_hvd_appointment_list_view_inherit" model="ir.ui.view">
+        <field name="name">HVD Appointment Payment Reference</field>
+        <field name="model">sm.shifa.hvd.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_hvd_appointment_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='doctor']" position="after">
+                <field name="payment_ref" string="Payment Reference"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

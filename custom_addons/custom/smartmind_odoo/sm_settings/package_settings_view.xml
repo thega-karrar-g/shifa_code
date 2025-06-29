@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="package_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">package res config settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='oeh_inventory_setting_container']" position="after">
+                  <h2>Package Services Management</h2>
+                    <!--   product box -->
+                    <div class="row mt16 o_settings_container" name="package_setting_container">
+                        <div class="col-6 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="product_type_conf">
+                                <label for="product_type" string="Product"/>
+                                <span class="fa fa-lg fa-building-o" title="Product" aria-label="Product" groups="base.group_multi_company" role="img"/>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="product_type" string="Product Type" class="col-lg-4 o_light_label"/>
+                                        <field name="product_type" required="1"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="product_categ_id" string="Product Category" class="col-lg-4 o_light_label"/>
+                                        <field name="product_categ_id" required="1"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="property_account_income_id" string="Deferred Income Account" class="col-lg-4 o_light_label"/>
+                                        <field name="property_account_income_id" required="1"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="discount_id" string="Deferred Discount Account" class="col-lg-4 o_light_label"/>
+                                        <field name="discount_id" required="1"/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--  journal box -->
+                        <div class="col-6 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="journal_conf">
+                                 <label for="journal_id" string="Journal"/>
+                                <span class="fa fa-lg fa-building-o" title="Journal" aria-label="journal" groups="base.group_multi_company" role="img"/>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="journal_id" string="Journal" class="col-lg-4 o_light_label"/>
+                                        <field name="journal_id" required="1"/>
+                                    </div>
+                                  <div class="row mt16">
+                                        <label for="debit_account_id" string="Debit Account" class="col-lg-4 o_light_label"/>
+                                        <field name="debit_account_id" required="1"/>
+                                    </div>
+                                  <div class="row mt16">
+                                        <label for="credit_account_id" string="Credit Account (HHC)" class="col-lg-4 o_light_label"/>
+                                        <field name="credit_account_id" required="1"/>
+                                    </div>
+                                     <div class="row mt16">
+                                        <label for="credit_account_phy_id" string="Credit Account (Physiotherapy)" class="col-lg-4 o_light_label"/>
+                                        <field name="credit_account_phy_id" required="1"/>
+                                    </div>
+                                     <div class="row mt16">
+                                        <label for="refund_account_hhc_id" string="Refund Account (HHC)" class="col-lg-4 o_light_label"/>
+                                        <field name="refund_account_hhc_id" required="1"/>
+                                    </div>
+                                     <div class="row mt16">
+                                        <label for="refund_account_phy_id" string="Refund Account (Physiotherapy)" class="col-lg-4 o_light_label"/>
+                                        <field name="refund_account_phy_id" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--   Discount box -->
+                        <div class="col-6 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="discount_conf">
+                                 <label for="debit_discount_id" string="Discount"/>
+                                <span class="fa fa-lg fa-building-o" title="Discount" aria-label="discount" groups="base.group_multi_company" role="img"/>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="debit_discount_id" string="Debit Discount Account" class="col-lg-4 o_light_label"/>
+                                        <field name="debit_discount_id" required="1"/>
+                                    </div>
+                                  <div class="row mt16">
+                                        <label for="credit_discount_id" string="Credit Discount Account" class="col-lg-4 o_light_label"/>
+                                        <field name="credit_discount_id" required="1"/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+
+        <record id="invoice_discount_inherit_form" model="ir.ui.view">
+        <field name="name">invoice discount </field>
+        <field name="model">account.move</field>
+        <field name="priority" eval="55"/>
+        <field name="inherit_id" ref="global_discount_sale.inherit_view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='discount_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            <xpath expr="//field[@name='discount_amount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+        </field>
+        </record>
+
+     <record id="sale_discount_inherit_form" model="ir.ui.view">
+        <field name="name">sale discount </field>
+        <field name="model">sale.order</field>
+        <field name="priority" eval="55"/>
+        <field name="inherit_id" ref="global_discount_sale.inherit_view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='discount_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            <xpath expr="//field[@name='discount_amount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+        </field>
+        </record>
+
+</odoo>

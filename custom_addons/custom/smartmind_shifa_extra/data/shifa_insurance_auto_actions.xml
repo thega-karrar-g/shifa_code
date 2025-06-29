@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- instant consultation timer waiting-->
+        <record id="ir_cron_next_waiting_state" model="ir.cron">
+            <field name="name">instant consultation state waiting time</field>
+            <field name="model_id" ref="model_sm_shifa_instant_consultation"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.process_next_waiting_state()</field>
+            <field name="state">code</field>
+        </record>
+
+        <!-- instant consultation timer approved-->
+        <record id="ir_cron_next_approved_state" model="ir.cron">
+            <field name="name">instant consultation state approved time</field>
+            <field name="model_id" ref="model_sm_shifa_instant_consultation"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.process_next_approved_state()</field>
+            <field name="state">code</field>
+        </record>
+
+        <!-- Instant Prescriptions Timer ready OR dispensed-->
+        <record id="ir_cron_next_ready_dispensed_state" model="ir.cron">
+            <field name="name">instant prescriptions state ready dispensed time</field>
+            <field name="model_id" ref="model_sm_shifa_instant_prescriptions"/>
+            <!--            <field name="type">ir.actions.server</field>-->
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.process_next_ready_dispensed_state()</field>
+            <field name="state">code</field>
+            <!--             <field name="user_id" ref="base.user_root"/>-->
+            <!--             <field name="nextcall" eval="(DateTime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"/>-->
+        </record>
+
+        <record id="ir_cron_prescription_generator" model="ir.cron">
+            <field name="name">Instant Prescription generate</field>
+            <field name="model_id" ref="model_sm_shifa_instant_consultation"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model._reset_token()</field>
+            <field name="state">code</field>
+        </record>
+
+        <record id="ir_cron_next_evaluation_state" model="ir.cron">
+            <field name="name">instant consultation state completed</field>
+            <field name="model_id" ref="model_sm_shifa_instant_consultation"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.process_next_evaluation_state()</field>
+            <field name="state">code</field>
+        </record>
+
+        <record id="shifa_active_date_pharmacy_chain" model="ir.cron">
+            <field name="name">Pharmacy Chain: Active Date Action</field>
+            <field name="model_id" ref="model_sm_shifa_pharmacy_chain"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.pharmacy_active_action()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <!--  expired date-->
+        <record id="shifa_expired_date_pharmacy_chain" model="ir.cron">
+            <field name="name">Pharmacy Chain: Expired Date Action</field>
+            <field name="model_id" ref="model_sm_shifa_pharmacy_chain"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.make_expired()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+    </data>
+</odoo>

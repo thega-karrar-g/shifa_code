@@ -1,0 +1,53 @@
+<odoo>
+    <record id="view_shifa_nursing_assessment_tab_for_physician_admission" model="ir.ui.view">
+        <field name="name">Shifa Physician Admission</field>
+        <field name="model">sm.shifa.physician.admission</field>
+        <field name="inherit_id" ref="smartmind_shifa.view_shifa_physician_admission_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page[6]" position="after">
+                <page string="Comprehensive Nurse Assessment">
+                    <field name="nursing_comprehensive_ids" widget="one2many_list"
+                           context="{'default_patient':patient, 'default_hhc_appointment':hhc_appointment,'default_phy_adm':id}"/>
+                </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[6]" position="replace">
+                <page string="Prescriptions">
+                    <field name="pres_phy_line" context="{'default_patient': patient}"
+                           widget="one2many_list" nolabel="1">
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shifa_physician_assessment_inherit" model="ir.ui.view">
+        <field name="name">Shifa Physician Assessment</field>
+        <field name="model">sm.shifa.physician.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa_more.view_shifa_physician_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page[5]" position="after">
+                <page string="Prescriptions">
+                    <field name="pres_phA_line" widget="one2many_list" nolabel="1"
+                           context="{'default_patient':patient}"/>
+                </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[7]" position="after">
+                <page string="Physiotherapy Assessment">
+                    <field name="physiotherapy_phA_line" widget="one2many_list" nolabel="1"
+                           context="{'default_patient':patient}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shifa_physiotherapy_assessment_inherit" model="ir.ui.view">
+        <field name="name">Shifa Physiotherapy Assessment</field>
+        <field name="model">sm.shifa.physiotherapy.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa.view_shifa_physiotherapy_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[1]/group[1]/field[@name='phy_adm']" position="before">
+                <field name="physician_assessment"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

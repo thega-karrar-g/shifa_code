@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sm_patient_medicine_frequency_tree" model="ir.ui.view">
+            <field name="name">sm_patient_medicine_frequency_tree</field>
+            <field name="model">sm.medicines.frequencies</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="number_of_times"/>
+                    <field name="is_missed"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sm_patient_medicine_frequency_action" model="ir.actions.act_window">
+            <field name="name">Patient Medicine Frequency</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.medicines.frequencies</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="pactient_medicines_frequencies_menu"
+                  name="Patient Medicine Frequencies"
+                  parent="menu_caregiver_config_form_root"
+                  action="sm_patient_medicine_frequency_action"
+                  sequence="1"/>
+    </data>
+</odoo>

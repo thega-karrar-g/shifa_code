@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--  start date-->
+        <record id="shifa_active_date_discount" model="ir.cron">
+            <field name="name">Discount: Active Date Action</field>
+            <field name="model_id" ref="model_sm_shifa_discounts"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.discount_active_action()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        <!--  expired date-->
+        <record id="shifa_expired_date_discount" model="ir.cron">
+            <field name="name">Discount: Expired Date Action</field>
+            <field name="model_id" ref="model_sm_shifa_discounts"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.make_expired()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="shifa_report_action" model="ir.cron">
+            <field name="name">Report: Generate link Action</field>
+            <field name="model_id" ref="model_sm_medical_report"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.control_generate_link()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <!--<record id="ir_cron_nurse_assessment_discharge" model="ir.cron">
+            <field name="name">Check and Discharge Patients</field>
+            <field name="model_id" ref="smartmind_shifa_more.model_sm_shifa_nurse_assessment"/>
+            <field name="state">code</field>
+            <field name="code">model.check_and_discharge_patients()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>-->
+
+        <!--<record id="ir_cron_physician_assessment_discharge" model="ir.cron">
+            <field name="name">Check and Discharge Physician Patients</field>
+            <field name="model_id" ref="smartmind_shifa_more.model_sm_shifa_physician_assessment"/>
+            <field name="state">code</field>
+            <field name="code">model.check_and_discharge_patients()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>-->
+
+    </data>
+</odoo>

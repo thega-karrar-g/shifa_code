@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="sm_invoice_report_arabic_english_invoice" inherit_id="l10n_gcc_invoice.arabic_english_invoice">
+        <xpath expr="//h3" position="after">
+            <div class="row" t-if="o.partner_id" name="partner_id">
+                <div class="col-4">
+                    <strong style="white-space:nowrap; color: #84af37;">Customer Name:</strong>
+                </div>
+                <div class="col-4">
+                    <t t-set="translation_name"
+                       t-value="o.with_context(lang='ar_001').partner_id.name"/>
+                    <t t-if="o.partner_id">
+                        <span t-field="o.partner_id.name" t-options="{'widget': 'text'}"/>
+                        <t t-if="o.partner_id.name != translation_name">
+                            <![CDATA[&nbsp;]]>
+                            <span t-field="o.with_context(lang='ar_001').partner_id.name"
+                                  t-options="{'widget': 'text'}"/>
+                        </t>
+                    </t>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap; color: #84af37;">:اسم العميل</strong>
+                </div>
+            </div>
+            <div class="row" t-if="o.partner_id" name="partner_id">
+                <div class="col-4">
+                    <strong style="white-space:nowrap; color: #84af37;">Tax Number:</strong>
+                </div>
+                <div class="col-4">
+                    <t t-set="translation_vat" t-value="o.with_context(lang='ar_001').partner_id.vat"/>
+                    <t t-if="o.partner_id">
+                        <span t-field="o.partner_id.vat" t-options="{'widget': 'text'}"/>
+                        <t t-if="o.partner_id.vat != translation_vat">
+                            <![CDATA[&nbsp;]]>
+                            <span t-field="o.with_context(lang='ar_001').partner_id.vat"
+                                  t-options="{'widget': 'text'}"/>
+                        </t>
+                    </t>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap; color: #84af37;">:ضريبة القيمة المضافة</strong>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@class='row' and @t-if='o.invoice_date' and @name='invoice_date']" position="before">
+            <div class="row" t-if="o.patient" name="Related patient">
+                <div class="col-4">
+                    <strong style="white-space:nowrap">Related Patient:</strong>
+                </div>
+                <div class="col-4">
+                    <t t-set="translation_name"
+                       t-value="o.with_context(lang='ar_001').patient.name"/>
+                    <t t-if="o.patient">
+                        <span t-field="o.patient.name" t-options="{'widget': 'text'}"/>
+                        <t t-if="o.patient.name != translation_name">
+                            <![CDATA[&nbsp;]]>
+                            <span t-field="o.with_context(lang='ar_001').patient.name"
+                                  t-options="{'widget': 'text'}"/>
+                        </t>
+                    </t>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap">: المريض المرتبط</strong>
+                </div>
+            </div>
+            <div class="row" t-if="o.patient" name="patient_ssn">
+                <div class="col-4">
+                    <strong style="white-space:nowrap">ID:</strong>
+                </div>
+                <div class="col-4">
+                    <span t-field="o.patient.ssn"/>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap">:رقم الهوية</strong>
+                </div>
+            </div>
+        </xpath>
+        <!-- Update invoice date display -->
+        <xpath expr="//div[@class='row' and @name='invoice_date']" position="replace">
+            <div class="row" t-if="o.invoice_date" name="invoice_date">
+                <div class="col-4">
+                    <strong style="white-space:nowrap">Invoice Date:</strong>
+                </div>
+                <div class="col-4">
+                    <span t-field="o.invoice_date"/>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap">: تاريخ الفاتورة</strong>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@class='row' and @name='due_date']" position="replace">
+            <!--<div class="row"
+                 t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'"
+                 name="due_date">
+                <div class="col-4">
+                    <strong style="white-space:nowrap">Due Date:
+                    </strong>
+                </div>
+                <div class="col-4">
+                    <span t-field="o.invoice_date_due"/>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap">:
+                        تاريخ الاستحقاق
+                    </strong>
+                </div>
+            </div>-->
+        </xpath>
+
+        <xpath expr="//div[@name='reference']" position="replace">
+            <div class="row" t-if="o.ref" name="reference">
+                <div class="col-4">
+                    <strong style="white-space:nowrap">Reference:</strong>
+                </div>
+                <div class="col-4">
+                    <span t-field="o.ref"/>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap">:رقم الإشارة</strong>
+                </div>
+                <div class="col-4" name="qr_code"/>
+            </div>
+        </xpath>
+        <xpath expr="//p[@name='payment_communication']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[@class='row' and @t-if='o.patient']" position="replace"/>
+    </template>
+</odoo>
+<!-- and o.partner_id.company_type == 'company'-->

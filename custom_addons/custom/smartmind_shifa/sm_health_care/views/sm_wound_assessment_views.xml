@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sm_wound_assessment_tree" model="ir.ui.view">
+        <field name="name">wound.assessment.tree</field>
+        <field name="model">sm.shifa.wound.assessment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="wound_assessment_code"/>
+                <field name="hhc_appointment"/>
+                <field name="patient"/>
+                <field name="nurse_name"/>
+                <field name="admission_date"/>
+                <field name="discharge_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_wound_assessment_form" model="ir.ui.view">
+        <field name="name">assessment.form</field>
+        <field name="model">sm.shifa.wound.assessment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                            states="Draft" string="Start Clinical Documentation" type="object" class="oe_highlight"/>
+                    <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                            states="Start" string="Clinical Documentation Completed" type="object"
+                            class="oe_highlight"/>
+                    <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                            states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                    />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="wound_assessment_code" string="WA#"/>
+                            <h1>
+                                <field name="wound_assessment_code" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <br/>
+                    <group>
+                        <group>
+                            <field name="patient"/>
+                            <field name="hhc_appointment"/>
+                        </group>
+                        <group>
+                            <field name="nurse_name"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="admission_date"/>
+                        </group>
+                        <group>
+                            <field name="discharge_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="dob"/>
+                            <field name="marital_status"/>
+                            <field name="sex"/>
+                        </group>
+                        <group>
+                            <field name="blood_type"/>
+                            <field name="rh"/>
+                        </group>
+                    </group>
+                    <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                    <group col="3">
+                        <label for="consent_show" string="Consent"
+                               style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                        <div class="oe_inline">
+                            <field name="consent_show" nolabel="1" widget="checkbox"/>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                        <field name="consent_file1" string=""/>
+                        <field name="consent_file2" string=""/>
+                    </group>
+                    <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                    <notebook>
+                        <page string="Clinical Pathway">
+                            <group col="3">
+                                <label for="conscious_state_show" string="Conscious State"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="conscious_state_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('conscious_state_show', '=', False)]}">
+                                 <group col="4">
+                                        <label for="conscious_state" string="Conscious State"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="conscious_state"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                            </group>
+                            <group col="3">
+                                <label for="pain_present_show" string="Pain Present"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                <group col="4">
+                                        <label for="pain_score" string="Pain Score"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="pain_score"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="scale_used" string="Scale Used"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="scale_used"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                            </group>
+                            <group col="3">
+                                <label for="functional_activity_show" string="Functional Activity"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                                <group>
+                                    <field name="functional_activity" string="Functional Activity"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <label for="vital_signs_show" string="Vital Signs"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                <group>
+                                    <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                    <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                    <field name="temperature_c" string="Temperature(C)"/>
+                                </group>
+                                <group>
+                                    <field name="hr_min" string="HR(/min)"/>
+                                    <field name="rr_min" string="RR(/min)"/>
+                                    <field name="o2_sat" string="O2 Sat(%)"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <label for="wound_history_show" string="Wound History"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="wound_history_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('wound_history_show', '=', False)]}">
+                                <field name="wound_history" nolabel="1"/>
+                            </group>
+                            <group col="3">
+                                <label for="type_wound_show" string="Type of Wound fields"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="type_wound_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('type_wound_show', '=', False)]}">
+                                <group>
+                                    <field name="surgical" widget="checkbox"/>
+                                    <field name="diabetic" widget="checkbox"/>
+                                </group>
+                                <group>
+                                    <field name="pressure_ulcer" widget="checkbox"/>
+                                    <field name="other_types" widget="checkbox"/>
+                                    <field name="other_types_content" nolabel="1"
+                                           attrs="{'invisible': [('other_types', '=', False)]}"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <label for="factors_influencing_show" string="Factors Influencing Wound Healing"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="factors_influencing_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('factors_influencing_show', '=', False)]}">
+                                <group>
+                                    <field name="diabetes" widget="checkbox"/>
+                                    <field name="immobility" widget="checkbox"/>
+                                    <field name="infection" widget="checkbox"/>
+                                    <field name="immnuno_compromised" widget="checkbox"/>
+                                    <field name="blood_related" widget="checkbox"/>
+                                    <field name="blood_related_content" nolabel="1"
+                                           attrs="{'invisible': [('blood_related', '=', False)]}"/>
+                                </group>
+                                <group>
+                                    <field name="tissue_perfusion" widget="checkbox"/>
+                                    <field name="incontinence" widget="checkbox"/>
+                                    <field name="malnutrition" widget="checkbox"/>
+                                    <field name="other_factors" widget="checkbox"/>
+                                    <field name="other_factors_content" nolabel="1"
+                                           attrs="{'invisible': [('other_factors', '=', False)]}"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <label for="potential_risk_show" string="Potential Risk"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="potential_risk_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('potential_risk_show', '=', False)]}">
+                                <group width="10">
+                                    <field name="infection_potential" widget="checkbox"/>
+                                    <field name="Poor_healing" widget="checkbox"/>
+                                </group>
+                                <group>
+                                    <field name="other_potential" widget="checkbox"/>
+                                    <field name="other_potential_content" nolabel="1"
+                                           attrs="{'invisible': [('other_potential', '=', False)]}"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <label for="measurable_goals_show" string="Measurable Goals"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="measurable_goals_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('measurable_goals_show', '=', False)]}">
+                                <group>
+                                    <field name="free_signs_infection" widget="checkbox" style="width:50"/>
+                                    <field name="increase_area_granulating_tissue" widget="checkbox" width="2"/>
+                                </group>
+                                <group>
+                                    <field name="free_skin_excoriation" widget="checkbox"/>
+                                    <field name="free_necrosis" widget="checkbox"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <label for="annotation_image_show" string="Annotation Image"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="annotation_image_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible': [('annotation_image_show', '=', False)]}">
+                                <field name="annotation_image" widget="imageannotation" nolabel="1"/>
+                            </group>
+                            <group col="3">
+                                <label for="wound_assessment_show" string="Wound Assessment and Dressing Plan"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="wound_assessment_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('wound_assessment_show', '=', False)]}">
+                                <field name="wound_ids">
+                                    <tree string="Wound Number">
+                                        <field name="wound_number" style="text-align: center"/>
+                                        <field name="analgesia_pre_dressing" style="text-align: center"/>
+                                        <field name="wound_base_necrotic" style="text-align: center"/>
+                                        <field name="wound_base_stough_yellow" style="text-align: center"/>
+                                        <field name="wound_base_granulation_red" style="text-align: center"/>
+                                        <field name="wound_base_epithelialisation_pink" style="text-align: center"/>
+                                        <field name="exudate_volume" style="text-align: center"/>
+                                    </tree>
+                                </field>
+                            </div>
+                            <group col="3">
+                                <label for="add_new_wound_assessment"
+                                       string="Add New Wound Assessment and Dressing Plan"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="add_new_wound_assessment" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('add_new_wound_assessment', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="add_new_wound_assessment_date"/>
+                                    </group>
+                                </group>
+                                <field name="wound_add">
+                                    <tree string="Wound Number">
+                                        <field name="wound_number" style="text-align: center"/>
+                                        <field name="analgesia_pre_dressing" style="text-align: center"/>
+                                        <field name="wound_base_necrotic" style="text-align: center"/>
+                                        <field name="wound_base_stough_yellow" style="text-align: center"/>
+                                        <field name="wound_base_granulation_red" style="text-align: center"/>
+                                        <field name="wound_base_epithelialisation_pink" style="text-align: center"/>
+                                        <field name="exudate_volume" style="text-align: center"/>
+                                    </tree>
+                                </field>
+                            </div>
+                            <group col="3" attrs="{'invisible': [('add_new_wound_assessment', '=', False)]}">
+                                <label for="add_other_wound_assessment"
+                                       string="Add New Wound Assessment and Dressing Plan"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="add_other_wound_assessment" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('add_other_wound_assessment', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="add_other_wound_assessment_date"/>
+                                    </group>
+                                </group>
+                                <field name="wound_new_add">
+                                    <tree string="Wound Number">
+                                        <field name="wound_number" style="text-align: center"/>
+                                        <field name="analgesia_pre_dressing" style="text-align: center"/>
+                                        <field name="wound_base_necrotic" style="text-align: center"/>
+                                        <field name="wound_base_stough_yellow" style="text-align: center"/>
+                                        <field name="wound_base_granulation_red" style="text-align: center"/>
+                                        <field name="wound_base_epithelialisation_pink" style="text-align: center"/>
+                                        <field name="exudate_volume" style="text-align: center"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                        <page string="Internal Referral">
+                            <field name="referral_id" widget="one2many_list"
+                                   context="{'default_patient':patient, 'default_hhc_appointment':hhc_appointment}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_shifa_wound_care_follow_form_inherit" model="ir.ui.view">
+        <field name="name">Wound Care Follow up</field>
+        <field name="model">sm.shifa.wound.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa.view_wound_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                <page string="Follow Up">
+                    <field name="wound_follow_up_id" widget="one2many_list"
+                           context="{'default_patient':patient, 'default_hhc_appointment':hhc_appointment  , 'default_wound_care_ref':id, 'default_nurse_name': nurse_name}"/>
+                    <!--                   , 'default_wound_care_ref':wound_care_ref -->
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="wound_assessment_action" model="ir.actions.act_window">
+        <field name="name">Wound Assessment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.wound.assessment</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No wound care assessment found
+            </p>
+        </field>
+    </record>
+    <record id="view_wound_assessment_search" model="ir.ui.view">
+        <field name="name">wound_assessment_search</field>
+        <field name="model">sm.shifa.wound.assessment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient" string="Patient Name"/>
+                <field name="wound_assessment_code" string="Reference"/>
+            </search>
+        </field>
+    </record>
+    <menuitem id="assessment_menu"
+              name="Wound Assessment"
+              parent="menu_oldforms_main_form_root" sequence="4"
+              action="wound_assessment_action"/>
+
+</odoo>

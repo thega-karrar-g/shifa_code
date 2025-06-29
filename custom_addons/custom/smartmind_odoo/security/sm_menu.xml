@@ -1,0 +1,10 @@
+<odoo>
+
+<!--    <menuitem
+            id="calendar.mail_menu_calendar"
+            name="Calendar"
+            sequence="20"
+            action="calendar.action_calendar_event"
+            web_icon="calendar,static/description/icon.png"
+            groups="base.group_user"/>-->
+</odoo>

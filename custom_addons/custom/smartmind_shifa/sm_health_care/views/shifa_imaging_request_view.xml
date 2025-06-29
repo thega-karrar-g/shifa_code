@@ -1,0 +1,170 @@
+<odoo>
+    <data>
+        <record id="view_shifa_imaging_request_form" model="ir.ui.view">
+            <field name="name">shifa.imaging.request.form</field>
+            <field name="model">sm.shifa.imaging.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Call Center,Team,Patient,Done"/>
+                        <button confirm="Are you sure you want to send?" name="set_to_team"
+                                states="Call Center" string="Team" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_telemedicine_doctor,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor"/>
+                        <button confirm="Are you sure you want to send to Patient?" name="set_to_patient"
+                                states="Call Center" string="Patient" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_telemedicine_doctor,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor"/>
+                        <button confirm="Are you sure you want to set to Done?" name="set_to_upload"
+                                states="Team" string="Done" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_telemedicine_doctor,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor"/>
+                        <button confirm="Are you sure you want to Download pdf?" name="download_pdf"
+                                states="Team" string="Download pdf" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to Download pdf?" name="download_pdf"
+                                states="Patient" string="Download pdf" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to Download pdf?" name="download_pdf"
+                                states="Done" string="Download pdf" type="object" class="oe_highlight"/>
+
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="IR#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="patient"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="hhc_appointment"/>
+                                <field name="hvd_appointment"/>
+                                <field name="appointment"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                                <field name="discharge_date"/>
+                                <field name="link"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="doctor"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <label for="image_req_test_ids" string="Requested Tests"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <field name="image_req_test_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="imaging_department"/>
+                                    <field name="type_test" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="3">
+                            <label for="image_test_show" string="Image Test"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="image_test_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('image_test_show', '=', False)]}">
+                            <group>
+                                <field name="image_test_ids" nolabel="1"
+                                       context="{'default_patient':patient, 'default_hhc_appointment':hhc_appointment, 'default_requestor':doctor, 'default_imaging_Request':id}"/>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_imaging_request_tree" model="ir.ui.view">
+            <field name="name">shifa_imaging.request.tree</field>
+            <field name="model">sm.shifa.imaging.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="hhc_appointment"/>
+                    <field name="hvd_appointment"/>
+                    <field name="appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_imaging_request_action" model="ir.actions.act_window">
+            <field name="name">Imaging Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.imaging.request</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to imaging request found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_imaging_request_search" model="ir.ui.view">
+            <field name="name">imaging.request.search</field>
+            <field name="model">sm.shifa.imaging.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="name" string="Reference"/>
+                </search>
+            </field>
+        </record>
+        <menuitem id="imaging_request_root"
+                  name="Imaging Request"
+                  parent="oehealth_extra_addons.oeh_medical_imaging_menu"
+                  action="sm_shifa_imaging_request_action"
+                  sequence="8"/>
+
+        <record id="sm_shifa_Image_request_line_action" model="ir.actions.act_window">
+            <field name="name">Image Request Test</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.imaging.request.line</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Image Request found
+                </p>
+            </field>
+        </record>
+        <record id="view_shifa_image_request_line_form" model="ir.ui.view">
+            <field name="name">shifa.image.request.line.form</field>
+            <field name="model">sm.shifa.imaging.request.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="imaging_department"/>
+                            <field name="type_test" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_shifa_image_request_line_tree" model="ir.ui.view">
+            <field name="name">shifa.image.request.line.tree</field>
+            <field name="model">sm.shifa.imaging.request.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="imaging_department"/>
+                    <field name="type_test" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

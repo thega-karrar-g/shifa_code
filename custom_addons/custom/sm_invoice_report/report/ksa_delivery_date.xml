@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sa_delivery_date_arabic_english_invoice" inherit_id="l10n_sa_invoice.arabic_english_invoice">
+        <xpath expr="//div[@name='delivery_date']" position="replace">
+            <!--<div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
+                <div class="col-4">
+                    <strong style="white-space:nowrap">Delivery Date:
+                    </strong>
+                </div>
+                <div class="col-4">
+                    <span t-field="o.l10n_sa_delivery_date"/>
+                </div>
+                <div class="col-4 text-right">
+                    <strong style="white-space:nowrap">:
+                        تاريخ التوصيل
+                    </strong>
+                </div>
+            </div>-->
+        </xpath>
+    </template>
+</odoo>

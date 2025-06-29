@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- *********************This is for the tree view of questionnaire *********************-->
+    <record id="view_shifa_questionnare_tree" model="ir.ui.view">
+        <field name="name">shifa.questionnaire.tree</field>
+        <field name="model">sm.shifa.safe.home.visit.screening</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="home_visit_screening_code"/>
+                <field name="patient"/>
+                <field name="nurse_name"/>
+                <field name="admission_date"/>
+                <field name="discharge_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- *********************This is for the form view of questionnaire*********************-->
+    <record id="view_shifa_questionnaire_form" model="ir.ui.view">
+        <field name="name">shifa.questionnaire.form</field>
+        <field name="model">sm.shifa.safe.home.visit.screening</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                            states="Draft" string="Start Clinical Documentation" type="object" class="oe_highlight"/>
+                    <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                            states="Start" string="Clinical Documentation Completed" type="object"
+                            class="oe_highlight"/>
+                    <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                            states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                    />
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="home_visit_screening_code" string="SHC#"/>
+                            <h1>
+                                <field name="home_visit_screening_code" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <br/>
+                    <group>
+                        <!--                         <h2>-->
+                        <!--                         <field name="home_visit_screening_code" readonly="1"/>-->
+                        <!--                     </h2>-->
+                        <br/>
+                        <group>
+                            <field name="patient"/>
+                        </group>
+                        <group>
+                            <field name="hhc_appointment"/>
+                        </group>
+                        <group>
+                            <field name="nurse_name"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="admission_date"/>
+                    </group>
+                    <group>
+                        <field name="discharge_date"/>
+                    </group>
+                    <group>
+                        <field name="dob"/>
+                        <field name="marital_status"/>
+                        <field name="sex"/>
+                        <field name="blood_type"/>
+                        <field name="rh"/>
+                    </group>
+                    <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                    <group col="3">
+                        <label for="consent_show" string="Consent"
+                               style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                        <div class="oe_inline">
+                            <field name="consent_show" nolabel="1" widget="checkbox"/>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                        <field name="consent_file1" string=""/>
+                        <field name="consent_file2" string=""/>
+                    </group>
+                    <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                    <!-- *********************first tab questionnaire*********************-->
+                    <!--                            <h2 align="center">To Be Completed by Clinician Only Prior To Visit (In Hospital)</h2>-->
+                    <!--              the Header of the questionnaire tab groups              -->
+                    <!--                            <group>-->
+                    <!--                                <group>-->
+                    <!--                                    <h5 align="center" style="color:blue;">Possible Hazard</h5>-->
+                    <!--                                </group>-->
+                    <!--                                <group>-->
+                    <!--                                    <h5 align="center" style="color:blue;">Risk Treatment or Control-->
+                    <!--                                        <h6>(Must Be Completed If Answered Yes)</h6>-->
+                    <!--                                    </h5>-->
+                    <!--                                </group>-->
+                    <!--                            </group>-->
+                    <!--                  the first question              -->
+                    <notebook>
+                        <page string="Clinical Pathway">
+                            <group col="3">
+                                <label for="clinician_checklist_show" string="Clinician Checklist"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="clinician_checklist_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('clinician_checklist_show', '=', False)]}">
+                                <group>
+                                    <label style="font-weight: bold" for="cl_objection_home_visit"
+                                           string="Is there objection to home visit?"/>
+                                    <group>
+                                        <field name="cl_objection_home_visit" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Document consent in the file. Visit not to be
+                                            conducted
+                                            until appropriate consent obtained
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  second field             -->
+                                <group>
+                                    <label style="font-weight: bold" for="cl_venue_home_visit"
+                                           string="Is the venue for home visit different to the address on the patient label?"/>
+                                    <group>
+                                        <field name="cl_venue_home_visit" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Ensure address documented on top of form. Ensure
+                                            risk
+                                            screen is completed for residence to be visited. If the
+                                            location for visit changes, or visits are to occur at more than
+                                            one residence, complete risk screen for each address.
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  third field              -->
+                                <div>
+                                    <label style="font-weight: bold" for="venue_home_visit_comments"
+                                           string="Explanation and Comments:"/>
+                                    <br/>
+                                    <field name="venue_home_visit_comments" style=" font-size: 14px"
+                                           nolabel="1"/> <!-- nolabel="1" means that don't display field name -->
+                                </div>
+                                <br/>
+                                <!--                  fourth field              -->
+                                <group>
+                                    <label style="font-weight: bold" for="cl_medical_record_indicate"
+                                           string="Is there anything in the medical record to indicate that there may be risks associated with conducting a home visit?"/>
+                                    <group>
+                                        <field name="cl_medical_record_indicate" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Check medical record</p>
+                                        <field name="cl_medical_record_indicate_check" style=" font-size: 14px"
+                                               nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+
+                                <!--                  fifth field              -->
+                                <div>
+                                    <label style="font-weight: bold" for="cl_medical_record_indicate_comments"
+                                           string="Explanation and Comments:"/>
+                                    <br/>
+                                    <field name="cl_medical_record_indicate_comments" style=" font-size: 14px"
+                                           nolabel="1"/> <!-- nolabel="1" means that don't display field name -->
+                                </div>
+                                <br/>
+
+                                <!--                  sixth field              -->
+                                <group>
+                                    <label style="font-weight: bold" for="cl_provide_hands_assistance_patient"
+                                           string="Do you need to provide any hands on assistance to patient to assist with mobility?"/>
+                                    <group>
+                                        <field name="cl_provide_hands_assistance_patient" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+
+                                    <group>
+                                        <p style=" font-size: 14px">Ensure No Lift procedures are adhered to</p>
+                                    </group>
+                                </group>
+                                <br/>
+
+                                <!--                  seventh field              -->
+                                <group>
+                                    <label style="font-weight: bold" for="cl_health_status_occupants_visitors"
+                                           string="Do you know the health status of occupants/visitors?"/>
+                                    <group>
+                                        <field name="cl_health_status_occupants_visitors" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+
+                                    <group>
+                                        <p style=" font-size: 14px">Check health status</p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  eighth field              -->
+                                <div>
+                                    <label style="font-weight: bold" for="cl_health_status_occupants_visitors_expl"
+                                           string="Expl:"/>
+                                    <br/>
+                                    <field name="cl_health_status_occupants_visitors_expl" style=" font-size: 14px"
+                                           nolabel="1"/> <!-- nolabel="1" means that don't display field name -->
+                                </div>
+                                <br/>
+                                <!--                  ninth field              -->
+                                <group>
+                                    <label style="font-weight: bold" for="cl_evening_visits_appropriate"
+                                           string="Are evening visits appropriate?"/>
+                                    <group>
+                                        <field name="cl_evening_visits_appropriate" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+
+                                    <group>
+                                        <p style=" font-size: 14px">Discuss with Head.</p>
+                                    </group>
+                                </group>
+
+                            </div>
+                            <!-- *********************second tab questionnaire*********************-->
+
+
+                            <!--              the Header of the questionnaire tab groups              -->
+                            <!--                            <group>-->
+                            <!--                                <group>-->
+                            <!--                                    <h5 align="center" style="color:blue;">Possible Hazard</h5>-->
+                            <!--                                </group>-->
+                            <!--                                <group>-->
+                            <!--                                    <h5 align="center" style="color:blue;">Risk Treatment or Control-->
+                            <!--                                        <h6>(Must Be Completed If Answered Yes)</h6>-->
+                            <!--                                    </h5>-->
+                            <!--                                </group>-->
+                            <!--                            </group>-->
+                            <!--                  the first question              -->
+                            <group col="3">
+                                <label for="patient_and_household_occupants_show"
+                                       string="Patient And Household Occupants"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="patient_and_household_occupants_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('patient_and_household_occupants_show', '=', False)]}">
+                                <group>
+                                    <label style="font-weight: bold" for="pa_patient_history_psychiatric_violent"
+                                           string="Does patient have a history of psychiatric, violent, aggressive or inappropriate behaviour?"/>
+                                    <group>
+                                        <field name="pa_patient_history_psychiatric_violent" nolabel="1"
+                                               style=" font-size: 14px" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Discuss with Head/Chairman who will then assess the
+                                            safety of the situation prior to the visit, following clarification
+                                            of behaviours
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+
+                                <!--                  the second question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="pa_patient_history_alcohol"
+                                           string="Does the patient have a history of significant alcohol or drug use?"/>
+                                    <group>
+                                        <field name="pa_patient_history_alcohol" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Discuss with Head/Chairman if significant</p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  third field              -->
+                                <group>
+                                    <label style="font-weight: bold" for="pa_occupants_frequent_visitors"
+                                           string="Are there any occupants or frequent visitors?"/>
+                                    <group>
+                                        <field name="pa_occupants_frequent_visitors" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>List other occupants/visitors:</p>
+                                        <field name="pa_occupants_frequent_visitors_list_other" style=" font-size: 14px"
+                                               nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  fourth question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="pa_will_present_visits"
+                                           string="Will they be present for visits?"/>
+                                    <group>
+                                        <field name="pa_will_present_visits" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Request that non essential visitors not to be
+                                            present at
+                                            time of visit
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  fifth question              -->
+                                <group>
+                                    <label style="font-weight: bold"
+                                           for="pa_history_psychiatric_behaviour_significant_drug"
+                                           string="Do they have a history of psychiatric, violent, aggressive or
+                                        inappropriate behaviour or significant drug or alcohol use or an infectious health condition?"/>
+                                    <group>
+                                        <field name="pa_history_psychiatric_behaviour_significant_drug" nolabel="1"
+                                               style=" font-size: 14px" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Discuss with Head/Chairman who will then assess the
+                                            safety of the situation prior to the visit, following clarification
+                                            of behaviours
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  sixth question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="pa_female_family_member_caregiver"
+                                           string="There is a female family member/caregiver to chaperone
+                                       female visiting staff and a male family member/caregiver to chaperone male visiting staff?"/>
+                                    <group>
+                                        <field name="pa_female_family_member_caregiver" nolabel="1"
+                                               style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Patient/ family member must ensure that there is
+                                            available chaperone during home visit
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  seventh question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="pa_household_occupants_smoke"
+                                           string="Do household occupants smoke?"/>
+                                    <group>
+                                        <field name="pa_household_occupants_smoke" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Request they refrain from smoking during the
+                                            duration of
+                                            visit
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+
+                            </div>
+
+
+                            <!-- *********************third tab questionnaire*********************-->
+
+
+                            <!--                  first question              -->
+                            <group col="3">
+                                <label for="animals_Pest_show" string="Animals &amp; Pest"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="animals_Pest_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('animals_Pest_show', '=', False)]}">
+                                <group>
+                                    <label style="font-weight: bold" for="an_animals_inside_house"
+                                           string="Are there any animals inside the house?"/>
+                                    <group>
+                                        <field name="an_animals_inside_house" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Phone ahead (if required) to ensure animals are
+                                            placed
+                                            elsewhere at time of visit
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  second question              -->
+
+                                <group>
+                                    <label style="font-weight: bold" for="an_animal_placed_elsewhere_whilst_HC"
+                                           string="Have you requested that animal(s) be placed elsewhere
+                                       whilst HC staff are visiting?"/>
+                                    <group>
+                                        <field name="an_animal_placed_elsewhere_whilst_HC" nolabel="1"
+                                               style=" font-size: 14px" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Advise that animals must not be in the same room as
+                                            HC
+                                            staff. Phone ahead (if required) to ensure animals are
+                                            placed elsewhere at time of visit
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  third question              -->
+
+                                <group>
+                                    <label style="font-weight: bold" for="an_pest_rodents_infestation"
+                                           string="Is there pest or rodents infestation?"/>
+                                    <group>
+                                        <field name="an_pest_rodents_infestation" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Advise to get exterminators for pest/rodent
+                                            control
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  fourth question              -->
+                                <div>
+                                    <label style="font-weight: bold" for="an_animals_pest_explanation"
+                                           string="Animals &amp; Pest Explanation and Comments:"/>
+                                    <br/>
+                                    <field name="an_animals_pest_explanation" style=" font-size: 14px"
+                                           nolabel="1"/> <!-- nolabel="1" means that don't display field name -->
+                                </div>
+                                <br/>
+
+                            </div>
+
+
+                            <!-- *********************fourth tab questionnaire*********************-->
+
+
+                            <!--              the Header of the questionnaire tab groups              -->
+                            <!--                            <group>-->
+                            <!--                                <group>-->
+                            <!--                                    <h5 align="center" style="color:blue;">Possible Hazard</h5>-->
+                            <!--                                </group>-->
+                            <!--                                <group>-->
+                            <!--                                    <h5 align="center" style="color:blue;">Risk Treatment or Control-->
+                            <!--                                        <h6>(Must Be Completed If Answered Yes)</h6>-->
+                            <!--                                    </h5>-->
+                            <!--                                </group>-->
+                            <!--                            </group>-->
+                            <!--                  the first question              -->
+                            <group col="3">
+                                <label for="access_to_property_show" string="Access To Property (External and Internal)"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="access_to_property_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('access_to_property_show', '=', False)]}">
+
+                                <group>
+                                    <label style="font-weight: bold" for="ac_road_conditions_dangerous"
+                                           string="Are the road conditions dangerous (e.g. unsealed or busy road)"/>
+                                    <group>
+                                        <field name="ac_road_conditions_dangerous" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Obtain specific directions</p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  the second question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_difficult_find_house"
+                                           string="Is it difficult to find the house ( obscured by trees or not numbered?"/>
+                                    <group>
+                                        <field name="ac_difficult_find_house" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Obtain specific directions</p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  the third question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_difficulty_accessing_property"
+                                           string="Are there any difficulty in accessing the property?"/>
+                                    <group>
+                                        <field name="ac_difficulty_accessing_property" nolabel="1"
+                                               style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Obtain specific directions</p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  the fourth question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_path_front_door_even"
+                                           string="Is the path to the front door even and non slip?"/>
+                                    <group>
+                                        <field name="ac_path_front_door_even" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Staff need to wear appropriate footwear and be made
+                                            aware of conditions prior to visit
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  fifth question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_steps_front_door"
+                                           string="How many steps are there to the front door?"/>
+                                    <group>
+                                        <field name="ac_steps_front_door" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p>List:</p>
+                                        <field name="ac_steps_front_door_list" style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  the sixth question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_entrance_well_lit"
+                                           string="Is the entrance well lit?"/>
+                                    <group>
+                                        <field name="ac_entrance_well_lit" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Call ahead to ensure light is on, take torch in good
+                                            working order
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  the seventh question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_adequate_street_lighting"
+                                           string="Is there adequate street lighting?"/>
+                                    <group>
+                                        <field name="ac_adequate_street_lighting" nolabel="1" style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Take torch. Park as close to the house as possible
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  the eighth question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_lighting_within_house_adequate"
+                                           string="Is the lighting within the house adequate?"/>
+                                    <group>
+                                        <field name="ac_lighting_within_house_adequate" nolabel="1"
+                                               style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Take torch. Advise modification</p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  the ninth question              -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_floors_stable_clear_obstacles"
+                                           string="Are the floors stable and clear of obstacles, which may impede access?"/>
+                                    <group>
+                                        <field name="ac_floors_stable_clear_obstacles" nolabel="1"
+                                               style=" font-size: 14px"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                    <group>
+                                        <p style=" font-size: 13px">Advise patient/family that obstacles must be removed
+                                            prior to visit. Do not access areas where flooring is unstable
+                                        </p>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  tenth question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_ventilation_within_house_adequate"
+                                           string="Is the ventilation within the house adequate? (e.g. presence of window in the room)"/>
+                                    <group>
+                                        <field name="ac_ventilation_within_house_adequate" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="ac_ventilation_within_house_adequate_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  11th question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_air_conditioning_heater_adequate_house"
+                                           string="Is air-conditioning/heater adequate within the house?"/>
+                                    <group>
+                                        <field name="ac_air_conditioning_heater_adequate_house" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="ac_air_conditioning_heater_adequate_house_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  12th question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_entrance_wide_enough_wheelchair_access"
+                                           string="Is the entrance wide enough for wheelchair access?"/>
+                                    <group>
+                                        <field name="ac_entrance_wide_enough_wheelchair_access" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="ac_entrance_wide_enough_wheelchair_access_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  13th question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_kitchen_appliances_adequate"
+                                           string="Is kitchen appliances adequate (stove, refrigerator, sink)"/>
+                                    <group>
+                                        <field name="ac_kitchen_appliances_adequate" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="ac_kitchen_appliances_adequate_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  14th question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_laundry_facilities_available"
+                                           string="Is laundry facilities available?"/>
+                                    <group>
+                                        <field name="ac_laundry_facilities_available" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="ac_laundry_facilities_available_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  15th question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_toilet_accessible_wheelchair"
+                                           string="Is the toilet/bathroom accessible for wheelchair?"/>
+                                    <group>
+                                        <field name="ac_toilet_accessible_wheelchair" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="ac_toilet_accessible_wheelchair_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  16th question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="ac_safety_rails_available"
+                                           string="Are safety rails available?"/>
+                                    <group>
+                                        <field name="ac_safety_rails_available" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="ac_safety_rails_available_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--    17th question      -->
+                                <div>
+                                    <label style="font-weight: bold" for="ac_access_property_explanation_comments"
+                                           string="Access to Property Explanation and Comments:"/>
+                                    <br/>
+                                    <field name="ac_access_property_explanation_comments" style=" font-size: 14px"
+                                           nolabel="1"/> <!-- nolabel="1" means that don't display field name -->
+                                </div>
+                                <br/>
+                            </div>
+
+
+                            <!-- *********************fifth tab questionnaire*********************-->
+
+
+                            <!--                  first question             -->
+                            <group col="3">
+                                <label for="fire_gas_electrical_hazard_show" string="Fire/Gas/Electrical Hazard"
+                                       style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                <div class="oe_inline">
+                                    <field name="fire_gas_electrical_hazard_show" nolabel="1" widget="checkbox"/>
+                                </div>
+                            </group>
+                            <div attrs="{'invisible': [('fire_gas_electrical_hazard_show', '=', False)]}">
+                                <group>
+                                    <label style="font-weight: bold" for="fire_extinguisher_available"
+                                           string="Is a fire extinguisher available?"/>
+                                    <group>
+                                        <field name="fire_extinguisher_available" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="fire_extinguisher_available_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+
+                                <!--                  second question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="smoke_fire_detector_available"
+                                           string="Is there a smoke/fire detector available?"/>
+                                    <group>
+                                        <field name="smoke_fire_detector_available" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="smoke_fire_detector_available_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+
+                                <!--                  third question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="grounded_electrical_wall_socket_available"
+                                           string="Are grounded electrical wall socket available?"/>
+                                    <group>
+                                        <field name="grounded_electrical_wall_socket_available" style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Suggest modification:</p>
+                                        <field name="grounded_electrical_wall_socket_available_suggest_modification"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+
+                                <!--                  fourth question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="difficulties_getting_mobile_phone_reception"
+                                           string="Are there any difficulties getting mobile phone reception?"/>
+                                    <group>
+                                        <field name="difficulties_getting_mobile_phone_reception"
+                                               style=" font-size: 14px"
+                                               nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Details:</p>
+                                        <field name="difficulties_getting_mobile_phone_reception_details"
+                                               style=" font-size: 14px" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                                <!--                  fifth question             -->
+                                <group>
+                                    <label style="font-weight: bold" for="internet_access_house"
+                                           string="Are there any difficulties getting mobile phone reception?"/>
+                                    <group>
+                                        <field name="internet_access_house" style=" font-size: 14px" nolabel="1"
+                                               widget="radio"
+                                               options="{'horizontal': true}"/> <!-- nolabel="1" means that don't display field name -->
+                                    </group>
+                                    <group>
+                                        <p>Details:</p>
+                                        <field name="internet_access_house_details" style=" font-size: 14px"
+                                               nolabel="1"/>
+                                    </group>
+                                </group>
+                                <br/>
+                            </div>
+                        </page>
+                        <page string="Internal Referral">
+                            <field name="referral_id" widget="one2many_list"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- *********************This is for the action for hospital questionnaire menu*********************-->
+    <record id="questionnaire_action" model="ir.actions.act_window">
+        <field name="name">Safe Home Visit Screening</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sm.shifa.safe.home.visit.screening</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+    <!--    <menuitem id="Questionnaire_root"
+                  name="Questionnaire"
+                  parent="Home_Questionnaire_root"
+                  sequence="9"/>-->
+
+    <menuitem id="hospital_questionnaire"
+              name="Safe Home Visit Screening"
+              parent="menu_nurse_main_form_root"
+              action="questionnaire_action"
+              sequence="4"/>
+</odoo>

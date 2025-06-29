@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_oeh_medical_super_caregiver" model="res.groups">
+        <field name="name">Caregiver Supervisor</field>
+        <field name="category_id" ref="oehealth.module_oeh_medical_category"/>
+    </record>
+
+    <record id="smartmind_shifa.menu_doctor_profile_root" model="ir.ui.menu">
+        <field name="groups_id"
+               eval="[(4,ref('group_oeh_medical_super_caregiver'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,9 @@
+<odoo>
+   <record model="ir.rule" id="allowed_purchase_rule">
+   <field name="name">Allowed Purchase Orders</field>
+   <field name="model_id" ref="purchase.model_purchase_order" />
+    <field name="domain_force">[('picking_type_id.warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+    <field name="groups" eval="[(4, ref('sm_user_warehouse_access.warehouse_limitation'))]"/>
+    </record>
+
+</odoo>

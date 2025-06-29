@@ -1,0 +1,631 @@
+<odoo>
+    <data>
+        <record id="view_shifa_newborn_care_form" model="ir.ui.view">
+            <field name="name">shifa.newborn.care.form</field>
+            <field name="model">sm.shifa.newborn.care</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                                states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="newborn_care_code" string="NB#"/>
+                                <h1>
+                                    <field name="newborn_care_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                            </group>
+                            <group>
+                                <field name="doctor"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                            </group>
+                            <group>
+                                <field name="discharge_date"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                                            <field name="blood_type"/>-->
+                                <!--                                                            <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <group colospan="2">
+                            <group>
+                                <field name="mother_name" string="Mother's Name"/>
+                                <field name="gestational_age" string="Gestational Age"/>
+                            </group>
+                            <group>
+                                <field name="birth_weigth" string="Birth Weigth (kg)"/>
+                                <field name="family_history_sudden"
+                                       string="Family History of Sudden Infant Death Syndrome(SIDS)"/>
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <notebook>
+                            <page string="Clinical Pathway">
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <field name="hr_min" string="HR(/min)"/>
+                                        <field name="temperature_c" string="Temperature(C)"/>
+                                        <field name="rr_min" string="RR(/min)"/>
+                                        <field name="head_circumference" string="Head Circumference"/>
+                                    </group>
+                                    <group>
+                                        <field name="weight_kg" string="Weight (kg)"/>
+                                        <field name="length" string="Length"/>
+                                        <field name="o2_sat" string="O2 Sat(%)"/>
+                                        <field name="char_other_oxygen" string=""
+                                               attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                        <!--                                        <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                        <!--                                            <div>-->
+                                        <!--                                                <group col="7">-->
+                                        <!--                                                    <span colspan="2">at room air</span>-->
+                                        <!--                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                        <!--                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                </group>-->
+                                        <!--                                                <field name="char_other_oxygen" string=""/>-->
+                                        <!--                                            </div>-->
+
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="clinical_assessments_show" string="Clinical Assessments"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="clinical_assessments_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('clinical_assessments_show', '=', False)]}">
+                                    <group col="7">
+                                        <group>
+                                            <label for="head_normal" string="Head"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="head_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="head_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="head_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('head_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="skin_normal" string="Skin"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="skin_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="skin_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="skin_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('skin_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="lunge_normal" string="Lung"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="lunge_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="lunge_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="lunge_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('lunge_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="chest_normal" string="Chest"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="chest_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="chest_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="chest_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('chest_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="abdomen_normal" string="Abdomen"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="abdomen_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="abdomen_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="abdomen_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('abdomen_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="elimination_normal" string="Elimination"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="elimination_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="elimination_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="elimination_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('elimination_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="genitalia_normal" string="Genitalia"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="genitalia_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="genitalia_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="genitalia_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('genitalia_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="extremities_normal" string="Extremities"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="extremities_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="extremities_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="extremities_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('extremities_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="number_of_diaper_per_day" string="Number of diaper per day"/>
+                                        </group>
+                                        <group>
+                                            <field name="number_of_stools_per_day" string="Number of Stool per day"/>
+                                        </group>
+                                        <group>
+                                            <field name="adequate_amount_diapers_home"
+                                                   string="Adequate amount of diapers in home"/>
+                                            <field name="adequate_amount_diapers_home_text" string=""
+                                                   attrs="{'invisible': [('adequate_amount_diapers_home', '!=', 'No')]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="circumcised" string="Circumcised"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <group col="3">
+                                    <label for="mental_assessments_show" string="Mental Assessments"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="mental_assessments_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('mental_assessments_show', '=', False)]}">
+                                    <group col="7">
+                                        <group>
+                                            <label for="amount_crying_normal" string="Amount of Crying"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="amount_crying_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="amount_crying_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="amount_crying_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('amount_crying_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="makes_eye_contact_normal" string="Makes Eye Contact"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="makes_eye_contact_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="makes_eye_contact_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="makes_eye_contact_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('makes_eye_contact_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                    <group col="7">
+                                        <group>
+                                            <label for="quiet_when_pick_normal" string="Quiet When Pick Up"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Normal</span>
+                                                <field name="quiet_when_pick_normal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Abnormal</span>
+                                                <field name="quiet_when_pick_abnormal" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="quiet_when_pick_abnormal_content" nolabel="1"
+                                                   attrs="{'invisible': [('quiet_when_pick_abnormal', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <group col="3">
+                                    <label for="nutrition_show" string="Nutrition"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="nutrition_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('nutrition_show', '=', False)]}">
+                                    <group>
+                                        <field name="feeding_type" string="Feeding Type"/>
+                                        <field name="formula_feeding" string="Formula Feeding"/>
+                                        <field name="amount_frequency" string="Amount/Frequency"/>
+                                    </group>
+                                    <group>
+                                        <field name="adequate_amount_of_formula"
+                                               string="Adequate amount of formula in the home"/>
+                                        <field name="adequate_amount_of_formula_text" string=""
+                                               attrs="{'invisible': [('adequate_amount_of_formula', '!=', 'No')]}"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="other_assessment_show" string="Other Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="other_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('other_assessment_show', '=', False)]}">
+                                    <field name="other_assessment_show_text" string=""/>
+                                </group>
+                                <group col="3">
+                                    <label for="immunization_show" string="Immunization"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="immunization_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('immunization_show', '=', False)]}">
+                                    <group>
+                                        <field name="received_initial_hepatitis"
+                                               string="Received initial Hepatitis B injection"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('received_initial_hepatitis', '!=', 'Yes')]}">
+                                        <field name="where_and_when" string="Where and when"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('received_initial_hepatitis', '!=', 'No')]}">
+                                        <field name="has_an_appointment_been"
+                                               string="Has an appointment been scheduled"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('has_an_appointment_been', '!=', 'Yes')]}">
+                                        <field name="has_an_appointment_been_date" string="Date"/>
+                                        <field name="has_an_appointment_been_where" string="Where"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('has_an_appointment_been', '!=', 'No')]}">
+                                        <field name="has_an_appointment_been_no_text" string=""/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="safe_sleep_show" string="Safe Sleep"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="safe_sleep_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('safe_sleep_show', '=', False)]}">
+                                    <group col="7">
+                                        <group>
+                                            <label for="crib" string="What safe sleep surface is available"
+                                                   style=" font-size: 14px"/>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Crib</span>
+                                                <field name="crib" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Bassinet</span>
+                                                <field name="bassinet" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">Other</span>
+                                                <field name="other" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group colspan="2">
+                                            <field name="other_content" nolabel="1"
+                                                   attrs="{'invisible': [('other', '=', False)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <group col="3">
+                                    <label for="mother_caregiver_education_show" string="Mother Caregiver Education"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="mother_caregiver_education_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('mother_caregiver_education_show', '=', False)]}">
+
+                                    <group col="4">
+                                        <label for="advise_to_refrain_putting_stuffed_animals"
+                                               string="Advise to refrain putting stuffed animals, pillowe, quilts, blankets, positioners and other loose bedding or bumpers in the baby's sleep environment"
+                                               class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_to_refrain_putting_stuffed_animals"
+                                               nolabel="1" style="width: 70%;"/>
+                                        <label for="advise_that_sleep_environment_should"
+                                               string="Advise that sleep environment should be placed away from any item that could burn, cut, become wrapped around your baby"
+                                               class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_that_sleep_environment_should"
+                                               nolabel="1" style="width: 70%;"/>
+                                        <label for="advise_not_to_share_sleep"
+                                               string="Advise not to share a sleep surface with a sibling, adult or pet"
+                                               class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_not_to_share_sleep"
+                                               nolabel="1" style="width: 70%;"/>
+                                        <label for="advise_on_proper_position"
+                                               string="Advise on proper position of the baby when sleeping"
+                                               class="oe_inline" colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_on_proper_position"
+                                               nolabel="1" style="width: 70%;"/>
+                                    </group>
+                                    <group col="4">
+                                        <label for="advise_to_refrain_from_smoking"
+                                               string="Advise to refrain from smoking inside the home"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_to_refrain_from_smoking" nolabel="1" style="width: 70%;"/>
+                                        <label for="advise_to_change_clothes_before_holding"
+                                               string="Advise to change clothes before holding the baby after smoking outside the home"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_to_change_clothes_before_holding" nolabel="1"
+                                               style="width: 70%;"/>
+                                        <label for="advise_that_supervision_needed_when"
+                                               string="Advise that supervision is needed when baby is on tummy time while awake"
+                                               class="oe_inline" colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advise_that_supervision_needed_when" nolabel="1"
+                                               style="width: 70%;"/>
+
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="remarks_show" string="Nurse Notes"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="remarks_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('remarks_show', '=', False)]}">
+                                    <field name="remarks" string=""/>
+                                </group>
+                            </page>
+                            <page string="Internal Referral">
+                                <field name="referral_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_doctor':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_newborn_care_follow_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Newborn Care</field>
+            <field name="model">sm.shifa.newborn.care</field>
+            <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_newborn_care_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                    <page string="Follow Up">
+                        <field name="newborn_follow_up_id" widget="one2many_list"
+                               context="{'default_patient':patient, 'default_nb_tt': id, 'default_nurse_name':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                        <!--                               context="{'default_patient':patient"/>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_shifa_newborn_care_tree" model="ir.ui.view">
+            <field name="name">shifa_newborn.care.tree</field>
+            <field name="model">sm.shifa.newborn.care</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="newborn_care_code"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_newborn_care_action" model="ir.actions.act_window">
+            <field name="name">Newborn Care</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.newborn.care</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history for newborn care found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_newborn_care_search" model="ir.ui.view">
+            <field name="name">newborn_care_search</field>
+            <field name="model">sm.shifa.newborn.care</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="newborn_care_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+        <!--<menuitem id="Newborn_Care_root"
+                  name="Newborn Care"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_shifa_newborn_care_action"
+                  sequence="10"/>-->
+    </data>
+</odoo>

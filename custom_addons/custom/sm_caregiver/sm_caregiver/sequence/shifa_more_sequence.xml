@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="sequence_caregiver" model="ir.sequence">
+            <field name="name">caregiver</field>
+            <field name="code">sm.caregiver</field>
+            <field name="prefix">CG</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_sleep_medicine_request" model="ir.sequence">
+            <field name="name">sm.sleep.medicine.request</field>
+            <field name="code">sm.sleep.medicine.request</field>
+            <field name="prefix">SMR</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_caregiver_contract_request" model="ir.sequence">
+            <field name="name">sm.caregiver.contracts</field>
+            <field name="code">sm.caregiver.contracts</field>
+            <field name="prefix">CC</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record id="sm_patient_search_view_form" model="ir.ui.view">
+            <field name="name">sm.patient.search.form</field>
+            <field name="model">sm.patient.search</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="Search ID number, full name, mobile .."/>
+                            </group>
+                        </group>
+                        <field name="patient_ids" nolabel="1">
+                            <tree string="Patient Information">
+                                <field name="name"/>
+                                <field name="ssn"/>
+                                <field name="mobile"/>
+                                <field name="state"/>
+                                <button name="action_open_record" type="object" icon="fa-external-link"
+                                        title="Open Record"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_patient_search_action" model="ir.actions.act_window">
+            <field name="name">Search Patients</field>
+            <field name="res_model">sm.patient.search</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem name="Search Patients"
+                  id="sm_patients_search_menu"
+                  action="sm_patient_search_action"
+                  web_icon="sm_search_patient,static/description/search.png"
+                  groups="oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_head_physiotherapist,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_clinical_dietitian,smartmind_shifa.group_oeh_medical_hhc_nurse,smartmind_shifa.group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_hhc_physiotherapist,smartmind_shifa.group_oeh_medical_respiratory_therapist,smartmind_shifa.group_oeh_medical_social_worker,smartmind_shifa.group_oeh_medical_health_educator,smartmind_shifa.group_oeh_medical_diabetic_educator"
+                  sequence="2"/>
+
+    </data>
+</odoo>

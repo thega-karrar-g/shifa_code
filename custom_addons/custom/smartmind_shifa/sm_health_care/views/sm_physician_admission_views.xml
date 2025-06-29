@@ -1,0 +1,2247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_shifa_physician_admission_form" model="ir.ui.view">
+            <field name="name">sm.shifa.physician.admission.form</field>
+            <field name="model">sm.shifa.physician.admission</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_head_doctor,oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_operation_manager"/>
+                        <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                                states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_head_doctor,oehealth.group_oeh_medical_manager,oehealth.group_oeh_medical_receptionist,smartmind_shifa.group_oeh_medical_operation_manager"
+                        />
+                        <button confirm="Are you sure you want to print the prescription?" name="download_pdf"
+                                states="Admitted,Discharged" string="Download Prescription" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you sure you want to send by email?" name="action_send_email"
+                                states="Discharged" string="Send by Email" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor,oehealth.group_oeh_medical_physician"/>
+                        <button confirm="Are you sure you want to send by SMS?" name="action_send_sms"
+                                states="Discharged" string="Send by SMS" type="object" class="oe_highlight"
+                                groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor,oehealth.group_oeh_medical_physician"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="Phy-Adm#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment" string="HHC Appointment"/>
+                                <field name="service" options="{'no_create': True}"/>
+                            </group>
+                            <br/>
+                            <group>
+                                <field name="dob"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <field name="blood_type"/>
+                                <field name="rh"/>
+                            </group>
+                            <group>
+                                <field name="ssn"/>
+                                <field name="phone"/>
+                            </group>
+                            <br/>
+                            <group>
+                                <field name="doctor"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                                <field name="discharge_date"/>
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1;"/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <br/>
+                        <group>
+                            <group colspan="2">
+                                <h3 col="2" style="font-weight:bold; color:#5D8DA8">Chief Complaint</h3>
+                                <br/>
+                                <field name="chief_complaint" nolabel="1"
+                                       attrs="{'required': [('state','=','Start')]}"/>
+                                <field name="service_type" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="History">
+                                <group col="3">
+                                    <label for="history_present_illness_show" string="History of present illness"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="history_present_illness_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('history_present_illness_show', '=', False)]}">
+                                    <group>
+                                        <field name="history_present_illness" nolabel="1"/>
+                                    </group>
+                                </div>
+                                <group col="3">
+                                    <label for="review_systems_show" string="Review Systems"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="review_systems_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('review_systems_show', '=', False)]}">
+                                    <group col="2" colospan="3">
+                                        <group>
+                                            <label for="constitutional" string="Constitutional"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style="margin-right: 14px">NAD</span>
+                                                <field name="constitutional" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="constitutional_content" nolabel="1"
+                                                   attrs="{'invisible': [('constitutional', '=', True)]}"
+                                                   context="{'turn_view_readonly':True}"/>
+                                        </group>
+                                        <!-- 2nd field-->
+                                        <group>
+                                            <label for="head" string="Head, Eye, Ear, Nose and Throat"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="head" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="head_content" nolabel="1"
+                                                   attrs="{'invisible': [('head', '=', True)]}"/>
+                                        </group>
+
+                                        <!-- 3rd field-->
+                                        <group>
+                                            <label for="cardiovascular" string="Cardiovascular"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="cardiovascular" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="cardiovascular_content" nolabel="1"
+                                                   attrs="{'invisible': [('cardiovascular', '=', True)]}"/>
+                                        </group>
+
+                                        <!-- 4th field-->
+                                        <group>
+                                            <label for="pulmonary" string="Pulmonary"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="pulmonary" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="pulmonary_content" nolabel="1"
+                                                   attrs="{'invisible': [('pulmonary', '=', True)]}"/>
+                                        </group>
+                                        <!-- 5th field-->
+                                        <group>
+                                            <label for="gastroenterology" string="Gastroenterology"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="gastroenterology" nolabel="1"
+                                                       widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="gastroenterology_content" nolabel="1"
+                                                   attrs="{'invisible': [('gastroenterology', '=', True)]}"/>
+                                        </group>
+                                        <!-- 6th field-->
+                                        <group>
+                                            <label for="genitourinary" string="Genitourinary"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="genitourinary" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="genitourinary_content" nolabel="1"
+                                                   attrs="{'invisible': [('genitourinary', '=', True)]}"/>
+                                        </group>
+                                        <!-- 7th field-->
+                                        <group>
+                                            <label for="dermatological" string="Dermatological"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="dermatological" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="dermatological_content" nolabel="1"
+                                                   attrs="{'invisible': [('dermatological', '=', True)]}"/>
+                                        </group>
+                                        <!-- 8th field-->
+                                        <group>
+                                            <label for="musculoskeletal" string="Musculoskeletal"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="musculoskeletal" nolabel="1"
+                                                       widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="musculoskeletal_content" nolabel="1"
+                                                   attrs="{'invisible': [('musculoskeletal', '=', True)]}"/>
+                                        </group>
+                                        <!-- 9th field-->
+                                        <group>
+                                            <label for="neurological" string="Neurological"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="neurological" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="neurological_content" nolabel="1"
+                                                   attrs="{'invisible': [('neurological', '=', True)]}"/>
+                                        </group>
+
+                                        <!-- 10th field-->
+                                        <group>
+                                            <label for="psychiatric" string="Psychiatric"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="psychiatric" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="psychiatric_content" nolabel="1"
+                                                   attrs="{'invisible': [('psychiatric', '=', True)]}"/>
+                                        </group>
+
+                                        <!-- 11th field-->
+                                        <group>
+                                            <label for="endocrine" string="Endocrine"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="endocrine" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="endocrine_content" nolabel="1"
+                                                   attrs="{'invisible': [('endocrine', '=', True)]}"/>
+                                        </group>
+                                        <!-- 12th field-->
+                                        <group>
+                                            <label for="hematology" string="Hematology"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="hematology" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="hematology_content" nolabel="1"
+                                                   attrs="{'invisible': [('hematology', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <br/>
+                                <group col="3">
+                                    <label for="past_medical_history_show" string="Past medical History"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="past_medical_history_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('past_medical_history_show', '=', False)]}"
+                                     style="padding-left: 10px;">
+                                    <group>
+                                        <group>
+                                            <field name="past_medical_history" string="Past medical History"
+                                                   colspan="2"/>
+                                            <field name="past_medical_history_date" string="Date"/>
+                                        </group>
+                                        <group>
+                                            <field name="past_medical_history_1st_add_other" string="Add other"/>
+                                        </group>
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <group attrs="{'invisible': [('past_medical_history_1st_add_other', '=', False)]}">
+                                            <field name="past_medical_history_1st_add" string="Past medical History"
+                                                   colspan="2"/>
+                                            <field name="past_medical_history_1st_add_date" string="Date"/>
+                                        </group>
+                                        <group attrs="{'invisible': [('past_medical_history_1st_add_other', '=', False)]}">
+                                            <field name="past_medical_history_2nd_add_other" string="Add other"/>
+                                        </group>
+                                    </group>
+                                    <group attrs="{'invisible': ['|',('past_medical_history_1st_add_other', '=', False), ('past_medical_history_2nd_add_other', '=', False)]}">
+                                        <group>
+                                            <field name="past_medical_history_2nd_add" string="Past medical History"
+                                                   colspan="2"/>
+                                            <field name="past_medical_history_2nd_add_date" string="Date"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <br/>
+                                <group col="3">
+                                    <label for="surgical_history_show" string="Surgical History"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="surgical_history_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div colospan="4" attrs="{'invisible': [('surgical_history_show', '=', False)]}"
+                                     style="padding-left: 10px;">
+                                    <group>
+                                        <group>
+                                            <field name="surgical_history_procedures" string="Surgical History"/>
+                                            <field name="surgical_history_procedures_date" string="Date"/>
+                                        </group>
+                                        <group>
+                                            <field name="surgical_history_procedures_1st_add_other" string="Add other"/>
+                                        </group>
+                                    </group>
+                                    <br/>
+                                    <group attrs="{'invisible': [('surgical_history_procedures_1st_add_other', '=', False)]}">
+                                        <group>
+                                            <field name="surgical_history_procedures_1st_add"
+                                                   string="Surgical History"/>
+                                            <field name="surgical_history_procedures_1st_add_date" string="Date"/>
+                                        </group>
+                                        <group>
+                                            <field name="surgical_history_procedures_2nd_add_other" string="Add other"/>
+                                        </group>
+                                    </group>
+                                    <br/>
+                                    <group attrs="{'invisible': ['|',('surgical_history_procedures_2nd_add_other', '=', False),('surgical_history_procedures_2nd_add_other', '=', False)]}">
+                                        <group>
+                                            <field name="surgical_history_procedures_2nd_add"
+                                                   string="Surgical History"/>
+                                            <field name="surgical_history_procedures_2nd_add_date" string="Date"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <br/>
+                                <group col="3">
+                                    <label for="family_history_show" string="Family History"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="family_history_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('family_history_show', '=', False)]}">
+                                    <group>
+                                        <field name="family_history" nolabel="1"/>
+                                    </group>
+                                </div>
+                                <br/>
+                                <group col="3">
+                                    <label for="allergies_show" string="Allergies"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="allergies_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('allergies_show', '=', False)]}"
+                                     style="padding-left: 10px;">
+                                    <group>
+                                        <group>
+                                            <field name="has_drug_allergy" widget="radio"
+                                                   options="{'horizontal': true}"/>
+                                        </group>
+                                        <group attrs="{'invisible': [('has_drug_allergy', '=', 'no')]}">
+                                            <field name="drug_allergy_content" nolabel="1" style="color:Red;"
+                                                   attrs="{'required': [('has_drug_allergy', '=', 'yes')]}"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="has_food_allergy" widget="radio"
+                                                   options="{'horizontal': true}"/>
+                                        </group>
+                                        <group>
+                                            <field name="food_allergy_content" nolabel="1" style="color:Red;"
+                                                   attrs="{'invisible': [('has_food_allergy', '=', 'no')]}"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="has_other_allergy" widget="radio"
+                                                   options="{'horizontal': true}"/>
+                                        </group>
+                                        <group>
+                                            <field name="other_allergy_content" nolabel="1" style="color:Red;"
+                                                   attrs="{'invisible': [('has_other_allergy', '=', 'no')]}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <br/>
+                                <group col="3">
+                                    <label for="personal_habits_show" string="Personal Habits"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="personal_habits_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                                    <h4 style="color: #184553">Physical Exercise</h4>
+                                    <br/>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <field name="exercise"/>
+                                            <field name="exercise_minutes_day"
+                                                   attrs="{'invisible': [('exercise', '=', False)]}"/>
+                                        </group>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                                    <h4 style="color: #184553">Sleep</h4>
+                                    <br/>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <field name="sleep_during_daytime"/>
+                                            <field name="sleep_hours"
+                                                   attrs="{'invisible': [('sleep_during_daytime', '=', False)]}"/>
+                                        </group>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                                    <h4 style="color: #184553">Smoking</h4>
+                                    <br/>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <field name="smoking"/>
+                                            <field name="smoking_number"
+                                                   attrs="{'invisible': [('smoking', '=', False)]}"/>
+                                            <field name="age_start_smoking"
+                                                   attrs="{'invisible': [('smoking', '=', False)]}"/>
+
+                                            <field name="ex_smoker"/>
+                                            <field name="age_start_ex_smoking"
+                                                   attrs="{'invisible': [('ex_smoker', '=', False)]}"/>
+                                            <field name="age_quit_smoking"
+                                                   attrs="{'invisible': [('ex_smoker', '=', False)]}"/>
+                                            <field name="second_hand_smoker"/>
+                                        </group>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('personal_habits_show', '=', False)]}">
+                                    <h4 style="color: #184553">Drinking</h4>
+                                    <br/>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <field name="alcohol"/>
+                                            <field name="age_start_drinking"
+                                                   attrs="{'invisible': [('alcohol', '=', False)]}"/>
+                                            <field name="alcohol_beer_number"
+                                                   attrs="{'invisible': [('alcohol', '=', False)]}"/>
+                                            <field name="alcohol_liquor_number"
+                                                   attrs="{'invisible': [('alcohol', '=', False)]}"/>
+                                            <field name="ex_alcoholic"/>
+                                            <field name="age_quit_drinking"
+                                                   attrs="{'invisible': [('ex_alcoholic', '=', False)]}"/>
+                                            <field name="alcohol_wine_number"
+                                                   attrs="{'invisible': [('ex_alcoholic', '=', False)]}"/>
+                                        </group>
+                                    </div>
+                                </group>
+                                <br/>
+                                <group col="3">
+                                    <label for="vaccination_show" string="Vaccination"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vaccination_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('vaccination_show', '=', False)]}"
+                                     style="padding-left: 10px;">
+                                    <group>
+                                        <group>
+                                            <field name="Vaccination" string="Vaccination"/>
+                                            <field name="vaccination_date" string="Date"/>
+                                        </group>
+                                        <group>
+                                            <field name="Vaccination_1st_add_other" string="Add other"/>
+                                        </group>
+                                    </group>
+                                    <br/>
+                                    <group attrs="{'invisible': [('Vaccination_1st_add_other', '=', False)]}">
+                                        <group>
+                                            <field name="Vaccination_1st_add" string="Vaccination"/>
+                                            <field name="Vaccination_1st_add_date" string="Date"/>
+                                        </group>
+                                        <group attrs="{'invisible': [('Vaccination_1st_add_other', '=', False)]}">
+                                            <field name="Vaccination_2nd_add_other" string="Add other"/>
+                                        </group>
+                                    </group>
+
+                                    <br/>
+                                    <group attrs="{'invisible': ['|',('Vaccination_1st_add_other', '=', False),('Vaccination_2nd_add_other', '=', False)]}">
+                                        <group>
+                                            <field name="Vaccination_2nd_add" string="Vaccination"/>
+                                            <field name="Vaccination_2nd_add_date" string="Date"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <br/>
+                            </page>
+                            <page string="Examination">
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <br/>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="systolic"/>
+                                            <field name="diastolic"/>
+                                            <field name="temperature"/>
+                                        </group>
+                                        <group>
+                                            <field name="bpm"/>
+                                            <field name="respiratory_rate"/>
+                                            <span style="font-weight:bold">O2 Sat(%)</span>
+                                            <div>
+                                                <group col="7">
+                                                    <span colspan="2">at room air</span>
+                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>
+                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>
+                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>
+                                                </group>
+                                                <field name="char_other_oxygen" string=""/>
+                                            </div>
+
+                                            <!--                                            <field name="osat"/>-->
+                                        </group>
+                                    </group>
+                                </div>
+                                <!--Pain Assessment-->
+                                <group col="3">
+                                    <label for="pain_present_show" string="Pain Present"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <br/>
+                                <div attrs="{'invisible': [('pain_present_show', '=', False)]}"
+                                     style="padding-left: 10px;">
+                                    <group>
+                                        <group>
+                                            <field name="admission_pain_score" string="Pain Score"/>
+                                            <field name="admission_scale_used" string="Scale Used"/>
+                                        </group>
+                                    </group>
+
+                                    <!--                                    <group>-->
+                                    <!--                                        <group>-->
+                                    <!--                                            <field name="pain_assessment_elicited_form"-->
+                                    <!--                                                   string="Pain Assessment elicited from:"/>-->
+                                    <!--                                            <field name="specify" string="Specify"-->
+                                    <!--                                                   attrs="{'invisible': [('pain_assessment_elicited_form', '!=', 'Other')]}"/>-->
+                                    <!--                                        </group>-->
+                                    <!--                                        <group>-->
+                                    <!--                                            <field name="pain_assessment_tool_used" string="Pain Assessment Tool Used"/>-->
+                                    <!--                                        </group>-->
+                                    <!--                                    </group>-->
+                                    <!--                                    <group>-->
+                                    <!--                                        <group>-->
+                                    <!--                                            <field name="pain" string="pain"/>-->
+                                    <!--                                            <field name="worst_pain_rated" string="Worst pain rated"/>-->
+                                    <!--                                        </group>-->
+                                    <!--                                        <group>-->
+                                    <!--                                            <field name="best_pain_rated" string="Best pain rated"/>-->
+                                    <!--                                            <field name="acceptable_pain" string="Acceptable pain"/>-->
+                                    <!--                                        </group>-->
+                                    <!--                                    </group>-->
+                                </div>
+                                <div attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Location (Area)</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="location_head" string="Head"/>
+                                                <field name="location_face" string="Face"/>
+                                                <field name="location_limbs" string="Limbs"/>
+                                            </group>
+                                            <group>
+                                                <field name="location_chest" string="Chest"/>
+                                                <field name="location_abdomen" string="Abdomen"/>
+                                                <field name="location_back" string="Back"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <label for="location_of_pain" string="Describe exact location of pain"
+                                                   style="color:black;"/>
+                                            <field name="location_of_pain" nolabel="1"/>
+                                        </group>
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Quality/ Characteristics</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="Characteristics_dull" string="Dull"/>
+                                                <field name="Characteristics_sharp" string="Sharp"/>
+                                                <field name="Characteristics_burning" string="Burning"/>
+                                            </group>
+                                            <group>
+                                                <field name="Characteristics_throbbing" string="Throbbing"/>
+                                                <field name="Characteristics_other" string="Other"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="Characteristics_patient_own_words"
+                                                   string="Description in patient own words"/>
+                                        </group>
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Onset/Time</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="onset_time_sudden" string="Sudden"/>
+                                                <field name="onset_time_gradual" string="Gradual"/>
+                                                <field name="onset_time_constant" string="Constant"/>
+                                            </group>
+                                            <group>
+                                                <field name="onset_time_intermittent" string="Intermittent"/>
+                                                <field name="onset_time_other" string="Other"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="onset_time_fdv" string="Frequency/Duration/Variation"/>
+                                        </group>
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Provoking Factors</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="provoking_factors_food" string="Food"/>
+                                                <field name="provoking_factors_rest" string="Rest"/>
+                                                <field name="provoking_factors_movement" string="Movement"/>
+                                            </group>
+                                            <group>
+                                                <field name="provoking_factors_palpation" string="Palpation"/>
+                                                <field name="provoking_factors_other" string="Other"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="provoking_factors_patient_words"
+                                                   string="Description in patient own words"/>
+                                        </group>
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Relieving factors</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="relieving_factors_rest" string="Rest"/>
+                                                <field name="relieving_factors_medication" string="Medication"/>
+                                                <field name="relieving_factors_heat" string="Heat/ Cold Packs"/>
+                                            </group>
+                                            <group>
+                                                <field name="relieving_factors_distraction"
+                                                       string="Distraction Techniques"/>
+                                                <field name="relieving_factors_other" string="Other"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="relieving_factors_patient_words"
+                                                   string="Description in patient own words"/>
+                                        </group>
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Manner in expressing pain</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="expressing_pain_verbal" string="Verbal"/>
+                                                <field name="expressing_pain_facial" string="Facial Expression"/>
+                                            </group>
+                                            <group>
+                                                <field name="expressing_pain_body" string="Body posture"/>
+                                                <field name="expressing_pain_other" string="Other"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="expressing_pain_when_pain"
+                                                   string="Description of patient behaviour when in pain"/>
+                                        </group>
+
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Effect of pain</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="effect_of_pain_nausea" string="Nausea"/>
+                                                <field name="effect_of_pain_vomiting" string="Vomiting"/>
+                                                <field name="effect_of_pain_appetite" string="Appetite"/>
+                                                <field name="effect_of_pain_activity" string="Activity"/>
+                                                <field name="effect_of_pain_relationship"
+                                                       string="Relationship with others"/>
+                                            </group>
+                                            <group>
+                                                <field name="effect_of_pain_emotions" string="Verbal"/>
+                                                <field name="effect_of_pain_concentration" string="Facial Expression"/>
+                                                <field name="effect_of_pain_sleep" string="Verbal"/>
+                                                <field name="effect_of_pain_other" string="Other"/>
+                                                <field name="effect_of_pain_other_text" nolabel="1"
+                                                       attrs="{'invisible': [('effect_of_pain_other', '!=', True)]}"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <!--                                    <div style="padding-left: 10px;">-->
+                                    <!--                                        <group>-->
+                                    <!--                                            <field name="previous_methods_pain"-->
+                                    <!--                                                   string="Previous methods of pain control that have been helpful "/>-->
+                                    <!--                                        </group>-->
+                                    <!--                                        <group>-->
+                                    <!--                                            <field name="previous_methods_pain_not"-->
+                                    <!--                                                   string="Previous methods of pain control that have not been helpful "/>-->
+                                    <!--                                        </group>-->
+                                    <!--                                    </div>-->
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Plan for pain management</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="pain_management_advice_analgesia"
+                                                       string="Advice analgesia"/>
+                                                <field name="pain_management_change_of"
+                                                       string="Change of medication/regime"/>
+                                                <field name="pain_management_refer_hospital"
+                                                       string="Refer to hospital"/>
+                                            </group>
+                                            <group>
+                                                <field name="pain_management_refer_physician"
+                                                       string="Refer to physician "/>
+                                                <field name="pain_management_refer_physician_home"
+                                                       attrs="{'invisible': [('pain_management_refer_physician', '!=', True)]}"/>
+                                                <field name="pain_management_refer_physician_palliative"
+                                                       attrs="{'invisible': [('pain_management_refer_physician', '!=', True)]}"/>
+                                                <field name="pain_management_refer_physician_primary"
+                                                       attrs="{'invisible': [('pain_management_refer_physician', '!=', True)]}"/>
+                                                <field name="pain_management_other" string="Other"/>
+                                                <field name="pain_management_other_text" nolabel="1"
+                                                       attrs="{'invisible': [('pain_management_other', '!=', True)]}"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="pain_management_comment" string="Comment"/>
+                                        </group>
+                                    </div>
+                                </div>
+                                <!--Metabolic -->
+                                <group col="3">
+                                    <label for="metabolic_show" string="Metabolic"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="metabolic_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('metabolic_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="weight"/>
+                                            <field name="height"/>
+                                            <field name="bmi"/>
+                                        </group>
+                                        <group>
+                                            <field name="waist_circ"/>
+                                            <field name="head_circumference"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <!--General Condition-->
+                                <group col="3">
+                                    <label for="general_condition_show" string="General Condition "
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="general_condition_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('general_condition_show', '=', False)]}">
+                                    <field name="general_condition" nolabel="1"/>
+                                </div>
+                                <!--EENT-->
+                                <group col="3">
+                                    <label for="EENT_show" string="EENT"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="EENT_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;" attrs="{'invisible': [('EENT_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <label for="eent_eye" string="Eye"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="eent_eye" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group attrs="{'invisible': [('eent_eye', '=', True)]}">
+                                            <field name="eent_eye_condition" string="Condition"/>
+                                            <field name="eent_eye_vision" string="Vision"/>
+                                        </group>
+                                    </group>
+                                    <group col="2" colospan="3">
+                                        <group>
+                                            <label for="eent_ear" string="Ear"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="eent_ear" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="eent_ear_content" nolabel="1"
+                                                   attrs="{'invisible': [('eent_ear', '=', True)]}"/>
+                                        </group>
+                                        <group>
+                                            <label for="eent_nose" string="Nose"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="eent_nose" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="eent_nose_content" nolabel="1"
+                                                   attrs="{'invisible': [('eent_nose', '=', True)]}"/>
+                                        </group>
+                                        <group>
+                                            <label for="eent_throut" string="Throut"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="eent_throut" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="eent_throut_content" nolabel="1"
+                                                   attrs="{'invisible': [('eent_throut', '=', True)]}"/>
+                                        </group>
+                                        <group>
+                                            <label for="eent_neck" string="Neck"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="eent_neck" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="eent_neck_content" nolabel="1"
+                                                   attrs="{'invisible': [('eent_neck', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="eent_remarks" string="Remarks"/>
+                                    </group>
+                                </div>
+                                <!--csv-->
+                                <group col="3">
+                                    <label for="csv_show" string="CVS"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="csv_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;" attrs="{'invisible': [('csv_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="cvs_h_sound_1_2" string="S1,S2"/>
+                                            <field name="cvs_h_sound_4" string="S4"/>
+                                            <field name="cvs_h_sound_murmurs" string="Murmurs"/>
+                                        </group>
+                                        <group>
+                                            <field name="cvs_h_sound_3" string="S3"/>
+                                            <field name="cvs_h_sound_click" string="Click"/>
+                                            <field name="cvs_h_sound_other" string="Other"/>
+                                            <field name="cvs_h_sound_other_text" string=""
+                                                   attrs="{'invisible': [('cvs_h_sound_other', '!=', True)]}"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="cvs_rhythm" string="Rhythm"/>
+                                        </group>
+                                        <group>
+                                            <field name="cvs_peripherial_pulse" string="Peripherial Pulse"/>
+                                        </group>
+                                        <group>
+                                            <field name="cvs_edema_yes_no" string="Edema"/>
+                                        </group>
+                                        <group colospan="4" attrs="{'invisible': [('cvs_edema_yes_no', '!=', 'Yes')]}">
+                                            <field name="cvs_edema_yes_type" string="Type"/>
+                                            <field name="cvs_edema_yes_location" string="Location"/>
+                                            <field name="cvs_edema_yes_grade" string="Grade"/>
+                                            <field name="cvs_edema_yes_capillary" string="Capillary Refill (sec)"/>
+                                        </group>
+                                        <group>
+                                            <field name="cvs_parenteral_devices_yes_no" string="Parenteral Devices"/>
+                                        </group>
+                                        <group colospan="4"
+                                               attrs="{'invisible': [('cvs_parenteral_devices_yes_no', '!=', 'Yes')]}">
+                                            <field name="cvs_parenteral_devices_yes_sel" string="Please Choose"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="cvs_remarks" string="Remarks"/>
+                                    </group>
+
+                                </div>
+                                <!--Respiratory-->
+                                <group col="3">
+                                    <label for="respiratory_show" string="Respiratory"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="respiratory_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('respiratory_show', '=', False)]}">
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Lung Sounds</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="lung_sounds_clear" string="Clear"/>
+                                                <field name="lung_sounds_diminished" string="Diminished"/>
+                                                <field name="lung_sounds_absent" string="Absent"/>
+                                                <field name="lung_sounds_fine_crackles" string="Fine Crackles"/>
+                                            </group>
+                                            <group>
+                                                <field name="lung_sounds_rhonchi" string="Rhonchi"/>
+                                                <field name="lung_sounds_stridor" string="Stridor"/>
+                                                <field name="lung_sounds_wheeze" string="Wheeze"/>
+                                                <field name="lung_sounds_coarse_crackles" string="Coarse Crackles"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Location</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="Location_bilateral" string="Bilateral"/>
+                                                <field name="Location_left_lower" string="Left Lower"/>
+                                                <field name="Location_left_middle" string="Left Middle"/>
+                                                <field name="Location_left_upper" string="Left Upper"/>
+                                                <field name="Location_lower" string="Lower"/>
+                                            </group>
+                                            <group>
+                                                <field name="Location_upper" string="Upper"/>
+                                                <field name="Location_right_lower" string="Right Lower"/>
+                                                <field name="Location_right_middle" string="Right Middle"/>
+                                                <field name="Location_right_upper" string="Right Upper"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Type</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="type_regular" string="Regular"/>
+                                                <field name="type_irregular" string="Irregular"/>
+                                                <field name="type_rapid" string="Rapid"/>
+                                                <field name="type_dyspnea" string="Dyspnea"/>
+                                                <field name="type_apnea" string="Apnea"/>
+                                            </group>
+                                            <group>
+                                                <field name="type_tachypnea" string="Tachypnea"/>
+                                                <field name="type_orthopnea" string="Orthopnea"/>
+                                                <field name="type_accessory_muscles" string="Accessory Muscles"/>
+                                                <field name="type_snoring_mechanical" string="Snoring Mechanical"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <group>
+                                        <group>
+                                            <field name="Cough_yes_no" string="Cough"/>
+                                        </group>
+                                        <group colospan="4" attrs="{'invisible': [('Cough_yes_no', '!=', 'Yes')]}">
+                                            <field name="cough_yes_type" string="Type"/>
+                                            <field name="cough_yes_frequency" string="Frequency"/>
+                                            <field name="cough_yes_amount" string="Amount"/>
+                                            <field name="cough_yes_characteristic" string="Characteristic"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="respiratory_support_yes_no" string="Respiratory Support"/>
+                                        </group>
+                                        <group colospan="4"
+                                               attrs="{'invisible': [('respiratory_support_yes_no', '!=', 'Yes')]}">
+                                            <field name="respiratory_support_yes_oxygen" string="Oxygen"/>
+                                            <field name="respiratory_support_yes_oxygen_text" string=""
+                                                   attrs="{'invisible': [('respiratory_support_yes_oxygen', '!=', True)]}"/>
+                                            <field name="respiratory_support_yes_trachestory" string="Tracheostomy"/>
+                                            <field name="respiratory_support_yes_trachestory_text" string=""
+                                                   attrs="{'invisible': [('respiratory_support_yes_trachestory', '!=', True)]}"/>
+                                            <field name="respiratory_support_yes_ventilator" string="Ventilator"/>
+                                            <field name="respiratory_support_yes_ventilator_text" string=""
+                                                   attrs="{'invisible': [('respiratory_support_yes_ventilator', '!=', True)]}"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="suction_yes_no" string="Suction"/>
+                                        </group>
+                                        <group colospan="4" attrs="{'invisible': [('suction_yes_no', '!=', 'Yes')]}">
+                                            <field name="suction_yes_type" string="Type"/>
+                                            <field name="suction_yes_frequency" string="Frequency per Day"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="nebulization_yes_no" string="Nebulization"/>
+                                        </group>
+                                        <group colospan="4"
+                                               attrs="{'invisible': [('nebulization_yes_no', '!=', 'Yes')]}">
+                                            <field name="nebulization_yes_frequency" string="Frequency per Day"/>
+                                            <field name="nebulization_yes_medication" string="Medication"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="respiratory_remarks" string="Remarks"/>
+                                    </group>
+                                </div>
+                                <!--Neuralogical-->
+                                <group col="3">
+                                    <label for="neuralogical_show" string="Neurological"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="neuralogical_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('neuralogical_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="neuralogical_left_eye" string="Left Eye Pupil Dilation (mm)"/>
+                                        </group>
+                                        <group>
+                                            <field name="neuralogical_right_eye"
+                                                   string="Right Eye Pupil Dilation (mm)"/>
+                                        </group>
+                                        <group>
+                                            <field name="neuralogical_pupil_reaction" string="Pupil Reaction"/>
+                                        </group>
+                                        <group>
+                                            <field name="neuralogical_old" string="Determine the age group"/>
+                                        </group>
+                                    </group>
+                                    <div attrs="{'invisible': [('neuralogical_old', '!=', 'Greater Than 5 years Old')]}">
+                                        <group>
+                                            <group>
+                                                <field name="neuralogical_greater_than_5_years_mental"
+                                                       string="Mental State"/>
+                                                <field name="neuralogical_greater_than_5_years_facial"
+                                                       string="Facial Symmetry"/>
+                                            </group>
+                                            <group>
+                                                <h5 col="2" style="font-weight:bold; color:#184553">Glasgow Coma Scale
+                                                </h5>
+                                                <field name="neuralogical_greater_than_5_years_eye"
+                                                       string="Eye Momement"/>
+                                                <field name="neuralogical_greater_than_5_years_motor"
+                                                       string="Motor Response"/>
+                                                <field name="neuralogical_greater_than_5_years_verbal"
+                                                       string="Verbal Response"/>
+                                                <field name="neuralogical_greater_than_5_years_glascow"
+                                                       string="Score"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <div attrs="{'invisible': [('neuralogical_old', '!=', '2 to 5 Years Old')]}">
+                                        <group>
+                                            <group>
+                                                <field name="neuralogical_2_to_5_level"
+                                                       string="Level of consciousness"/>
+                                            </group>
+                                            <group>
+                                                <h5 col="2" style="font-weight:bold; color:#184553">Glasgow Coma Scale
+                                                </h5>
+                                                <field name="neuralogical_2_to_5_eye"
+                                                       string="Eye Momement"/>
+                                                <field name="neuralogical_2_to_5_motor"
+                                                       string="Motor Response"/>
+                                                <field name="neuralogical_2_to_5_verbal"
+                                                       string="Verbal Response"/>
+                                                <field name="neuralogical_2_to_5_glascow"
+                                                       string="Score"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <div attrs="{'invisible': [('neuralogical_old', '!=', 'Less than 2 Years Old')]}">
+                                        <group>
+                                            <group>
+                                                <field name="neuralogical_less_than_2_level"
+                                                       string="Level of consciousness"/>
+                                            </group>
+                                            <group>
+                                                <h5 col="2" style="font-weight:bold; color:#184553">Glasgow Coma Scale
+                                                </h5>
+                                                <field name="neuralogical_less_than_2_eye"
+                                                       string="Eye Momement"/>
+                                                <field name="neuralogical_less_than_2_motor"
+                                                       string="Motor Response"/>
+                                                <field name="neuralogical_less_than_2_verbal"
+                                                       string="Verbal Response"/>
+                                                <field name="neuralogical_less_than_2_glascow"
+                                                       string="Score"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <group>
+                                        <field name="neuralogical_remarks" string="Remarks"/>
+                                    </group>
+
+                                </div>
+                                <!--Gastrointestinal-->
+                                <group col="3">
+                                    <label for="gastrointestinal_show" string="Gastrointestinal"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="gastrointestinal_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('gastrointestinal_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="gastrointestinal_bowel_sound" string="Bowel Sound"/>
+                                        </group>
+                                        <group>
+                                            <field name="gastrointestinal_stool_color" string="Stool Color"/>
+                                        </group>
+                                    </group>
+                                    <group>
+
+                                        <group>
+                                            <h5 col="2" style="font-weight:bold; color:#184553">Abdomen</h5>
+                                            <br/>
+                                            <div style="padding-left: 10px;">
+                                                <group>
+                                                    <field name="gastrointestinal_abdomen_lax" string="Lax"/>
+                                                    <field name="gastrointestinal_abdomen_soft" string="Soft"/>
+                                                    <field name="gastrointestinal_abdomen_firm" string="Firm"/>
+                                                    <field name="gastrointestinal_abdomen_distended"
+                                                           string="Distended"/>
+                                                    <field name="gastrointestinal_abdomen_tender" string="Tender"/>
+                                                </group>
+                                            </div>
+                                        </group>
+
+                                        <group>
+                                            <h5 col="2" style="font-weight:bold; color:#184553">Stool Description</h5>
+                                            <br/>
+                                            <div style="padding-left: 10px;">
+                                                <group>
+                                                    <field name="gastrointestinal_stool_loose" string="Loose"/>
+                                                    <field name="gastrointestinal_stool_hard" string="Hard"/>
+                                                    <field name="gastrointestinal_stool_mucoid" string="Mucoid"/>
+                                                    <field name="gastrointestinal_stool_soft" string="Soft"/>
+                                                    <field name="gastrointestinal_stool_tarry" string="Tarry"/>
+                                                    <field name="gastrointestinal_stool_formed" string="Formed"/>
+                                                    <field name="gastrointestinal_stool_semi_formed"
+                                                           string="Semi-Formed"/>
+                                                    <field name="gastrointestinal_stool_bloody" string="Bloody"/>
+                                                </group>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <h5 col="2" style="font-weight:bold; color:#184553">Stoma</h5>
+                                            <br/>
+                                            <div style="padding-left: 10px;">
+                                                <group>
+                                                    <field name="gastrointestinal_stoma_none" string="None"/>
+                                                    <field name="gastrointestinal_stoma_colostory" string="Colostomy"/>
+                                                    <field name="gastrointestinal_stoma_ileostomy" string="ileostomy"/>
+                                                    <field name="gastrointestinal_stoma_peg" string="PEG"/>
+                                                    <field name="gastrointestinal_stoma_pej" string="PEJ"/>
+                                                    <field name="gastrointestinal_stoma_urostomy" string="Urostomy"/>
+                                                </group>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <h5 col="2" style="font-weight:bold; color:#184553">G.I.T Problem</h5>
+                                            <br/>
+                                            <div style="padding-left: 10px;">
+                                                <group>
+                                                    <field name="gastrointestinal_problem_none" string="None"/>
+                                                    <field name="gastrointestinal_problem_nausea" string="Nausea"/>
+                                                    <field name="gastrointestinal_problem_vomiting" string="Vomiting"/>
+                                                    <field name="gastrointestinal_problem_colic" string="Colic"/>
+                                                    <field name="gastrointestinal_problem_diarrhea" string="Diarrhea"/>
+                                                    <field name="gastrointestinal_problem_constipation"
+                                                           string="Constipation"/>
+                                                    <field name="gastrointestinal_problem_dysphagia"
+                                                           string="Dysphagia"/>
+                                                    <field name="gastrointestinal_problem_hemorrhoids"
+                                                           string="Hemorrhoids"/>
+                                                    <field name="gastrointestinal_problem_anal_fissure"
+                                                           string="Anal Fissure"/>
+                                                    <field name="gastrointestinal_problem_anal_fistula"
+                                                           string="Anal Fistula"/>
+                                                    <field name="gastrointestinal_problem_other" string="Other"/>
+                                                    <field name="gastrointestinal_problem_other_text" string=""
+                                                           attrs="{'invisible': [('gastrointestinal_problem_other', '!=', True)]}"/>
+                                                </group>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <h5 col="2" style="font-weight:bold; color:#184553">Bowel Movement
+                                                Assistance
+                                            </h5>
+                                            <br/>
+                                            <div style="padding-left: 10px;">
+                                                <group>
+                                                    <field name="gastrointestinal_bowel_movement_none" string="None"/>
+                                                    <field name="gastrointestinal_bowel_movement_laxative"
+                                                           string="Laxative"/>
+                                                    <field name="gastrointestinal_bowel_movement_enema" string="Enema"/>
+                                                    <field name="gastrointestinal_bowel_movement_stoma" string="Stoma"/>
+                                                    <field name="gastrointestinal_bowel_movement_stool_softener"
+                                                           string="Stool Softener"/>
+                                                    <field name="gastrointestinal_bowel_movement_suppository"
+                                                           string="Suppository"/>
+                                                    <field name="gastrointestinal_bowel_movement_digital"
+                                                           string="Digital Evacuation"/>
+                                                    <field name="gastrointestinal_bowel_movement_other" string="Other"/>
+                                                    <field name="gastrointestinal_bowel_movement_other_text" string=""
+                                                           attrs="{'invisible': [('gastrointestinal_bowel_movement_other', '!=', True)]}"/>
+                                                </group>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <h5 col="2" style="font-weight:bold; color:#184553">Enteral Device</h5>
+                                            <br/>
+                                            <div style="padding-left: 10px;">
+                                                <group>
+                                                    <field name="gastrointestinal_enteral_device_none" string="None"/>
+                                                    <field name="gastrointestinal_enteral_device_nasogastric_tube"
+                                                           string="Nasogastric Tube"/>
+                                                    <field name="gastrointestinal_enteral_device_orogastric_tube"
+                                                           string="Orogastric Tube"/>
+                                                    <field name="gastrointestinal_enteral_device_gastro_jejunal"
+                                                           string="Gastro Jejunal Tube"/>
+                                                    <field name="gastrointestinal_enteral_device_peg" string="PEG"/>
+                                                    <field name="gastrointestinal_enteral_device_pej" string="PEJ"/>
+                                                    <field name="gastrointestinal_enteral_device_pd" string="PD"/>
+                                                    <field name="gastrointestinal_enteral_device_other" string="Other"/>
+                                                    <field name="gastrointestinal_enteral_device_other_text" string=""
+                                                           attrs="{'invisible': [('gastrointestinal_enteral_device_other', '!=', True)]}"/>
+                                                </group>
+                                            </div>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="gastrointestinal_remarks" string="Remarks"/>
+                                    </group>
+                                </div>
+                                <!--Genitourinary-->
+                                <group col="3">
+                                    <label for="genitourinary_show" string="Genitourinary"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="genitourinary_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div attrs="{'invisible': [('genitourinary_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="genitourinary_urine_color" string="Urine Color"/>
+                                            <field name="genitourinary_urine_appearance" string="Urine Appearance"/>
+                                            <field name="genitourinary_urine_amount" string="Urine Amount"/>
+                                        </group>
+                                        <group>
+                                            <field name="genitourinary_urination_assistance"
+                                                   string="Urination Assistance"/>
+                                        </group>
+                                    </group>
+                                    <h5 col="2" style="font-weight:bold; color:#184553">Urination Complaint</h5>
+                                    <div style="padding-left: 10px;">
+                                        <group>
+                                            <group>
+                                                <field name="genitourinary_urination_none" string="None"/>
+                                                <field name="genitourinary_urination_dysuria" string="Dysuria"/>
+                                                <field name="genitourinary_urination_frequency" string="Frequency"/>
+                                                <field name="genitourinary_urination_urgency" string="Urgency"/>
+                                                <field name="genitourinary_urination_hesitancy" string="Hesitancy"/>
+                                                <field name="genitourinary_urination_incontinence"
+                                                       string="Incontinence"/>
+                                                <field name="genitourinary_urination_inability_to_void"
+                                                       string="Inability To Void"/>
+                                            </group>
+                                            <group>
+                                                <field name="genitourinary_urination_nocturia" string="Nocturia"/>
+                                                <field name="genitourinary_urination_retention" string="Retention"/>
+                                                <field name="genitourinary_urination_suprapubic_pain"
+                                                       string="Suprapubic Pain"/>
+                                                <field name="genitourinary_urination_loin_pain" string="Loin Pain"/>
+                                                <field name="genitourinary_urination_colicky_pain"
+                                                       string="Colicky Pain"/>
+                                                <field name="genitourinary_urination_difficult_control"
+                                                       string="Difficult Control"/>
+                                                <field name="genitourinary_urination_other" string="Other"/>
+                                                <field name="genitourinary_urination_other_text" string=""
+                                                       attrs="{'invisible': [('genitourinary_urination_other', '!=', True)]}"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                    <group>
+                                        <field name="genitourinary_remarks" string="Remarks"/>
+                                    </group>
+                                </div>
+                                <!--Integumentary-->
+                                <group col="3">
+                                    <label for="integumentary_show" string="Integumentary"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="integumentary_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('integumentary_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="appearance_normal"/>
+                                            <field name="appearance_edema"/>
+                                            <field name="appearance_pale"/>
+                                            <field name="appearance_jundiced"/>
+                                            <field name="appearance_hemayome"/>
+                                            <field name="appearance_cyanotic"/>
+                                            <field name="appearance_abrasion"/>
+                                        </group>
+                                        <group>
+                                            <field name="appearance_dry"/>
+                                            <field name="appearance_flushed"/>
+                                            <field name="appearance_rash"/>
+                                            <field name="appearance_eczema"/>
+                                            <field name="appearance_rusty"/>
+                                            <field name="appearance_bruises"/>
+                                            <field name="appearance_sores"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="integumentary_turgor" string="Turgor"/>
+                                        <field name="integumentary_temperature" string="Temperature"/>
+                                    </group>
+                                    <group>
+                                        <field name="integumentary_remarks" string="Remarks"/>
+                                    </group>
+                                </div>
+                                <!--Infections-->
+                                <group col="3">
+                                    <label for="infection_show" string="Infections"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="infection_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('infection_show', '=', False)]}">
+                                    <group col="2" colospan="3">
+                                        <group>
+                                            <label for="infection_nad" string="Infections"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="infection_nad" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="infection_content" nolabel="1"
+                                                   attrs="{'invisible': [('infection_nad', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <!--psychological-->
+                                <group col="3">
+                                    <label for="psychological_show" string="Psychological"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="psychological_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('psychological_show', '=', False)]}">
+                                    <group col="2" colospan="3">
+                                        <group>
+                                            <label for="psychological_nad" string="Psychological"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="psychological_nad" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="psychological_content" nolabel="1"
+                                                   attrs="{'invisible': [('psychological_nad', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <!--reproductive-->
+                                <group col="3">
+                                    <label for="reproductive_show" string="Reproductive"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="reproductive_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('reproductive_show', '=', False)]}">
+                                    <group col="2" colospan="3">
+                                        <group>
+                                            <label for="reproductive_nad" string="Reproductive"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="reproductive_nad" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="reproductive_content" nolabel="1"
+                                                   attrs="{'invisible': [('reproductive_nad', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <!--musculoskeletal-->
+                                <group col="3">
+                                    <label for="musculoskeletal_show" string="Musculoskeletal"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="musculoskeletal_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;"
+                                     attrs="{'invisible': [('musculoskeletal_show', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="musculoskeletal_left_upper_extremity"
+                                                   string="Left Upper Extremity"/>
+                                            <field name="musculoskeletal_left_lower_extremity"
+                                                   string="Left Lower Extremity"/>
+                                            <field name="musculoskeletal_gait" string="Gait"/>
+                                        </group>
+                                        <group>
+                                            <field name="musculoskeletal_right_upper_extremity"
+                                                   string="Right Upper Extremity"/>
+                                            <field name="musculoskeletal_right_lower_extremity"
+                                                   string="Right Lower Extremity"/>
+                                            <field name="musculoskeletal_remarks" string="Remarks"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <!--sensory-->
+                                <group col="3">
+                                    <label for="sensory_show" string="Sensory"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="sensory_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <div style="padding-left: 10px;" attrs="{'invisible': [('sensory_show', '=', False)]}">
+                                    <group col="2" colospan="3">
+                                        <group>
+                                            <label for="sensory_nad" string="Sensory"
+                                                   style=" font-size: 14px"/>
+                                            <div class="oe_inline">
+                                                <span style=" margin-right: 14px">NAD</span>
+                                                <field name="sensory_nad" nolabel="1" widget="checkbox"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="sensory_content" nolabel="1"
+                                                   attrs="{'invisible': [('sensory_nad', '=', True)]}"/>
+                                        </group>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Diagnosis">
+                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                    Provisional Diagnosis
+                                </h5>
+                                <br/>
+                                <group>
+                                    <group>
+                                        <field name="provisional_diagnosis" string=""/>
+                                        <field name="provisional_diagnosis_add" string=""/>
+
+                                    </group>
+                                    <group>
+                                        <field name="provisional_diagnosis_add2" string=""/>
+                                        <field name="provisional_diagnosis_add3" string=""/>
+                                        <field name="provisional_diagnosis_add_other4" string="Add other"/>
+                                    </group>
+                                </group>
+                                <div attrs="{'invisible': [('provisional_diagnosis_add_other4', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add4" string=""/>
+                                        </group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add_other5" string="Add other"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <div attrs="{'invisible': [('provisional_diagnosis_add_other5', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add5" string=""/>
+                                        </group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add_other6" string="Add other"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <div attrs="{'invisible': [('provisional_diagnosis_add_other6', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add6" string=""/>
+                                        </group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add_other7" string="Add other"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <div attrs="{'invisible': [('provisional_diagnosis_add_other7', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add7" string=""/>
+                                        </group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add_other8" string="Add other"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <div attrs="{'invisible': [('provisional_diagnosis_add_other8', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add8" string=""/>
+                                        </group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add_other9" string="Add other"/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <div attrs="{'invisible': [('provisional_diagnosis_add_other9', '=', False)]}">
+                                    <group>
+                                        <group>
+                                            <field name="provisional_diagnosis_add9" string=""/>
+                                        </group>
+                                    </group>
+                                </div>
+                                <group>
+                                    <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                        Differential Diagnosis
+                                    </h5>
+                                    <br/>
+                                    <group>
+                                        <field name="differential_diagnosis" string=""/>
+                                    </group>
+                                    <group>
+                                        <field name="differential_diagnosis_add_other" string="Add other"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="differential_diagnosis_add" string=""
+                                               attrs="{'invisible': [('differential_diagnosis_add_other', '=', False)]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Medical Care Plan">
+                                <h5 col="2" style="font-weight:bold; color:#5D8DA8">Medical Care Plan</h5>
+
+                                <group>
+                                    <field name="medical_care_plan" nolabel="1"/>
+                                </group>
+                                <group col="3">
+
+                                    <label for="services_provided_show" string="Services Provided"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="services_provided_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+
+                                <group col="3" attrs="{'invisible': [('services_provided_show', '=', False)]}">
+                                    <group>
+                                        <field name="services_provided_oxygen_dependent" string="Oxygen Dependent"/>
+                                        <field name="services_provided_wound_care" string="Wound Care"/>
+                                        <field name="services_provided_hydration_therapy"
+                                               string="Hydration Therapy"/>
+                                        <field name="services_provided_hypodermoclysis" string="Hypodermoclysis"/>
+                                        <field name="services_provided_stoma_care" string="Stoma Care"/>
+                                        <field name="services_provided_inr_monitoring" string="INR Monitoring"/>
+                                        <field name="services_provided_vac_therapy" string="VAC Therapy"/>
+                                        <field name="services_provided_medication_management"
+                                               string="Medication Management"/>
+                                        <field name="services_provided_parenteral_antimicrobial"
+                                               string="Parenteral Antimicrobial"/>
+                                    </group>
+                                    <group>
+                                        <field name="services_provided_ngt" string="NGT"/>
+                                        <field name="services_provided_tracheostomy"
+                                               string="Tracheostomy Care and Suctioning"/>
+                                        <field name="services_provided_pain_management"
+                                               string="Pain / Symptoms Management"/>
+                                        <field name="services_provided_o2_via_nasal_cannula"
+                                               string="O2 via nasal cannula"/>
+                                        <field name="services_provided_tpn" string="TPN"/>
+                                        <field name="services_provided_peg_tube" string="PEG Tube"/>
+                                        <field name="services_provided_prevention_pressure"
+                                               string="Prevention Pressure"/>
+                                        <field name="services_provided_drain_tube" string="Drain Tube Mx"/>
+                                        <field name="services_provided_other_text" string=""
+                                               attrs="{'invisible': [('services_provided_other', '!=', True)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="services_provided_warfarin_stabilization"
+                                               string="Warfarin Stabilization"/>
+                                        <field name="services_provided_indwelling_foley_catheter"
+                                               string="Indwelling Foley Catheter"/>
+                                        <field name="services_provided_other" string="Other"/>
+                                        <field name="services_provided_caregiver" string="Caregiver"/>
+                                        <field name="services_provided_BP_monitoring" string="BP Monitoring"/>
+                                        <field name="services_provided_blood_sugar_monitoring"
+                                               string="Blood Sugar Monitoring"/>
+                                        <field name="services_provided_fall_risk_prevention"
+                                               string="Fall Risk Prevention"/>
+                                        <field name="services_provided_BIPAP_CPAP_management"
+                                               string="BIPAP/CPAP Management"/>
+                                    </group>
+                                </group>
+
+                                <group col="3">
+                                    <label for="program_show" string="Program"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="program_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group col="4" attrs="{'invisible': [('program_show', '=', False)]}">
+                                    <group>
+                                        <field name="program_chronic_anticoagulation" string="Chronic Anticoagulation"/>
+                                        <field name="program_general_nursing_care" string="General Nursing Care"/>
+                                    </group>
+                                    <group>
+                                        <field name="program_wound_care" string="Wound Care"/>
+                                        <field name="program_palliative_care" string="Palliative Care"/>
+                                    </group>
+                                    <group>
+                                        <field name="program_acute_anticoagulation" string="Acute Anticoagulation"/>
+                                        <field name="program_home_infusion" string="Home Infusion"/>
+                                    </group>
+                                    <group>
+                                        <field name="program_other" string="Other"/>
+                                        <field name="program_other_text" string=""
+                                               attrs="{'invisible': [('program_other', '!=', True)]}"/>
+                                    </group>
+                                </group>
+
+
+                                <group col="3">
+
+                                    <label for="re_certification_equipment_show" string="Re-Certification of Equipment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="re_certification_equipment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+
+                                </group>
+                                <group col="4" attrs="{'invisible': [('re_certification_equipment_show', '=', False)]}">
+                                    <group>
+                                        <field name="re_certification_oxygen_cylinder" string="Oxygen Cylinder"/>
+                                        <field name="re_certification_oxygen_concentrator"
+                                               string="Oxygen Concentrator"/>
+                                        <field name="re_certification_feeding_pump" string="Feeding Pump"/>
+                                        <field name="re_certification_pulse_oximetry" string="Pulse Oximetry"/>
+                                    </group>
+                                    <group>
+                                        <field name="re_certification_air_compressor" string="Air Compressor"/>
+                                        <field name="re_certification_ventilator" string="Ventilator"/>
+                                        <field name="re_certification_suction_machine" string="Suction Machine"/>
+                                        <field name="re_certification_acti_VAC_machine" string="Acti VAC Machine"/>
+                                    </group>
+                                    <group>
+                                        <field name="re_certification_vest" string="Vest"/>
+                                        <field name="re_certification_nebulizer_machine" string="Nebulizer Machine"/>
+                                        <field name="re_certification_electronic_bed" string="Electronic Bed"/>
+                                        <field name="re_certification_wheel_chair" string="Wheel Chair"/>
+                                    </group>
+                                    <group>
+                                        <field name="re_certification_infusion_pump" string="Infusion Pump"/>
+                                        <field name="re_certification_hoyer_lift" string="Hoyer Lift"/>
+                                        <field name="re_certification_BIPAP_CPAP_AUTO_CPAP"
+                                               string="BIPAP/CPAP/AUTO CPAP"/>
+                                        <field name="program_other_text" string=""
+                                               attrs="{'invisible': [('program_other', '!=', True)]}"/>
+                                    </group>
+                                </group>
+
+                                <group col="3">
+
+                                    <label for="patient_condition_show" string="Patient Condition"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_condition_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+
+
+                                <group col="2" attrs="{'invisible': [('patient_condition_show', '=', False)]}">
+                                    <group>
+                                        <field name="patient_condition" string="Patient Condition"/>
+                                    </group>
+                                    <group>
+                                        <field name="prognosis" string="Prognosis"/>
+                                    </group>
+                                </group>
+
+                                <group col="3">
+
+                                    <label for="potential_risk_safety_measures_show"
+                                           string="Potential Risk/Safety Measures"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="potential_risk_safety_measures_show" nolabel="1"
+                                               widget="checkbox"/>
+                                    </div>
+
+                                </group>
+                                <group attrs="{'invisible': [('potential_risk_safety_measures_show', '=', False)]}">
+
+                                    <field name="potential_risk" nolabel="1"/>
+                                </group>
+                                <group col="3">
+
+                                    <label for="admission_goal_show" string="Admission Goal"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="admission_goal_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+
+                                </group>
+                                <group attrs="{'invisible': [('admission_goal_show', '=', False)]}">
+
+                                    <field name="admission_goal" nolabel="1"/>
+                                </group>
+                                <group col="3">
+
+                                    <label for="final_plan_show" string="Final Plan"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="final_plan_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+
+                                </group>
+                                <group attrs="{'invisible': [('final_plan_show', '=', False)]}">
+                                    <h5>The following services shall be provided by home care team as required:</h5>
+                                    <br/>
+                                    <group>
+                                        <h6>Physician</h6>
+                                        <br/>
+
+                                        <group>
+                                            <field name="visit_frequency"/>
+                                        </group>
+                                        <group>
+                                            <field name="prn_frequency"/>
+                                        </group>
+
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <h6>Nurse</h6>
+                                        <br/>
+
+                                        <group>
+                                            <field name="visit_frequency"/>
+                                        </group>
+                                        <group>
+                                            <field name="prn_frequency"/>
+                                        </group>
+
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <h6>Respiratory Therapist</h6>
+                                        <br/>
+
+                                        <group>
+                                            <field name="visit_frequency"/>
+                                        </group>
+                                        <group>
+                                            <field name="prn_frequency"/>
+                                        </group>
+
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <h6>Physiotherapist</h6>
+                                        <br/>
+
+                                        <group>
+                                            <field name="visit_frequency"/>
+                                        </group>
+                                        <group>
+                                            <field name="prn_frequency"/>
+                                        </group>
+
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <h6>Occupational Therapist</h6>
+                                        <br/>
+
+                                        <group>
+                                            <field name="visit_frequency"/>
+                                        </group>
+                                        <group>
+                                            <field name="prn_frequency"/>
+                                        </group>
+
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <h6>Social Worker</h6>
+                                        <br/>
+
+                                        <group>
+                                            <field name="visit_frequency"/>
+                                        </group>
+                                        <group>
+                                            <field name="prn_frequency"/>
+                                        </group>
+
+                                    </group>
+                                    <br/>
+                                    <group>
+                                        <h6>Nutritionist</h6>
+                                        <br/>
+
+                                        <group>
+                                            <field name="visit_frequency"/>
+                                        </group>
+                                        <group>
+                                            <field name="prn_frequency"/>
+                                        </group>
+
+                                    </group>
+
+                                </group>
+                            </page>
+                            <page string="Prescriptions">
+                                <field name="prescription_ids" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_phy_admission':id, 'default_doctor':doctor, 'default_provisional_diagnosis':provisional_diagnosis,
+                                    'default_provisional_diagnosis_add':provisional_diagnosis_add,'default_provisional_diagnosis_add2':provisional_diagnosis_add2,'default_provisional_diagnosis_add3':provisional_diagnosis_add3}">
+                                    <tree string='Prescriptions'>
+                                        <field name="name"/>
+                                        <field name="hvd_appointment"/>
+                                        <field name="patient"/>
+                                        <field name="date"/>
+                                        <field name="doctor"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <header>
+                                            <field name="state" widget="statusbar"
+                                                   statusbar_visible="Start,PDF Created"/>
+                                            <button confirm="Are you sure you want to create PDF?"
+                                                    name="set_to_pdf_create"
+                                                    states="Start" string="Create PDF" type="object"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor,oehealth.group_oeh_medical_physician"/>
+                                            <button name="download_pdf" type="object" string="Download"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_home_visit_doctor, oehealth.group_oeh_medical_physician"
+                                                    states="PDF Created"/>
+                                        </header>
+                                        <div class="oe_left" style="width: 500px;">
+                                            <div class="oe_title">
+                                                <label for="name" string="Prescription #" class="oe_edit_only"/>
+                                                <h1>
+                                                    <field name="name"/>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <group invisible="1">
+                                            <group>
+                                                <field name="patient"/>
+                                            </group>
+                                        </group>
+                                        <group invisible="1">
+                                            <group>
+                                                <field name="hhc_appointment"/>
+                                                <field name="hvd_appointment"/>
+                                                <field name="appointment"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group invisible="1">
+                                                <field name="doctor"/>
+                                            </group>
+                                            <group>
+                                                <field name="date"/>
+                                            </group>
+                                        </group>
+
+                                        <notebook>
+                                            <page string="Prescription Lines">
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Diagnosis
+                                                </h5>
+                                                <br/>
+                                                <group>
+                                                    <group>
+                                                        <field name="provisional_diagnosis" string=""/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="provisional_diagnosis_add_other"
+                                                               string="Add other"/>
+                                                    </group>
+                                                </group>
+                                                <div attrs="{'invisible': [('provisional_diagnosis_add_other', '=', False)]}">
+                                                    <group>
+                                                        <group>
+                                                            <field name="provisional_diagnosis_add" string=""/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="provisional_diagnosis_add_other2"
+                                                                   string="Add other"/>
+                                                        </group>
+                                                    </group>
+                                                </div>
+                                                <div attrs="{'invisible': [('provisional_diagnosis_add_other2', '=', False)]}">
+                                                    <group>
+                                                        <group>
+                                                            <field name="provisional_diagnosis_add2" string=""/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="provisional_diagnosis_add_other3"
+                                                                   string="Add other"/>
+                                                        </group>
+                                                    </group>
+                                                </div>
+                                                <group>
+                                                    <group>
+                                                        <field name="provisional_diagnosis_add3" string=""
+                                                               attrs="{'invisible': [('provisional_diagnosis_add_other3', '=', False)]}"/>
+                                                    </group>
+                                                </group>
+                                                <field name="prescription_line" context="{'default_patient': patient}"/>
+                                                <!--<form string="Prescription Lines">
+                                                    <group>
+                                                        <group>
+                                                            <field name="name"/>
+
+                                                            <field name="start_treatment" invisible="1"/>
+                                                            <field name="patient" required="1" invisible="1"/>
+                                                        </group>
+                                                        <group>
+                                                            <label for="dose"/>
+                                                            <div>
+                                                                <field name="dose"
+                                                                       style="width: 20%;  margin: 10px"
+                                                                       required="1"/>
+                                                                <field name="dose_unit"
+                                                                       style="width: 40%; margin: 10px"/>
+                                                            </div>
+                                                            <field name="end_treatment" invisible="1"/>
+                                                        </group>
+                                                    </group>
+                                                    <group>
+                                                        <group>
+                                                            <field name="dose_form"/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="dose_route"/>
+                                                        </group>
+                                                    </group>
+                                                    <group>
+                                                        <group>
+                                                            <field name="common_dosage" required="1"/>
+                                                            <field name="frequency" invisible="1"/>
+                                                        </group>
+                                                    </group>
+                                                    <group>
+                                                        <group>
+                                                            <field name="duration" string="Duration" required="1"/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="frequency_unit" required="1"/>
+                                                        </group>
+                                                    </group>
+                                                    <group>
+                                                        <group>
+                                                            <field name="qty" invisible="1"/>
+                                                            <field name="indication"/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="admin_times" invisible="1"/>
+                                                        </group>
+                                                    </group>
+                                                    <group invisible="1">
+                                                        <group>
+                                                            <field name="duration" string="Day(s)"/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="duration_period" string="Period"/>
+                                                        </group>
+                                                    </group>
+                                                    <group>
+                                                        <h6>Order Instruction</h6>
+                                                        <br/>
+                                                        <field name="info" nolabel="1"/>
+                                                    </group>
+                                                </form>
+                                                <tree string="Prescription Lines">
+                                                    <field name="name"/>
+                                                    <field name="indication"/>
+                                                    <field name="dose"/>
+                                                    <field name="dose_unit"/>
+                                                    <field name="dose_form"/>
+                                                    <field name="common_dosage"/>
+                                                    <field name="qty" invisible="1"/>
+                                                    <field name="duration"/>
+                                                    <field name="duration_period" invisible="1"/>
+                                                    <field name="info"/>
+                                                </tree>
+                                            </field>-->
+                                            </page>
+                                            <page string="Notes">
+                                                <field name="info" nolabel="1"/>
+                                            </page>
+                                        </notebook>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Internal Referral">
+                                <field name="referral_ids" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_hhc_appointment':hhc_appointment, 'default_doctor':doctor}"/>
+                            </page>
+                            <page string="Physician Follow up">
+                                <field name="followup_ids" widget="one2many_list" string="Physician Follow up"
+                                       context="{'default_patient':patient, 'default_hhc_appointment':hhc_appointment, 'default_phy_adm':id, 'default_doctor':doctor}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_shifa_physician_admission_investigation_form_inherit" model="ir.ui.view">
+            <field name="name">Investigation</field>
+            <field name="model">sm.shifa.physician.admission</field>
+            <field name="inherit_id" ref="view_shifa_physician_admission_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[2]" position="after">
+                    <page string="Investigations">
+                        <notebook>
+                            <page string="Lab Request">
+                                <!--<field name="labtest_line" widget="one2many_list" nolabel="1"
+                                       context="{'default_patient':patient, 'default_doctor':doctor, 'default_hhc_appointment': hhc_appointment}"/>-->
+                                 <field name="lab_request_test_line" widget="one2many_list" nolabel="1"/>
+
+                            </page>
+                            <page string="Imaging Request">
+                               <!-- <field name="image_test_ids" widget="one2many_list" nolabel="1"
+                                       context="{'default_patient':patient, 'default_hhc_appointment': hhc_appointment, 'default_doctor': doctor}"/>-->
+                                 <field name="image_request_test_ids" widget="one2many_list" nolabel="1"/>
+
+                            </page>
+                            <page string="Other">
+                                <field name="investigation_ids" widget="one2many_list" nolabel="1"
+                                       string="Investigation"
+                                       context="{'default_patient': patient, 'default_requester_id':doctor, 'default_hhc_appointment':hhc_appointment}">
+                                    <form>
+                                        <header>
+                                            <button confirm="Are you sure you want to call center?"
+                                                    name="set_to_call_center"
+                                                    states="Draft" string="Send" type="object" class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                    states="Draft" string="Upload" type="object" class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to send?" name="set_to_team"
+                                                    states="Call Center" string="Send" type="object"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to cancel?" name="set_to_cancel"
+                                                    states="Call Center" string="Cancel" type="object"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to upload?" name="set_to_upload"
+                                                    states="Test In Progress" string="Upload" type="object"
+                                                    class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <button confirm="Are you sure you want to Start?"
+                                                    name="set_to_investigation_start"
+                                                    states="Team" string="Start" type="object" class="oe_highlight"
+                                                    groups="oehealth.group_oeh_medical_manager"/>
+                                            <field name="state" widget="statusbar"
+                                                   statusbar_visible="Draft,Call Center,Test In Progress,Team,Uploaded,Cancelled"/>
+                                        </header>
+                                        <sheet>
+                                            <h1>
+                                                <field name="name" readonly="1"/>
+                                            </h1>
+                                            <group invisible="1">
+                                                <group>
+                                                    <field name="patient"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group invisible="1">
+                                                    <field name="hhc_appointment"/>
+                                                    <field name="hvd_appointment"/>
+                                                    <field name="appointment"/>
+                                                </group>
+                                                <group>
+                                                    <field name="date_requested"/>
+                                                    <field name="date_analysis"/>
+                                                </group>
+                                            </group>
+                                            <group invisible="1">
+                                                <group>
+                                                    <field name="requester_id"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="investigation_name"/>
+                                                </group>
+                                            </group>
+                                            <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                                            <br/>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Document
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_document" nolabel="1"/>
+                                            </group>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Analysis
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_analysis" nolabel="1"/>
+                                            </group>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Results
+                                                </h5>
+                                                <br/>
+                                                <field name="result" nolabel="1"/>
+                                            </group>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Conclusion
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_conclusion" nolabel="1"/>
+                                            </group>
+                                            <br/>
+                                            <group>
+                                                <h5 style=" font-size: 18px; color:#5D8DA8; font-weight:bold">
+                                                    Image
+                                                </h5>
+                                                <br/>
+                                                <field name="investigation_image" nolabel="1" widget="image"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_shifa_physician_admission_tree" model="ir.ui.view">
+            <field name="name">sm.shifa.physician.admission.tree</field>
+            <field name="model">sm.shifa.physician.admission</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Reference"/>
+                    <field name="patient"/>
+                    <field name="hhc_appointment"/>
+                    <field name="service"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sm_shifa_physician_admission_action" model="ir.actions.act_window">
+            <field name="name">Physician Admission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.physician.admission</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No physician admission found
+                </p>
+            </field>
+        </record>
+        <record id="view_physician_admission_search" model="ir.ui.view">
+            <field name="name">physician.admission.search</field>
+            <field name="model">sm.shifa.physician.admission</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="name" string="Reference"/>
+                </search>
+            </field>
+        </record>
+        <menuitem id="Physician_Admission_root"
+                  name="Physician Admission"
+                  parent="menu_oldforms_main_form_root"
+                  action="sm_shifa_physician_admission_action"
+                  sequence="5"/>
+    </data>
+</odoo>

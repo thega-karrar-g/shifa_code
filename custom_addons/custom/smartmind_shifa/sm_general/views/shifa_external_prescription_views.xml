@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+        <record id="view_shifa_external_prescription_form" model="ir.ui.view">
+            <field name="name">prescription.external.form</field>
+            <field name="model">sm.shifa.external.prescription</field>
+            <field name="arch" type="xml">
+
+                <form>
+                    <header>
+<!--                         <button confirm="Are you sure you want to create PDF?" name="set_to_pdf_create"-->
+<!--                            states="Start" string="Create PDF" type="object" class="oe_highlight"/>-->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Start,PDF Created,send"/>
+                </header>
+                    <sheet>
+                          <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="EX_PR#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <field name="patient"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="add_by"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Prescription Lines">
+                                <field name="prescription_line" context="{'default_patient': patient}"/>
+                            </page>
+                            <page string="Notes">
+                                <field name="info" context="{'default_patient': patient}"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="shifa_external_prescription_tree_view">
+            <field name="name">External Prescription</field>
+            <field name="model">sm.shifa.external.prescription</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="External Prescription">
+                    <field name="name" />
+                    <field name="patient" />
+                    <field name="add_by" />
+                    <field name="state" invisible="1"/>
+                    <field name="date"/>
+
+                </tree>
+
+            </field>
+        </record>
+        <record id="shifa_external_prescription_action" model="ir.actions.act_window">
+            <field name="name">External Prescription</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.external.prescription</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="external_prescription_root"
+                  name="External Prescription"
+                  parent="smartmind_shifa.menu_doctor_main_form_root"
+                  action="smartmind_shifa.shifa_external_prescription_action"
+                  sequence="4"/>
+
+    </data>
+</odoo>

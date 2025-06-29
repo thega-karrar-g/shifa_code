@@ -1,0 +1,171 @@
+<odoo>
+    <data>
+        <record id="image_test_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.imaging.inherit</field>
+            <field name="model">oeh.medical.imaging</field>
+            <field name="inherit_id" ref="oehealth_extra_addons.oeh_medical_imaging_test_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form" position="inside">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </xpath>
+                <xpath expr="/form/header" position="inside">
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="Draft,Test In Progress,Done,Cancelled"/>
+                </xpath>
+                <xpath expr="//button[@name='set_to_test_start']" position="attributes">
+                    <attribute name="states">Team</attribute>
+                </xpath>
+                <xpath expr="//button[@name='set_to_test_complete']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_patient_imaging']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/header" position="inside">
+                    <button confirm="Are you sure you want to Test?" name="set_to_test"
+                            states="Draft" string="Start Record Result" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to upload result?" name="set_to_done_upload"
+                            states="Draft" string="Start Upload Result" type="object" class="oe_highlight"/>
+                    <button confirm="Are you sure you want to set to Done?" name="set_to_done"
+                            states="upload_result" string="Done" type="object" class="oe_highlight"
+                    />
+                    <button confirm="Are you sure you want to set to done?" name="set_to_upload"
+                            states="Test In Progress" string="Done" type="object" class="oe_highlight"
+                    />
+                    <button confirm="Are you sure you want to cancel?" name="set_to_cancel"
+                            states="Test In Progress" string="Cancel" type="object" class="oe_highlight"
+                            groups="oehealth.group_oeh_medical_manager"/>
+                    <button confirm="Are you sure you want to download PDF?" name="download_pdf"
+                            states="pdf_generate" string="Download PDF" type="object" class="oe_highlight"/>
+                    <button confirm="Are you sure you want to download PDF?" name="download_pdf"
+                            string="Download PDF" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('link','=',False), ('state','!=','Done')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='imaging_department']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='test_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='patient']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='requestor']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_requested']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_analysis']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='appointment']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="imaging_department" position="before">
+                    <field name="patient"/>
+                    <field name="image_test_request" invisible="1"/>
+                </field>
+                <field name="appointment" position="before">
+                    <field name="imaging_Request"/>
+                </field>
+                <xpath expr="//field[@name='name']" position="before">
+                    <widget name="web_ribbon" title="Attached"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': ['|',('attach', '=', False),('state', '!=', 'Done')]}"/>
+                    <br/>
+
+                    <field name="attach" invisible="1"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook" position="before">
+                    <group>
+                        <group>
+                            <field name="date_requested" force_save="True"/>
+                        </group>
+                        <group>
+                            <field name="date_analysis"/>
+                            <field name="link" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="requestor"/>
+                            <field name="radiologist"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="imaging_department" required="1" string="Test type"/>
+                        </group>
+                        <group>
+                            <field name="test_type" string="Procedure Description"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="image_document" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="file" attrs="{'required': [('state','in',['Test In Progress'])]}"/>
+                        </group>
+                    </group>
+                    <br/>
+                    <div attrs="{'invisible': [('state', 'not in', ['upload_result', 'Done'])]}">
+                        <p>
+                            <span attrs="{'invisible': [('state', '=', 'Done')]}">Click here to add result
+                            </span>
+                            <field name="attachment_ids" nolabel="1" widget="many2many_binary"/>
+                        </p>
+                    </div>
+
+                </xpath>
+
+            </field>
+        </record>
+        <record id="oeh_medical_image_test_types_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.image_test.tree.inherit</field>
+            <field name="model">oeh.medical.imaging.test.type</field>
+            <field name="inherit_id" ref="oehealth_extra_addons.oeh_medical_imaging_test_type_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='imaging_department']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="imaging_department" string="Test type"/>
+                </xpath>
+                <xpath expr="//field[@name='test_charge']" position="attributes">
+                    <attribute name="required">0</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="oeh_medical_image_test_tree_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.image_test.list.inherit</field>
+            <field name="model">oeh.medical.imaging</field>
+            <field name="inherit_id" ref="oehealth_extra_addons.oeh_medical_imaging_test_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Reference</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="imaging_Request"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

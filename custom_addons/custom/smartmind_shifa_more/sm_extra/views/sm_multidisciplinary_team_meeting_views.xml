@@ -1,0 +1,341 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_multidisciplinary_team_meeting_form_view">
+            <field name="name">Multidisciplinary Team Meeting</field>
+            <field name="model">sm.shifa.multidisciplinary.team.meeting</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Multidisciplinary Team Meeting">
+                    <header>
+                        <button name="download_pdf"
+                                states="Completed" string="Download Report" type="object" class="oe_highlight"/>
+                        <button name="mark_as_completed"
+                                states="Draft" string="Make As Completed" type="object" class="oe_highlight"
+                        groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_head_doctor"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Completed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="MTM#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                               <h4 style=" font-size: 20px; color:#5D8DA8; font-weight:bold">
+                            Patient Details
+                        </h4>
+                            <br/>
+                            <group>
+                                <field name="patient"/>
+                                <field name="active" invisible="1"/>
+                                <field name="dob"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="patient_weight"/>
+                                <field name="ssn" string="ID number"/>
+                                <!--                            <field name="is_ksa" force_save="1"/>-->
+                                <field name="nationality"/>
+                                <field name="mobile"/>
+
+                            </group>
+                        </group>
+
+                        <group col="2">
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+
+                        <h4 style=" font-size: 20px; color:#5D8DA8; font-weight:bold">
+                            Meeting Attended By
+                        </h4>
+
+                        <group>
+                            <group>
+                                <field name="doctor"/>
+                                <field name="sec_doctor"/>
+                                <field name="nurse"/>
+                                <field name="sec_nurse"/>
+                                <field name="physiotherapist"/>
+                            </group>
+                            <group>
+                                 <field name="respiratory_therapist"/>
+                                <field name="diabetic_educator"/>
+                                <field name="clinical_dietitian"/>
+                                <field name="social_worker"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="diagnosis_show" string="Diagnosis"
+                                   style=" font-size: 20px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="diagnosis_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <div attrs="{'invisible': [('diagnosis_show', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other2"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other2', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add2" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other3"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other3', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add3" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other4"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other4', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add4" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other5"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other5', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add5" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other6"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other6', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add6" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other7"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other7', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add7" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other8"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div attrs="{'invisible': [('provisional_diagnosis_add_other8', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="provisional_diagnosis_add8" string=""/>
+                                </group>
+                                <group>
+                                    <field name="provisional_diagnosis_add_other9"
+                                           string="Add other"/>
+                                </group>
+                            </group>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="provisional_diagnosis_add9" string=""
+                                       attrs="{'invisible': [('provisional_diagnosis_add_other9', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="issues_discussed_show" string="Issues Discussed"
+                                   style=" font-size: 20px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="issues_discussed_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('issues_discussed_show', '=', False)]}">
+
+                            <field name="issues_discussed" nolabel="1"/>
+                        </group>
+                        <group col="3">
+                            <label for="physician_notes_show" string="Physician Notes"
+                                   style=" font-size: 20px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="physician_notes_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('physician_notes_show', '=', False)]}">
+
+                            <field name="physician_notes" nolabel="1"/>
+                        </group>
+                        <h4 style=" font-size: 20px; color:#5D8DA8; font-weight:bold">
+                            Actions Required to be Taken by
+                        </h4>
+
+                        <group>
+                            <group attrs="{'invisible': [('nurse', '=', False)]}">
+                                <h6> First Nurse</h6>
+                                <br/>
+
+                                <field name="actions_required_nurse" nolabel="1"/>
+                            </group>
+<!--                            <group attrs="{'invisible': [('sec_nurse', '=', False)]}">-->
+<!--                                <h6> Second Nurse</h6>-->
+<!--                                <br/>-->
+
+<!--                                <field name="actions_required_nurse_sec" nolabel="1"/>-->
+<!--                            </group>-->
+
+                            <br/>
+                            <group attrs="{'invisible': [('physiotherapist', '=', False)]}">
+                                <h6>Physiotherapist</h6>
+                                <br/>
+                                <field name="actions_required_physiotherapist" nolabel="1"/>
+
+                            </group>
+                            <br/>
+                            <group attrs="{'invisible': [('respiratory_therapist', '=', False)]}">
+                                <h6>Respiratory Therapist</h6>
+                                <br/>
+                                <field name="actions_required_respiratory_therapist" nolabel="1"/>
+                            </group>
+                            <br/>
+                            <group attrs="{'invisible': [('diabetic_educator', '=', False)]}">
+                                <h6>Diabetic Educator</h6>
+                                <br/>
+                                <field name="actions_required_diabetic_educator" nolabel="1"/>
+                            </group>
+                            <br/>
+                            <group attrs="{'invisible': [('clinical_dietitian', '=', False)]}">
+                                <h6>Clinical Dietitian</h6>
+                                <br/>
+                                <field name="actions_required_clinical_dietitian" nolabel="1"/>
+                            </group>
+                            <br/>
+                            <group attrs="{'invisible': [('social_worker', '=', False)]}">
+                                <h6>Social Worker</h6>
+                                <br/>
+                                <field name="actions_required_social_worker" nolabel="1"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <label for="team_signatures_show" string="Team Signatures"
+                                   style=" font-size: 20px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="team_signatures_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('team_signatures_show', '=', False)]}">
+                            <group>
+                                <field attrs="{'invisible': [('doctor', '=', False)]}" name="team_signatures_doctor" widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('sec_doctor', '=', False)]}" name="team_signatures_sec_doctor" widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('nurse', '=', False)]}" name="team_signatures_nurse" widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('sec_nurse', '=', False)]}" name="team_signatures_sec_nurse" widget="image" force_save="1" readonly="1"/>
+                                <field attrs="{'invisible': [('physiotherapist', '=', False)]}" name="team_signatures_physiotherapist" widget="image" force_save="1"
+                                       readonly="1"/>
+
+                            </group>
+                            <group>
+                                 <field attrs="{'invisible': [('respiratory_therapist', '=', False)]}" name="team_signatures_respiratory_therapist" widget="image" force_save="1"
+                                       readonly="1"/>
+                                <field attrs="{'invisible': [('diabetic_educator', '=', False)]}" name="team_signatures_diabetic_educator" widget="image" force_save="1"
+                                       readonly="1"/>
+                                <field attrs="{'invisible': [('clinical_dietitian', '=', False)]}" name="team_signatures_clinical_dietitian" widget="image" force_save="1"
+                                       readonly="1"/>
+                                <field attrs="{'invisible': [('social_worker', '=', False)]}" name="team_signatures_social_worker" widget="image" force_save="1" readonly="1"/>
+                            </group>
+
+
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+
+
+        </record>
+        <record id="sm_shifa_multidisciplinary_team_meeting_action_tree" model="ir.actions.act_window">
+            <field name="name">Multidisciplinary Team Meeting</field>
+            <field name="res_model">sm.shifa.multidisciplinary.team.meeting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new multidisciplinary team meeting record.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_multidisciplinary_team_meeting_tree_view">
+            <field name="name">Multidisciplinary Team Meeting_tree</field>
+            <field name="model">sm.shifa.multidisciplinary.team.meeting</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="patient"/>
+                    <field name="date"/>
+                    <field name="doctor"/>
+                    <field name="nurse"/>
+                    <field name="physiotherapist"/>
+                    <field name="respiratory_therapist"/>
+                    <field name="diabetic_educator"/>
+                    <field name="clinical_dietitian"/>
+                    <field name="social_worker"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem action="sm_shifa_multidisciplinary_team_meeting_action_tree"
+                  id="sm_shifa_multidisciplinary_team_meeting_conf_list"
+                  parent="smartmind_shifa.shifa_operations_others_menu" sequence="107"/>
+    </data>
+</odoo>

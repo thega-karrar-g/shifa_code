@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="evaluation_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.evaluation.inherit</field>
+            <field name="model">oeh.medical.evaluation</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_evaluation_view"/>
+            <field name="arch" type="xml">
+                <field name="indication" position="after">
+                    <field name="differential_diagnosis_1" options="{'no_create': True}"/>
+                    <field name="differential_diagnosis_2" options="{'no_create': True}"/>
+                    <field name="differential_diagnosis_3" options="{'no_create': True}"/>
+                    <field name="differential_diagnosis_4" options="{'no_create': True}"/>
+                    <br/>
+                    <field name="working_diagnosis" options="{'no_create': True}"/>
+                </field>
+                <field name="indication" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

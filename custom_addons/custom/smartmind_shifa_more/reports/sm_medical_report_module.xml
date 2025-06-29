@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_reports">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <div t-if="o.language == 'Arabic'">
+                                <div t-if="o.report == 'treatment_plan'" dir="RTL" widget="html">
+                                    <h3 class="text-center">الخطة العلاجية (علاج طبيعي)</h3>
+                                </div>
+                                <div t-if="o.report == 'Physiotherapy_medical'" dir="RTL">
+                                    <h3 class="text-center">تقرير الخدمات المقدمة (علاج طبيعي)</h3>
+                                </div>
+                            </div>
+                            <div t-if="o.language == 'English'">
+                                <div t-if="o.report == 'treatment_plan'" dir="LTR" widget="html">
+                                    <h3 class="text-center">Treatment Plan (Physiotherapy)</h3>
+                                </div>
+                                <div t-if="o.report == 'Physiotherapy_medical'" dir="LTR">
+                                    <h3 class="text-center" style="color: blue">Pysiotherapy Medical Services Report
+                                    </h3>
+                                </div>
+                                <div t-if="o.report == 'Physician_home_visit'" dir="LTR">
+                                    <h3 class="text-center">Physician Home Visit Report</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt32 mb32 text-center" style="padding-left: 13px">
+                            <div t-if="o.patient" class="col-6 bm-6 text-left">
+                                <!--                                <strong>Ref#:</strong>-->
+                                <!--                                <span t-field="o.name"/>-->
+                                <!--                                <br/>-->
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.patient"/>
+                                <br/>
+                                <strong>ID Number:</strong>
+                                <span t-field="o.ssn"/>
+                                <br/>
+                                <strong>Date:</strong>
+                                <span t-field="o.date"/>
+                            </div>
+                            <div t-if="o.patient" class="col-6 bm-6 text-left">
+                                <strong>Age:</strong>
+                                <span t-field="o.age"/>
+                                <br/>
+                                <strong>Sex:</strong>
+                                <span t-field="o.sex"/>
+                                <br/>
+                                <strong>Mobile:</strong>
+                                <span t-field="o.mobile"/>
+                                <br/>
+                                <!--                                <strong>Report:</strong>-->
+                                <!--                                <span class="m-0" t-field="o.report"/>-->
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="col-12 bm-6" style="text-align: right" t-if="o.language == 'Arabic'" dir="rtl">
+                            <div t-if="o.report == 'treatment_plan'" dir="RTL" widget="html">
+                                <span style="font-size: 16px" dir="RTL">
+                                    <strong style="color: blue">التشخيص</strong>
+                                    <br/>
+                                    <span t-field="o.diagnosis_comm"/>
+                                    <br/>
+                                    <strong style="color: blue">الفحص السريري</strong>
+                                    <br/>
+                                    <span t-field="o.patient_assessment"/>
+                                    <br/>
+                                    <strong style="color: blue">الأهداف</strong>
+                                    <br/>
+                                    <span t-field="o.goals" widget="html"/>
+                                    <br/>
+                                    <strong style="color: blue">الخطة العلاجية</strong>
+                                    <br/>
+                                    <span t-field="o.treatment_plan" widget="html"/>
+                                    <br/>
+                                    الزيارات العلاجية:<span t-field="o.number3"/>زيارة/بالشهر
+                                    <span t-field="o.number4"/>
+                                    زيارة/بالاسبوع
+                                </span>
+                            </div>
+                            <div t-if="o.report == 'Physiotherapy_medical'" dir="RTL">
+                                <span style="font-size: 16px" dir="RTL">
+                                    <strong style="color: blue">التشخيص</strong>
+                                    <br/>
+                                    <span t-field="o.diagnosis_comm_2"/>
+                                    <br/>
+                                    تم توفيرعدد
+                                    <span t-field="o.number1"/>
+                                    جلسة / جلسات خلال<span t-field="o.number2"/>(شهر/ اشهر) كما موضح بالجدول ادناه:
+                                    <br/>
+                                    <span t-field="o.treatment_plan" widget="html"/>
+                                    <br/>
+                                    <strong style="color: blue">الوضع الصحي للمريض بعد العلاج</strong>
+                                    <br/>
+                                    <span t-field="o.health_after_treatment" widget="html"/>
+                                    <br/>
+                                    <strong style="color: blue">التوصيات</strong>
+                                    <br/>
+                                    <span t-field="o.recommendation"/>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 bm-12" t-if="o.language == 'English'">
+                            <div t-if="o.report == 'treatment_plan'" dir="LTR" widget="html">
+                                <span dir="LTR" style="font-size: 16px">
+                                    <strong style="color: blue">Diagnosis</strong>
+                                    <br/>
+                                    <span t-field="o.diagnosis_comm"/>
+                                    <br/>
+                                    <strong style="color: blue">Patient Assessment</strong>
+                                    <br/>
+                                    <span t-field="o.patient_assessment" widget="html"/>
+                                    <br/>
+                                    <strong style="color: blue">Goals</strong>
+                                    <br/>
+                                    <span t-field="o.goals" widget="html"/>
+                                    <br/>
+                                    <strong style="color: blue">Treatment Plan</strong>
+                                    <br/>
+                                    <span t-field="o.treatment_plan" widget="html"/>
+                                    <br/>
+                                    Treatment sessions:
+                                    <br/>
+                                    <span t-field="o.number3"/>
+                                    visit/month
+                                    <span t-field="o.number4"/>
+                                    (visits/week)
+                                </span>
+                            </div>
+                            <div t-if="o.report == 'Physiotherapy_medical'" dir="LTR">
+                                <span style="font-size: 16px" dir="LTR">
+                                    <strong style="color: blue">Diagnosis</strong>
+                                    <br/>
+                                    <span t-field="o.diagnosis_comm_2"/>
+                                    <br/>
+                                    <span t-field="o.number1"/>
+                                    therapy sessions in
+                                    (
+                                    <span t-field="o.number2"/>
+                                    )
+                                    month completed according to the plan in the table below:
+                                    <br/>
+                                    <span t-field="o.treatment_plan" widget="html"/>
+                                    <br/>
+                                    <strong style="color: blue">The patient’s health condition after treatment</strong>
+                                    <br/>
+                                    <span t-field="o.health_after_treatment" widget="html"/>
+                                    <br/>
+                                    <strong style="color: blue">Recommendation</strong>
+                                    <span t-field="o.recommendation"/>
+                                </span>
+                            </div>
+                            <div t-if="o.report == 'Physician_home_visit'" dir="LTR">
+                                <span style="font-size: 16px" dir="LTR">
+                                    <strong style="color: blue">Chief Complaint</strong>
+                                    <br/>
+                                    <span t-field="o.chief_complaint"/>
+                                    <br/>
+                                    <br/>
+                                    <strong style="color: blue">History of present illness</strong>
+                                    <br/>
+                                    <span t-field="o.history_illness"/>
+                                    <br/>
+                                    <br/>
+                                    <strong style="color: blue">Vital Signs:</strong>
+                                    <br/>
+                                    <div class="row mt32 mb32" style="padding-left: 13px">
+                                        <div t-if="o.patient" class="col-6 bm-6">
+                                            <div t-if="o.systolic_bp">
+                                                <strong>systolic BP(mmHg):</strong>
+                                                <span t-field="o.systolic_bp"/>
+                                                <br/>
+                                            </div>
+                                            <div t-if="o.diastolic_br">
+                                                <strong>Diastolic BR(mmHg):</strong>
+                                                <span t-field="o.diastolic_br"/>
+                                                <br/>
+                                            </div>
+                                            <div t-if="o.hr_min">
+                                                <strong>HR(/min):</strong>
+                                                <span t-field="o.hr_min"/>
+                                            </div>
+                                        </div>
+                                        <div t-if="o.patient" class="col-6 bm-6">
+                                            <div t-if="o.temperature_c">
+                                                <strong>Temperature(C):</strong>
+                                                <span t-field="o.temperature_c"/>
+                                                <br/>
+                                            </div>
+                                            <div t-if="o.rr_min">
+                                                <strong>RR(/min):</strong>
+                                                <span t-field="o.rr_min"/>
+                                                <br/>
+                                            </div>
+                                            <div t-if="o.char_other_oxygen">
+                                                <strong>O2 Sat(%):</strong>
+
+                                                <div t-if="o.o2_sat == 'at room air'" class="col-6 bm-6">
+                                                    <strong>at room air</strong>
+                                                    <span t-field="o.char_other_oxygen"/>
+                                                </div>
+                                                <div t-if="o.o2_sat == 'with oxygen Support'" class="col-6 bm-6">
+                                                    <strong>at room air</strong>
+                                                    <span t-field="o.char_other_oxygen"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <strong style="color: blue">Diagnosis:</strong>
+                                    <br/>
+                                    <div class="row mt32 mb32" style="padding-left: 13px">
+                                        <div t-if="o.patient" class="col-6 bm-6">
+
+                                            <ul>
+                                                <div t-if="o.provisional_diagnosis">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis"/>
+                                                    </li>
+                                                </div>
+                                                <div t-if="o.provisional_diagnosis_add">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add"/>
+                                                    </li>
+                                                </div>
+                                                <div t-if="o.provisional_diagnosis_add2">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add2"/>
+                                                    </li>
+                                                </div>
+                                                <div t-if="o.provisional_diagnosis_add3">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add3"/>
+                                                    </li>
+                                                </div>
+
+                                                <div t-if="o.provisional_diagnosis_add_other4">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add4"/>
+                                                    </li>
+                                                </div>
+                                            </ul>
+                                        </div>
+
+                                        <div t-if="o.patient" class="col-6 bm-6">
+                                            <ul>
+                                                <div t-if="o.provisional_diagnosis_add_other5">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add5"/>
+                                                    </li>
+                                                </div>
+                                                <div t-if="o.provisional_diagnosis_add_other6">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add6"/>
+                                                    </li>
+                                                </div>
+                                                <div t-if="o.provisional_diagnosis_add_other7">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add7"/>
+                                                    </li>
+                                                </div>
+                                                <div t-if="o.provisional_diagnosis_add_other8">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add8"/>
+                                                    </li>
+                                                </div>
+                                                <div t-if="o.provisional_diagnosis_add_other9">
+                                                    <li>
+                                                        <span t-field="o.provisional_diagnosis_add9"/>
+                                                    </li>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <br/>
+
+                                    <strong style="color: blue">Plan of Care</strong>
+                                    <br/>
+                                    <span t-field="o.plan_care"/>
+                                    <br/>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 bm-12">
+                            <strong style="color: blue">Prepared by:</strong>
+                            <div class="row mt32 mb32 col-12" style="padding-left: 13px">
+                                <div class="col-6 bm-6">
+                                    <div t-if="o.doctor">
+                                        <strong>Doctor:</strong>
+                                        <span t-field="o.doctor.name"/>
+                                        <br/>
+                                        <strong>Signature:</strong>
+                                        <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_doctor}}"
+                                             style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                    </div>
+                                    <div t-if="o.nurse">
+                                        <strong>Nurse:</strong>
+                                        <span t-field="o.nurse.name"/>
+                                        <br/>
+                                        <strong>Signature</strong>
+                                        <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_nurse}}"
+                                             style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                    </div>
+                                    <div t-if="o.physiotherapist">
+                                        <strong>Physiotherapist:</strong>
+                                        <span t-field="o.physiotherapist.name"/>
+                                        <br/>
+                                        <strong>Signature</strong>
+                                        <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_physiotherapist}}"
+                                             style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 bm-6">
+                                    <div t-if="o.respiratory_therapist">
+                                        <strong>Respiratory Therapist:</strong>
+                                        <span t-field="o.respiratory_therapist.name"/>
+                                        <br/>
+                                        <strong>Signature</strong>
+                                        <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_respiratory_therapist}}"
+                                             style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                    </div>
+                                    <div t-if="o.diabetic_educator">
+                                        <strong>Diabetic Educator:</strong>
+                                        <span t-field="o.diabetic_educator.name"/>
+                                        <br/>
+                                        <strong>Signature</strong>
+                                        <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_diabetic_educator}}"
+                                             style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                    </div>
+                                    <div t-if="o.clinical_dietitian">
+                                        <strong>Clinical Dietitian:</strong>
+                                        <span t-field="o.clinical_dietitian.name"/>
+                                        <br/>
+                                        <strong>Signature</strong>
+                                        <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_clinical_dietitian}}"
+                                             style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                    </div>
+                                    <div t-if="o.social_worker">
+                                        <strong>Social Worker:</strong>
+                                        <span t-field="o.social_worker.name"/>
+                                        <br/>
+                                        <strong>Signature</strong>
+                                        <img t-attf-src="data:image/jpg;base64,{{o.team_signatures_social_worker}}"
+                                             style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

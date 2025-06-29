@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sm_shifa_insurance_view">
+            <field name="name">Insurances</field>
+            <field name="model">sm.shifa.insurance</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Insurances">
+                    <header>
+                        <button name="make_active" confirm="Are you sure you want to mark insurance as Active?"
+                                states="Draft" string="Make Active" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Active,Expired"/>
+                    </header>
+                    <sheet>
+                       <!-- <field name="logo" widget='image' class="oe_avatar"
+                               options='{"preview_image": "image_128", "size": [90, 90]}'/>-->
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="ref" string="INS#"/>
+                                <h1>
+                                    <field name="ref" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <div class="oe_left" style="width: 500px;">
+                                <div class="oe_title" style="width: 390px;">
+                                    <label for="name" string="Company Name"/>
+                                    <h1>
+                                        <field name="name" class="oe_inline" required="1"/>
+                                        <field name="name_ar" class="oe_inline" />
+                                    </h1>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="exp_date"/>
+                                <field name="contract_document"/>
+                                <field name="comment"/>
+                            </group>
+                            <group>
+                                <field name="logo" widget="image"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_shifa_insurance_tree">
+            <field name="name">Insurances</field>
+            <field name="model">sm.shifa.insurance</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Insurances'>
+                    <field name="ref"/>
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="exp_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sm_shifa_insurance_action_tree" model="ir.actions.act_window">
+            <field name="name">Insurances</field>
+            <field name="res_model">sm.shifa.insurance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new insurance records.
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="sm_shifa_insurance_action_tree" id="sm_shifa_insurance_conf_list"
+                  parent="oehealth.oeh_medical_conf_insurances" sequence="3"/>
+
+    </data>
+</odoo>

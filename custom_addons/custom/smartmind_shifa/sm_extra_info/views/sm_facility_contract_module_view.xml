@@ -1,0 +1,97 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="shifa_external_facility_contract_tree">
+            <field name="name">External Facility Contract tree</field>
+            <field name="model">sm.shifa.external.facility.contract</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Facility Name"/>
+                    <field name="contract_number"/>
+                    <field name="start_date"/>
+                    <field name="exp_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="shifa_external_facility_contract_form">
+            <field name="name">External Facility Contract</field>
+            <field name="model">sm.shifa.external.facility.contract</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="make_active" confirm="Are you sure you want to mark insurance as Active?"
+                                states="Draft" string="Make Active" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Active,Expired"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_left" style="width: 700px; display: contents;">
+                            <field name="image" widget='image' class="oe_avatar"
+                                   options='{"preview_image": "image_128"}'/>
+                            <div class="oe_title">
+                                <label for="name" string="Facility Name" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="name" required="1"/>
+                                </h1>
+                                <field name="contract_number" placeholder="Contract Number"
+                                       options="{'no_create': True}"
+                                       class="oe_inline"/>
+                            </div>
+                        </div>
+                        <div style="width: 380px;">
+                            <group>
+                                <field name="start_date"/>
+                                <field name="exp_date"/>
+                                <field name="contract_document"/>
+                            </group>
+                        </div>
+                        <group>
+                            <group>
+                                <label for="street" string="Address"/>
+                                <div>
+                                    <field name="street" placeholder="Street..."/>
+                                    <field name="street2"/>
+                                    <div class="address_format">
+                                        <field name="city" placeholder="City" style="width: 40%%"/>
+                                        <field name="state_id" class="oe_no_button" placeholder="State"
+                                               style="width: 37%%" options='{"no_open": True}'/>
+                                        <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                    </div>
+                                    <field name="country_id" placeholder="Country" class="oe_no_button"
+                                           options='{"no_open": True, "no_create": True}'/>
+                                </div>
+                                <field name="website" widget="url" placeholder="e.g. www.odoo.com"/>
+                            </group>
+                            <group>
+                                <field name="phone" placeholder="e.g. +32.81.81.37.00"/>
+                                <field name="mobile"/>
+                                <field name="email" widget="email"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="comment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_shifa_external_facility_contract_action" model="ir.actions.act_window">
+            <field name="name">External Facility Contract</field>
+            <field name="res_model">sm.shifa.external.facility.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new External Facility Contract.
+                </p>
+            </field>
+        </record>
+        <menuitem action="sm_shifa_external_facility_contract_action"
+                  name="External Facility Contract"
+                  id="shifa_external_facility_contract"
+                  parent="smartmind_shifa.shifa_pharmacies_menu"
+                  sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="warehouse_limitation" model="res.groups">
+        <field name="category_id" ref="base.module_category_inventory_inventory" />
+        <field name="name">Warehouse Limitation</field>
+    </record>
+</odoo>

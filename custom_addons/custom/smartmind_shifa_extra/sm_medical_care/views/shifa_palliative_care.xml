@@ -1,0 +1,468 @@
+<odoo>
+    <data>
+        <record id="view_shifa_palliative_care_form" model="ir.ui.view">
+            <field name="name">shifa.palliative.care.form</field>
+            <field name="model">sm.shifa.palliative.care</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button confirm="Are you sure you want to start the process?" name="set_to_start"
+                                states="Draft" string="Start Clinical Documentation" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="No adjustment is allowed after clicking “Ok”?" name="set_to_admitted"
+                                states="Start" string="Clinical Documentation Completed" type="object"
+                                class="oe_highlight"/>
+                        <button confirm="Are you sure you want to discharge the patient?" name="set_to_discharged"
+                                states="Admitted" string="Discharge Now" type="object" class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="Start,Draft,Admitted,Discharged"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="palliative_care_code" string="PC#"/>
+                                <h1>
+                                    <field name="palliative_care_code" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <br/>
+                        <group>
+                            <group colospan="2">
+                                <field name="patient"/>
+                                <field name="hhc_appointment"/>
+                            </group>
+                            <group>
+                                <field name="doctor"/>
+                            </group>
+                            <group>
+                                <field name="admission_date"/>
+                            </group>
+                            <group>
+                                <field name="discharge_date"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="weight"/>
+                                <field name="marital_status"/>
+                                <field name="sex"/>
+                                <label for="blood_type"/>
+                                <div>
+                                    <field name="blood_type" class="oe_inline"/>
+                                    <field name="rh" class="oe_inline"/>
+                                </div>
+                                <!--                                <field name="blood_type"/>-->
+                                <!--                                <field name="rh"/>-->
+                            </group>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <group col="3">
+                            <label for="consent_show" string="Consent"
+                                   style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                            <div class="oe_inline">
+                                <field name="consent_show" nolabel="1" widget="checkbox"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('consent_show', '=', False)]}">
+                            <field name="consent_file1" string=""/>
+                            <field name="consent_file2" string=""/>
+                        </group>
+                        <hr style="width:60%; height:1px;border:none;color:#333;background-color:#d2d1d1; "/>
+                        <notebook>
+                            <page string="Clinical Pathway">
+                                <group col="3">
+                                    <label for="conscious_state_show" string="Conscious State"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="conscious_state_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('conscious_state_show', '=', False)]}">
+                                    <field name="conscious_state" string="Conscious State"/>
+                                </group>
+                                <group col="3">
+                                    <label for="pain_present_show" string="Pain Present"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pain_present_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pain_present_show', '=', False)]}">
+                                    <field name="pain_score" string="Pain Score"/>
+                                    <field name="scale_used" string="Scale Used"/>
+                                </group>
+                                <group col="3">
+                                    <label for="functional_activity_show" string="Functional Activity"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="functional_activity_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('functional_activity_show', '=', False)]}">
+                                    <field name="functional_activity" string="Functional Activity"/>
+                                </group>
+                                <group col="3">
+                                    <label for="vital_signs_show" string="Vital Signs"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="vital_signs_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('vital_signs_show', '=', False)]}">
+                                    <group>
+                                        <field name="systolic_bp" string="systolic BP(mmHg)"/>
+                                        <field name="diastolic_br" string="Diastolic BR(mmHg)"/>
+                                        <field name="hr_min" string="HR(/min)"/>
+                                    </group>
+                                    <group>
+                                        <field name="temperature_c" string="Temperature(C)"/>
+                                        <field name="rr_min" string="RR(/min)"/>
+                                        <field name="o2_sat" string="O2 Sat(%)"/>
+                                        <field name="char_other_oxygen" string=""
+                                               attrs="{'invisible': [ ('o2_sat', 'not in', ['at room air', 'with oxygen Support'])]}"/>
+                                        <!--                                    <span style="font-weight:bold">O2 Sat(%)</span>-->
+                                        <!--                                            <div>-->
+                                        <!--                                                <group col="7">-->
+                                        <!--                                                    <span colspan="2">at room air</span>-->
+                                        <!--                                                    <field name="at_room_air" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                    <span style="font-size:12;" colspan="3">with oxygen Support</span>-->
+                                        <!--                                                    <field name="with_oxygen_support" nolabel="1" class="oe_inline"/>-->
+                                        <!--                                                </group>-->
+                                        <!--                                                <field name="char_other_oxygen" string=""/>-->
+                                        <!--                                            </div>-->
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="palliative_care_type_show" string="Palliative Care Type"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="palliative_care_type_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('palliative_care_type_show', '=', False)]}">
+                                    <group>
+                                        <field name="pain_management" string="Pain Management"/>
+                                        <field name="symptom_management" string="Symptom Management"/>
+                                        <field name="subcutaneous_infusion" string="Subcutaneous Infusion"/>
+                                        <field name="palliative_other" string="Other"/>
+                                        <field name="palliative_other_text" string=""
+                                               attrs="{'invisible': [('palliative_other', '=', False)]}"/>
+                                    </group>
+                                    <!--                                    <group>-->
+                                    <!--                                        <field name="conscious_state" string="Conscious State"/>-->
+                                    <!--                                    </group>-->
+                                    <!--                                    <group>-->
+                                    <!--                                        <field name="pain_score" string="Pain Score"/>-->
+                                    <!--                                         <field name="scale_used" string="Scale Used"/>-->
+                                    <!--                                    </group>-->
+                                    <!--                                    <group>-->
+                                    <!--                                        <field name="functional_activity" string="Functional Activity"/>-->
+                                    <!--                                    </group>-->
+                                    <!--                                    <group>-->
+                                    <!--                                    <field name="systolic_bp" string="systolic BP(mmHg)"/>-->
+                                    <!--                                    <field name="diastolic_br" string="Diastolic BR(mmHg)"/>-->
+                                    <!--                                    <field name="temperature_c" string="Temperature(C)"/>-->
+                                    <!--                                </group>-->
+                                    <!--                                 <group>-->
+                                    <!--                                     <field name="hr_min" string="HR(/min)"/>-->
+                                    <!--                                     <field name="rr_min" string="RR(/min)"/>-->
+                                    <!--                                     <field name="o2_sat" string="O2 Sat(%)"/>-->
+                                    <!--                                 </group>-->
+                                </group>
+                                <group col="3">
+                                    <label for="pall_potential_actual_risk_show" string="Potential/Actual Risk"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pall_potential_actual_risk_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pall_potential_actual_risk_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="pain_related_to_disease_process" string="Pain Related to disease process"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="pain_related_to_disease_process"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="ineffective_pain_management" string="Ineffective pain management"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="ineffective_pain_management"
+                                                nolabel="1" style="width: 70%;" />
+                                         <label for="nutritional_deficit_related_to_poor_oral" string="Nutritional deficit related to poor oral intake"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="nutritional_deficit_related_to_poor_oral"
+                                                nolabel="1" style="width: 70%;" />
+                                         <label for="nausea_and_or_vomiting_related_to_medication" string="Nausea and/or vomiting related to medication/treatment"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="nausea_and_or_vomiting_related_to_medication"
+                                                nolabel="1" style="width: 70%;" />
+                                    </group>
+                                    <group col="4">
+                                          <label for="constipation_related_to_medication_immobility_decrease" string="Constipation related to medication /immobility /decrease food or fluid intake"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="constipation_related_to_medication_immobility_decrease" nolabel="1" style="width: 70%;"/>
+                                         <label for="breathlessness_related_to_disease_process" string="Breathlessness related to disease process"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="breathlessness_related_to_disease_process" nolabel="1" style="width: 70%;"/>
+                                        <label for="psychosocial_issues_related_terminal_prognosis" string="Psychosocial issues related to terminal prognosis"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="psychosocial_issues_related_terminal_prognosis" nolabel="1" style="width: 70%;"/>
+
+                                       </group>
+                                </group>
+                                <group col="3">
+                                    <label for="pall_measurable_goals_show" string="Measurable Goals"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="pall_measurable_goals_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pall_measurable_goals_show', '=', False)]}">
+
+                                     <group col="4">
+                                        <label for="will_maintain_adequate_level_of_comfort_as_evidenced_no_signs" string="Will maintain adequate level of comfort as evidenced by no signs &amp; symptoms of unrelieved pain or distress"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="will_maintain_adequate_level_of_comfort_as_evidenced_no_signs"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="verbalizing_relief_pain_with_ordered_medications" string="Verbalizing relief of pain with ordered medications"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="verbalizing_relief_pain_with_ordered_medications"
+                                                nolabel="1" style="width: 70%;" />
+                                         <label for="will_function_at_optimal_level_within_limitations_imposed" string="Will function at optimal level within limitations imposed by disease process"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="will_function_at_optimal_level_within_limitations_imposed"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                                    <group col="4">
+                                          <label for="verbalizing_satisfaction_with_level_of_comfort" string="Verbalizing satisfaction with level of comfort"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="verbalizing_satisfaction_with_level_of_comfort" nolabel="1" style="width: 70%;"/>
+                                         <label for="will_demonstrate_adjustment_to_of_life_situation_by_verbally" string="Will demonstrate adjustment to end of life situation by verbally expressing feelings about death with family or social worker"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="will_demonstrate_adjustment_to_of_life_situation_by_verbally" nolabel="1" style="width: 70%;"/>
+                                        <label for="expressing_through_words_or_actions_understanding_of_what" string="Expressing through words or actions understanding of what is happening (ie. dying process)"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="expressing_through_words_or_actions_understanding_of_what" nolabel="1" style="width: 70%;"/>
+
+                                       </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_assessment_show" string="Patient Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="presence_of_pain" string="Presence of pain"/>
+                                        <field name="pain_relieve_with_medication"
+                                               string="Pain relieve with medication"/>
+                                    </group>
+                                    <group>
+                                        <field name="presence_of_nausea" string="Presence of nausea"/>
+                                        <field name="frequency" string="Frequency"/>
+                                    </group>
+                                    <group>
+                                        <field name="presence_of_constipation" string="Presence of constipation"/>
+                                        <field name="presence_of_vomiting" string="Presence of vomiting"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="narcotics_show" string="Narcotics"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="narcotics_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('narcotics_show', '=', False)]}">
+                                    <group>
+                                        <field name="regular_dose" string="Regular dose"/>
+                                        <field name="breakthrough_dose" string="Breakthrough dose"/>
+                                    </group>
+                                    <group>
+                                        <field name="no_of_breakthrough_dose"
+                                               string="No of breakthrough dose taken today"/>
+                                        <field name="narcotic_supply_enough_till"
+                                               string="Narcotic supply enough till next visit"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="caregiver_assessment_show" string="Caregiver Assessment"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="caregiver_assessment_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('caregiver_assessment_show', '=', False)]}">
+                                    <group>
+                                        <field name="management_of_patient_pain" string="Management of patient's pain"/>
+                                    </group>
+                                    <group>
+                                        <field name="management_of_patient_nutrition"
+                                               string="Management of patient's nutrition"/>
+                                    </group>
+                                    <group>
+                                        <field name="coping_psychologically" string="Coping psychologically"/>
+                                    </group>
+                                    <group>
+                                        <field name="coping_with_patient_care" string="Coping with patient's care"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <label for="patient_caregiver_education_show" string="Patient/Caregiver Education"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="patient_caregiver_education_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('patient_caregiver_education_show', '=', False)]}">
+<!--                                    <group>-->
+<!--                                        <field name="ensure_that_patient_taking_analgesia"-->
+<!--                                               string="Ensure that patient taking analgesia as prescribed"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="ensure_that_there_sufficient_pain"-->
+<!--                                               string="Ensure that there is sufficient pain medication to last till next visit"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="advice_activity_movement_hour_after"-->
+<!--                                               string="Advice activity or movement 1 hour after taking pain medication"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="advise_increase_fluids_tolerated"-->
+<!--                                               string="Advise to increase fluids as tolerated"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="advice_take_stool_softeners_for_constipation"-->
+<!--                                               string="Advice to take stool softeners for constipation"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="encourage_mobility_tolerated"-->
+<!--                                               string="Encourage mobility as tolerated"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="take_anti_emetics_minutes_before"-->
+<!--                                               string="Take anti emetics 30 minutes before taking food"/>-->
+<!--                                    </group>-->
+<!--                                    <group>-->
+<!--                                        <field name="take_small_frequent_meals" string="Take small frequent meals"/>-->
+<!--                                    </group>-->
+                                     <group col="4">
+                                        <label for="ensure_that_patient_taking_analgesia" string="Ensure that patient taking analgesia as prescribed"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="ensure_that_patient_taking_analgesia"
+                                                nolabel="1" style="width: 70%;" />
+                                        <label for="ensure_that_there_sufficient_pain" string="Ensure that there is sufficient pain medication to last till next visit"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="ensure_that_there_sufficient_pain"
+                                                nolabel="1" style="width: 70%;" />
+                                         <label for="advice_activity_movement_hour_after" string="Advice activity or movement 1 hour after taking pain medication"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advice_activity_movement_hour_after"
+                                                nolabel="1" style="width: 70%;" />
+                                          <label for="advise_increase_fluids_tolerated" string="Advise to increase fluids as tolerated"
+                                            class="oe_inline"  colspan="2" style="font-size: 13px;"/>
+                                        <field name="advise_increase_fluids_tolerated"
+                                                nolabel="1" style="width: 70%;" />
+
+                                    </group>
+                                    <group col="4">
+                                          <label for="advice_take_stool_softeners_for_constipation" string="Advice to take stool softeners for constipation"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="advice_take_stool_softeners_for_constipation" nolabel="1" style="width: 70%;"/>
+                                         <label for="encourage_mobility_tolerated" string="Encourage mobility as tolerated"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="encourage_mobility_tolerated" nolabel="1" style="width: 70%;"/>
+                                        <label for="take_anti_emetics_minutes_before" string="Take anti emetics 30 minutes before taking food"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="take_anti_emetics_minutes_before" nolabel="1" style="width: 70%;"/>
+                                         <label for="take_small_frequent_meals" string="Take small frequent meals"
+                                           class="oe_inline"  colspan="2" style=" font-size: 13px;"/>
+                                        <field name="take_small_frequent_meals" nolabel="1" style="width: 70%;"/>
+
+                                       </group>
+                                </group>
+                                <group col="3">
+                                    <label for="remarks_show" string="Nurse Notes"
+                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>
+                                    <div class="oe_inline">
+                                        <field name="remarks_show" nolabel="1" widget="checkbox"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('remarks_show', '=', False)]}">
+                                    <field name="remarks" string=""/>
+                                </group>
+                            </page>
+                            <page string="Internal Referral">
+                                <field name="referral_id" widget="one2many_list"
+                                       context="{'default_patient':patient, 'default_doctor':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_palliative_care_follow_form_inherit" model="ir.ui.view">
+            <field name="name">Shifa Palliative Care</field>
+            <field name="model">sm.shifa.palliative.care</field>
+            <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_palliative_care_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[1]" position="after">
+                    <page string="Follow Up">
+                        <field name="palliative_follow_up_id" widget="one2many_list"
+                               context="{'default_patient':patient, 'default_pc_yt': id, 'default_nurse_name':doctor, 'default_hhc_appointment': hhc_appointment}"/>
+                        <!--                               context="{'default_patient':patient"/>-->
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_shifa_palliative_care_tree" model="ir.ui.view">
+            <field name="name">shifa_palliative.care.tree</field>
+            <field name="model">sm.shifa.palliative.care</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="palliative_care_code"/>
+                    <field name="hhc_appointment"/>
+                    <field name="patient"/>
+                    <field name="doctor"/>
+                    <field name="admission_date"/>
+                    <field name="discharge_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_palliative_care_action" model="ir.actions.act_window">
+            <field name="name">Palliative Care</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.palliative.care</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history for palliative care found
+                </p>
+            </field>
+        </record>
+
+        <record id="view_palliative_care_search" model="ir.ui.view">
+            <field name="name">palliative_care_search</field>
+            <field name="model">sm.shifa.palliative.care</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="patient" string="Patient Name"/>
+                    <field name="palliative_care_code" string="Reference"/>
+                </search>
+            </field>
+        </record>
+
+       <!-- <menuitem id="Palliative_Care_root"
+                  name="Palliative Care"
+                  parent="smartmind_shifa.menu_nurse_main_form_root"
+                  action="sm_shifa_palliative_care_action"
+                  sequence="13"/>-->
+    </data>
+</odoo>

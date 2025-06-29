@@ -1,0 +1,177 @@
+<odoo>
+    <data>
+        <record id="view_shifa_call_center_census_form" model="ir.ui.view">
+            <field name="name">sm.shifa.call.center.census.form</field>
+            <field name="model">sm.shifa.call.center.census</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="call_center,operation_manager,done"/>
+                        <button confirm="Are you sure you want to Operation Manager?" name="set_to_operation_manager"
+                                states="call_center" string="Send to Operation Manager" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want sent to Call Center?" name="set_to_call_center"
+                                states="operation_manager" string="Send to Call Center" type="object" class="oe_highlight"/>
+                        <button confirm="Are you sure you want to Done?" name="set_to_done"
+                                states="operation_manager,call_center" string="Done" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label for="name" string="CCC#"/>
+                                <h1>
+                                    <field name="name" readonly="1" class="oe_inline"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="caller_name"/>
+                                <field name="active" invisible="1"/>
+                                <field name="mobile"/>
+                                <field name="city"/>
+                                <field name="address"/>
+                                <field name="person_in_charge"/>
+                            </group>
+                            <group>
+                                 <field name="comm_meth"/>
+                                <field name="service_asked"/>
+                                <field name="in_out"/>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                         <group string="Call Center Comments">
+                                <field name="comment" string=""/>
+                         </group>
+                        <group string="Action Taken">
+
+                                <div class="row mt16 o_settings_container">
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="book_app" string="Book An Appointment"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="book_app" string="Book An Appointment"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="answer_inquiry" string="Answer an Inquiry"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="answer_inquiry" string="Answer an Inquiry"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="send_ope" string="Send To Ope.M"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="send_ope" string="Send To Ope.M"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="can_pos_ref" string="Cancellation\Postponed\Refund Request"/>
+                                    </div>
+                                        <div class="o_setting_right_pane">
+                                            <label for="can_pos_ref" string="Cancellation\Postponed\Refund Request"/>
+                                    </div>
+                                </div>
+
+                               <!--  <label for="answer_inquiry" string="Answer an Inquiry"/>
+                            <div class="oe_inline">
+                                <field name="answer_inquiry" nolabel="1" widget="checkbox"/>
+                            </div>
+
+                                <group>
+                                <label for="book_app" string="Book An Appointment"/>
+                            <div class="oe_inline">
+                                <field name="book_app" nolabel="1" widget="checkbox"/>
+                            </div>
+                            </group>
+                             <group>
+                                <label for="send_ope" string="Send To Ope.M"/>
+                            <div class="oe_inline">
+                                <field name="send_ope" nolabel="1" widget="checkbox"/>
+                            </div>
+                            </group>
+                             <group>
+                                <label for="can_pos_ref" string="Cancellation\Postponed\Refund Request"/>
+                            <div class="oe_inline">
+                                <field name="can_pos_ref" nolabel="1" widget="checkbox"/>
+                            </div>
+                            </group>-->
+                        </div>
+                         </group>
+<!--                         col="3" attrs="{'invisible': [('book_app', '=', False)]}">-->
+<!--                                    <label for="hhc_app" string="HHC Appointment"-->
+<!--                                           style=" font-size: 18px; color:#5D8DA8; font-weight:bold" colspan="2"/>-->
+<!--                                    <div class="oe_inline">-->
+<!--                                        <field name="hhc_app" nolabel="1" widget="checkbox"/>-->
+<!--                                    </div>-->
+                        <group string="HHC Appointment" attrs="{'invisible': [('book_app', '=', False)]}">
+                                </group>
+                                    <field name="hhc_app_id" attrs="{'invisible': [('book_app', '=', False)]}"/>
+
+                         <group string="Physiotherapy Appointment" attrs="{'invisible': [('book_app', '=', False)]}">
+                                </group>
+                                    <field name="phy_app_id" attrs="{'invisible': [('book_app', '=', False)]}"/>
+
+                         <group string="Telemedicine Appointment" attrs="{'invisible': [('book_app', '=', False)]}">
+                                </group>
+                                    <field name="tele_app_id" attrs="{'invisible': [('book_app', '=', False)]}"/>
+
+                        <group string="HVD Appointment" attrs="{'invisible': [('book_app', '=', False)]}">
+                                </group>
+                                    <field name="hvd_app_id" attrs="{'invisible': [('book_app', '=', False)]}"/>
+
+
+                        <group string="PCR Appointment" attrs="{'invisible': [('book_app', '=', False)]}">
+                                </group>
+                                    <field name="pcr_app_id" attrs="{'invisible': [('book_app', '=', False)]}"/>
+
+                         <group string="Cancellation\Postponed\Refund Request" attrs="{'invisible': [('can_pos_ref', '=', False)]}">
+                                </group>
+                                    <field name="can_pos_id" attrs="{'invisible': [('can_pos_ref', '=', False)]}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_shifa_call_center_census_tree" model="ir.ui.view">
+            <field name="name">shifa.call.center.census.tree</field>
+            <field name="model">sm.shifa.call.center.census</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Reference"/>
+                    <field name="caller_name"/>
+                    <field name="mobile"/>
+                    <field name="service_asked"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_call_center_census_action" model="ir.actions.act_window">
+            <field name="name">Call Center Census</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.call.center.census</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Call Center Census found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="call_center_census_root"
+                  name="Call Center Census"
+                  parent="smartmind_shifa.shifa_operations_others_menu"
+                  action="sm_shifa_call_center_census_action"
+                  sequence="6"
+        />
+
+    </data>
+</odoo>

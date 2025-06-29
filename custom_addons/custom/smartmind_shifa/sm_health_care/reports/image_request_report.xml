@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_imaging_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h3>Imaging Request</h3>
+                        </div>
+                        <t t-set="o" t-value="o.with_context({'lang':o.patient.partner_id.lang})"/>
+                        <div t-if="o.name" style="padding-left: 13px">
+                            <strong>Imaging Request#:</strong>
+                            <span t-field="o.name"/>
+                        </div>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div t-if="o.patient" class="col-4 bm-4">
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.patient.name"/>
+                            </div>
+                            <div t-if="o.admission_date" class="col-4 bm-4">
+                                <strong>Date Requested:</strong>
+                                <span t-field="o.admission_date"/>,
+                            </div>
+                        </div>
+                        <hr/>
+                        <table class="table table-condensed mt32">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Test Type</th>
+                                    <th class="text-left">Procedure Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody" style="font-size: 14px">
+                                <tr t-foreach="o.image_req_test_ids" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.imaging_department.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                         <t t-foreach="l.type_test" t-as="t">
+                                            <span t-field="t.name"/>
+                                            <t t-if="t != l.type_test[-1]"> </t>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row" style="padding-left: 13px">
+                            <div style="position:related; page-break-inside: avoid;">
+                                <div t-if="o.doctor">
+                                    <strong>Doctor Name:</strong>
+                                    <br/>
+                                    <span t-field="o.doctor.name"/>
+                                </div>
+                                <strong>Signature and Stamp:</strong>
+                                <br/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.doctor.oeh_user_id.user_signature}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.doctor.oeh_user_id.stamp}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,300 @@
+<odoo>
+    <record id="action_open_requested_payment_from_hhc" model="ir.actions.act_window">
+        <field name="name">Requested Payment from HHC Appointments</field>
+        <field name="res_model">sm.shifa.requested.payments</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('hhc_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="action_open_physician_assessment_for_hhc_apt" model="ir.actions.act_window">
+        <field name="name">Physician Assessment From HHC Appointment</field>
+        <field name="res_model">sm.shifa.physician.assessment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('hhc_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="action_open_nurse_assessment_for_hhc_apt" model="ir.actions.act_window">
+        <field name="name">Nurse Assessment From HHC Appointment</field>
+        <field name="res_model">sm.shifa.nurse.assessment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('hhc_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="action_open_physiotherapy_assessment_for_hhc_apt" model="ir.actions.act_window">
+        <field name="name">Physiotherapy Assessment From HHC Appointment</field>
+        <field name="res_model">sm.shifa.physiotherapy.assessment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('hhc_appointment', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new appointment.
+            </p>
+            <p>
+                Easily manage all of your appointment schedules;
+            </p>
+        </field>
+    </record>
+
+    <record id="sm_hhc_appointment_form_view_inherit" model="ir.ui.view">
+        <field name="name">HHC Appointment Services</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_hhc_appointment_form_view"/>
+        <field name="arch" type="xml">
+
+            <data>
+                <xpath expr="/form/sheet/div[@name='button_box']" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-dollar" name="open_payment_request"
+                            attrs="{'invisible':[('pay_req_id','==',False)]}" string="Req. Payment">
+                    </button>
+                    <button type="action" class="oe_stat_button" icon="fa-pencil-square-o"
+                            name="%(action_open_physician_assessment_for_hhc_apt)d"
+                            string="Physician Assessment" attrs="{'invisible': [('phy_ass_id','=',False)]}">
+
+                    </button>
+                    <button type="action" class="oe_stat_button" icon="fa-pencil-square-o"
+                            name="%(action_open_nurse_assessment_for_hhc_apt)d"
+                            string="Nurse Assessment" attrs="{'invisible': [('nurse_ass_id','=',False)]}">
+
+                    </button>
+                    <button type="action" class="oe_stat_button" icon="fa-pencil-square-o"
+                            name="%(action_open_physiotherapy_assessment_for_hhc_apt)d"
+                            string="Physiotherapy Assessment"
+                            attrs="{'invisible': [('physiotherapy_ass_id','=',False)]}">
+
+                    </button>
+                    <button type="object" class="oe_stat_button" icon="fa-dollar"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"
+                            attrs="{'invisible': ['|',('payment_made_through','not in', [False,'package','aggregator_package']),('move_id','=',False)]}"
+                            name="open_journal_view" string="Journal Entry">
+                    </button>
+                    <button type="object" class="oe_stat_button" icon="fa-dollar"
+                            groups="oehealth.group_oeh_medical_manager,smartmind_shifa.group_oeh_medical_operation_manager"
+                            attrs="{'invisible': ['|',('payment_made_through','in', [False, 'package','aggregator_package']),('move_id','=',False)]}"
+                            name="open_invoice_view" string="Invoice">
+                    </button>
+                    <button type="object" class="oe_stat_button" icon="fa-credit-card"
+                            name="open_treatment_view" string="Additional Services"/>
+                </xpath>
+
+                <xpath expr="/form/sheet/group[3]/group[1]" position="after">
+                    <group string="Price Details" attrs="{'readonly': [('state','!=','scheduled')]}">
+                        <!--                    <field name="instance" invisible="1"/>-->
+                        <field name="total_service_price" attrs="{'readonly': [('state','!=','scheduled')]}"
+                               readonly="1" force_save="1"/>
+                        <field name="miscellaneous_charge" options="{'no_create': True}"
+                               attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1" force_save="1"/>
+                        <field name="miscellaneous_price" attrs="{'readonly': [('state','!=','scheduled')]}"
+                               readonly="1" force_save="1"/>
+                        <field name="tax" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                               force_save="1"/>
+                        <field name="discount_name" attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                        <field name="discount" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                               force_save="1"/>
+                        <field name="discount_val" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                               force_save="1"/>
+                        <field name="amount_payable" attrs="{'readonly': [('state','!=','scheduled')]}" readonly="1"
+                               force_save="1"/>
+
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_type']" position="before">
+                    <field name="insurance" invisible="1"/>
+                    <field name="mains_forms" invisible="1"/>
+                    <field name="forms_code" invisible="1"/>
+                    <field name="move_id" invisible="1"/>
+                    <field name="nurse_ass_id" nolabel="1" invisible="1"/>
+                    <field name="phy_ass_id" nolabel="1" invisible="1"/>
+                    <field name="physiotherapy_ass_id" nolabel="1" attrs="{'readonly': [('state','!=','scheduled')]}"
+                           invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_reference']" position="after">
+                    <field name="pay_req_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_made_through']" position="after">
+                    <field name="aggregator"
+                           attrs="{'invisible':[('payment_made_through', 'not in', ['aggregator','aggregator_package'])], 'required': [('payment_made_through','in',['aggregator','aggregator_package'])],'readonly': [('state', '=', 'team')]}"/>
+                </xpath>
+                <xpath expr="//form/sheet[1]" position="inside">
+                    <notebook>
+                        <page name="drug_allergy_test_done" string="Allergy Test" style="color:#f41515"
+                              attrs="{'invisible': [('allergy_test', '=', False)],'readonly': [('state','!=','scheduled')]}">
+                            <group>
+                                <field name="drug_allergy_test_done"/>
+                            </group>
+                            <group attrs="{'invisible': [('drug_allergy_test_done', '=', False)]}">
+                                <group>
+                                    <field name="has_drug_allergy" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'readonly': [('state','!=','scheduled')]}"/>
+                                </group>
+                                <group>
+                                    <field name="drug_allergy_content" nolabel="1" style="color:Red;"
+                                           attrs="{'invisible': [('has_drug_allergy', '=', 'no')],'readonly': [('state','!=','scheduled')]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="comments" string="Comments">
+                            <group>
+                                <group>
+                                    <field name="comments" nolabel="1"
+                                           attrs="{'readonly': [('state', 'in', ['visit_done','canceled', 'team'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <button name="physician_assessment_link" string="Create physician Assessment"
+                            confirm="Are you sure you want to create physician assessment?" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':['|','|',('doctor','==',False),('phy_ass_id','!=',False),('state','not in',['visit_done','in_progress'])]}"/>
+                    <button name="nurse_assessment_link" string="Create Nurse Assessment"
+                            confirm="Are you sure you want to create nurse assessment?" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':['|','|',('nurse','==',False),('nurse_ass_id','!=',False),('state','not in',['visit_done','in_progress'])]}"/>
+                    <button name="physiotherapy_assessment_link" string="Create Physiotherapy Assessment"
+                            confirm="Are you sure you want to create physiotherapy assessment?" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':['|','|',('physiotherapist','==',False),('physiotherapy_ass_id','!=',False),('state','not in',['visit_done','in_progress'])]}"/>
+                    <button type="object" name="create_payment" states="scheduled"
+                            confirm="Are you sure you want to create payment request?"
+                            string="Create Payment Request"/>
+                    <button type="object" name="open_payment_request_dialog" states="operation_manager"
+                            confirm="Are you sure you want to create payment request?"
+                            string="Create Payment Request"/>
+
+                    <!--                    attrs="{'invisible': ['|',('pay_req_id','!=',False), ('state','!=','scheduled')]}"-->
+
+                </xpath>
+                <xpath expr="//field[@name='payment_method_name']" position="after">
+                    <field name="pay_req_id" readonly="1" attrs="{'invisible': [('pay_req_id','=',False)]}"/>
+                    <field name="refund_request_id" readonly="1"
+                           attrs="{'invisible': [('refund_request_id','=',False)]}"/>
+                    <field name="move_type" invisible="1"/>
+                    <field name="move_id" readonly="1" attrs="{'invisible': [('move_type','!=','out_invoice')]}"
+                           string='Invoice'/>
+                    <field name="cancelation_reason" readonly="1"
+                           attrs="{'invisible': [('cancelation_reason','=',False)]}"/>
+                    <field name="credit_note_id" readonly="1" attrs="{'invisible': [('credit_note_id','=',False)]}"/>
+                    <field name="reason" readonly="1" attrs="{'invisible': [('reason','=',False)]}"/>
+                    <field name="new_appointment" readonly="1" attrs="{'invisible': [('new_appointment','=',False)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='set_to_canceled']" position="attributes">
+                    <attribute name="name">open_cancel_reason</attribute>
+                    <attribute name="states"></attribute>
+                    <attribute name="attrs">{'invisible': ['|',('state','not in',['scheduled','operation_manager','incomplete',
+                        'requestCancellation']),('payment_made_through','in',['aggregator_package','package','sleepmedicine'])]}
+                    </attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="sm_hhc_appointment_cancellation_form" model="ir.ui.view">
+        <field name="name">HHC Appointment Cancel</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="priority" eval="1000"/>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="cancelation_reason" required="1"/>
+                        <field name="reason" required="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="set_to_canceled" string="Validate" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_call_center_comment">
+        <field name="name">view.id.call_center_comment</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_hhc_appointment_form_view"/>
+        <field name="groups_id" eval="[(4, ref('smartmind_shifa.group_oeh_medical_hhc_nurse')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_head_nurse')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_operation_manager')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_head_doctor')),
+                                        (4,ref('oehealth.group_oeh_medical_physician'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='checkup_comment']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_id_operation_manager_comment">
+        <field name="name">view.id.operation_manager_comment</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_hhc_appointment_form_view"/>
+        <field name="groups_id" eval="[(4, ref('smartmind_shifa.group_oeh_medical_hhc_nurse')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_head_nurse')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_call_center')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_head_doctor')),
+                                        (4,ref('oehealth.group_oeh_medical_physician'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='operation_comment']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_id_team_leader_comment">
+        <field name="name">view.id.team_leader_comment</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_hhc_appointment_form_view"/>
+        <field name="groups_id" eval="[(4, ref('smartmind_shifa.group_oeh_medical_call_center')),
+                                        (4,ref('smartmind_shifa.group_oeh_medical_operation_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='visit_comment']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sm_hhc_appointment_tree_view_inherit" model="ir.ui.view">
+        <field name="name">HHC Physiotherapy payment Reference</field>
+        <field name="model">sm.shifa.hhc.appointment</field>
+        <field name="inherit_id" ref="smartmind_shifa.sm_hhc_appointment_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_type']" position="after">
+                <field name="total_service_price"/>
+                <field name="discount_val"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <record id="view_sm_shifa_account_fourth_level_form" model="ir.ui.view">
+            <field name="name">sm.shifa.account.fourth.level.form</field>
+            <field name="model">sm.shifa.account.fourth.level</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                      <group>
+                        <field name="account_4level"/>
+                        <field name="third_level"/>
+                          <field name="fourth_level_number" style="width: 20%;"/>
+                        <label for="code_prefix_start" string="Code Prefix"/>
+                        <div>
+                            From <field name="code_prefix_start" class="oe_inline" readonly="1" force_save="1"/> to <field name="code_prefix_end" class="oe_inline"  readonly="1" force_save="1"/>
+                        </div>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sm_shifa_account_fourth_level_tree" model="ir.ui.view">
+            <field name="name">sm.shifa.account.fourth.level.tree</field>
+            <field name="model">sm.shifa.account.fourth.level</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="account_4level"/>
+                    <field name="code_prefix_start"/>
+                    <field name="code_prefix_end"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_shifa_account_fourth_level_action" model="ir.actions.act_window">
+            <field name="name">Account Fourth Level</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.account.fourth.level</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Account Fourth Level found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_accounting_branch_group" name="Account Fourth Level"
+                  action="sm_shifa_account_fourth_level_action" sequence="11"
+                  parent="account.account_account_menu"/>
+    </data>
+</odoo>

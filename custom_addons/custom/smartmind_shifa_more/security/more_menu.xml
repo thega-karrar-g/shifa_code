@@ -1,0 +1,34 @@
+<odoo>
+    <menuitem id="menu_physician_assessment_root"
+              name="Physician Assessment"
+              action="sm_shifa_physician_assessment_action"
+              groups="oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_head_doctor"
+              web_icon="smartmind_shifa_more,static/description/physician_assessment.png" sequence="5"/>
+    <menuitem id="menu_nurse_assessment_root"
+              name="Nurse Assessment"
+              action="sm_shifa_nurse_assessment_action"
+              groups="smartmind_shifa.group_oeh_medical_head_nurse,smartmind_shifa.group_oeh_medical_hhc_nurse"
+              web_icon="smartmind_shifa_more,static/description/nurse_assessment.png" sequence="7"/>
+    <menuitem id="menu_consent_assessment_root"
+              name="Consent"
+              action="sm_shifa_consent_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_head_physiotherapist"
+              web_icon="smartmind_shifa_more,static/description/consent.png" sequence="7"/>
+    <menuitem id="menu_multidisciplinary_assessment_root"
+              name="Multidisciplinary"
+              action="sm_shifa_multidisciplinary_team_meeting_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_head_physiotherapist"
+              web_icon="smartmind_shifa_more,static/description/multidisciplinary.png" sequence="7"/>
+
+    <menuitem id="menu_appointments_package_root"
+              name="Packages"
+              action="sm_shifa_package_appointments_action_tree"
+              groups="smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_head_physiotherapist"
+              web_icon="smartmind_shifa_more,static/description/packing.png" sequence="15"/>
+
+    <menuitem id="menu_reports_root"
+              name="Reports"
+              groups="smartmind_shifa.group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_Pharmacies_Supervisor"
+              web_icon="smartmind_shifa_more,static/description/report.png" sequence="15"/>
+
+</odoo>

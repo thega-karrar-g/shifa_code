@@ -1,0 +1,17 @@
+<odoo>
+    <record id="account_group_form_inherit" model="ir.ui.view">
+        <field name="name">odoo.account.group.inherit</field>
+        <field name="model">account.group</field>
+        <field name="inherit_id" ref="account.view_account_group_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Third Level</attribute>
+            </xpath>
+        </field>
+    </record>
+   <template id="assets_backend" name="edit account assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/smartmind_odoo/static/src/js/account_selection.js"/>
+            </xpath>
+        </template>
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Operations" id="oehealth.oeh_medical_operations_menu"
+                  groups="oehealth.group_oeh_medical_manager,group_oeh_medical_operation_manager,smartmind_shifa.group_oeh_medical_head_doctor,smartmind_shifa.group_oeh_medical_head_nurse,oehealth.group_oeh_medical_physician,smartmind_shifa.group_oeh_medical_hhc_nurse"
+                  web_icon="smartmind_shifa,static/description/operations.png"
+                  sequence="11"/>
+
+        <menuitem name="HIS" id="sm_medical_his_menu"
+                  groups="smartmind_shifa.group_oeh_medical_accountant"
+                  web_icon="smartmind_shifa,static/description/g_hospital_48.png"
+                  sequence="1"/>
+
+        <menuitem name="Appointments" id="oeh_medical_appointments_menu"
+                  groups="oehealth.group_oeh_medical_manager,group_oeh_medical_operation_manager,group_oeh_medical_head_physiotherapist,group_oeh_medical_hhc_physiotherapist,group_oeh_medical_head_doctor,group_oeh_medical_head_nurse,oehealth.group_oeh_medical_physician,group_oeh_medical_hhc_nurse,group_oeh_medical_call_center,smartmind_shifa.group_oeh_medical_accountant"
+                  web_icon="smartmind_shifa,static/description/appointments.png"
+                  sequence="13"/>
+
+        <menuitem name="Configuration" id="oehealth.oeh_medical_conf_menu"
+                  groups="oehealth.group_oeh_medical_manager,group_oeh_medical_operation_manager"
+                  web_icon="smartmind_shifa,static/description/config.png"
+                  sequence="12"/>
+
+        <menuitem name="Services Management" id="shifa_services_management_menu"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  sequence="1"/>
+
+        <menuitem name="External Facilities" id="shifa_pharmacies_menu"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  sequence="11"/>
+
+        <menuitem name="Others" id="shifa_config_others_menu"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  sequence="201"/>
+
+        <menuitem name="Laboratory" id="oehealth.oeh_medical_conf_laboratory"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  groups="oehealth.group_oeh_medical_manager"
+                  sequence="6"/>
+
+        <menuitem name="Imaging"
+                  id="oehealth_extra_addons.oeh_medical_imaging_conf_menu"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  groups="oehealth.group_oeh_medical_manager"
+                  sequence="6"/>
+
+        <menuitem name="Medical Procedures"
+                  id="oehealth_extra_addons.oeh_medical_procedures_conf_menu"
+                  groups="base.group_system,oehealth.group_oeh_medical_manager"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  sequence="4"/>
+
+        <menuitem name="Pathology"
+                  id="oehealth.oeh_medical_conf_pathology"
+                  groups="oehealth.group_oeh_medical_manager"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  sequence="7"/>
+
+        <menuitem name="Health Products"
+                  id="oehealth.oeh_medical_conf_medicaments"
+                  groups="oehealth.group_oeh_medical_manager"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  sequence="8"/>
+
+        <menuitem name="Clinical Pathways" id="shifa_main_form_menu"
+                  parent="oehealth.oeh_medical_operations_menu"
+                  sequence="2"/>
+
+        <menuitem name="Follow-Up Forms" id="shifa_followup_form_menu"
+                  parent="oehealth.oeh_medical_operations_menu"
+                  sequence="3"/>
+
+        <menuitem id="oehealth.oeh_medical_labtest_department_menu"
+                  name="Section"
+                  action="oehealth.oeh_medical_labtest_department_action_tree"
+                  parent="oehealth.oeh_medical_conf_laboratory"
+                  sequence="15"/>
+
+        <menuitem name="Others" id="shifa_operations_others_menu"
+                  parent="oehealth.oeh_medical_operations_menu"
+                  sequence="200"/>
+
+        <menuitem name="Setup Data" id="shifa_setup_data_menu"
+                  parent="oehealth.oeh_medical_conf_menu"
+                  groups="oehealth.group_oeh_medical_manager"
+                  sequence="200"/>
+
+        <menuitem name="Reports" id="reports_menu"
+                  parent="oehealth.oeh_medical_operations_menu"
+                  sequence="5"/>
+
+    </data>
+</odoo>

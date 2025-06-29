@@ -1,0 +1,56 @@
+<odoo>
+    <record id="view_shifa_cancellation_refund_form_inherit" model="ir.ui.view">
+        <field name="name">sm.shifa.requested.payments.form.inherit</field>
+        <field name="model">sm.shifa.cancellation.refund</field>
+        <field name="inherit_id" ref="smartmind_shifa_extra.view_shifa_cancellation_refund_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button confirm="Are you sure you want to do this?" name="send_approval_request" states="Processed" string="Send Approval Request" type="object" class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-credit-card" name="open_payment_view" string="Req.Payments">
+                    </button>
+                    <button type="object" class="oe_stat_button" icon="fa-dollar" name="open_invoice_view" string="Invoice">
+                    </button>
+            </xpath>
+
+            <xpath expr="//field[@name='accepted_by']" position="before">
+                <field name="approved_refund_request" groups="oehealth.group_oeh_medical_manager" attrs="{'invisible': [('state','!=','Processed')]}"/>
+            </xpath>
+            
+            <xpath expr="//group[@name='instant']" position="after">
+                <group attrs="{'invisible': [('type', '!=', 'caregiver')]}">
+                    <group>
+                        <field name="caregiver_contract_id" string="Caregiver Contract"/>
+                    </group>
+                    <group>
+                        <field name="date_caregiver_contract"/>
+                    </group>
+                </group>
+                <group attrs="{'invisible': [('type', '!=', 'sleep_medicine_request')]}">
+                    <group>
+                        <field name="sleep_medicine_request" string="Sleep Medicine Request"/>
+                    </group>
+                    <group>
+                        <field name="date_sleep_medicine_request"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="view_cancellation_refund_search">
+            <field name="name">cancellation refund Search</field>
+            <field name="model">sm.shifa.cancellation.refund</field>
+            <field name="priority">999</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="patient" />
+                    <field name="ssn" />
+                </search>
+            </field>
+        </record>
+
+
+</odoo>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_lab_test">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h3>Lab Test</h3>
+                        </div>
+                        <t t-set="o" t-value="o.with_context({'lang':o.patient.partner_id.lang})"/>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div t-if="o.patient" class="col-6 bm-6">
+                                <strong>Lab Test#:</strong>
+                                <span t-field="o.name"/>
+                                <br/>
+                                <strong>Date:</strong>
+                                <span t-field="o.date_analysis"/>
+                            </div>
+                            <div t-if="o.patient" class="col-6 bm-6">
+                                <strong>Mobile:</strong>
+                                <span t-field="o.patient.mobile"/>
+                                <br/>
+                                <strong>Patient Name:</strong>
+                                <span t-field="o.patient.name"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div class="col-6 bm-6">
+                                <strong style="font-weight: bold; color: #0097a7">Section:</strong>
+                                <br/>
+                                <span style="padding-left: 13px;" class="m-0" t-field="o.lab_department.name"/>
+                                <br/>
+                                <strong style="font-weight: bold; color: #0097a7">Result:</strong>
+                                <br/>
+                                <span style="padding-left: 13px;" class="m-0" t-field="o.result"/>
+                            </div>
+                            <hr/>
+                            <div class="col-6 bm-6">
+                                <strong style="font-weight: bold; color: #0097a7">Test type:</strong>
+                                <br/>
+                                <span style="padding-left: 13px;" class="m-0" t-field="o.test_type.name"/>
+                            </div>
+                            </div>
+                        <hr/>
+                        <div class="row mt32 mb32" style="padding-left: 13px">
+                            <div class="col-6 bm-6">
+                                <strong style="font-weight: bold; color: #0097a7">Analysis:</strong>
+                                <br/>
+                                <span t-field="o.results"/>
+                            </div>
+                            <div class="col-6 bm-6">
+                                <strong style="font-weight: bold; color: #0097a7">Diagnosis:</strong>
+                                <br/>
+                                <span t-field="o.diagnosis"/>
+                            </div>
+                        </div>
+                        <table class="table table-condensed mt32">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Sequence</th>
+                                    <th class="text-left">Tests</th>
+                                    <th class="text-center">Result</th>
+                                    <th class="text-center">Normal Range</th>
+                                    <th class="text-center">Units</th>
+                                    <th class="text-right">Result Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody" style="font-size: 14px">
+                                <tr t-foreach="o.lab_test_criteria" t-as="l">
+                                    <td class="text-left">
+                                        <span t-field="l.sequence"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="l.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.result"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.normal_range"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.units"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.result_status"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row" style="padding-left: 13px">
+                            <div style="position:related; page-break-inside: avoid;">
+                                <div t-if="o.requestor_id">
+                                    <strong>Requested By:</strong>
+                                    <br/>
+                                    <span t-field="o.requestor_id.name"/>
+                                </div>
+                                <div t-if="o.lab_specialist">
+                                    <strong>Lab Specialist:</strong>
+                                    <br/>
+                                    <span t-field="o.lab_specialist.name"/>
+                                </div>
+                                <strong>Signature and Stamp:</strong>
+                                <br/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.lab_specialist.oeh_user_id.user_signature}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                                <img t-attf-src="data:image/jpg;base64,{{o.lab_specialist.oeh_user_id.stamp}}"
+                                     style="width:120px; height:80px;margin-left:70px; margin:5px"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

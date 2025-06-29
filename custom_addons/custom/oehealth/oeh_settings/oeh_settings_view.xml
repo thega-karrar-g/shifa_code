@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_oehealth" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.oehealth</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="oeHealth" string="Globcare" data-key="oehealth" groups="oehealth.group_oeh_medical_manager">
+                    <h2>Appointment</h2>
+                    <div class="row mt16 o_settings_container" name="oeh_appointment_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="appointment_type_conf">
+                                <label for="appointment_type"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+                                    Set default appointment availability type while creating new doctor.
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="appointment_type" string="Choose Type" class="col-lg-4 o_light_label"/>
+                                        <field name="appointment_type" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="appointment_duration_conf">
+                                <label for="appointment_duration"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+                                    Set default appointment duration.
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="appointment_duration" string="Choose Duration (HH:MM)" class="col-lg-4 o_light_label"/>
+                                        <field name="appointment_duration" widget="float_time" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="appointment_invoice_control_conf">
+                                <label for="appointment_invoice_control"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+                                    Choose how you want to generate invoice from appointment.
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="appointment_invoice_control" string="Choose Option" class="col-lg-4 o_light_label"/>
+                                        <field name="appointment_invoice_control" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Inventory &amp; Prescription Management</h2>
+                    <div class="row mt16 o_settings_container" name="oeh_inventory_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane" name="stock_deduction_conf">
+                                <label for="stock_deduction_method"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+                                    Choose how you want to deduct the stock of the medicines added through Prescription.
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="stock_deduction_method" string="Choose Method" class="col-lg-4 o_light_label"/>
+                                        <field name="stock_deduction_method"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="prescription_send_by_email"/>
+                            </div>
+                            <div class="o_setting_right_pane" name="prescription_send_by_email_conf">
+                                <label for="prescription_send_by_email"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+                                    Enabling this option will show new button on the prescription screen.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Followup</h2>
+                    <div class="row mt16 o_settings_container" name="oeh_followup_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="followup_feature"/>
+                            </div>
+                            <div class="o_setting_right_pane" name="followup_conf">
+                                <label for="followup_feature"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="content-group" attrs="{'invisible': [('followup_feature','=', False)]}">
+                                    <div class="row mt16">
+                                        <label for="followup_appointment_duration" class="col-lg-4 o_light_label"/>
+                                        <field name="followup_appointment_duration" attrs="{'required': [('followup_feature','=', True)]}"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="followup_prescription_duration" class="col-lg-4 o_light_label"/>
+                                        <field name="followup_prescription_duration" attrs="{'required': [('followup_feature','=', True)]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_oehealth_configuration" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'oehealth'}</field>
+    </record>
+
+    <menuitem id="menu_oehealth_general_settings" name="Settings" parent="oeh_medical_conf_menu"
+        sequence="0" action="action_oehealth_configuration" groups="base.group_system,oehealth.group_oeh_medical_manager"/>
+
+</odoo>

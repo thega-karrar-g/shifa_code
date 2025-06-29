@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_nurse_main_form_root"
+                  name="Nurse"
+                  parent="smartmind_shifa.shifa_main_form_menu"
+                  sequence="1"/>
+
+        <menuitem id="menu_doctor_main_form_root"
+                  name="Doctor"
+                  parent="smartmind_shifa.shifa_main_form_menu"
+                  sequence="21"/>
+
+        <menuitem id="menu_physiotherapist_main_form_root"
+                  name="Physiotherapist"
+                  parent="smartmind_shifa.shifa_main_form_menu"
+                  sequence="25"/>
+        <menuitem id="menu_oldforms_main_form_root"
+                  name="Old Forms"
+                  parent="smartmind_shifa.shifa_main_form_menu"
+                  sequence="29"/>
+<!--        <menuitem id="menu_nurse_followup_form_root"-->
+<!--                  name="Nurse"-->
+<!--                  parent="smartmind_shifa.shifa_followup_form_menu"-->
+<!--                  sequence="1"/>-->
+
+<!--        <menuitem id="menu_doctor_followup_form_root"-->
+<!--                  name="Doctor"-->
+<!--                  parent="smartmind_shifa.shifa_followup_form_menu"-->
+<!--                  sequence="21"/>-->
+
+<!--        <menuitem id="menu_physiotherapist_followup_form_root"-->
+<!--                  name="Physiotherapist"-->
+<!--                  parent="smartmind_shifa.shifa_followup_form_menu"-->
+<!--                  sequence="25"/>-->
+<!--        <menuitem id="menu_other_followup_form_root"-->
+<!--                  name="Other"-->
+<!--                  parent="smartmind_shifa.shifa_followup_form_menu"-->
+<!--                  sequence="29"/>-->
+        <menuitem id="menu_medicinces_vaccines_form_root"
+                  name="Medicinces/Vaccines"
+                  parent="oehealth.oeh_medical_conf_medicaments"
+                  sequence="1"/>
+        <menuitem id="menu_other_hp_form_root"
+                  name="Other"
+                  parent="oehealth.oeh_medical_conf_medicaments"
+                  sequence="17"/>
+        <menuitem id="oehealth.medical_dosage_list"
+                  name="Medicines Dosaage"
+                  action="oehealth.oeh_medical_dosage_action_tree"
+                  parent="smartmind_shifa.menu_other_hp_form_root"
+                  sequence="8"/>
+        <menuitem id="oehealth.medical_dose_unit_list"
+                  name="Dose Units"
+                  action="oehealth.oeh_medical_dose_unit_action_tree"
+                  parent="smartmind_shifa.menu_other_hp_form_root"
+                  sequence="9"/>
+        <menuitem id="oehealth.medical_drug_forms_list"
+                  name="Drug Forms"
+                  action="oehealth.oeh_medical_drug_forms_action_tree"
+                  parent="smartmind_shifa.menu_other_hp_form_root"
+                  sequence="10"/>
+        <menuitem id="oehealth.medical_drug_route_list"
+                  name="Drug Routes"
+                  action="oehealth.oeh_medical_drug_routes_action_tree"
+                  parent="smartmind_shifa.menu_other_hp_form_root"
+                  sequence="11"/>
+    </data>
+</odoo>

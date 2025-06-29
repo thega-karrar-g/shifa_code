@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+
+        <record id="sm_paid_amount_tree" model="ir.ui.view">
+            <field name="name">Paid Amount</field>
+            <field name="model">sm.shifa.paid.amount</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="amount"/>
+                    <field name="date"/>
+                    <field name="reference"/>
+                    <field name="comment"/>
+                </tree>
+            </field>
+        </record>
+       <record id="sm_paid_amount_form" model="ir.ui.view">
+            <field name="name">Paid Amount</field>
+            <field name="model">sm.shifa.paid.amount</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="amount"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="reference"/>
+                        </group>
+                        <group>
+                            <field name="comment"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sm_paid_amount_action" model="ir.actions.act_window">
+            <field name="name">Paid Amount</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.paid.amount</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No data to show here
+                </p>
+            </field>
+        </record>
+
+        <!--<menuitem id="sm_paid_amount"
+                  name="Paid Amount"
+                  parent="smartmind_shifa.shifa_config_others_menu"
+                  action="sm_paid_amount_action"
+                  sequence="28"/>-->
+    </data>
+</odoo>

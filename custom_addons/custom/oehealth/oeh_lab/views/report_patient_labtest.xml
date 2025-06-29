@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_oeh_medical_patient_labtest_document">
+    <t t-call="web.external_layout">
+        <t t-set="o" t-value="o.with_context({'lang':o.patient.partner_id.lang})"/>
+        <t t-set="address">
+            <div t-field="o.patient.partner_id"
+            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+        </t>
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <h2>Labtest Report</h2>
+
+            <div class="row mt32 mb32">
+                <div t-if="o.name" class="col-3 bm-2">
+                    <strong>Lab Test#:</strong>
+                    <p class="m-0" t-field="o.name"/>
+                </div>
+                <div t-if="o.patient" class="col-3 bm-2">
+                    <strong>Patient:</strong>
+                    <p class="m-0" t-field="o.patient.name"/>
+                </div>
+                <div t-if="o.date_requested" class="col-3 bm-2">
+                    <strong>Date Requested:</strong>
+                    <p class="m-0" t-field="o.date_requested"/>
+                </div>
+                <div t-if="o.requestor" class="col-3 bm-2">
+                    <strong>Doctor who requested test:</strong>
+                    <p class="m-0" t-field="o.requestor"/>
+                </div>
+            </div>
+            <div class="row mt32 mb32">
+                <div t-if="o.test_type" class="col-3 bm-2">
+                    <strong>Test Type:</strong>
+                    <p class="m-0" t-field="o.test_type.name"/>
+                </div>
+                <div t-if="o.pathologist" class="col-3 bm-2">
+                    <strong>Pathologist: </strong>
+                    <p class="m-0" t-field="o.pathologist.name"/>
+                </div>
+                <div t-if="o.date_analysis" class="col-3 bm-2">
+                    <strong>Analysis Date:</strong>
+                    <p class="m-0" t-field="o.date_analysis"/>
+                </div>
+            </div>
+
+           <table class="table table-condensed mt32">
+                <thead>
+                    <tr>
+                        <th class="text-center">SEQUENCE</th>
+                        <th class="text-left">TESTS</th>
+                        <th class="text-center">RESULT</th>
+                        <th class="text-center">NORMAL RANGE</th>
+                        <th class="text-left">UNITS</th>
+                    </tr>
+               </thead>
+               <tbody class="invoice_tbody">
+                    <tr t-foreach="o.lab_test_criteria" t-as="l">
+                        <td class="text-center">
+                           <strong><span t-field="l.sequence"/></strong>
+                        </td>
+                        <td>
+                            <span t-field="l.name"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="l.result"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="l.normal_range"/>
+                        </td>
+                        <td class="text-left">
+                            <span t-field="l.units.name"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="oe_structure"/>
+        </div>
+   </t>
+</template>
+<template id="report_oeh_medical_patient_labtest">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="oehealth.report_oeh_medical_patient_labtest_document" t-lang="o.patient.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+</odoo>

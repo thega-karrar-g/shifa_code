@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="sm.shifa.service.module" id="modm_1">
+            <field name="name">Anticoagulation Management</field>
+            <field name="type">main</field>
+            <field name="code">AN_MA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_2">
+            <field name="name">Comprehensive Nurse Assessment</field>
+            <field name="type">main</field>
+            <field name="code">CO_N_AS</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_3">
+            <field name="name">Continence Care</field>
+            <field name="type">main</field>
+            <field name="code">CO_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_4">
+            <field name="name">Diabetic Care</field>
+            <field name="type">main</field>
+            <field name="code">DI_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_5">
+            <field name="name">Drain Tube Care</field>
+            <field name="type">main</field>
+            <field name="code">DR_T_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_6">
+            <field name="name">Enteral Feeding</field>
+            <field name="type">main</field>
+            <field name="code">EN_FE</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_7">
+            <field name="name">Investigation</field>
+            <field name="type">main</field>
+            <field name="code">INV</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_8">
+            <field name="name">Nebulization Care</field>
+            <field name="type">main</field>
+            <field name="code">NE_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_9">
+            <field name="name">Newborn Care</field>
+            <field name="type">main</field>
+            <field name="code">NE_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_10">
+            <field name="name">Oxygen Administration</field>
+            <field name="type">main</field>
+            <field name="code">OX_AD</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_11">
+            <field name="name">Palliative Care</field>
+            <field name="type">main</field>
+            <field name="code">PA_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_12">
+            <field name="name">Parenteral Drug Fluid</field>
+            <field name="type">main</field>
+            <field name="code">PA_D_FL</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_13">
+            <field name="name">Patient Treatment</field>
+            <field name="type">main</field>
+            <field name="code">PA_TR</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_14">
+            <field name="name">Physician Admission</field>
+            <field name="type">main</field>
+            <field name="code">PH_AD</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_15">
+            <field name="name">Physiotherapy Assessment</field>
+            <field name="type">main</field>
+            <field name="code">PH_AS</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_16">
+            <field name="name">Prescriptions</field>
+            <field name="type">main</field>
+            <field name="code">PRE</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_17">
+            <field name="name">Pressure Ulcer</field>
+            <field name="type">main</field>
+            <field name="code">PR_UL</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_18">
+            <field name="name">Safe Home Visit Screening</field>
+            <field name="type">main</field>
+            <field name="code">SA_H_V_SC</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_19">
+            <field name="name">Postnatal Care</field>
+            <field name="type">main</field>
+            <field name="code">PO_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_20">
+            <field name="name">Stoma Care</field>
+            <field name="type">main</field>
+            <field name="code">ST_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_21">
+            <field name="name">Subcut Injection</field>
+            <field name="type">main</field>
+            <field name="code">SU_IN</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_22">
+            <field name="name">Trache Care</field>
+            <field name="type">main</field>
+            <field name="code">TR_CA</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_23">
+            <field name="name">Vaccines</field>
+            <field name="type">main</field>
+            <field name="code">VAC</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_24">
+            <field name="name">Vital Signs</field>
+            <field name="type">main</field>
+            <field name="code">VI_SI</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modm_25">
+            <field name="name">Wound Assessment</field>
+            <field name="type">main</field>
+            <field name="code">WO_AS</field>
+        </record>
+
+        <record model="sm.shifa.service.module" id="modf_1">
+            <field name="name">Anticoagulation Management Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">AN_M_F</field>
+        </record>
+         <record model="sm.shifa.service.module" id="modf_2">
+            <field name="name">Caregiver Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">CA_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_3">
+            <field name="name">Comprehensive Nurse Assessment Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">CO_N_A_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_4">
+            <field name="name">Continence Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">CO_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_5">
+            <field name="name">Diabetic Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">DI_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_6">
+            <field name="name">Drain Tube Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">DR_T_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_7">
+            <field name="name">Enteral Feeding Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">EN_F_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_8">
+            <field name="name">Nebulization Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">NE_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_9">
+            <field name="name">Newborn Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">NE_CA_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_10">
+            <field name="name">physiotherapy Followup</field>
+            <field name="type">follow</field>
+            <field name="code">PH_A_FO</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_11">
+            <field name="name">Oxygen Administration Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">OX_A_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_12">
+            <field name="name">Palliative Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">PA_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_13">
+            <field name="name">Parenteral Drug Fluid Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">PA_D_F_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_14">
+            <field name="name">Physician Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">PH_A_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_15">
+            <field name="name">Postnatal Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">PO_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_16">
+            <field name="name">Pressure Ulcer Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">PR_U_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_17">
+            <field name="name">Stoma Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">ST_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_18">
+            <field name="name">Subcut Injection Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">SU_I_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_19">
+            <field name="name">Trache Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">TR_C_F</field>
+        </record>
+        <record model="sm.shifa.service.module" id="modf_20">
+            <field name="name">Wound Care Follow Up</field>
+            <field name="type">follow</field>
+            <field name="code">WO_A_F</field>
+        </record>
+    </data>
+</odoo>

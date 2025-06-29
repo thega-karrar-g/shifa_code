@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="ir.sequence" id="seq_sm_insurance_companies">
+            <field name="name">Insurance Companies</field>
+            <field name="code">sm.insurance.companies</field>
+            <field name="prefix">IN</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+        <record model="ir.sequence" id="seq_sm_insurance_policy">
+            <field name="name">Insurance policy</field>
+            <field name="code">sm.insurance.policy</field>
+            <field name="prefix">Ip</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record model="ir.sequence" id="seq_sm_insurance_classes">
+            <field name="name">Insurance </field>
+            <field name="code">sm.medical.insurance.classes</field>
+            <field name="prefix">Ic</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+        <record model="ir.sequence" id="seq_sm_insured_companies">
+            <field name="name">Insurance </field>
+            <field name="code">sm.medical.insured.companies</field>
+            <field name="prefix">Ic</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+
+    </data>
+</odoo>

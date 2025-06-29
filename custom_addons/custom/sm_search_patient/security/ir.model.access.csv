@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sm_treatments,access.sm.treatments,model_sm_treatments,,1,1,1,1
+access_sm_patient_search,sm.patient.search,model_sm_patient_search,,1,1,1,1

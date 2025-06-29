@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="jeetsi_video_call_url" model="ir.config_parameter">
+            <field name="key">oehealth_jitsi.video_call_server_url</field>
+            <field name="value">https://meet.glob-care.com/</field>
+<!--            <field name="value">https://8x8.vc//</field>-->
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,125 @@
+<odoo>
+        <data>
+
+        <record model="ir.ui.view" id="view_shifa_pharmacies_form">
+            <field name="name">Pharmacy</field>
+            <field name="model">sm.shifa.pharmacies</field>
+            <field name="arch" type="xml">
+                <form string="Pharmacies">
+                    <sheet>
+                       <!-- <header>
+                            &lt;!&ndash;                            <i class="fas fa-sms"></i>&ndash;&gt;
+                            <button confirm="Are you sure you want to Send by SMS?" type="object" class="oe_stat_button"
+                                    name="action_send_sms" icon="fa-solid fa-comment" string="Send Password via SMS"
+                                    widget="statinfo">
+                            </button>
+                        </header>-->
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button"
+                                    name="open_pharmacist_view"
+                                    context="{'search_default_institution': active_id,'default_institution': active_id,'default_name':'/'}"
+                                    icon="fa-id-badge">
+                                <field string="Pharmacist" name="pharmacist_cuont" widget="statinfo"/>
+                            </button>
+                         </div>
+                        <div class="oe_left" style="width: 5px;">
+                            <div class="oe_title" style="width: 3px;">
+                                <h5>
+                                    <field name="code" readonly="1" class="oe_inline"/>
+                                </h5>
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="oe_left" style="width: 500px; display: contents;">
+                                <field name="image_1920" widget='image' class="oe_avatar" options='{"preview_image": "image_128"}' readonly="1"/>
+                                <div class="oe_title">
+                                    <label for="name" string="Pharmacy Name" class="oe_edit_only"/>
+                                    <h1>
+                                        <field name="name" required="1"/>
+<!--                                        <field name="name"/>-->
+                                    </h1>
+                                     <field name="institution" placeholder="Pharmacy Chain" options="{'no_create': True}" class="oe_inline"/>
+<!--                                     <field name="pharmacist" placeholder="Pharmacist Name" class="oe_inline"/>-->
+                                </div>
+                            </div>
+                         <!--   <div style="width: 380px;">
+                                <div style="display: grid;">
+                                     <field name="username" placeholder="Username"/>
+                                   <field name="password" placeholder="Password"/>
+                                </div>
+                        </div>-->
+                        <group>
+                            <group>
+                                <label for="street" string="Address"/>
+                                <div>
+                                    <field name="street" placeholder="Street..."/>
+                                    <field name="street2"/>
+                                    <div class="address_format">
+                                        <field name="city" placeholder="City" style="width: 40%%" required="1"/>
+                                        <field name="state_id" class="oe_no_button" placeholder="State"
+                                               style="width: 37%%" options='{"no_open": True}'/>
+                                        <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                    </div>
+                                    <field name="country_id" placeholder="Country" class="oe_no_button"
+                                           options='{"no_open": True, "no_create": True}'/>
+                                </div>
+                                <field name="website" widget="url" placeholder="e.g. www.odoo.com"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+<!--                                <field name="mobile"/>-->
+                                <field name="email" widget="email"/>
+                                <field name="company_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                           <!-- <page string="Instant Prescriptions">
+                                <field name="inst_pres_id" widget="one2many_list"/>
+                            </page>-->
+                            <page string="Extra Information">
+                                <field name="info" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_shifa_pharmacies_tree">
+            <field name="name">Pharmacies</field>
+            <field name="model">sm.shifa.pharmacies</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string='Pharmacies'>
+                    <field name="name"/>
+<!--                    <field name="pharmacist"/>-->
+                    <field name="institution" string="Pharmacy chain"/>
+                    <field name="street"/>
+                    <field name="city"/>
+                    <field name="state_id"/>
+                    <field name="country_id"/>
+                    <field name="website"/>
+                    <field name="pharmacist_cuont"/>
+                </tree>
+            </field>
+        </record>
+        <record id="sm_shifa_pharmacies_action" model="ir.actions.act_window">
+            <field name="name">Pharmacies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sm.shifa.pharmacies</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No history to Instant Consultation found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="pharmacies_root"
+                  name="Pharmacies"
+                  parent="smartmind_shifa.shifa_pharmacies_menu"
+                  action="sm_shifa_pharmacies_action"
+                  sequence="3"
+        />
+
+    </data>
+</odoo>

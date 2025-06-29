@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="sm_insurance_policy_view">
+            <field name="name">Insured Companies</field>
+            <field name="model">sm.insurance.policy</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Insurance Policy">
+                    <header>
+                        <button name="make_active" states="draft" string="Set To Active"
+                                type="object"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,active,expired"/>
+                    </header>
+                    <sheet>
+
+                        <field name="image_1920" widget='image' class="oe_avatar" type="base64"
+                               options='{"preview_image": "image_128", "size": [90, 90]}'/>
+                        <div class="oe_left" style="width: 500px;"/>
+                        <div class="oe_title" style="width: 390px;">
+                            <label for="name" string="INS-Pol #"/>
+                            <h1>
+                                <field name="name" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="company_name_id" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="insurance_company_id" attrs="{'readonly': [('state', '=', 'active')]}"/>
+
+                            </group>
+                            <group>
+                                <field name="company_code" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                                <field name="policy_number" attrs="{'readonly': [('state', '=', 'active')]}"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="expiration_date"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Members">
+                                <field name="members_ids" widget="one2many_list">
+
+                                </field>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_insurance_policy_tree">
+            <field name="name">Insurance Policy</field>
+            <field name="model">sm.insurance.policy</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_name_id"/>
+                    <field name="company_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_insurance_policy_action" model="ir.actions.act_window">
+            <field name="name">Insurance Policy</field>
+            <field name="res_model">sm.insurance.policy</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Easily manage all of your Company policies;
+                </p>
+            </field>
+
+        </record>
+
+        <menuitem action="sm_insurance_policy_action" parent="oehealth.oeh_medical_conf_insurances"
+                  id="sm_companies_policy" sequence="3"/>
+
+        <!--        Members Members Members Members Members Members Members-->
+        <record model="ir.ui.view" id="sm_medical_insured_companies_members_view">
+            <field name="name">Insured Companies Members</field>
+            <field name="model">sm.medical.insured.companies.members</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="members_id"/>
+                                <field name="patient_id"/>
+                            </group>
+                            <group>
+                                <field name="member_card"/>
+                                <field name="class_company_id"/>
+                            </group>
+                            <group>
+                                <field name="sev_patient_deducted"/>
+                            </group>
+                            <group>
+                                <field name="deduct_per_visit"/>
+                                <field name="approval_limit"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sm_medical_insured_companies_members_tree">
+            <field name="name">Insured Companies Members</field>
+            <field name="model">sm.medical.insured.companies.members</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="members_id"/>
+                    <field name="member_card"/>
+                    <field name="patient_id"/>
+                    <field name="class_company_id"/>
+                    <field name="sev_patient_deducted"/>
+                    <field name="deduct_per_visit"/>
+                    <field name="approval_limit"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sm_medical_insured_companies_members_action_tree" model="ir.actions.act_window">
+            <field name="name">Insured Companies Members</field>
+            <field name="res_model">sm.medical.insured.companies.members</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Easily manage all of your Insured Companies;
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
