@@ -7,3 +7,7 @@ class MedicationProfile(models.Model):
     _description = "inherit from smartmind_shifa/sm_general/model/shifa_medication_profile "
 
     p_generic_name = fields.Many2one('sm.shifa.generic.medicines')
+    p_brand_medicine = fields.Many2one('sm.shifa.brand.medicines')
+
+
+
