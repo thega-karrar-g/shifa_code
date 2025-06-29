@@ -1,0 +1,36 @@
+<odoo>
+    <record id="view_physician_assessment_inherit" model="ir.ui.view">
+        <field name="name">sm.shifa.physician.assessment.inherited</field>
+        <field name="model">sm.shifa.physician.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa_more.view_shifa_physician_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Clinical Notes">
+                    <group>
+                        <field name="clinical_notes"/>
+                        <!-- <field name="medical_care_plan"/> -->
+                    </group>
+                </page>
+            </xpath>
+
+            <!-- <xpath expr="//sheet" position="inside">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath> -->
+        </field>
+    </record>
+
+   <!--  <record id="your_inherited_view_id" model="ir.ui.view">
+        <field name="name">sm.shifa.physician.assessment.medical_care_plan.editable</field>
+        <field name="model">sm.shifa.physician.assessment</field>
+        <field name="inherit_id" ref="smartmind_shifa_more.view_shifa_physician_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='medical_care_plan']" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </xpath>
+        </field>
+    </record> -->
+</odoo>

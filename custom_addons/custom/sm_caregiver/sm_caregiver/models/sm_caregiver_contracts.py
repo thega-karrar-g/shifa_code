@@ -1129,5 +1129,3 @@ class ReactivationReason(models.Model):
     date = fields.Date()
     remaining_days = fields.Integer()
     caregiver_contract_id = fields.Many2one('sm.caregiver.contracts', string="Caregiver Contract")
-
-

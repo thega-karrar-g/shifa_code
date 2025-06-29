@@ -852,59 +852,111 @@
 					</div>
 				</div>
                 <!--				below is ours-->
-                <div class="cpanel card-dashboard col-sm-6 col-md-4">
-    <!-- Urgent Section -->
-    <div class="icon-part urgent-section">
-        <div class="icon-header">
-            <i class="fa fa-bell"></i>
-            <h2>Urgent</h2>
-        </div>
-        <div class="card-content">
-            <h4><i class="fa fa-calendar-day"></i> Today Teams' Appointments</h4>
-            <div class="status-buttons">
-                <button class="btn btn-outline-primary load_tele_appointment_today">Tele</button>
-                <p class="sm_total_my_tele_tod"></p>
-                <button class="btn btn-outline-primary load_hvd_appointment_today">HVD</button>
-                <p class="sm_total_my_hvd_tod"></p>
-                <button class="btn btn-outline-primary load_hhc_appointment_today">HHC</button>
-                <p class="sm_total_my_hhc_tod"></p>
-                <button class="btn btn-outline-primary load_phy_appointment_today">PT</button>
-                <p class="sm_total_my_phy_tod"></p>
-            </div>
-        </div>
-        <div class="card-content">
-            <h4><i class="fa fa-mobile-alt"></i> Mobile Requests</h4>
-            <div class="status-buttons">
-                <button class="btn btn-outline-success load_sleep_med">Rec.</button>
-                <p class="oeh_total_service_request"></p>
-            </div>
-        </div>
-        <div class="card-content">
-            <h4><i class="fa fa-globe"></i> Web Requests</h4>
-            <div class="status-buttons">
-                <button class="btn btn-outline-success load_web_req">Received</button>
-                <p class="sm_total_web_req"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Caregiver Medicines -->
-    <div class="icon-part caregiver-section">
-        <div class="icon-header">
-            <i class="fa fa-pills"></i>
-            <h3>Caregiver Medicines</h3>
-        </div>
-        <div class="card-content">
-            <div class="status-buttons">
-                <button class="btn btn-outline-danger load_caregive_missed_medicines">Missed</button>
-                <p class="sm_missed_medicines"></p>
-                <button class="btn btn-outline-danger load_caregiver_canceled_medicines">Canceled</button>
-                <p class="sm_cancel_medicines"></p>
-            </div>
-        </div>
-    </div>
-</div>
-
+                <div class="cpanel cpanel-red col-sm-6 col-md-4" style="display: block">
+					<div class="icon-part">
+						<i class="fa fa-solid fa-bell">
+						</i>
+                        <h2>
+							Urgent
+						</h2>
+                        <br/>
+                        <h4>
+							Today Teams' App
+						</h4>
+                        <div class="first-row">
+							<div class="box" style="display: -webkit-box;">
+								<button class="btn load_tele_appointment_today  "
+                                        style="background-color: inherit;color: #436a96;">
+									Tele
+								</button>
+                                <p class="sm_total_my_tele_tod" style="display: -webkit-inline-box"/>
+                                <button class="btn load_hvd_appointment_today  "
+                                        style="background-color: inherit;color: #436a96;">
+									HVD
+								</button>
+                                <p class="sm_total_my_hvd_tod" style="display: -webkit-inline-box"/>
+                                <button class="btn load_hhc_appointment_today  "
+                                        style="background-color: inherit;color: #436a96;">
+									HHC
+								</button>
+                                <p class="sm_total_my_hhc_tod" style="display: -webkit-inline-box"/>
+                                <button class="btn load_phy_appointment_today  "
+                                        style="background-color: inherit;color: #436a96;">
+									PT
+								</button>
+                                <p class="sm_total_my_phy_tod" style="display: -webkit-inline-box"/>
+                                <!--
+                                <button class="btn load_pcr_appointment_today  " style="background-color: inherit;color: #436a96;">
+                                PCR
+                                </button>
+                                <p class="sm_total_my_pcr_tod" style="display: -webkit-inline-box" />
+                                -->
+							</div>
+						</div>
+                        <!--
+                        <h4>PCR</h4>
+                        <div class="first-row">
+                        <div class="box" style="display: -webkit-box;">
+                        <button class="btn load_pcr_app  " style="background-color: inherit;color: #436a96;">Unpaid</button>
+                        <p class="sm_total_pcr_app" style="display: -webkit-inline-box"/>
+                        <button class="btn load_pcr_app_opm  "
+                        style="background-color: inherit;color: #436a96;">OP.</button>
+                        <p class="sm_total_pcr_opm" style="display: -webkit-inline-box"/>
+                        <button class="btn load_pcr_app_t  "
+                        style="background-color: inherit;color: #436a96;">Team.</button>
+                        <p class="sm_total_pcr_app_team" style="display: -webkit-inline-box"/>
+                        <button class="btn load_pcr_all_appointment  "
+                        style="background-color: inherit;color: #436a96;">Total.</button>
+                        <p class="sm_total_my_pcr_all" style="display: -webkit-inline-box"/>
+                        </div>
+                        </div>
+                        -->
+                        <h4>
+							Mobile's Requests
+						</h4>
+                        <div class="first-row">
+							<div class="box" style="display: -webkit-box;">
+								<button class="btn load_sleep_med  " style="background-color: inherit;color: #436a96;">
+									Rec.
+								</button>
+                                <p class="oeh_total_service_request" style="display: -webkit-inline-box"/>
+							</div>
+						</div>
+                        <h4>
+							Web Requests
+						</h4>
+                        <div class="first-row">
+							<div class="box" style="display: -webkit-box;">
+								<button class="btn load_web_req" style="background-color: inherit;color: #436a96;">
+									Received
+								</button>
+                                <p class="sm_total_web_req" style="display: -webkit-inline-box"/>
+							</div>
+						</div>
+					</div>
+                    <div class="icon-part" style="height: fit-content; margin-top:20px; background-color: #e2f1b5;">
+						<i class="fa fa-solid fa-stethoscope" style="background-color: #cdd8ac">
+						</i>
+                        <h3 style="color: #396392;">
+							Caregiver Medicines
+						</h3>
+                        <br/>
+                        <div class="first-row">
+							<div class="box" style="display:-webkit-box;">
+								<button class="btn load_caregive_missed_medicines"
+                                        style="background-color: inherit;color: #436a96;">
+									Missed
+								</button>
+                                <p class="sm_missed_medicines" style="display: -webkit-inline-box"/>
+                                <button class="btn load_caregiver_canceled_medicines"
+                                        style="background-color: inherit;color: #436a96;">
+									Canceled
+								</button>
+                                <p class="sm_cancel_medicines" style="display: -webkit-inline-box"/>
+							</div>
+						</div>
+					</div>
+				</div>
                 <div class="cpanel cpanel-orange col-sm-6 col-md-4" style="display: block">
 					<div class="icon-part" style="height: fit-content;margin-bottom: 30px;">
 						<i class="fa fa-solid fa-stethoscope" style="background-color: #e5dbc0;">

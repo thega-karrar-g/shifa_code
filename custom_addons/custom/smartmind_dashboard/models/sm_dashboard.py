@@ -635,16 +635,8 @@ class DashboardData(models.Model):
             month_ids.insert(0, len(month_ids))
             return month_ids
         elif filter_type == 'till_now':
-            self._cr.execute("""
-                SELECT column_name 
-                FROM information_schema.columns 
-                WHERE table_name = %s AND column_name = 'active'
-            """, (table,))
-            if self._cr.fetchone():
-                self._cr.execute("select id from {0} where state = '{1}' and active = TRUE".format(table, state_val))
             # get ids of the all data
-            else:
-                self._cr.execute("select id from {0} where state = '{1}'".format(table, state_val))
+            self._cr.execute("select id from {0} where state = '{1}'".format(table, state_val))
             record = self._cr.fetchall()
             all_ids = [item for t in record for item in t]
             count = len(all_ids)

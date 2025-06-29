@@ -10,8 +10,7 @@
                     <button type="object" string="Allocation"
                             name="open_allocation_view"/>
                 </xpath>
-                <xpath expr="//field[@name='structure_type_id']" position="before">
-                <!-- <xpath expr="//field[@name='struct_id']" position="before"> -->
+                <xpath expr="//field[@name='struct_id']" position="before">
                     <field name="ksa_nationality" widget="radio"
                            options="{'horizontal': true}" force_save="1"/>
                     <field name="country_id" attrs="{'readonly': [('ksa_nationality', '!=', 'NON')]}"/>
@@ -74,7 +73,7 @@
                 </xpath>
             </field>
         </record>
-       <!--  <record id="sm_hr_payslip_form_inherit" model="ir.ui.view">
+       <!-- <record id="sm_hr_payslip_form_inherit" model="ir.ui.view">
             <field name="name">sm.hr.payslip.form.inherit</field>
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="om_hr_payroll.view_hr_payslip_form"/>

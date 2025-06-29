@@ -64,9 +64,9 @@
             <field name="groups_id"
                    eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
         </record>
-       <!--  <record id="om_hr_payroll.menu_hr_payroll_root" model="ir.ui.menu">
+         <!--  <record id="om_hr_payroll.menu_hr_payroll_root" model="ir.ui.menu">
             <field name="groups_id"
-                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/>
+                   eval="[(6,0,[ref('base.group_system')]),(6,0,[ref('oehealth.group_oeh_medical_manager')]),(4,ref('oehealth.group_oeh_medical_employee')),(4,ref('smartmind_shifa.group_oeh_medical_accountant'))]"/> 
         </record> -->
 
         <record id="hr_attendance.menu_hr_attendance_root" model="ir.ui.menu">

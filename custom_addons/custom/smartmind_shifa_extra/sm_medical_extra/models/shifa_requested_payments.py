@@ -101,7 +101,7 @@ class RequestedPayments(models.Model):
                                       states={'Start': [('readonly', False)], 'Send': [('readonly', False)]})
     payment_method_name = fields.Char(string="Payment Method Name")
     payment_note = fields.Char(string="Payment Note")
-    memo = fields.Char(string="Ref#", compute="_display_name" , readonly=True,)
+    memo = fields.Char(string="Ref#", compute="_display_name")
     date_tele_appointment = fields.Char() # temp field only. we will remove it latter.
     payment_id = fields.Many2one('account.payment', string='Payment #')
     active = fields.Boolean(default=True)
@@ -178,9 +178,7 @@ class RequestedPayments(models.Model):
             'partner_id' : self.patient.partner_id.id,
             #'destination_account_id' : self.get_property_account_receivable_id(self.patient.id),
             'amount' : self.deduction_amount,
-            #'date' : self.date,
-            'date' : fields.Datetime.today(),
-            #'date': fields.Datetime.now(),
+            'date' : self.date,
             'requested_payment' : self.id,
             'ref': self.memo,
             'journal_id': int(journal),

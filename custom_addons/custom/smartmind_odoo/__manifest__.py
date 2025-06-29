@@ -20,7 +20,7 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'account', 'hr_contract', 'contacts', 'fleet', 'hr_attendance',
-        'hr_holidays', 'om_credit_limit', 'global_discount_sale'],
+         'om_credit_limit', 'global_discount_sale'],
 
     # always loaded
     'data': [
@@ -35,7 +35,7 @@
         'sm_general/views/ir_attachment_view.xml',
         'sm_general/views/res_user_view.xml',
         'sm_accounting/views/sm_custom_view.xml',
-        # 'sm_payroll/views/hr_contracts_view.xml',
+        'sm_payroll/views/hr_contracts_view.xml',
         'sm_inventory/views/stock_picking.xml',
         # 'sm_sales/views/sale_order_view.xml',
         'sm_sales/views/sale_invoice_view.xml',
