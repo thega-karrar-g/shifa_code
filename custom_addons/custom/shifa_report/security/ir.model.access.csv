@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_monthly_contract_summary,access_monthly_contract_summary,model_monthly_contract_summary,base.group_user,1,1,1,1
