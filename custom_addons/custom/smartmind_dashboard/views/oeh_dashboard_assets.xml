@@ -1,9 +1,0 @@
-<odoo>
-    <template id="oeh_smartmind_assets" name="Oeh Smartmind Dashboard" inherit_id="web.assets_backend">
-        <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/css" href="/smartmind_dashboard/static/src/css/sm_style.css"/>
-            <script type="text/javascript" src="/smartmind_dashboard/static/src/js/sm_dashboard_view.js"/>
-            <script type="text/javascript" src="/smartmind_dashboard/static/src/js/autorefresh_dashboard_view.js"/>
-        </xpath>
-    </template>
-</odoo>

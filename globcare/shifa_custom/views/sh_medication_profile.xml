@@ -1,0 +1,15 @@
+<odoo>
+     <record id="view_medication_profile_filter" model="ir.ui.view">
+        <field name="name">sm.shifa.medication.profile.filter</field>
+        <field name="model">sm.shifa.medication.profile</field>
+        <!-- <field name="inherit_id" ref="oehealth.oeh_medical_physician_kanban_view"/> -->
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search Genaric Name">
+             <field name="p_generic_name"/>
+             <field name="p_brand_medicine"/>
+            </search>
+        </field>
+    </record>
+</odoo>
+

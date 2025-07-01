@@ -1,0 +1,139 @@
+<odoo>
+ <record id="view_medical_staff_inherit2" model="ir.ui.view">
+    <field name="name">oeh.medical.physician.inherited</field>
+    <field name="model">oeh.medical.physician</field>
+    <field name="inherit_id" ref="oehealth.oeh_medical_physician_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form/sheet/div[2]" position="inside">
+
+            <!-- Active: use fa-play -->
+            <button type="object" class="oe_stat_button" icon="fa-play"
+                    name="action_view_active_contracts">
+                <field name="active_contract_count" widget="statinfo"/>
+            </button>
+
+            <!-- Canceled: use fa-times -->
+            <button type="object" class="oe_stat_button" icon="fa-times"
+                    name="action_view_canceled_contracts">
+                <field name="cancel_canceled_count" widget="statinfo"/>
+            </button>
+
+            <!-- Terminated: use fa-ban -->
+            <button type="object" class="oe_stat_button" icon="fa-ban"
+                    name="action_view_terminated_contracts">
+                <field name="terminated_contract_count" widget="statinfo"/>
+            </button>
+
+            <!-- Completed: use fa-check -->
+            <button type="object" class="oe_stat_button" icon="fa-check"
+                    name="action_view_completed_contracts">
+                <field name="completed_contract_count" widget="statinfo"/>
+            </button>
+
+        </xpath>
+    </field>
+</record>
+
+
+ <record id="view_medical_staff_inherit_kanban" model="ir.ui.view">
+    <field name="name">oeh.medical.physician.kanban.inherited</field>
+    <field name="model">oeh.medical.physician</field>
+    <field name="inherit_id" ref="oehealth.oeh_medical_physician_kanban_view"/>
+    <field name="arch" type="xml">
+         <xpath expr="//div[1]" position="replace">
+            <div class="oe_kanban_global_click">
+                  <div class="oeh_medical_vignette oe_semantic_html_override ">
+                                <div class="oeh_medical_image">
+                                    <a type="open">
+                                        <img t-att-alt="record.name.raw_value" t-att-src="kanban_image('oeh.medical.physician', 'image_128', record.id.raw_value)" class="oeh_medical_picture"/>
+                                    </a>
+                                </div>
+                                <div class="oeh_medical_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="name"/>
+                                        </a>
+                                    </h4>
+                                    <ul>
+                                        <li t-if="record.speciality.raw_value">
+                                            <field name="speciality"/>
+                                        </li>
+                                        <li t-if="record.address_id.raw_value">
+                                            <field name="address_id"/>
+                                        </li>
+                                        <li t-if="record.code.raw_value">
+                                            <field name="code"/>
+                                        </li>
+                                        <li t-if="record.work_email.raw_value">
+                                            <a t-attf-href="mailto:#{record.work_email.value}">
+                                                <field name="work_email"/>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+            </div>
+         </xpath>
+    </field>
+</record>
+
+
+    <record id="view_medical_staff_inherit" model="ir.ui.view">
+        <field name="name">oeh.medical.physician.inherited</field>
+        <field name="model">oeh.medical.physician</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_physician_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[2]" position="before">
+                <group>
+                    <field name="skills"/>
+                    <field name="company"/>
+                    <field name="nationality"/>
+                    <field name="gender"/>
+                    <field name="arrival_date"/>
+                    <field name="language_ids" widget="many2many_tags"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+<!--      <record id="view_medical_staff_filter" model="ir.ui.view">
+        <field name="name">oeh.medical.patient.filter</field>
+        <field name="model">oeh.medical.physician</field>
+        <field name="inherit_id" ref="oehealth.oeh_medical_physician_kanban_view"/>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search Caregiver">
+              <separator orientation="vertical"/>
+                <field name="name" select="1"/>
+                <field name="ssn" string="SSN"/>
+                <field name="identification_code" string="Patient ID"/>
+                <field name="oeh_patient_user_id"/>
+                <newline/> -->
+             <!--   <group expand="0" string="Group By..." colspan="11" col="11">
+                    <filter string="company" name="group_company" domain="[]" context="{'group_by':'company'}"/>
+                </group>
+            </search>
+        </field>
+    </record> -->
+
+    <record id="view_medical_physician_search_inherit" model="ir.ui.view">
+        <field name="name">oeh.medical.physician.search.inherit</field>
+        <field name="model">oeh.medical.physician</field>
+        <field name="inherit_id" ref="oehealth.view_medical_physician_filter"/>
+        <field name="arch" type="xml">
+            <!-- <search> -->
+            <xpath expr="//group" position="after">
+                <filter string="Company" name="group_company" context="{'group_by': 'company'}"/>
+                <filter string="Nationality" name="group_company" context="{'group_by': 'nationality'}"/>
+            </xpath>
+        <!-- </search> -->
+        </field>
+    </record>
+
+</odoo>
+
+<!-- <record id="physician_view_form_inherit" model="ir.ui.view">
+            <field name="name">oeh.medical.physician.form.inherit</field>
+            <field name="model">oeh.medical.physician</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_physician_view"/>
+            <field name="arch" type="xml"> -->
